@@ -2,6 +2,24 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "paths": {
+      "authdare-material": [
+        "dist/authdare-material/authdare-material",
+        "dist/authdare-material"
+      ],
+      "chart": [
+        "dist/chart/chart",
+        "dist/chart"
+      ],
+      "form": [
+        "dist/form/form",
+        "dist/form"
+      ],
+      "sidenav": [
+        "dist/sidenav/sidenav",
+        "dist/sidenav"
+      ]
+    },
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
