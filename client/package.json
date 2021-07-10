@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "doc": "compodoc -p tsconfig.doc.json",
+    "doc": "compodoc -p tsconfig.doc.json -d docs",
     "doc:serve": "http-server documentation",
     "deploy": "ftp -i -s:tmp/deploy.aemrebas.com.sh ftp.aemrebas.com"
   },
