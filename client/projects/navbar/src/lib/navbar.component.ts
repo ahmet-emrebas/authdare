@@ -1,20 +1,17 @@
 import { Component, OnInit } from '@angular/core';
+import { NavbarService } from './navbar.service';
 
 @Component({
-  selector: 'lib-navbar',
-  template: `
-    <p>
-      navbar works!
-    </p>
-  `,
-  styles: [
-  ]
+  selector: 'authdare-navbar',
+  templateUrl: './navbar.component.html',
+  styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
-
-  constructor() { }
+  constructor(private service: NavbarService) {}
 
   ngOnInit(): void {
+    this.service.entities$.subscribe((data) => {
+      console.log(data);
+    });
   }
-
 }
