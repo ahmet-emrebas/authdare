@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "deploy": "cd client/dist/client && ftp -i ftp.authdare.com && mput *"
+    "deploy": "ftp -i -s:tmp/deploy.authdare.com.sh ftp.authdare.com"
   },
   "private": true,
   "dependencies": {
@@ -48,6 +48,7 @@
     "karma-coverage": "~2.0.3",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
+    "ng-packagr": "^12.1.0",
     "typescript": "~4.3.2"
   }
 }
