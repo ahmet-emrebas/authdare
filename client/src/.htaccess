@@ -1,0 +1,4 @@
+ # This will redirect a subdomain to another domain
+ RewriteEngine On
+ RewriteCond %{HTTP_HOST} ^authdare\.com$ [NC]
+ RewriteRule ^(.*) https://www.authdare.com/$1 [L,R]
