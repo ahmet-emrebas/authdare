@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "deploy": "ftp -i -s:tmp/deploy.aemrebas.com.sh ftp.aemrebas.com"
   },
   "private": true,
   "dependencies": {
@@ -47,6 +48,7 @@
     "karma-coverage": "~2.0.3",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
+    "ng-packagr": "^12.1.0",
     "typescript": "~4.3.2"
   }
 }
