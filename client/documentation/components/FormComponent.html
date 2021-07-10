@@ -1,0 +1,1080 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>client documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css" media="(prefers-color-scheme: dark)">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">client documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li
+  >
+  FormComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>projects/form/src/lib/form.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+    </p>
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>authdare-form</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./form.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./form.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#actionButtons" >actionButtons</a>
+                            </li>
+                            <li>
+                                <a href="#formGroup" >formGroup</a>
+                            </li>
+                            <li>
+                                <a href="#formHeader" >formHeader</a>
+                            </li>
+                            <li>
+                                <a href="#formName" >formName</a>
+                            </li>
+                            <li>
+                                <a href="#options$" >options$</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#isDependentValid" >isDependentValid</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#submit" >submit</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#actionButtons" >actionButtons</a>
+                            </li>
+                            <li>
+                                <a href="#formHeader" >formHeader</a>
+                            </li>
+                            <li>
+                                <a href="#formName" >formName</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(store: Store<literal type>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="108" class="link-to-prism">projects/form/src/lib/form.component.ts:108</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>store</td>
+                                                  
+                                                        <td>
+                                                                    <code>Store&lt;literal type&gt;</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+    <section>
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="actionButtons"></a>
+                        <b>actionButtons</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>true</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="75" class="link-to-prism">projects/form/src/lib/form.component.ts:75</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Visiblibity of the action buttons.</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="formHeader"></a>
+                        <b>formHeader</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>true</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="89" class="link-to-prism">projects/form/src/lib/form.component.ts:89</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Visibility of the form header.</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="formName"></a>
+                        <b>formName</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;default&#x27;</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="84" class="link-to-prism">projects/form/src/lib/form.component.ts:84</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Form identifier that helps to find the form configuration in store.</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+    <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isDependentValid"></a>
+                    <span class="name">
+                        <span ><b>isDependentValid</b></span>
+                        <a href="#isDependentValid"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>isDependentValid(dependents: string[])</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="129"
+                            class="link-to-prism">projects/form/src/lib/form.component.ts:129</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>dependents</td>
+                                    <td>
+                                            <code>string[]</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="120"
+                            class="link-to-prism">projects/form/src/lib/form.component.ts:120</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="submit"></a>
+                    <span class="name">
+                        <span ><b>submit</b></span>
+                        <a href="#submit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>submit(formName: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, formData: literal type)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="124"
+                            class="link-to-prism">projects/form/src/lib/form.component.ts:124</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>formName</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>formData</td>
+                                    <td>
+                                            <code>literal type</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section>
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="actionButtons"></a>
+                    <span class="name">
+                        <span ><b>actionButtons</b></span>
+                        <a href="#actionButtons"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>true</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @Input()<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="75" class="link-to-prism">projects/form/src/lib/form.component.ts:75</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Visiblibity of the action buttons.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="formGroup"></a>
+                    <span class="name">
+                        <span ><b>formGroup</b></span>
+                        <a href="#formGroup"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://angular.io/api/forms/FormGroup" target="_blank" >FormGroup</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="80" class="link-to-prism">projects/form/src/lib/form.component.ts:80</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Form Group referance</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="formHeader"></a>
+                    <span class="name">
+                        <span ><b>formHeader</b></span>
+                        <a href="#formHeader"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>true</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @Input()<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="89" class="link-to-prism">projects/form/src/lib/form.component.ts:89</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Visibility of the form header.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="formName"></a>
+                    <span class="name">
+                        <span ><b>formName</b></span>
+                        <a href="#formName"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;default&#x27;</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @Input()<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="84" class="link-to-prism">projects/form/src/lib/form.component.ts:84</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Form identifier that helps to find the form configuration in store.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="options$"></a>
+                    <span class="name">
+                        <span ><b>options$</b></span>
+                        <a href="#options$"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>this.store.pipe(
+    map((s) &#x3D;&gt; {
+      const options &#x3D; cloneDeep(
+        s.form.options.find((e) &#x3D;&gt; e.formName &#x3D;&#x3D; this.formName)
+      );
+      if (options) {
+        validateAndTransformFormOptions(options);
+        configureValidators(options.fieldOptionsList!);
+        createFormGroup(options);
+        this.formGroup &#x3D; options.formGroup!;
+        return options;
+      }
+      throw new Error(&#x27;formName must set!&#x27;);
+    })
+  )</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="94" class="link-to-prism">projects/form/src/lib/form.component.ts:94</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Form Options</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, Input } from &#x27;@angular/core&#x27;;
+import { FormGroup } from &#x27;@angular/forms&#x27;;
+import { Store } from &#x27;@ngrx/store&#x27;;
+import { fadeInOnEnterAnimation } from &#x27;angular-animations&#x27;;
+import { cloneDeep } from &#x27;lodash&#x27;;
+import { map } from &#x27;rxjs/operators&#x27;;
+import {
+  configureValidators,
+  createFormGroup,
+  FormOptions,
+  validateAndTransformFormOptions,
+} from &#x27;./form-options&#x27;;
+import {
+  FormStoreState,
+  setFormOptions,
+  submitForm,
+} from &#x27;./form-store-actions&#x27;;
+
+const defaultForm: FormOptions &#x3D; {
+  formName: &#x27;default&#x27;,
+  formTitle: &#x27;Subscription&#x27;,
+  appearance: &#x27;outline&#x27;,
+
+  fieldOptionsList: [
+    {
+      formControlName: &#x27;firstName&#x27;,
+      type: &#x27;text&#x27;,
+      label: &#x27;First Name&#x27;,
+      autocomplete: &#x27;given-name&#x27;,
+      minLength: 2,
+      maxLength: 5,
+      hint: &#x27;Ahmet&#x27;,
+      required: true,
+    },
+    {
+      formControlName: &#x27;lastName&#x27;,
+      type: &#x27;text&#x27;,
+      label: &#x27;Last Name&#x27;,
+      autocomplete: &#x27;given-name&#x27;,
+      minLength: 2,
+      maxLength: 5,
+      hint: &#x27;Emrebas&#x27;,
+    },
+    {
+      formControlName: &#x27;email&#x27;,
+      type: &#x27;email&#x27;,
+      label: &#x27;Email&#x27;,
+      autocomplete: &#x27;email&#x27;,
+      email: true,
+      hint: &#x27;Emrebas&#x27;,
+      dependents: [&#x27;firstName&#x27;, &#x27;lastName&#x27;],
+    },
+    {
+      formControlName: &#x27;age&#x27;,
+      type: &#x27;number&#x27;,
+      label: &#x27;Age&#x27;,
+      autocomplete: &#x27;given-name&#x27;,
+      min: &#x27;18&#x27;,
+      max: &#x27;41&#x27;,
+      hint: &#x27;Emrebas&#x27;,
+    },
+  ],
+};
+
+@Component({
+  selector: &#x27;authdare-form&#x27;,
+  templateUrl: &#x27;./form.component.html&#x27;,
+  styleUrls: [&#x27;./form.component.scss&#x27;],
+  animations: [fadeInOnEnterAnimation()],
+})
+export class FormComponent implements OnInit {
+  /**
+   * Visiblibity of the action buttons.
+   */
+  @Input() actionButtons &#x3D; true;
+
+  /**
+   * Form Group referance
+   */
+  formGroup!: FormGroup;
+  /**
+   * Form identifier that helps to find the form configuration in store.
+   */
+  @Input() formName: string &#x3D; &#x27;default&#x27;;
+
+  /**
+   * Visibility of the form header.
+   */
+  @Input() formHeader &#x3D; true;
+
+  /**
+   * Form Options
+   */
+  options$ &#x3D; this.store.pipe(
+    map((s) &#x3D;&gt; {
+      const options &#x3D; cloneDeep(
+        s.form.options.find((e) &#x3D;&gt; e.formName &#x3D;&#x3D; this.formName)
+      );
+      if (options) {
+        validateAndTransformFormOptions(options);
+        configureValidators(options.fieldOptionsList!);
+        createFormGroup(options);
+        this.formGroup &#x3D; options.formGroup!;
+        return options;
+      }
+      throw new Error(&#x27;formName must set!&#x27;);
+    })
+  );
+
+  constructor(
+    private store: Store&lt;{
+      form: FormStoreState;
+    }&gt;
+  ) {
+    this.store.subscribe((data) &#x3D;&gt; {
+      console.log(&#x27;__from form compoenent : &#x27;, data);
+    });
+  }
+
+  ngOnInit(): void {
+    this.store.dispatch(setFormOptions(defaultForm));
+  }
+
+  submit(formName: string, formData: { [key: string]: any }) {
+    console.log(formName, formData);
+    this.store.dispatch(submitForm({ formName, formData }));
+  }
+
+  isDependentValid(dependents: string[]): boolean {
+    if (!dependents) {
+      return true;
+    }
+    return dependents
+      .map((d) &#x3D;&gt; this.formGroup.controls[d])
+      .map((e) &#x3D;&gt; e.valid &amp;&amp; e.dirty)
+      .reduce((p, c) &#x3D;&gt; p &amp;&amp; c);
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;ng-container *ngIf&#x3D;&quot;options$ | async as options&quot;&gt;
+  &lt;ng-container *ngIf&#x3D;&quot;options.formGroup as formGroup&quot;&gt;
+    &lt;ng-container&gt;
+      &lt;mat-card&gt;
+        &lt;mat-card-header *ngIf&#x3D;&quot;formHeader&quot;&gt;
+          &lt;mat-card-title&gt;{{ options.formTitle }}&lt;/mat-card-title&gt;
+        &lt;/mat-card-header&gt;
+
+        &lt;!-- Form Content  --&gt;
+        &lt;mat-card-content&gt;
+          &lt;form [formGroup]&#x3D;&quot;formGroup&quot;&gt;
+            &lt;ng-container *ngFor&#x3D;&quot;let attributes of options.fieldOptionsList&quot;&gt;
+              &lt;ng-container *ngIf&#x3D;&quot;attributes.formControl as formControl&quot;&gt;
+                &lt;!-- Text or compatible fields --&gt;
+                &lt;authdare-text-field
+                  [appearance]&#x3D;&quot;options.appearance!&quot;
+                  [attributes]&#x3D;&quot;attributes&quot;
+                  *ngIf&#x3D;&quot;isDependentValid(attributes.dependents!)&quot;
+                &gt;
+                &lt;/authdare-text-field&gt;
+              &lt;/ng-container&gt;
+              &lt;!-- .... --&gt;
+            &lt;/ng-container&gt;
+          &lt;/form&gt;
+        &lt;/mat-card-content&gt;
+
+        &lt;!-- Form Actions --&gt;
+        &lt;mat-card-actions
+          *ngIf&#x3D;&quot;actionButtons &amp;&amp; formGroup!.dirty &amp;&amp; formGroup!.valid&quot;
+          [@fadeInOnEnter]
+        &gt;
+          &lt;button
+            mat-raised-button
+            color&#x3D;&quot;primary&quot;
+            matTooltip&#x3D;&quot;Submit Form&quot;
+            matTooltipPosition&#x3D;&quot;below&quot;
+            (click)&#x3D;&quot;submit(options.formName!, formGroup!.value)&quot;
+            type&#x3D;&quot;button&quot;
+          &gt;
+            Submit
+          &lt;/button&gt;
+          &lt;button
+            mat-raised-button
+            matTooltip&#x3D;&quot;Reset Form&quot;
+            matTooltipPosition&#x3D;&quot;below&quot;
+            (click)&#x3D;&quot;formGroup!.reset()&quot;
+            type&#x3D;&quot;button&quot;
+          &gt;
+            Reset
+          &lt;/button&gt;
+        &lt;/mat-card-actions&gt;
+      &lt;/mat-card&gt;
+    &lt;/ng-container&gt;
+  &lt;/ng-container&gt;
+&lt;/ng-container&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-styleData">
+                <p class="comment">
+                    <code>./form.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">:host ::ng-deep mat-form-field {
+  display: block;
+}
+
+input::autocomple {
+  color: green;
+}
+
+mat-form-field *[class^&#x3D;&quot;mat-select&quot;] {
+  max-width: 90% !important;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.hide {
+  opacity: 0;
+  position: absolute;
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><ng-container *ngIf="options$ | async as options">  <ng-container *ngIf="options.formGroup as formGroup">    <ng-container>      <mat-card>        <mat-card-header *ngIf="formHeader">          <mat-card-title>{{ options.formTitle }}</mat-card-title>        </mat-card-header>        <!-- Form Content  -->        <mat-card-content>          <form [formGroup]="formGroup">            <ng-container *ngFor="let attributes of options.fieldOptionsList">              <ng-container *ngIf="attributes.formControl as formControl">                <!-- Text or compatible fields -->                <authdare-text-field                  [appearance]="options.appearance!"                  [attributes]="attributes"                  *ngIf="isDependentValid(attributes.dependents!)"                >                </authdare-text-field>              </ng-container>              <!-- .... -->            </ng-container>          </form>        </mat-card-content>        <!-- Form Actions -->        <mat-card-actions          *ngIf="actionButtons && formGroup!.dirty && formGroup!.valid"          [@fadeInOnEnter]        >          <button            mat-raised-button            color="primary"            matTooltip="Submit Form"            matTooltipPosition="below"            (click)="submit(options.formName!, formGroup!.value)"            type="button"          >            Submit          </button>          <button            mat-raised-button            matTooltip="Reset Form"            matTooltipPosition="below"            (click)="formGroup!.reset()"            type="button"          >            Reset          </button>        </mat-card-actions>      </mat-card>    </ng-container>  </ng-container></ng-container></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AuthdareMaterialComponent', 'selector': 'authdare-material'},{'name': 'ChartComponent', 'selector': 'authdare-chart'},{'name': 'DateFieldComponent', 'selector': 'authdare-date-field'},{'name': 'DocComponent', 'selector': 'app-doc'},{'name': 'FieldStatusComponent', 'selector': 'authdare-field-status'},{'name': 'FormComponent', 'selector': 'authdare-form'},{'name': 'FormFieldComponent', 'selector': 'authdare-form-field'},{'name': 'NavbarComponent', 'selector': 'lib-navbar'},{'name': 'SelectFieldComponent', 'selector': 'authdare-select-field'},{'name': 'SidenavComponent', 'selector': 'authdare-sidenav'},{'name': 'TextFieldComponent', 'selector': 'authdare-text-field'}];
+    var DIRECTIVES = [{'name': 'SetAttributeDirective', 'selector': '[authdareSetAttribute]'}];
+    var ACTUAL_COMPONENT = {'name': 'FormComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+                   
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'FormComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       
+       <script type="module" src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

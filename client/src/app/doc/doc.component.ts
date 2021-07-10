@@ -1,11 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import {
-  SidenavModule,
-  SidenavListItem,
-  setSidenavTitle,
-  setSidenavItems,
-} from 'projects/sidenav/src/lib';
+import { setSidenavTitle, setSidenavItems } from 'projects/sidenav/src/lib';
 
 @Component({
   selector: 'app-doc',
@@ -21,7 +16,10 @@ export class DocComponent implements OnInit {
     );
     this.store.dispatch(
       setSidenavItems({
-        sidenavItems: [{ path: 'form', label: 'Form', icon: 'input' }],
+        sidenavItems: [
+          { path: 'form', label: 'Form', icon: 'input' },
+          { path: 'chart', label: 'Chart', icon: 'bar_chart' },
+        ],
       })
     );
   }
