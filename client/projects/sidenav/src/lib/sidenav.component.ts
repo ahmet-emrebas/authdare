@@ -1,20 +1,33 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { Observable } from 'rxjs';
+import { map, shareReplay } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
+import { SidenavStoreState } from './sidenav.actions';
+
+export type SidenavListItem = {
+  icon: string;
+  path: string;
+  label: string;
+};
 
 @Component({
   selector: 'authdare-sidenav',
-  template: `
-    <p>
-      sidenav works!
-    </p>
-  `,
-  styles: [
-  ]
+  templateUrl: './sidenav.component.html',
+  styleUrls: ['./sidenav.component.scss'],
 })
-export class SidenavComponent implements OnInit {
+export class SidenavComponent {
+  sidenav$ = this.store.pipe(map((d) => d.sidenav));
 
-  constructor() { }
+  isHandset$: Observable<boolean> = this.breakpointObserver
+    .observe(Breakpoints.Handset)
+    .pipe(
+      map((result) => result.matches),
+      shareReplay()
+    );
 
-  ngOnInit(): void {
-  }
-
+  constructor(
+    private breakpointObserver: BreakpointObserver,
+    private store: Store<{ sidenav: SidenavStoreState }>
+  ) {}
 }

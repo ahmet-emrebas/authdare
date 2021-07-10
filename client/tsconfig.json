@@ -15,6 +15,10 @@
         "dist/form/form",
         "dist/form"
       ],
+      "navbar": [
+        "dist/navbar/navbar",
+        "dist/navbar"
+      ],
       "sidenav": [
         "dist/sidenav/sidenav",
         "dist/sidenav"

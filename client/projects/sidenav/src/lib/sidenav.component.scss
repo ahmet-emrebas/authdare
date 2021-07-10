@@ -1,0 +1,60 @@
+.sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+  width: 200px;
+}
+
+.sidenav .mat-toolbar {
+  background: inherit;
+}
+
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.router-link-active::before {
+  content: "";
+  position: absolute;
+  height: 90%;
+  width: 100%;
+  bottom: 0px;
+  left: 0px;
+  border-top: 3px solid royalblue;
+  border-bottom: 3px solid royalblue;
+  background-color: rgba(143, 169, 248, 0.219);
+  bottom: 0px;
+  color: transparent;
+  user-select: none;
+  animation-name: left-border;
+  animation-duration: 400ms;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: 1;
+}
+
+@keyframes left-border {
+  from {
+    width: 0%;
+    height: 0%;
+    left: 50%;
+    bottom: 50%;
+    background-color: rgba(65, 105, 225, 0);
+  }
+  to {
+    width: 100%;
+    height: 90%;
+    left: 0%;
+    bottom: 0%;
+    background-color: rgba(143, 169, 248, 0.219);
+  }
+}
+
+.realtive-container {
+  position: relative;
+  height: 100%;
+  overflow-x: hidden;
+  width: 100%;
+}
