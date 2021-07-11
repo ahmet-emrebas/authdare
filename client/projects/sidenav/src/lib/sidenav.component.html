@@ -16,7 +16,7 @@
         <!-- Navigation Item -->
 
         <ng-container *ngFor="let i of sidenav.sidenavItems">
-          <a mat-list-item [routerLink]="[i.path]" (click)="drawer.toggle()">
+          <a mat-list-item [routerLink]="[i.path]">
             <!-- Navigation Item Logo  -->
             <mat-icon mat-list-icon color="primary" matPrefix>
               {{ i.icon }}

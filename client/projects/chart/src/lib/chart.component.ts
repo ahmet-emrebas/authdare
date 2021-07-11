@@ -38,13 +38,19 @@ export class ChartComponent implements OnInit, OnDestroy {
   configuration$ = new BehaviorSubject<ChartConfiguration<any, any, any>>(
     defaultConfig
   );
-  chartInstance = new Chart('canvas', this.configuration$.getValue());
+  chartInstance!: Chart;
 
   ngOnInit(): void {
     const s = this.configuration$.subscribe(
       (config: ChartConfiguration<any>) => {
-        this.chartInstance.destroy();
-        this.chartInstance = new Chart('canvas', config);
+        setTimeout(() => {
+          try {
+            this.chartInstance.destroy();
+          } catch (err) {
+            // If exist destroy!
+          }
+          this.chartInstance = new Chart('canvas', config);
+        }, 300);
       }
     );
     this.subs.push(s);
@@ -54,7 +60,9 @@ export class ChartComponent implements OnInit, OnDestroy {
     for (const s of this.subs) {
       s.unsubscribe();
     }
-    this.chartInstance.destroy();
+    setTimeout(() => {
+      this.chartInstance.destroy();
+    });
   }
 
   /**
