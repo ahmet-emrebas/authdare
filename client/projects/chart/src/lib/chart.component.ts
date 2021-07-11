@@ -54,6 +54,7 @@ export class ChartComponent implements OnInit, OnDestroy {
     for (const s of this.subs) {
       s.unsubscribe();
     }
+    this.chartInstance.destroy();
   }
 
   /**

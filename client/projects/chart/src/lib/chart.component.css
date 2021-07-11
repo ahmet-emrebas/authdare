@@ -5,3 +5,7 @@
 .border {
   color: pink;
 }
+
+.mat-toolbar {
+  border-radius: 10px;
+}

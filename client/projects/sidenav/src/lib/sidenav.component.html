@@ -16,7 +16,7 @@
         <!-- Navigation Item -->
 
         <ng-container *ngFor="let i of sidenav.sidenavItems">
-          <a mat-list-item [routerLink]="[i.path]">
+          <a mat-list-item [routerLink]="[i.path]" (click)="drawer.toggle()">
             <!-- Navigation Item Logo  -->
             <mat-icon mat-list-icon color="primary" matPrefix>
               {{ i.icon }}
@@ -34,22 +34,24 @@
       </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>
-      <mat-toolbar color="primary">
-        <button
-          type="button"
-          aria-label="Toggle sidenav"
-          mat-icon-button
-          (click)="drawer.toggle()"
-          *ngIf="isHandset$ | async"
-        >
-          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-        </button>
-        <span cy-data="sidenavTitle">{{ sidenav.sidenavTitle }}</span>
-      </mat-toolbar>
+      <div class="sidenav-content">
+        <mat-toolbar color="primary">
+          <button
+            type="button"
+            aria-label="Toggle sidenav"
+            mat-icon-button
+            (click)="drawer.toggle()"
+            *ngIf="isHandset$ | async"
+          >
+            <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+          </button>
+          <span cy-data="sidenavTitle">{{ sidenav.sidenavTitle }}</span>
+        </mat-toolbar>
 
-      <!-- Main Content  -->
-      <div class="realtive-container">
-        <ng-content select="[MAIN]"></ng-content>
+        <!-- Main Content  -->
+        <div class="realtive-container">
+          <ng-content select="[MAIN]"></ng-content>
+        </div>
       </div>
     </mat-sidenav-content>
   </mat-sidenav-container>

@@ -1,9 +1,16 @@
 .sidenav-container {
+  width: 100% !important;
+  background-color: rgba(143, 133, 172, 0.774);
   height: 100%;
 }
 
 .sidenav {
-  width: 200px;
+  width: 250px;
+  border-radius: 10px;
+  border: 3px solid royalblue;
+  height: 98%;
+  margin-left: 1%;
+  margin-top: 1.6%;
 }
 
 .sidenav .mat-toolbar {
@@ -20,12 +27,14 @@
   content: "";
   position: absolute;
   height: 90%;
-  width: 100%;
+  width: 96%;
+  margin: 2%;
   bottom: 0px;
   left: 0px;
+  border-radius: 10px;
   border-top: 3px solid royalblue;
   border-bottom: 3px solid royalblue;
-  background-color: rgba(143, 169, 248, 0.219);
+  background-color: transparent;
   bottom: 0px;
   color: transparent;
   user-select: none;
@@ -57,4 +66,15 @@
   height: 100%;
   overflow-x: hidden;
   width: 100%;
+}
+
+.mat-toolbar {
+  border-radius: 10px;
+  width: 96%;
+  margin: 2% 2% 2% 2%;
+}
+
+.realtive-container {
+  width: 96%;
+  margin: 2%;
 }
