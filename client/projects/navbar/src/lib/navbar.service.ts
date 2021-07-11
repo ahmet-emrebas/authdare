@@ -8,6 +8,7 @@ export interface NavbarItem {
   id: number;
   path: string;
   icon: string;
+  tooltip: string;
 }
 @Injectable({ providedIn: 'root' })
 export class NavbarService extends EntityCollectionServiceBase<NavbarItem> {

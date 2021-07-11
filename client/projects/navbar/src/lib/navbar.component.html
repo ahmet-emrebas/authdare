@@ -1,9 +1,17 @@
 <mat-toolbar>
-  <mat-toolbar-row>
-    <button mat-fab>
-      <mat-icon [matTooltip]="'Tooltip'" [matTooltipPosition]="'below'">
-        home
-      </mat-icon>
+  <div>
+    <button mat-fab aria-label="Application main menu" (click)="toogleMenu()">
+      <mat-icon>menu</mat-icon>
     </button>
-  </mat-toolbar-row>
+    <div class="menu" role="menu">
+      <authdare-navbar-item
+        *ngFor="let e of navbarItems$ | async"
+        [routerLink]="[e.path]"
+        [isVisible]="isMenuOpen"
+        [@fadeOutOnLeave]
+        [navbarItem]="e"
+      >
+      </authdare-navbar-item>
+    </div>
+  </div>
 </mat-toolbar>

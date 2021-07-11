@@ -12,11 +12,32 @@ export class DocComponent implements OnInit {
   constructor(private store: Store, private navbarService: NavbarService) {}
 
   ngOnInit(): void {
-    this.navbarService.addOneToCache({
-      id: 1,
-      icon: 'home',
-      path: 'my path',
-    });
+    this.navbarService.addManyToCache([
+      {
+        id: 1,
+        icon: 'home',
+        path: 'home',
+        tooltip: 'Home',
+      },
+      {
+        id: 2,
+        icon: 'info',
+        path: 'about',
+        tooltip: 'About',
+      },
+      {
+        id: 3,
+        icon: 'email',
+        path: 'contact',
+        tooltip: 'Contact',
+      },
+      {
+        id: 4,
+        icon: 'phone',
+        path: 'tel:8328742422',
+        tooltip: 'Call',
+      },
+    ]);
 
     this.store.dispatch(
       setSidenavTitle({ sidenavTitle: 'Authdare Material Doc' })

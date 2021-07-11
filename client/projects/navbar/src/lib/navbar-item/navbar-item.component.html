@@ -1,0 +1,10 @@
+<button
+  #buttonEl
+  mat-fab
+  [style.animationDuration]="navbarItem.id * 500 + 'ms'"
+  *ngIf="isVisible"
+  [@fadeOutOnLeave]
+  [@bounceOutOnLeave]
+>
+  <mat-icon *ngIf="navbarItem.icon"> {{ navbarItem.icon }} </mat-icon>
+</button>
