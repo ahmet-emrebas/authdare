@@ -6,6 +6,8 @@ import {
 
 export interface NavbarItem {
   id: number;
+  type: 'INTERNAL' | 'EXTERNAL';
+
   path: string;
   icon: string;
   tooltip: string;

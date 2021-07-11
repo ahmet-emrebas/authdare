@@ -1,3 +1,4 @@
+a,
 button {
   display: block;
   margin-top: 10px;
@@ -8,6 +9,7 @@ button {
   transition: all ease-in-out 1000ms;
 }
 
+a:hover,
 button:hover {
   width: 200px;
   border-radius: 30px;

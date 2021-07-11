@@ -7,11 +7,6 @@
 .sidenav {
   width: 250px;
   border-radius: 10px;
-  border: 3px solid royalblue;
-
-  // height: 94%;
-  // margin-left: 1%;
-  // margin-top: 1.6%;
 }
 
 .sidenav .mat-toolbar {
@@ -27,38 +22,32 @@
 .router-link-active::before {
   content: "";
   position: absolute;
-  height: 90%;
-  width: 96%;
-  margin: 2%;
-  bottom: 0px;
-  left: 0px;
-  border-radius: 10px;
-  border-top: 3px solid royalblue;
-  border-bottom: 3px solid royalblue;
+  top: 0px;
+  right: 10px;
+  margin-top: 15px;
+  width: 20px;
+  height: 20px;
+
+  border-radius: 100%;
   background-color: transparent;
-  bottom: 0px;
-  color: transparent;
-  user-select: none;
-  animation-name: left-border;
-  animation-duration: 400ms;
-  animation-timing-function: ease-in-out;
-  animation-iteration-count: 1;
+  border: 1px dashed rgba(34, 30, 30, 0.507);
+  animation-name: rotate-forever;
+  animation-duration: 5000ms;
+  animation-iteration-count: 2;
+  animation-timing-function: ease;
 }
 
-@keyframes left-border {
-  from {
-    width: 0%;
-    height: 0%;
-    left: 50%;
-    bottom: 50%;
-    background-color: rgba(65, 105, 225, 0);
+@keyframes rotate-forever {
+  0% {
+    transform: rotate(0deg);
   }
+
+  50% {
+    transform: rotate(360deg);
+  }
+
   to {
-    width: 100%;
-    height: 90%;
-    left: 0%;
-    bottom: 0%;
-    background-color: rgba(143, 169, 248, 0.219);
+    transform: rotate(0deg);
   }
 }
 

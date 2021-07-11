@@ -15,27 +15,31 @@ export class DocComponent implements OnInit {
     this.navbarService.addManyToCache([
       {
         id: 1,
-        icon: 'input',
-        path: '/doc/form',
-        tooltip: 'Form Component',
+        icon: 'home',
+        path: 'home',
+        tooltip: 'Home page',
+        type: 'INTERNAL',
       },
       {
         id: 2,
         icon: 'info',
         path: 'about',
-        tooltip: 'About',
+        tooltip: 'About page',
+        type: 'INTERNAL',
       },
       {
         id: 3,
         icon: 'email',
-        path: 'contact',
-        tooltip: 'Contact',
+        path: 'mailto: info@authdare.com',
+        tooltip: 'Contact page',
+        type: 'EXTERNAL',
       },
       {
         id: 4,
         icon: 'phone',
         path: 'tel:8328742422',
         tooltip: 'Call',
+        type: 'EXTERNAL',
       },
     ]);
 
