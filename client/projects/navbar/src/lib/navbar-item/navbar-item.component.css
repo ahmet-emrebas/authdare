@@ -29,3 +29,7 @@ button:hover {
     border: 3px solid rgba(31, 29, 29, 0.733);
   }
 }
+
+.router-link-active {
+  border: 2px solid rgba(31, 29, 29, 0.733);
+}

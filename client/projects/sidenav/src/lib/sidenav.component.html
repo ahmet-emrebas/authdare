@@ -22,7 +22,11 @@
               {{ i.icon }}
             </mat-icon>
             <!-- Navigation Item Label -->
-            <span matLine routerLinkActive="router-link-active">
+            <span
+              matLine
+              routerLinkActive="router-link-active"
+              [attr.cy-data]="'sidenavItem' + i.label"
+            >
               {{ i.label }}
             </span>
           </a>
@@ -40,7 +44,7 @@
         >
           <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
         </button>
-        <span>{{ sidenav.sidenavTitle }}</span>
+        <span cy-data="sidenavTitle">{{ sidenav.sidenavTitle }}</span>
       </mat-toolbar>
 
       <!-- Main Content  -->

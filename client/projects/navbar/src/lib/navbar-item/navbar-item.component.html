@@ -2,6 +2,8 @@
   #buttonEl
   mat-fab
   [style.animationDuration]="navbarItem.id * 500 + 'ms'"
+  [routerLink]="navbarItem.path"
+  routerLinkActive="router-link-active"
   *ngIf="isVisible"
   [@fadeOutOnLeave]
   [@bounceOutOnLeave]

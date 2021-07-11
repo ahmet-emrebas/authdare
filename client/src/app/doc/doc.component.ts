@@ -15,9 +15,9 @@ export class DocComponent implements OnInit {
     this.navbarService.addManyToCache([
       {
         id: 1,
-        icon: 'home',
-        path: 'home',
-        tooltip: 'Home',
+        icon: 'input',
+        path: '/doc/form',
+        tooltip: 'Form Component',
       },
       {
         id: 2,
