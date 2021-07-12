@@ -1,0 +1,86 @@
+<div #container class="carousel-container d-flex flex-column">
+  <div class="position-relative d-flex flex-rowFf">
+    <div *ngFor="let cItem of carouselItems$ | async" style="min-width: 100%">
+      <img
+        class="carousel-image"
+        [style.backgroundImage]="toStyleUrl(cItem.img)"
+        [style.backgroundColor]="cItem.blendColor"
+        [@slideInLeftOnEnter]
+        [@slideOutRightOnLeave]
+        src="assets/imgs/placeholder-1366x768.png"
+      />
+
+      <!-- template variable -->
+      <span #helper [hidden]="true"></span>
+
+      <!-- Text content -->
+      <div class="carousel-text-content">
+        <h1 (click)="helper.hidden = !helper.hidden">{{ cItem.title }}</h1>
+        <p (click)="helper.hidden = !helper.hidden">{{ cItem.summary }}</p>
+
+        <p *ngIf="!helper.hidden" [@bounceInOnEnter] [@bounceOutOnLeave]>
+          {{ cItem.content }}
+        </p>
+
+        <button mat-raised-button color="accent" *ngIf="cItem.actionLabel">
+          {{ cItem.actionLabel }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Carousel navigation -->
+<div
+  class="
+    carousel-navigation
+    d-flex
+    flex-row
+    justify-content-center
+    align-items-center
+    text-white
+  "
+>
+  <button
+    class="carousel-navigation-item"
+    mat-icon-button
+    *ngIf="playing"
+    [@bounceInOnEnter]
+    (click)="pause()"
+  >
+    <mat-icon>pause</mat-icon>
+  </button>
+  <button
+    class="carousel-navigation-item"
+    mat-icon-button
+    *ngIf="!playing"
+    [@bounceInOnEnter]
+    (click)="play()"
+  >
+    <mat-icon>play_circle</mat-icon>
+  </button>
+  <div
+    class="carousel-navigation-item"
+    *ngFor="let i of carouselItems$ | async; let indexOfelement = index"
+    (click)="setVisibleTo(i, indexOfelement, true)"
+    trackBy="id"
+  >
+    <svg height="100" width="100">
+      <circle
+        [attr.cx]="cx"
+        [attr.cy]="cy"
+        [attr.r]="r"
+        fill="transparent"
+        [attr.stroke-dasharray]="
+          i.id == visibleItemRef?.id ? strokeDasharray : '0 125'
+        "
+        [attr.stroke-width]="i.id == visibleItemRef?.id ? 1 : 0"
+        [attr.stroke]="i.id == visibleItemRef?.id ? 'white' : 'transparent'"
+        stroke-dashoffset="0"
+      />
+    </svg>
+    <span class="position-absolute">
+      {{ indexOfelement + 1 }}
+    </span>
+  </div>
+</div>

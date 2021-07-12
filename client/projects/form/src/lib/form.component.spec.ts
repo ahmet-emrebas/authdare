@@ -8,9 +8,8 @@ describe('FormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FormComponent ]
-    })
-    .compileComponents();
+      declarations: [FormComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -19,7 +18,7 @@ describe('FormComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create form instance', () => {
     expect(component).toBeTruthy();
   });
 });

@@ -1,0 +1,32 @@
+<div class="canvas-container">
+  <mat-toolbar color="primary">
+    <button
+      mat-icon-button
+      (click)="meanLine()"
+      matTooltip="Mean"
+      matTooltipPosition="below"
+      [class.border]="isMean"
+    >
+      <mat-icon>adjust</mat-icon>
+    </button>
+    <button
+      mat-icon-button
+      (click)="medianLine()"
+      matTooltip="Median"
+      matTooltipPosition="below"
+      [class.border]="isMedian"
+    >
+      <mat-icon>filter_tilt_shift</mat-icon>
+    </button>
+    <button
+      mat-icon-button
+      (click)="midrangeLine()"
+      matTooltip="Midrange"
+      matTooltipPosition="below"
+      [class.border]="isMidrange"
+    >
+      <mat-icon>center_focus_strong</mat-icon>
+    </button>
+  </mat-toolbar>
+  <canvas id="canvas"></canvas>
+</div>

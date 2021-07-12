@@ -11,6 +11,7 @@ import { entityConfig } from './entity-metadata';
 import { EffectsModule } from '@ngrx/effects';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
+import { NavbarModule } from 'projects/navbar/src/public-api';
 
 @NgModule({
   declarations: [AppComponent],
@@ -28,6 +29,7 @@ import { HttpClientModule } from '@angular/common/http';
     EntityDataModule.forRoot(entityConfig),
     EffectsModule.forRoot([]),
     BrowserAnimationsModule,
+    NavbarModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
