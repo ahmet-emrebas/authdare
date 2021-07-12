@@ -1,60 +1,98 @@
 <div
-  class="container-fluid overflow-hidden"
+  #container
   style="
-    background: url('https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/2022-chevrolet-corvette-z06-1607016574.jpg?crop=0.737xw:0.738xh;0.181xw,0.218xh&resize=640:*');
-    min-height: 600px;
-    background-size: cover;
-    height: 100%;
+    width: 100%;
+    border: 3px solid red;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    justify-content: stretch;
   "
 >
-  <!-- MASK -->
   <div
-    class="position-absolute top-0 start-0"
     style="
-      background-color: rgba(137, 43, 226, 0.234);
-      border: 10px solid transparent;
-      height: 100%;
-      width: 100%;
+      position: relative;
+      display: flex;
+      position: relative;
+      flex-direction: row;
     "
-  ></div>
+  >
+    <div *ngFor="let cItem of carouselItems$ | async" style="min-width: 100%">
+      <img
+        [style.backgrounColor]="'yellow'"
+        [style.backgroundImage]="toStyleUrl(cItem.img)"
+        [@slideInLeftOnEnter]
+        [@slideOutRightOnLeave]
+        style="
+          width: 100%;
+          background-blend-mode: color;
+          background-repeat: no-repeat;
+          background-size: cover;
+          background-color: rgba(100, 41, 41, 0.508);
+        "
+        src="assets/imgs/placeholder-1366x768.png"
+      />
 
-  <!-- carousel content  -->
-  <div class="position-absolute top-50">
-    <h1 class="text-white">First Title</h1>
-    <p class="text-white">Some text content here to show</p>
-
-    <button mat-raised-button color="accent">Some Action Button</button>
+      <div
+        style="
+          position: absolute;
+          top: 10px;
+          color: white;
+          margin-left: 100px;
+          margin-top: 20%;
+        "
+      >
+        <h1>TITLE</h1>
+        <p>Text contennt</p>
+      </div>
+    </div>
   </div>
+</div>
 
-  <!-- Carousel navigation -->
+<!-- Carousel navigation -->
+<div
+  class="
+    position-absolute
+    border
+    d-flex
+    flex-row
+    justify-content-center
+    align-items-center
+    text-white
+  "
+  style="left: 0px; bottom: 0px; height: 100px; width: 100%"
+>
   <div
     class="
-      border
+      carousel-navigation-item
       d-flex
       flex-row
       justify-content-center
-      position-absolute
       align-items-center
-      text-white
+      user-select-none
+      h-100
     "
-    style="left: 0px; bottom: 0px; height: 100px; width: 100%"
+    style="cursor: pointer"
+    *ngFor="let i of carouselItems$ | async; let indexOfelement = index"
+    (click)="setVisibleTo(i, indexOfelement)"
   >
-    <div class="carousel-navigation-item" *ngFor="let i of [1, 2, 3, 4, 5]">
-      <svg height="100" width="100" style="position: absolute">
-        <circle
-          cx="50"
-          cy="50"
-          r="20%"
-          stroke="white"
-          stroke-width="5"
-          fill="transparent"
-          stroke-dasharray="10 10"
-          stroke-dashoffset="0"
-        />
-      </svg>
-      <span style="position: absolute">
-        {{ i }}
-      </span>
-    </div>
+    <svg height="100" width="100">
+      <circle
+        [attr.cx]="cx"
+        [attr.cy]="cy"
+        [attr.r]="r"
+        stroke="white"
+        stroke-width="5"
+        fill="transparent"
+        [attr.stroke-dasharray]="
+          i.id == visibleItemRef?.id ? strokeDasharray : ''
+        "
+        stroke-dashoffset="0"
+      />
+    </svg>
+    <span class="position-absolute">
+      {{ indexOfelement + 1 }}
+    </span>
   </div>
 </div>

@@ -7,9 +7,10 @@ import { EffectsModule } from '@ngrx/effects';
 import { CarouselComponent } from './carousel.component';
 import { CarouselService } from './carousel.service';
 import { entityConfig } from './entity-metadata';
+import { WrapPipe } from './wrap.pipe';
 
 @NgModule({
-  declarations: [CarouselComponent],
+  declarations: [CarouselComponent, WrapPipe],
   imports: [
     CommonModule,
     MatButtonModule,

@@ -1,19 +1,26 @@
 import { Injectable } from '@angular/core';
+
 import {
   EntityCollectionServiceBase,
   EntityCollectionServiceElementsFactory,
 } from '@ngrx/data';
+import { BehaviorSubject } from 'rxjs';
 
-export interface CarouselItem {
-  id: number;
-  title: string;
-  summary: string;
-  content: string;
-  img: string;
-  actionLabel: string;
-  actionPath: string;
-  actionHandler: () => void;
-  duration: number;
+export class CarouselItem {
+  id!: number;
+  title!: string;
+  summary!: string;
+  content!: string;
+  img!: string;
+  actionLabel!: string;
+  backgroundColor!: string;
+  duration!: number;
+
+  constructor(obj: Partial<CarouselItem>) {
+    if (!obj.img) obj.img = 'assets/imgs/placeholder-1366x768-1.png';
+    if (!obj.duration) obj.duration = 1000;
+    Object.assign(this, obj);
+  }
 }
 
 @Injectable({ providedIn: 'root' })

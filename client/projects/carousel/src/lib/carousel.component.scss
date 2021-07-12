@@ -1,25 +1,6 @@
-h1 {
-  font-size: 50pt;
-  line-height: 60pt;
-}
-
-p {
-  font-size: 16pt;
-  line-height: 20pt;
-}
-
 .carousel-navigation-item {
-  width: 100px;
-  height: 100%;
-  position: relative;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  user-select: none;
-  cursor: pointer;
 }
 
 .carousel-navigation-item:hover {
-  background-color: rgba(114, 100, 100, 0.645);
+  background-color: rgba(128, 128, 128, 0.455);
 }
