@@ -6,21 +6,15 @@ import {
 } from '@ngrx/data';
 import { BehaviorSubject } from 'rxjs';
 
-export class CarouselItem {
-  id!: number;
-  title!: string;
-  summary!: string;
-  content!: string;
-  img!: string;
-  actionLabel!: string;
-  backgroundColor!: string;
-  duration!: number;
-
-  constructor(obj: Partial<CarouselItem>) {
-    if (!obj.img) obj.img = 'assets/imgs/placeholder-1366x768-1.png';
-    if (!obj.duration) obj.duration = 1000;
-    Object.assign(this, obj);
-  }
+export interface CarouselItem {
+  id: number;
+  title: string;
+  summary: string;
+  content: string;
+  img: string;
+  actionLabel: string;
+  blendColor: string;
+  duration: number;
 }
 
 @Injectable({ providedIn: 'root' })

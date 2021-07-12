@@ -1,50 +1,30 @@
-<div
-  #container
-  style="
-    width: 100%;
-    border: 3px solid red;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    justify-content: stretch;
-  "
->
-  <div
-    style="
-      position: relative;
-      display: flex;
-      position: relative;
-      flex-direction: row;
-    "
-  >
+<div #container class="carousel-container position-relative d-flex flex-column">
+  <div class="position-relative d-flex flex-rowFf">
     <div *ngFor="let cItem of carouselItems$ | async" style="min-width: 100%">
       <img
-        [style.backgrounColor]="'yellow'"
+        class="carousel-image"
         [style.backgroundImage]="toStyleUrl(cItem.img)"
+        [style.backgroundColor]="cItem.blendColor"
         [@slideInLeftOnEnter]
         [@slideOutRightOnLeave]
-        style="
-          width: 100%;
-          background-blend-mode: color;
-          background-repeat: no-repeat;
-          background-size: cover;
-          background-color: rgba(100, 41, 41, 0.508);
-        "
         src="assets/imgs/placeholder-1366x768.png"
       />
 
-      <div
-        style="
-          position: absolute;
-          top: 10px;
-          color: white;
-          margin-left: 100px;
-          margin-top: 20%;
-        "
-      >
-        <h1>TITLE</h1>
-        <p>Text contennt</p>
+      <!-- template variable -->
+      <span #helper [hidden]="true"></span>
+
+      <!-- Text content -->
+      <div class="carousel-text-content">
+        <h1 (click)="helper.hidden = !helper.hidden">{{ cItem.title }}</h1>
+        <p (click)="helper.hidden = !helper.hidden">{{ cItem.summary }}</p>
+
+        <p *ngIf="!helper.hidden" [@bounceInOnEnter] [@bounceOutOnLeave]>
+          {{ cItem.content }}
+        </p>
+
+        <button mat-raised-button color="accent" *ngIf="cItem.actionLabel">
+          {{ cItem.actionLabel }}
+        </button>
       </div>
     </div>
   </div>
@@ -53,29 +33,37 @@
 <!-- Carousel navigation -->
 <div
   class="
+    carousel-navigation
     position-absolute
-    border
     d-flex
     flex-row
     justify-content-center
     align-items-center
     text-white
   "
-  style="left: 0px; bottom: 0px; height: 100px; width: 100%"
 >
+  <button
+    class="carousel-navigation-item"
+    mat-icon-button
+    *ngIf="playing"
+    [@bounceInOnEnter]
+    (click)="pause()"
+  >
+    <mat-icon>pause</mat-icon>
+  </button>
+  <button
+    class="carousel-navigation-item"
+    mat-icon-button
+    *ngIf="!playing"
+    [@bounceInOnEnter]
+    (click)="play()"
+  >
+    <mat-icon>play_circle</mat-icon>
+  </button>
   <div
-    class="
-      carousel-navigation-item
-      d-flex
-      flex-row
-      justify-content-center
-      align-items-center
-      user-select-none
-      h-100
-    "
-    style="cursor: pointer"
+    class="carousel-navigation-item"
     *ngFor="let i of carouselItems$ | async; let indexOfelement = index"
-    (click)="setVisibleTo(i, indexOfelement)"
+    (click)="setVisibleTo(i, indexOfelement, true)"
   >
     <svg height="100" width="100">
       <circle
@@ -83,7 +71,7 @@
         [attr.cy]="cy"
         [attr.r]="r"
         stroke="white"
-        stroke-width="5"
+        stroke-width="1"
         fill="transparent"
         [attr.stroke-dasharray]="
           i.id == visibleItemRef?.id ? strokeDasharray : ''
