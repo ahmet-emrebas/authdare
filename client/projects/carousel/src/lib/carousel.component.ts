@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { internet, lorem, datatype, image } from 'faker';
 import {
   bounceInOnEnterAnimation,
@@ -18,19 +18,6 @@ function calculateDashArray(wholeDistance: number, partialDeg: number) {
   return result;
 }
 
-function fakeCarouselItem(): CarouselItem {
-  return {
-    id: datatype.number(900),
-    title: lorem.words(2),
-    actionLabel: 'Action',
-    blendColor: 'rgba(0, 0, 0,0.4)',
-    summary: lorem.words(10),
-    content: lorem.sentences(2),
-    duration: datatype.number(3000),
-    img: `assets/imgs/cars/1.png`,
-  };
-}
-
 @Component({
   selector: 'authdare-carousel',
   templateUrl: './carousel.component.html',
@@ -46,6 +33,7 @@ function fakeCarouselItem(): CarouselItem {
   ],
 })
 export class CarouselComponent implements OnInit {
+  @Input() groupId: number = 1;
   @ViewChild('container') container!: ElementRef<HTMLDivElement>;
 
   playing = true;
@@ -53,6 +41,7 @@ export class CarouselComponent implements OnInit {
   carouselItems!: CarouselItem[];
   carouselItems$: Observable<CarouselItem[]> =
     this.carouselService.entities$.pipe(
+      map((data) => data.filter((e) => e.groupId == this.groupId)),
       map((data) => {
         this.carouselItems = data;
         return data;
@@ -64,12 +53,6 @@ export class CarouselComponent implements OnInit {
   constructor(private carouselService: CarouselService) {}
 
   ngOnInit(): void {
-    this.carouselService.addManyToCache([
-      fakeCarouselItem(),
-      fakeCarouselItem(),
-      fakeCarouselItem(),
-    ]);
-
     setTimeout(() => {
       this.setVisibleTo(this.carouselItems[0], 0);
     }, 1000);

@@ -1,17 +1,46 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { datatype, lorem } from 'faker';
+import {
+  CarouselItem,
+  CarouselService,
+} from 'projects/carousel/src/public-api';
 import { NavbarService } from 'projects/navbar/src/public-api';
 import { setSidenavTitle, setSidenavItems } from 'projects/sidenav/src/lib';
 
+function fakeCarouselItem(): CarouselItem {
+  return {
+    id: datatype.number(900),
+    groupId: 1,
+    title: lorem.words(2),
+    actionLabel: 'Action',
+    blendColor: 'rgba(0, 0, 0,0.6)',
+    summary: lorem.words(10),
+    content: lorem.sentences(2),
+    duration: datatype.number(3000),
+    img: `assets/imgs/cars/1.png`,
+  };
+}
 @Component({
   selector: 'app-doc',
   templateUrl: './doc.component.html',
   styleUrls: ['./doc.component.scss'],
 })
 export class DocComponent implements OnInit {
-  constructor(private store: Store, private navbarService: NavbarService) {}
+  constructor(
+    private store: Store,
+    private navbarService: NavbarService,
+    private carouselService: CarouselService
+  ) {}
 
   ngOnInit(): void {
+    this.carouselService.addManyToCache([
+      fakeCarouselItem(),
+      fakeCarouselItem(),
+      fakeCarouselItem(),
+      fakeCarouselItem(),
+    ]);
+
     this.navbarService.addManyToCache([
       {
         id: 1,

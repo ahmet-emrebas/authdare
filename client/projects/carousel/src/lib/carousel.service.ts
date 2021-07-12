@@ -8,6 +8,7 @@ import { BehaviorSubject } from 'rxjs';
 
 export interface CarouselItem {
   id: number;
+  groupId: number;
   title: string;
   summary: string;
   content: string;

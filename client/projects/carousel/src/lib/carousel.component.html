@@ -1,4 +1,4 @@
-<div #container class="carousel-container position-relative d-flex flex-column">
+<div #container class="carousel-container d-flex flex-column">
   <div class="position-relative d-flex flex-rowFf">
     <div *ngFor="let cItem of carouselItems$ | async" style="min-width: 100%">
       <img
@@ -34,7 +34,6 @@
 <div
   class="
     carousel-navigation
-    position-absolute
     d-flex
     flex-row
     justify-content-center
@@ -64,6 +63,7 @@
     class="carousel-navigation-item"
     *ngFor="let i of carouselItems$ | async; let indexOfelement = index"
     (click)="setVisibleTo(i, indexOfelement, true)"
+    trackBy="id"
   >
     <svg height="100" width="100">
       <circle

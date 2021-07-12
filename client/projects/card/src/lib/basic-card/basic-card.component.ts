@@ -6,6 +6,7 @@ export interface BasicCard {
   content: string;
   img: string;
   action: string;
+  path: string;
 }
 
 @Component({
@@ -14,7 +15,14 @@ export interface BasicCard {
   styleUrls: ['./basic-card.component.css'],
 })
 export class BasicCardComponent implements OnInit {
-  @Input() card: Partial<BasicCard> = {};
+  @Input() card: Partial<BasicCard> = {
+    action: 'Action Label',
+    title: 'Card title',
+    subtitle: 'Subtitle of the card',
+    content: 'Some content ',
+    img: 'assets/imgs/cars/1.png',
+    path: '/',
+  };
   constructor() {}
   ngOnInit(): void {}
 }

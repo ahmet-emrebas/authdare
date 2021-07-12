@@ -28,6 +28,7 @@ import {
     NavbarModule,
     CardModule,
     CarouselModule,
+
     RouterModule.forChild([
       {
         path: '',

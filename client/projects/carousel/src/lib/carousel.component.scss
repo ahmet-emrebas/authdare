@@ -2,11 +2,14 @@
   width: 100%;
   overflow: hidden;
   border-radius: 10px;
+  position: relative;
 }
 
 .carousel-navigation {
-  left: 0px;
-  bottom: 0px;
+  position: relative;
+  bottom: 100px;
+  border-radius: 10px;
+  zoom: 1;
   width: 100%;
 }
 .carousel-navigation-item {
@@ -17,6 +20,7 @@
   height: 100%;
   user-select: none;
   cursor: pointer;
+  pointer-events: all;
 }
 
 .carousel-navigation-item:hover {
@@ -64,7 +68,9 @@
     margin-left: 10px;
     margin-top: 10px;
   }
-
+  .carousel-navigation {
+    zoom: 0.5;
+  }
   .carousel-text-content h1 {
     font-size: 16pt;
     line-height: 16pt;

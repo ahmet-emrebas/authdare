@@ -18,6 +18,7 @@ export type SidenavListItem = {
   styleUrls: ['./sidenav.component.scss'],
 })
 export class SidenavComponent {
+  @Input() debug = false;
   @ViewChild('drawer') drawer!: MatDrawer;
   sidenav$ = this.store.pipe(map((d) => d.sidenav));
 
