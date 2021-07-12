@@ -70,12 +70,12 @@
         [attr.cx]="cx"
         [attr.cy]="cy"
         [attr.r]="r"
-        stroke="white"
-        stroke-width="1"
         fill="transparent"
         [attr.stroke-dasharray]="
-          i.id == visibleItemRef?.id ? strokeDasharray : ''
+          i.id == visibleItemRef?.id ? strokeDasharray : '0 125'
         "
+        [attr.stroke-width]="i.id == visibleItemRef?.id ? 1 : 0"
+        [attr.stroke]="i.id == visibleItemRef?.id ? 'white' : 'transparent'"
         stroke-dashoffset="0"
       />
     </svg>

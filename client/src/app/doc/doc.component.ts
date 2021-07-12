@@ -15,13 +15,17 @@ export class DocComponent implements OnInit {
     this.navbarService.addManyToCache([
       {
         id: 1,
+        groupId: 1,
+        order: 1,
         icon: 'home',
-        path: 'home',
+        path: '/',
         tooltip: 'Home page',
         type: 'INTERNAL',
       },
       {
         id: 2,
+        groupId: 1,
+        order: 2,
         icon: 'info',
         path: 'about',
         tooltip: 'About page',
@@ -29,6 +33,8 @@ export class DocComponent implements OnInit {
       },
       {
         id: 3,
+        groupId: 1,
+        order: 3,
         icon: 'email',
         path: 'mailto: info@authdare.com',
         tooltip: 'Contact page',
@@ -36,6 +42,8 @@ export class DocComponent implements OnInit {
       },
       {
         id: 4,
+        groupId: 1,
+        order: 4,
         icon: 'phone',
         path: 'tel:8328742422',
         tooltip: 'Call',
@@ -57,7 +65,7 @@ export class DocComponent implements OnInit {
           { path: 'image-carousel', label: 'Image Carausel', icon: 'image' },
           { path: 'image-deck', label: 'Image Deck', icon: 'image' },
           { path: 'image-grid', label: 'Image Grid', icon: 'image' },
-          { path: 'carousel', label: 'Carousel', icon: 'carousel' },
+          { path: 'carousel', label: 'Carousel', icon: 'live_tv' },
         ],
       })
     );

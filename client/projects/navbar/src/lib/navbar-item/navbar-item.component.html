@@ -1,7 +1,7 @@
 <ng-container *ngIf="navbarItem.type == 'INTERNAL'">
   <button
     mat-fab
-    [style.animationDuration]="navbarItem.id * 500 + 'ms'"
+    [style.animationDuration]="navbarItem.order * 500 + 'ms'"
     [routerLink]="navbarItem.path"
     routerLinkActive="router-link-active"
     *ngIf="isVisible"
@@ -14,7 +14,7 @@
 <ng-container *ngIf="navbarItem.type == 'EXTERNAL'">
   <a
     mat-fab
-    [style.animationDuration]="navbarItem.id * 500 + 'ms'"
+    [style.animationDuration]="navbarItem.order * 500 + 'ms'"
     [href]="navbarItem.path"
     *ngIf="isVisible"
     [@fadeOutOnLeave]

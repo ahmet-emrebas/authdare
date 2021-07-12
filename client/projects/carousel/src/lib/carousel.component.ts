@@ -26,7 +26,7 @@ function fakeCarouselItem(): CarouselItem {
     blendColor: 'rgba(0, 0, 0,0.4)',
     summary: lorem.words(10),
     content: lorem.sentences(2),
-    duration: datatype.number(10000),
+    duration: datatype.number(3000),
     img: `assets/imgs/cars/1.png`,
   };
 }
@@ -82,7 +82,7 @@ export class CarouselComponent implements OnInit {
   intervalref!: any;
   cx = 50;
   cy = 50;
-  r = 10;
+  r = 20;
   strokeDasharray = '';
   wholeDistance = 2 * Math.PI * this.r;
   loadedDistance = 0;
@@ -128,6 +128,7 @@ export class CarouselComponent implements OnInit {
         clearInterval(this.intervalref);
         try {
           const cindex = index + 1;
+
           this.setVisibleTo(this.carouselItems[cindex], cindex);
         } catch (err) {
           this.setVisibleTo(this.carouselItems[0], 0);
