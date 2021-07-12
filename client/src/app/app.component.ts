@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
 import { NavbarService } from 'projects/navbar/src/public-api';
 
 @Component({
@@ -13,25 +12,22 @@ export class AppComponent implements OnInit {
   constructor(private navbarService: NavbarService, private router: Router) {}
   ngOnInit(): void {
     this.updateNavbar();
-    this.router.events.subscribe((e) => {
-      this.updateNavbar();
-    });
   }
 
   updateNavbar() {
     this.navbarService.addManyToCache([
       {
         id: 1,
-        groupId: 2,
+        groupId: 1,
         order: 2,
-        icon: 'description',
-        path: '/doc',
-        tooltip: 'Documentation',
+        icon: 'info',
+        path: '/about',
+        tooltip: 'About',
         type: 'INTERNAL',
       },
       {
         id: 2,
-        groupId: 2,
+        groupId: 1,
         order: 1,
         icon: 'home',
         path: '/',
