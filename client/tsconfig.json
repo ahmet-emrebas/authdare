@@ -27,6 +27,10 @@
         "dist/image/image",
         "dist/image"
       ],
+      "menu": [
+        "dist/menu/menu",
+        "dist/menu"
+      ],
       "navbar": [
         "dist/navbar/navbar",
         "dist/navbar"
@@ -34,6 +38,10 @@
       "sidenav": [
         "dist/sidenav/sidenav",
         "dist/sidenav"
+      ],
+      "table": [
+        "dist/table/table",
+        "dist/table"
       ]
     },
     "baseUrl": "./",

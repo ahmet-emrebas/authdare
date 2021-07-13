@@ -17,6 +17,7 @@ import {
   CarouselComponent,
   CarouselModule,
 } from 'projects/carousel/src/public-api';
+import { TableComponent, TableModule } from 'projects/table/src/public-api';
 
 @NgModule({
   declarations: [DocComponent],
@@ -28,12 +29,13 @@ import {
     NavbarModule,
     CardModule,
     CarouselModule,
-
+    TableModule,
     RouterModule.forChild([
       {
         path: '',
         component: DocComponent,
         children: [
+          { path: 'table', component: TableComponent },
           { path: 'chart', component: ChartComponent },
           { path: 'form', component: FormComponent },
           { path: 'navbar', component: NavbarComponent },

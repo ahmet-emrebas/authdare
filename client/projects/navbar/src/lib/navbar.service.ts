@@ -3,7 +3,6 @@ import {
   EntityCollectionServiceBase,
   EntityCollectionServiceElementsFactory,
 } from '@ngrx/data';
-import { BehaviorSubject } from 'rxjs';
 
 export interface NavbarItem {
   id: number;
