@@ -7,6 +7,14 @@
         "dist/authdare-material/authdare-material",
         "dist/authdare-material"
       ],
+      "card": [
+        "dist/card/card",
+        "dist/card"
+      ],
+      "carousel": [
+        "dist/carousel/carousel",
+        "dist/carousel"
+      ],
       "chart": [
         "dist/chart/chart",
         "dist/chart"
@@ -14,6 +22,14 @@
       "form": [
         "dist/form/form",
         "dist/form"
+      ],
+      "image": [
+        "dist/image/image",
+        "dist/image"
+      ],
+      "navbar": [
+        "dist/navbar/navbar",
+        "dist/navbar"
       ],
       "sidenav": [
         "dist/sidenav/sidenav",

@@ -20,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/client",
+            "outputPath": "dist/authdare.com",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -73,10 +73,12 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "client:build:production"
+              "browserTarget": "client:build:production",
+              "proxyConfig": "src/proxy.conf.json"
             },
             "development": {
-              "browserTarget": "client:build:development"
+              "browserTarget": "client:build:development",
+              "proxyConfig": "src/proxy.dev.conf.json"
             }
           },
           "defaultConfiguration": "development"
@@ -226,6 +228,130 @@
             "main": "projects/chart/src/test.ts",
             "tsConfig": "projects/chart/tsconfig.spec.json",
             "karmaConfig": "projects/chart/karma.conf.js"
+          }
+        }
+      }
+    },
+    "navbar": {
+      "projectType": "library",
+      "root": "projects/navbar",
+      "sourceRoot": "projects/navbar/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/navbar/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/navbar/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/navbar/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/navbar/src/test.ts",
+            "tsConfig": "projects/navbar/tsconfig.spec.json",
+            "karmaConfig": "projects/navbar/karma.conf.js"
+          }
+        }
+      }
+    },
+    "card": {
+      "projectType": "library",
+      "root": "projects/card",
+      "sourceRoot": "projects/card/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/card/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/card/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/card/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/card/src/test.ts",
+            "tsConfig": "projects/card/tsconfig.spec.json",
+            "karmaConfig": "projects/card/karma.conf.js"
+          }
+        }
+      }
+    },
+    "image": {
+      "projectType": "library",
+      "root": "projects/image",
+      "sourceRoot": "projects/image/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/image/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/image/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/image/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/image/src/test.ts",
+            "tsConfig": "projects/image/tsconfig.spec.json",
+            "karmaConfig": "projects/image/karma.conf.js"
+          }
+        }
+      }
+    },
+    "carousel": {
+      "projectType": "library",
+      "root": "projects/carousel",
+      "sourceRoot": "projects/carousel/src",
+      "prefix": "authdare",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/carousel/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/carousel/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/carousel/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/carousel/src/test.ts",
+            "tsConfig": "projects/carousel/tsconfig.spec.json",
+            "karmaConfig": "projects/carousel/karma.conf.js"
           }
         }
       }

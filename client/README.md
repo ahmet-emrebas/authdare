@@ -1,9 +1,9 @@
-### Client APplication
+# Aemrebas.com
 
 ### Deploy
 
 ```
-ftp -i ftp.domain.com
+ftp -i ftp.aemrebas.com
 mput ./dist/client/*
 bye
 
