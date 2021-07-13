@@ -1,6 +1,6 @@
 {
   "name": "aemrebas-web",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -11,7 +11,6 @@
     "doc:serve": "http-server documentation",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run"
-
   },
   "private": true,
   "dependencies": {
