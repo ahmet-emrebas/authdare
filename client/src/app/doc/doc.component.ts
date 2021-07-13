@@ -7,6 +7,7 @@ import {
 } from 'projects/carousel/src/public-api';
 import { NavbarService } from 'projects/navbar/src/public-api';
 import { setSidenavTitle, setSidenavItems } from 'projects/sidenav/src/lib';
+import { TableService } from 'projects/table/src/public-api';
 
 function fakeCarouselItem(): CarouselItem {
   return {
@@ -30,7 +31,8 @@ export class DocComponent implements OnInit {
   constructor(
     private store: Store,
     private navbarService: NavbarService,
-    private carouselService: CarouselService
+    private carouselService: CarouselService,
+    private tableService: TableService
   ) {}
 
   ngOnInit(): void {
@@ -39,6 +41,13 @@ export class DocComponent implements OnInit {
       fakeCarouselItem(),
       fakeCarouselItem(),
       fakeCarouselItem(),
+    ]);
+
+    this.tableService.addManyToCache([
+      { id: 1, groupId: 1, firstName: 'AHmet', lastName: 'Ermebas' },
+      { id: 2, groupId: 1, firstName: 'Mehmet', lastName: 'Ermebas' },
+      { id: 3, groupId: 1, firstName: 'Kemal', lastName: 'Ermebas' },
+      { id: 4, groupId: 1, firstName: 'Cevat', lastName: 'Ermebas' },
     ]);
 
     this.navbarService.addManyToCache([
@@ -95,6 +104,7 @@ export class DocComponent implements OnInit {
           { path: 'image-deck', label: 'Image Deck', icon: 'image' },
           { path: 'image-grid', label: 'Image Grid', icon: 'image' },
           { path: 'carousel', label: 'Carousel', icon: 'live_tv' },
+          { path: 'table', label: 'Table', icon: 'table_chart' },
         ],
       })
     );

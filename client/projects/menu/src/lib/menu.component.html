@@ -1,0 +1,21 @@
+<div style="position: relative; height: 50px">
+  <button mat-icon-button (click)="toggleMenu()">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <div #menu *ngIf="isMenuOpen" style="position: absolute" [class]="position">
+    <ng-container *ngFor="let mi of menuItems; let indexOfelement = index">
+      <button
+        mat-mini-fab
+        color="primary"
+        [color]="mi.color"
+        (click)="isMenuOpen = false"
+        [@fadeInOnEnter]
+        [@fadeOutOnLeave]
+        (click)="onClick.emit(mi.path)"
+        [style.tranasition]="'all ease-in-out ' + indexOfelement * 1000 + 'ms'"
+      >
+        <mat-icon>{{ mi.icon }}</mat-icon>
+      </button>
+    </ng-container>
+  </div>
+</div>
