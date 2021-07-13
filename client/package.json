@@ -10,8 +10,7 @@
     "doc": "compodoc -p tsconfig.doc.json -d ../docs",
     "doc:serve": "http-server documentation",
     "cypress:open": "cypress open",
-    "cypress:run": "cypress run",
-    "deploy": "ftp -i -s:tmp/deploy.aemrebas.com.sh ftp.aemrebas.com"
+    "cypress:run": "cypress run"
   },
   "private": true,
   "dependencies": {
