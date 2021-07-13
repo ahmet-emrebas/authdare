@@ -1,0 +1,42 @@
+.down {
+  position: absolute;
+  left: 0px;
+  top: 50px;
+  z-index: 10;
+}
+
+.down button {
+  margin-top: 1px;
+}
+.up {
+  position: absolute;
+  bottom: 100%;
+  z-index: 10;
+}
+
+.up button {
+  margin-bottom: 1px;
+}
+
+.right {
+  display: flex;
+  position: absolute;
+  flex-direction: row;
+  top: 0px;
+  left: 50px;
+}
+.right button {
+  margin-left: 2px;
+}
+
+.left {
+  display: flex;
+  position: absolute;
+  flex-direction: row;
+  top: 0px;
+  right: 50px;
+}
+
+.left button {
+  margin-left: 2px;
+}
