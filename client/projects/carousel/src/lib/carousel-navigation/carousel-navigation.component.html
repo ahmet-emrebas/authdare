@@ -1,0 +1,56 @@
+<!-- Carousel navigation -->
+<div
+  class="
+    authdare-carousel-navigation
+    d-flex
+    flex-row
+    justify-content-center
+    align-items-center
+  "
+>
+  <!-- Pause Button -->
+  <button
+    class="authdare-carousel-navigation-item"
+    mat-icon-button
+    *ngIf="isPlaying()"
+    [@bounceInOnEnter]
+    (click)="pause()"
+  >
+    <mat-icon>pause</mat-icon>
+  </button>
+
+  <!-- Play Button -->
+  <button
+    class="authdare-carousel-navigation-item"
+    mat-icon-button
+    *ngIf="!isPlaying()"
+    [@bounceInOnEnter]
+    (click)="play()"
+  >
+    <mat-icon>play_circle</mat-icon>
+  </button>
+
+  <!-- Navigation items -->
+  <div
+    class="authdare-carousel-navigation-item"
+    *ngFor="let i of indexes; let indexOfElement = index"
+    (click)="navigateTo(indexOfElement)"
+  >
+    <svg height="100" width="100">
+      <circle
+        [attr.cx]="cx"
+        [attr.cy]="cy"
+        [attr.r]="radius"
+        [attr.fill]="fill"
+        [attr.stroke-dasharray]="strokeDasharray"
+        [attr.stroke-width]="strokeWidth"
+        [attr.stroke]="currentIndex == indexOfElement ? stroke : 'transparent'"
+        [class.currentItem]="currentIndex == indexOfElement"
+        stroke-dashoffset="0"
+      />
+    </svg>
+    <span class="position-absolute">
+      {{ indexOfElement + 1 }}
+    </span>
+  </div>
+</div>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { datatype, lorem } from 'faker';
+import { uniqueId } from 'lodash';
 import {
   CarouselItem,
   CarouselService,
@@ -10,17 +11,12 @@ import { setSidenavTitle, setSidenavItems } from 'projects/sidenav/src/lib';
 import { TableService } from 'projects/table/src/public-api';
 
 function fakeCarouselItem(): CarouselItem {
-  return {
-    id: datatype.number(900),
-    groupId: 1,
+  return new CarouselItem({
+    id: datatype.number(90000),
     title: lorem.words(2),
-    actionLabel: 'Action',
-    blendColor: 'rgba(0, 0, 0,0.6)',
-    summary: lorem.words(10),
-    content: lorem.sentences(2),
-    duration: datatype.number(3000),
+    backgroundColor: 'rgba(0, 0, 0,0.6)',
     img: `assets/imgs/cars/1.png`,
-  };
+  });
 }
 @Component({
   selector: 'app-doc',
@@ -100,9 +96,6 @@ export class DocComponent implements OnInit {
           { path: 'navbar', label: 'Navbar', icon: 'menu' },
           { path: 'basic-card', label: 'Basic Card', icon: 'payments' },
           { path: 'product-card', label: 'Product Card', icon: 'payments' },
-          { path: 'image-carousel', label: 'Image Carausel', icon: 'image' },
-          { path: 'image-deck', label: 'Image Deck', icon: 'image' },
-          { path: 'image-grid', label: 'Image Grid', icon: 'image' },
           { path: 'carousel', label: 'Carousel', icon: 'live_tv' },
           { path: 'table', label: 'Table', icon: 'table_chart' },
         ],

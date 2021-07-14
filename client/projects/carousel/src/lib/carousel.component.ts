@@ -1,5 +1,4 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { internet, lorem, datatype, image } from 'faker';
 import {
   bounceInOnEnterAnimation,
   bounceOutOnLeaveAnimation,
@@ -8,21 +7,13 @@ import {
   slideInLeftOnEnterAnimation,
   slideOutRightOnLeaveAnimation,
 } from 'angular-animations';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { CarouselItem, CarouselService } from './carousel.service';
-
-function calculateDashArray(wholeDistance: number, partialDeg: number) {
-  let comp = Math.floor((wholeDistance / 360) * partialDeg);
-  const result = `${comp} ${Math.floor(wholeDistance - comp)}`;
-  return result;
-}
+import { BehaviorSubject } from 'rxjs';
+import { CarouselItem } from './carousel.service';
 
 @Component({
   selector: 'authdare-carousel',
   templateUrl: './carousel.component.html',
   styleUrls: ['./carousel.component.scss'],
-
   animations: [
     slideInLeftOnEnterAnimation(),
     slideOutRightOnLeaveAnimation(),
@@ -33,103 +24,33 @@ function calculateDashArray(wholeDistance: number, partialDeg: number) {
   ],
 })
 export class CarouselComponent implements OnInit {
-  @Input() groupId: number = 1;
   @ViewChild('container') container!: ElementRef<HTMLDivElement>;
 
-  playing = true;
+  carouselItems$ = new BehaviorSubject<CarouselItem[]>([]);
+  @Input() carouselItems: Partial<CarouselItem>[] = [
+    {
+      title: 'Title',
+      content: 'Content ',
+      backgroundColor: 'black',
+    },
+    {
+      img: '/assets/imgs/cars/1.png',
+    },
+  ];
 
-  carouselItems!: CarouselItem[];
-  carouselItems$: Observable<CarouselItem[]> =
-    this.carouselService.entities$.pipe(
-      map((data) => data.filter((e) => e.groupId == this.groupId)),
-      map((data) => {
-        this.carouselItems = data;
-        return data;
-      })
-    );
-
-  visibleItemRef!: CarouselItem;
-
-  constructor(private carouselService: CarouselService) {}
+  constructor() {}
 
   ngOnInit(): void {
-    setTimeout(() => {
-      this.setVisibleTo(this.carouselItems[0], 0);
-    }, 1000);
+    this.carouselItems$.next(
+      this.carouselItems.map((e) => new CarouselItem(e))
+    );
   }
 
-  toStyleUrl(value: string): string {
-    return `url('${value}')`;
-  }
-
-  intervalref!: any;
-  cx = 50;
-  cy = 50;
-  r = 20;
-  strokeDasharray = '';
-  wholeDistance = 2 * Math.PI * this.r;
-  loadedDistance = 0;
-  fill = 'transparent';
-
-  currentIndex = 0;
-
-  /**
-   * Scroll to the item that is supposed to be shown at that time.
-   * @param index
-   */
-  setVisibleTo(
-    elementRef: CarouselItem,
-    index: number,
-    fromUI: boolean = false
-  ) {
-    try {
-      clearInterval(this.intervalref);
-    } catch (err) {
-      // DO nothign
-    }
-
-    if (fromUI) {
-      this.loadedDistance = 0;
-      this.playing = true;
-    }
-
-    this.currentIndex = index;
-    this.visibleItemRef = elementRef;
-
+  scrollTo(index: number) {
     const clientWidth = this.container.nativeElement.clientWidth;
     this.container.nativeElement.scroll({
       behavior: 'smooth',
       left: clientWidth * index,
-    });
-    this.intervalref = setInterval(() => {
-      this.loadedDistance++;
-      this.strokeDasharray = calculateDashArray(
-        this.wholeDistance,
-        this.loadedDistance
-      );
-      if (this.loadedDistance >= 360) {
-        clearInterval(this.intervalref);
-        try {
-          const cindex = index + 1;
-
-          this.setVisibleTo(this.carouselItems[cindex], cindex);
-        } catch (err) {
-          this.setVisibleTo(this.carouselItems[0], 0);
-        }
-        this.loadedDistance = 0;
-      }
-    }, Math.floor((elementRef.duration || 1000) / 360));
-  }
-
-  play() {
-    this.playing = true;
-    this.setVisibleTo(this.carouselItems[this.currentIndex], this.currentIndex);
-  }
-
-  pause() {
-    this.playing = false;
-    setTimeout(() => {
-      clearInterval(this.intervalref);
     });
   }
 }

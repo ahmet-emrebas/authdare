@@ -7,6 +7,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { ProductCardComponent } from './product-card/product-card.component';
 import { RouterModule } from '@angular/router';
+import { CarouselModule } from 'projects/carousel/src/public-api';
 
 @NgModule({
   declarations: [CardComponent, BasicCardComponent, ProductCardComponent],
@@ -15,6 +16,7 @@ import { RouterModule } from '@angular/router';
     MatCardModule,
     MatButtonModule,
     MatIconModule,
+    CarouselModule,
     RouterModule,
   ],
   exports: [CardComponent, BasicCardComponent],
