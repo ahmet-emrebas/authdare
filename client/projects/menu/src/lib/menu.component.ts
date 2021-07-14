@@ -1,8 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
+  bounceInOnEnterAnimation,
+  bounceOutOnLeaveAnimation,
   fadeInOnEnterAnimation,
   fadeOutOnLeaveAnimation,
 } from 'angular-animations';
+import { BehaviorSubject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 export interface MenuItem {
   icon: string;
@@ -14,9 +18,13 @@ export interface MenuItem {
   selector: 'authdare-menu',
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.scss'],
-  animations: [fadeInOnEnterAnimation(), fadeOutOnLeaveAnimation()],
+  animations: [
+    bounceOutOnLeaveAnimation({ anchor: 'bOut' }),
+    bounceInOnEnterAnimation({ anchor: 'bIn' }),
+  ],
 })
 export class MenuComponent implements OnInit {
+  @Input() scopeElementRef!: HTMLElement;
   @Input() id: number = -1;
   @Input() position: 'down' | 'left' | 'right' | 'up' = 'left';
   @Output() onClick = new EventEmitter<string>();
@@ -37,11 +45,27 @@ export class MenuComponent implements OnInit {
       color: 'accent',
     },
   ];
+
+  constructor() {}
+  isMenuOpen$$ = new BehaviorSubject<boolean>(false);
+  isMenuOpen$ = this.isMenuOpen$$.pipe(debounceTime(300));
+
   ngOnInit(): void {}
 
-  isMenuOpen = false;
-
   toggleMenu() {
-    this.isMenuOpen = !this.isMenuOpen;
+    setTimeout(() => {
+      this.scopeElementRef.removeAllListeners!();
+      this.isMenuOpen$$.next(!this.isMenuOpen$$.getValue());
+      this.scopeElementRef.addEventListener('click', (event) => {
+        this.isMenuOpen$$.next(false);
+      });
+    });
+  }
+
+  onMenuItemClick(path: string) {
+    setTimeout(() => {
+      this.onClick.emit(path);
+    });
+    this.isMenuOpen$$.next(false);
   }
 }

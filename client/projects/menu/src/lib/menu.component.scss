@@ -40,3 +40,30 @@
 .left button {
   margin-left: 2px;
 }
+
+.menu-item {
+  z-index: 20;
+  // animation-name: menuItemIn;
+  // animation-timing-function: ease-in-out;
+  // animation-iteration-count: 1;
+}
+
+@keyframes menuItemIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.overlay {
+  z-index: 10;
+  width: 200%;
+  height: 100%;
+  left: 0px;
+  top: 0px;
+  position: fixed;
+  background-color: rgba(128, 128, 128, 0.452);
+}
