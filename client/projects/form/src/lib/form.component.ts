@@ -111,11 +111,7 @@ export class FormComponent implements OnInit {
     private store: Store<{
       form: FormStoreState;
     }>
-  ) {
-    this.store.subscribe((data) => {
-      console.log('__from form compoenent : ', data);
-    });
-  }
+  ) {}
 
   ngOnInit(): void {
     this.store.dispatch(setFormOptions(defaultForm));

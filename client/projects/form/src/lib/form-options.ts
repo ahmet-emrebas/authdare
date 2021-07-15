@@ -80,6 +80,10 @@ export interface FormOptions {
   fieldOptionsList: FieldOptions[];
 }
 
+/**
+ * Valiate the form options and set default values for the empty options.
+ * @param {Partial<FormOptions>} formOptions
+ */
 export function validateAndTransformFormOptions(
   formOptions: Partial<FormOptions>
 ) {
@@ -99,6 +103,11 @@ export function validateAndTransformFormOptions(
   }
 }
 
+/**
+ * Create a FormControl instance and configure validators
+ * @param {Partial<FieldOptions>} fieldOptionsList
+ * @returns
+ */
 export function configureValidators(fieldOptionsList: Partial<FieldOptions>[]) {
   for (const fieldOptions of fieldOptionsList) {
     const validators = toPairs(fieldOptions)
@@ -123,6 +132,10 @@ export function configureValidators(fieldOptionsList: Partial<FieldOptions>[]) {
   return fieldOptionsList;
 }
 
+/**
+ * Create a FormGroup instance and add the FormControls to it.
+ * @param {Partial<FormOptions>} formOptions
+ */
 export function createFormGroup(formOptions: Partial<FormOptions>) {
   const formGroup = new FormGroup({});
   for (const field of formOptions.fieldOptionsList!) {
@@ -130,6 +143,7 @@ export function createFormGroup(formOptions: Partial<FormOptions>) {
   }
   formOptions.formGroup = formGroup;
   formOptions.fieldOptionsList!.forEach((e) => {
+    // these are for initiating the render! Without the following setters, Input elements do not render somehow.
     setTimeout(() => {
       e.formControl?.setValue('.');
     });
