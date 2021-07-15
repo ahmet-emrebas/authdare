@@ -45,6 +45,21 @@ const defaultItems = [
   {
     img: '/assets/imgs/cars/1.png',
   },
+  {
+    img: '/assets/imgs/cars/1.png',
+  },
+  {
+    img: '/assets/imgs/cars/1.png',
+  },
+  {
+    img: '/assets/imgs/cars/1.png',
+  },
+  {
+    img: '/assets/imgs/cars/1.png',
+  },
+  {
+    img: '/assets/imgs/cars/1.png',
+  },
 ];
 
 @Component({

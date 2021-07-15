@@ -73,8 +73,7 @@ export class DocComponent implements OnInit {
           { path: 'form', label: 'Form', icon: 'input' },
           { path: 'chart', label: 'Chart', icon: 'bar_chart' },
           { path: 'navbar', label: 'Navbar', icon: 'menu' },
-          { path: 'basic-card', label: 'Basic Card', icon: 'payments' },
-          { path: 'product-card', label: 'Product Card', icon: 'payments' },
+          { path: 'cards', label: 'Cards', icon: 'payments' },
           {
             path: 'carousel-navigation',
             label: 'Carousel Navigation',

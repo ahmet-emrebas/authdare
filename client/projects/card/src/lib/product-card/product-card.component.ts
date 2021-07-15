@@ -15,7 +15,14 @@ export interface ProductCard {
   styleUrls: ['./product-card.component.css'],
 })
 export class ProductCardComponent implements OnInit {
-  @Input() card: Partial<ProductCard> = {};
+  @Input() card: Partial<ProductCard> = {
+    action: 'Card Action',
+    content: 'Card content',
+    features: ['Feature one', 'Feature one', 'Feature one', 'Feature one'],
+    imgs: [],
+    subtitle: 'Sub title',
+    title: 'Title ',
+  };
   constructor() {}
 
   ngOnInit(): void {}

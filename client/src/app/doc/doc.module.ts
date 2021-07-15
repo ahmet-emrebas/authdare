@@ -14,9 +14,10 @@ import {
 } from 'projects/carousel/src/public-api';
 import { TableComponent, TableModule } from 'projects/table/src/public-api';
 import { CarouselNavigationComponent } from 'projects/carousel/src/lib/carousel-navigation/carousel-navigation.component';
+import { CardsComponent } from './cards/cards.component';
 
 @NgModule({
-  declarations: [DocComponent],
+  declarations: [DocComponent, CardsComponent],
   imports: [
     CommonModule,
     FormModule,
@@ -31,6 +32,7 @@ import { CarouselNavigationComponent } from 'projects/carousel/src/lib/carousel-
         path: '',
         component: DocComponent,
         children: [
+          { path: 'cards', component: CardsComponent },
           { path: 'table', component: TableComponent },
           { path: 'chart', component: ChartComponent },
           { path: 'form', component: FormComponent },

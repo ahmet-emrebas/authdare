@@ -14,6 +14,9 @@ export class CarouselNavigation {
     { duration: 1000 },
     { duration: 1000 },
     { duration: 3000 },
+    { duration: 3000 },
+    { duration: 3000 },
+    { duration: 3000 },
   ];
   fill = 'transparent';
   strokeWidth = 2;
@@ -52,17 +55,17 @@ export class CarouselNavigationComponent implements OnInit, OnDestroy {
   /**
    * SVG circle cx attribute
    */
-  readonly cx = 50;
+  readonly cx = 20;
 
   /**
    * SVG circle cy attribute
    */
-  readonly cy = 50;
+  readonly cy = 20;
 
   /**
    * SVG circle r attribute
    */
-  readonly radius = 20;
+  readonly radius = 15;
 
   /**
    * SVG Circle distance
