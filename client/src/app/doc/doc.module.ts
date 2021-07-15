@@ -14,7 +14,6 @@ import {
 } from 'projects/carousel/src/public-api';
 import { TableComponent, TableModule } from 'projects/table/src/public-api';
 import { CarouselNavigationComponent } from 'projects/carousel/src/lib/carousel-navigation/carousel-navigation.component';
-import { CarouselPersistentComponent } from 'projects/carousel/src/lib/carousel-persistent/carousel-persistent.component';
 
 @NgModule({
   declarations: [DocComponent],

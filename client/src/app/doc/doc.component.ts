@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { CarouselService } from 'projects/carousel/src/public-api';
 import { NavbarService } from 'projects/navbar/src/public-api';
 import { setSidenavTitle, setSidenavItems } from 'projects/sidenav/src/lib';
 import { TableService } from 'projects/table/src/public-api';
@@ -14,7 +13,6 @@ export class DocComponent implements OnInit {
   constructor(
     private store: Store,
     private navbarService: NavbarService,
-    private carouselService: CarouselService,
     private tableService: TableService
   ) {}
 
@@ -68,6 +66,7 @@ export class DocComponent implements OnInit {
     this.store.dispatch(
       setSidenavTitle({ sidenavTitle: 'Authdare Material Doc' })
     );
+
     this.store.dispatch(
       setSidenavItems({
         sidenavItems: [
@@ -76,6 +75,11 @@ export class DocComponent implements OnInit {
           { path: 'navbar', label: 'Navbar', icon: 'menu' },
           { path: 'basic-card', label: 'Basic Card', icon: 'payments' },
           { path: 'product-card', label: 'Product Card', icon: 'payments' },
+          {
+            path: 'carousel-navigation',
+            label: 'Carousel Navigation',
+            icon: 'live_tv',
+          },
           { path: 'carousel', label: 'Carousel', icon: 'live_tv' },
           { path: 'table', label: 'Table', icon: 'table_chart' },
         ],

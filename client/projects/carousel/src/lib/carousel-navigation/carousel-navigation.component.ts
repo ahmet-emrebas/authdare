@@ -10,10 +10,14 @@ import { bounceInOnEnterAnimation } from 'angular-animations';
 
 export class CarouselNavigation {
   id = 1;
-  indexes: { duration: number }[] = [];
+  indexes: { duration: number }[] = [
+    { duration: 1000 },
+    { duration: 1000 },
+    { duration: 3000 },
+  ];
   fill = 'transparent';
   strokeWidth = 2;
-  stroke = 'white';
+  stroke = 'black';
   isPlaying = true;
   currentIndex = 0;
   partialDistance = 0;

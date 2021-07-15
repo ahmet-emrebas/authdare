@@ -70,11 +70,25 @@ export class CarouselComponent implements OnInit, OnDestroy, AfterViewInit {
   @Input() id = 1;
   @Input() carouselItems: Partial<CarouselItem>[] = defaultItems;
 
-  carouselNavigationState = new CarouselNavigation({});
+  carouselNavigationState = new CarouselNavigation({ stroke: 'white' });
 
   constructor(private service: CarouselService) {}
   ngAfterViewInit(): void {
     this.scrollTo(this.carouselNavigationState.currentIndex);
+  }
+
+  ngOnInit(): void {
+    this.subsink.sink = this.service.entities$
+      .pipe(map((e) => e.find((k) => k.id == this.id)))
+      .subscribe((state) => {
+        this.carouselNavigationState = new CarouselNavigation({
+          stroke: 'white',
+          indexes: this.carouselItems.map((e) => ({
+            duration: e.duration || 3000,
+          })),
+          ...state,
+        });
+      });
   }
 
   ngOnDestroy(): void {
@@ -83,19 +97,6 @@ export class CarouselComponent implements OnInit, OnDestroy, AfterViewInit {
       id: this.id,
     });
     this.subsink.unsubscribe();
-  }
-
-  ngOnInit(): void {
-    this.subsink.sink = this.service.entities$
-      .pipe(map((e) => e.find((k) => k.id == this.id)))
-      .subscribe((state) => {
-        this.carouselNavigationState = new CarouselNavigation({
-          ...state,
-          indexes: this.carouselItems.map((e) => ({
-            duration: e.duration || 3000,
-          })),
-        });
-      });
   }
 
   scrollTo(index: number) {
