@@ -12,7 +12,7 @@
   <button
     class="authdare-carousel-navigation-item"
     mat-icon-button
-    *ngIf="isPlaying()"
+    *ngIf="state.isPlaying"
     [@bounceInOnEnter]
     (click)="pause()"
   >
@@ -23,7 +23,7 @@
   <button
     class="authdare-carousel-navigation-item"
     mat-icon-button
-    *ngIf="!isPlaying()"
+    *ngIf="!state.isPlaying"
     [@bounceInOnEnter]
     (click)="play()"
   >
@@ -33,7 +33,7 @@
   <!-- Navigation items -->
   <div
     class="authdare-carousel-navigation-item"
-    *ngFor="let i of indexes; let indexOfElement = index"
+    *ngFor="let i of state.indexes; let indexOfElement = index"
     (click)="navigateTo(indexOfElement)"
   >
     <svg height="100" width="100">
@@ -41,11 +41,13 @@
         [attr.cx]="cx"
         [attr.cy]="cy"
         [attr.r]="radius"
-        [attr.fill]="fill"
-        [attr.stroke-dasharray]="strokeDasharray"
-        [attr.stroke-width]="strokeWidth"
-        [attr.stroke]="currentIndex == indexOfElement ? stroke : 'transparent'"
-        [class.currentItem]="currentIndex == indexOfElement"
+        [attr.fill]="state.fill"
+        [attr.stroke-dasharray]="state.strokeDasharray"
+        [attr.stroke-width]="state.strokeWidth"
+        [attr.stroke]="
+          state.currentIndex == indexOfElement ? state.stroke : 'transparent'
+        "
+        [class.currentItem]="state.currentIndex == indexOfElement"
         stroke-dashoffset="0"
       />
     </svg>

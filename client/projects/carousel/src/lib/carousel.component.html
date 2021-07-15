@@ -1,6 +1,6 @@
 <div #container class="carousel-container d-flex flex-column">
   <div class="position-relative d-flex flex-row">
-    <div *ngFor="let cItem of carouselItems$ | async" style="min-width: 100%">
+    <div *ngFor="let cItem of carouselItems" style="min-width: 100%">
       <img
         class="carousel-image"
         [style.backgroundImage]="'url(' + cItem.img + ')'"
@@ -41,8 +41,8 @@
   "
 >
   <authdare-carousel-navigation
-    [indexes]="(carouselItems$ | async)!"
-    stroke="white"
+    #carouselNavigation
+    [state]="carouselNavigationState"
     (onChange)="scrollTo($event)"
   >
   </authdare-carousel-navigation>

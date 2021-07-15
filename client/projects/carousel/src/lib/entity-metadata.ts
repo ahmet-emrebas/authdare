@@ -1,11 +1,11 @@
 import { EntityMetadataMap, EntityDataModuleConfig } from '@ngrx/data';
 
 const entityMetadata: EntityMetadataMap = {
-  CarouselItem: {},
+  CarouselNavigation: {},
 };
 
 const pluralNames = {
-  CarouselItem: 'CarouselItems',
+  CarouselNavigation: 'CarouselNavigations',
 };
 
 export const entityConfig: EntityDataModuleConfig = {

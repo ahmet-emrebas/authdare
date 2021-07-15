@@ -42,7 +42,7 @@ import { CarouselPersistentComponent } from 'projects/carousel/src/lib/carousel-
             path: 'carousel-navigation',
             component: CarouselNavigationComponent,
           },
-          { path: 'carousel', component: CarouselPersistentComponent },
+          { path: 'carousel', component: CarouselComponent },
         ],
       },
     ]),

@@ -7,9 +7,23 @@ import {
   Output,
 } from '@angular/core';
 import { bounceInOnEnterAnimation } from 'angular-animations';
-import { BehaviorSubject } from 'rxjs';
 
-export interface CarouselNavigationState {}
+export class CarouselNavigation {
+  id = 1;
+  indexes: { duration: number }[] = [];
+  fill = 'transparent';
+  strokeWidth = 2;
+  stroke = 'white';
+  isPlaying = true;
+  currentIndex = 0;
+  partialDistance = 0;
+  strokeDasharray = `0`;
+  constructor(value?: Partial<CarouselNavigation>) {
+    if (value) {
+      Object.assign(this, value);
+    }
+  }
+}
 
 @Component({
   selector: 'authdare-carousel-navigation',
@@ -27,80 +41,47 @@ export class CarouselNavigationComponent implements OnInit, OnDestroy {
   @Output() onChange = new EventEmitter<number>();
 
   /**
-   * Stores the corresponding indexes, from 0 to n, which will be emitted to on click
+   * Current state of the component
    */
-  @Input() indexes: { duration: number }[] = [
-    { duration: 1000 },
-    { duration: 3000 },
-    { duration: 10000 },
-  ];
+  @Input() state = new CarouselNavigation();
 
   /**
    * SVG circle cx attribute
    */
-  cx = 50;
+  readonly cx = 50;
 
   /**
    * SVG circle cy attribute
    */
-  cy = 50;
+  readonly cy = 50;
 
   /**
    * SVG circle r attribute
    */
-  radius = 20;
-
-  /**
-   * SVG circle fill attribute
-   */
-  @Input() fill = 'transparent';
-
-  /**
-   * SVG circle stroke-width attribute
-   */
-  @Input() strokeWidth = 2;
-
-  /**
-   * SVG circle stroke attribute
-   */
-  @Input() stroke = 'black';
-
-  /**
-   * Current play-status of the navigation.
-   */
-  isPlaying$ = new BehaviorSubject<boolean>(true);
-
-  /**
-   * id of the currently navigated/playing item.
-   */
-  currentIndex = 0;
+  readonly radius = 20;
 
   /**
    * SVG Circle distance
    */
-  wholeDistance = Math.floor(2 * Math.PI * this.radius);
-
-  /**
-   * SVG Circle drawn distnace
-   */
-  partialDistance = 0;
+  readonly distance = Math.floor(2 * Math.PI * this.radius);
 
   /**
    * SVG Cirlce stroke-dasharry attribute
    */
-  strokeDasharray = `0 ${this.wholeDistance}`;
 
   /**
    * Set the stroke-distancearray by partialDistance like '0 125'
    * @param {number} partialDistance
    */
   setStrokeDashArray(partialDistance: number): void {
-    this.partialDistance = partialDistance;
-    this.strokeDasharray = `${this.partialDistance} ${this.wholeDistance}`;
+    this.state.partialDistance = partialDistance;
+    this.state.strokeDasharray = `${this.state.partialDistance} ${this.distance}`;
   }
 
   ngOnInit(): void {
-    this.play();
+    if (this.state.isPlaying) {
+      this.play();
+    }
   }
 
   /**
@@ -112,34 +93,32 @@ export class CarouselNavigationComponent implements OnInit, OnDestroy {
    * Start playing animation
    */
   play() {
-    this.isPlaying$.next(true);
-
+    this.updateState({ isPlaying: true });
     clearInterval(this.intervalref);
 
     this.intervalref = setInterval(() => {
-      if (!this.isPlaying()) {
+      if (!this.state.isPlaying) {
         clearInterval(this.intervalref);
-
         return;
       }
 
-      this.setStrokeDashArray(this.partialDistance + 1);
-      if (this.partialDistance >= this.wholeDistance) {
-        this.partialDistance = 0;
-        if (this.currentIndex >= this.indexes.length - 1) {
+      this.setStrokeDashArray(this.state.partialDistance + 1);
+      if (this.state.partialDistance >= this.distance) {
+        this.state.partialDistance = 0;
+        if (this.state.currentIndex >= this.state.indexes.length - 1) {
           this.navigateTo(0);
         } else {
-          this.navigateTo(this.currentIndex + 1);
+          this.navigateTo(this.state.currentIndex + 1);
         }
       }
-    }, this.indexes[this.currentIndex].duration / this.wholeDistance);
+    }, this.state.indexes[this.state.currentIndex].duration / this.distance);
   }
 
   /**
    * Pause the animation
    */
   pause() {
-    this.isPlaying$.next(false);
+    this.state.isPlaying = false;
   }
 
   /**
@@ -148,17 +127,13 @@ export class CarouselNavigationComponent implements OnInit, OnDestroy {
    */
   navigateTo(index: number) {
     this.onChange.emit(index);
-    this.currentIndex = index;
-    this.partialDistance = 0;
-    this.strokeDasharray = `0 ${this.wholeDistance}`;
+    this.state.currentIndex = index;
+    this.state.partialDistance = 0;
+    this.state.strokeDasharray = `0 ${this.distance}`;
     this.play();
   }
 
-  /**
-   * Check the animation is playing or not.
-   * @returns {boolean}
-   */
-  isPlaying(): boolean {
-    return this.isPlaying$.getValue();
+  private updateState(state: Partial<CarouselNavigation>) {
+    this.state = { ...this.state, ...state };
   }
 }

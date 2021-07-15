@@ -1,23 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { datatype, lorem } from 'faker';
-import { uniqueId } from 'lodash';
-import {
-  CarouselItem,
-  CarouselService,
-} from 'projects/carousel/src/public-api';
+import { CarouselService } from 'projects/carousel/src/public-api';
 import { NavbarService } from 'projects/navbar/src/public-api';
 import { setSidenavTitle, setSidenavItems } from 'projects/sidenav/src/lib';
 import { TableService } from 'projects/table/src/public-api';
 
-function fakeCarouselItem(): CarouselItem {
-  return new CarouselItem({
-    id: datatype.number(90000),
-    title: lorem.words(2),
-    backgroundColor: 'rgba(0, 0, 0,0.6)',
-    img: `assets/imgs/cars/1.png`,
-  });
-}
 @Component({
   selector: 'app-doc',
   templateUrl: './doc.component.html',
@@ -32,13 +19,6 @@ export class DocComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.carouselService.addManyToCache([
-      fakeCarouselItem(),
-      fakeCarouselItem(),
-      fakeCarouselItem(),
-      fakeCarouselItem(),
-    ]);
-
     this.tableService.addManyToCache([
       { id: 1, groupId: 1, firstName: 'AHmet', lastName: 'Ermebas' },
       { id: 2, groupId: 1, firstName: 'Mehmet', lastName: 'Ermebas' },
