@@ -8,6 +8,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { EntityDataModule } from '@ngrx/data';
+import { EffectsModule } from '@ngrx/effects';
+import { ChartService, entityConfig } from './chart.service';
 
 @NgModule({
   declarations: [ChartComponent],
@@ -21,7 +24,11 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatFormFieldModule,
     MatInputModule,
     MatTooltipModule,
+
+    EntityDataModule.forRoot(entityConfig),
+    EffectsModule.forFeature([]),
   ],
+  providers: [ChartService],
   exports: [ChartComponent],
 })
 export class ChartModule {}

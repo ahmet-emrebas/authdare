@@ -1,13 +1,10 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { Chart, ChartConfiguration, ChartDataset, ChartType } from 'chart.js';
 
 import * as chartjs$ from 'chart.js/auto';
 import { filter, uniqBy, cloneDeep, max, min } from 'lodash';
 import { BehaviorSubject, Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { SubSink } from 'subsink';
-import { ChartService } from './chart.service';
 
 const ___ = chartjs$.default;
 const defaultConfig: ChartConfiguration = {
@@ -37,48 +34,32 @@ const defaultConfig: ChartConfiguration = {
   styleUrls: ['./chart.component.css'],
 })
 export class ChartComponent implements OnInit, OnDestroy {
-  subsink = new SubSink();
-
-  @Input() id = 100;
-  @Input() chartConfig: ChartConfiguration<any, any, any> = defaultConfig;
-
-  canvasId = 'canvas' + this.id;
+  subs: Subscription[] = [];
+  configuration$ = new BehaviorSubject<ChartConfiguration<any, any, any>>(
+    defaultConfig
+  );
   chartInstance!: Chart;
-  isMedian = false;
-  isMidrange = false;
-  isMean = false;
-
-  constructor(private chartService: ChartService) {}
 
   ngOnInit(): void {
-    setTimeout(() => {
-      try {
-        this.chartInstance.destroy();
-      } catch (err) {
-        // If exist destroy!
+    const s = this.configuration$.subscribe(
+      (config: ChartConfiguration<any>) => {
+        setTimeout(() => {
+          try {
+            this.chartInstance.destroy();
+          } catch (err) {
+            // If exist destroy!
+          }
+          this.chartInstance = new Chart('canvas', config);
+        }, 300);
       }
-
-      this.subsink.sink = this.chartService.entities$
-        .pipe(map((d) => d.find((e) => e.id == this.id)))
-        .subscribe((state) => {
-          this.isMidrange = state?.isMidrange || false;
-          this.isMean = state?.isMean || false;
-          this.isMedian = state?.isMedian || false;
-        });
-      this.chartInstance = new Chart(this.canvasId, this.chartConfig);
-    }, 300);
+    );
+    this.subs.push(s);
   }
 
   ngOnDestroy(): void {
-    this.subsink.unsubscribe();
-
-    this.chartService.upsertOneInCache({
-      id: this.id,
-      isMean: this.isMean,
-      isMedian: this.isMedian,
-      isMidrange: this.isMidrange,
-    });
-
+    for (const s of this.subs) {
+      s.unsubscribe();
+    }
     setTimeout(() => {
       this.chartInstance.destroy();
     });
@@ -89,15 +70,15 @@ export class ChartComponent implements OnInit, OnDestroy {
    * @param config
    */
   updateConfig(config: ChartConfiguration) {
-    this.chartConfig = { ...config };
-    setTimeout(() => {
-      try {
-        this.chartInstance.destroy();
-      } catch (err) {
-        // If exist destroy!
-      }
-      this.chartInstance = new Chart(this.canvasId, this.chartConfig);
-    }, 300);
+    this.configuration$.next(config);
+  }
+
+  /**
+   *
+   * @returns the current configuration of the chart
+   */
+  getConfig() {
+    return this.configuration$.getValue();
   }
 
   /**
@@ -105,7 +86,7 @@ export class ChartComponent implements OnInit, OnDestroy {
    * @param dataset
    */
   addDataset(dataset: ChartDataset) {
-    const currentConfiguration = this.chartConfig;
+    const currentConfiguration = this.configuration$.getValue();
     currentConfiguration.data.datasets.push(dataset);
     this.updateConfig(currentConfiguration);
   }
@@ -115,7 +96,7 @@ export class ChartComponent implements OnInit, OnDestroy {
    * @param {ChartType} ctype
    */
   setType(ctype: ChartType) {
-    const cc = this.chartConfig;
+    const cc = this.getConfig();
     cc.type = ctype;
     this.updateConfig(cc);
   }
@@ -125,11 +106,12 @@ export class ChartComponent implements OnInit, OnDestroy {
    * @param label
    */
   removeByLabel(label: string) {
-    const cv = this.chartConfig;
+    const cv = this.getConfig();
     cv.data.datasets = filter(cv.data.datasets, (e) => e.label != label) as any;
     this.updateConfig(cv);
   }
 
+  isMedian = false;
   /**
    * Display median value of the dataset in the first index.
    * @returns
@@ -143,7 +125,7 @@ export class ChartComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const cv = this.chartConfig;
+    const cv = this.getConfig();
     const nds = cloneDeep(cv.data.datasets[0]);
     nds.label = label;
     const ndsData = nds.data;
@@ -163,7 +145,7 @@ export class ChartComponent implements OnInit, OnDestroy {
 
     this.isMedian = !this.isMedian;
   }
-
+  isMidrange = false;
   /**
    * Display midrange value of the dataset in the first index.
    * @returns
@@ -177,7 +159,7 @@ export class ChartComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const cv = this.chartConfig;
+    const cv = this.getConfig();
     const nds = cloneDeep(cv.data.datasets[0]);
     nds.label = label;
     const ndsData = nds.data as number[];
@@ -195,6 +177,7 @@ export class ChartComponent implements OnInit, OnDestroy {
     this.isMidrange = !this.isMidrange;
   }
 
+  isMean = false;
   /**
    * Display the Mean line of the dataset at the first index.
    */
@@ -207,18 +190,18 @@ export class ChartComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const cv = this.chartConfig;
+    const cv = this.getConfig();
     const nds = cloneDeep(cv.data.datasets[0]);
     nds.label = label;
     nds.data = new Array(nds.data.length).fill(
       nds.data.reduce((p: number, c: number) => p + c) / nds.data.length
     );
-
     nds.borderColor = color;
     nds.backgroundColor = color;
     cv.data.datasets.push(nds);
     cv.data.datasets = uniqBy(cv.data.datasets, 'label');
     this.updateConfig(cv);
+
     this.isMean = !this.isMean;
   }
 }
