@@ -137,7 +137,6 @@ export class CarouselNavigationComponent implements OnInit, OnDestroy {
     this.state.currentIndex = index;
     this.state.partialDistance = 0;
     this.state.strokeDasharray = `0 ${this.distance}`;
-    this.play();
   }
 
   private updateState(state: Partial<CarouselNavigation>) {
