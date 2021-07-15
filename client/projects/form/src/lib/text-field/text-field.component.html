@@ -1,12 +1,16 @@
 <ng-container>
   <mat-form-field [appearance]="appearance || 'standard'">
-    <mat-label>{{ attributes.label }}</mat-label>
+    <mat-label [attr.for]="attributes.formControlName">{{
+      attributes.label
+    }}</mat-label>
     <input
+      [attr.id]="attributes.formControlName"
       matInput
       autocomplete="off"
       [authdareSetAttribute]="attributes"
       [formControl]="attributes.formControl!"
       [errorStateMatcher]="errorStateMatcher"
+      [value]=""
     />
     <authdare-field-status
       matSuffix

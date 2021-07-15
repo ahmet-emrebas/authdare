@@ -53,12 +53,7 @@ import { FormStoreModule } from './form-store.module';
     MatTooltipModule,
     FormStoreModule,
   ],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useClass: DefaultValueAccessor,
-    },
-  ],
+  providers: [],
   exports: [FormComponent],
 })
 export class FormModule {}

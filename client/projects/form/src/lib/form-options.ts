@@ -145,11 +145,15 @@ export function createFormGroup(formOptions: Partial<FormOptions>) {
   formOptions.fieldOptionsList!.forEach((e) => {
     // these are for initiating the render! Without the following setters, Input elements do not render somehow.
     setTimeout(() => {
-      e.formControl?.setValue('.');
+      try {
+        e.formControl?.setValue('.');
+      } catch (err) {}
     });
 
     setTimeout(() => {
-      e.formControl?.setValue('');
+      try {
+        e.formControl?.setValue('');
+      } catch (err) {}
     }, 100);
   });
 }
