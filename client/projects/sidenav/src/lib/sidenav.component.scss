@@ -22,10 +22,9 @@
 .router-link-active::before {
   content: "";
   position: absolute;
-  top: 0px;
   right: 10px;
-  margin-top: 15px;
   width: 20px;
+  height: 20px;
   height: 20px;
 
   border-radius: 100%;
