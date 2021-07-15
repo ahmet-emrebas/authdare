@@ -4,6 +4,48 @@ import {
   EntityCollectionServiceElementsFactory,
 } from '@ngrx/data';
 
+// Validators
+export class FormControlValidators {}
+
+export class FormFieldOptions extends HTMLInputElement {
+  /**
+   * small defination of the field.
+   */
+  hint: string = '';
+
+  /**
+   * Input label
+   */
+  label: string = '';
+
+  /**
+   * Email validation
+   */
+  email?: boolean;
+
+  /**
+   * Each field must have a formcontrolname
+   */
+  formControlName: string = 'not set';
+
+  /**
+   * Options for the select field
+   */
+  options?: string[];
+
+  /**
+   * Define a dependent field that this field does not appeart till the dependent field is valid.
+   */
+  dependents?: string[];
+
+  /**
+   * Order of the field
+   */
+  order?: number;
+}
+
+export class Form {}
+
 export interface FormState {
   formName: string;
   formValue: { [key: string]: any };

@@ -1,6 +1,6 @@
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
-import { cloneDeep, toPairs } from 'lodash';
+import { toPairs } from 'lodash';
 
 export interface HTMLInputElementExtras {
   /**
@@ -145,15 +145,11 @@ export function createFormGroup(formOptions: Partial<FormOptions>) {
   formOptions.fieldOptionsList!.forEach((e) => {
     // these are for initiating the render! Without the following setters, Input elements do not render somehow.
     setTimeout(() => {
-      try {
-        e.formControl?.setValue('.');
-      } catch (err) {}
+      e.formControl?.setValue('.');
     });
 
     setTimeout(() => {
-      try {
-        e.formControl?.setValue('');
-      } catch (err) {}
+      e.formControl?.setValue('');
     }, 100);
   });
 }
