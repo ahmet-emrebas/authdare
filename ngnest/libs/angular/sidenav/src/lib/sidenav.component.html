@@ -1,0 +1,29 @@
+<!-- Creates a layout with a left-positioned sidenav and explicit content. -->
+<mat-sidenav-container class="border border-primary">
+  <!-- Left Sidenav -->
+  <mat-sidenav
+    #leftSidenav
+    [opened]="!(isHandset$ | async)"
+    class="border border-warning"
+    [position]="'start'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+  >
+    <ng-content select="[role='LEFT_SIDENAV']"></ng-content>
+  </mat-sidenav>
+
+  <!-- Right Sidenav -->
+  <mat-sidenav
+    #rightSidenav
+    [opened]="!(isHandset$ | async)"
+    class="border border-warning"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [position]="'end'"
+  >
+    <ng-content select="[role='RIGHT_SIDENAV']"></ng-content>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="border border-danger">
+    <ng-content select="[role='TOOLBAR']"></ng-content>
+    <ng-content select="[role='CONTENT']"></ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>

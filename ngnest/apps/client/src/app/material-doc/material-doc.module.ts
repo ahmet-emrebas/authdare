@@ -6,6 +6,9 @@ import { SidenavModule } from '@authdare/sidenav';
 import { MaterialDocComponent } from './material-doc.component';
 import { GreetingDocComponent } from './greeting-doc/greeting-doc.component';
 import { SidenavDocComponent } from './sidenav-doc/sidenav-doc.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -15,6 +18,9 @@ import { SidenavDocComponent } from './sidenav-doc/sidenav-doc.component';
   ],
   imports: [
     CommonModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule,
     GreetingModule,
     SidenavModule,
     RouterModule.forChild([
