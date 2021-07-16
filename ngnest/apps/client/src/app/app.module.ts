@@ -7,6 +7,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { HelloModule } from '@authdare/hello';
+import { StoreModule } from '@ngrx/store';
+import { EntityDataModule } from '@ngrx/data';
+import { entityConfig } from './entity-metadata';
+import { EffectsModule } from '@ngrx/effects';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent],
@@ -14,6 +19,7 @@ import { HelloModule } from '@authdare/hello';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     HelloModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
@@ -21,6 +27,9 @@ import { HelloModule } from '@authdare/hello';
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000',
     }),
+    StoreModule.forRoot({}, {}),
+    EntityDataModule.forRoot(entityConfig),
+    EffectsModule.forRoot([]),
   ],
   providers: [],
   bootstrap: [AppComponent],
