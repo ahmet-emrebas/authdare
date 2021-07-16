@@ -18,7 +18,10 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "target": "es2017",
-    "paths": {},
+    "paths": {
+      "authdare/utils": ["libs/utils/src"],
+      "authdare/utils/*": ["libs/utils/src/*"]
+    },
     "lib": ["es2018", "dom"]
   },
   "angularCompilerOptions": {

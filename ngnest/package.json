@@ -151,7 +151,9 @@
       "authdare/anotherl/(.*)": "<rootDir>/libs/anotherl/src/$1",
       "authdare/anotherl": "<rootDir>/libs/anotherl/src",
       "authdare/nest/another2/(.*)": "<rootDir>/libs/nest/another2/src/$1",
-      "authdare/nest/another2": "<rootDir>/libs/nest/another2/src"
+      "authdare/nest/another2": "<rootDir>/libs/nest/another2/src",
+      "authdare/utils/(.*)": "<rootDir>/libs/utils/src/$1",
+      "authdare/utils": "<rootDir>/libs/utils/src"
     }
   }
 }
