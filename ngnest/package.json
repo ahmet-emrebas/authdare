@@ -147,7 +147,11 @@
       "@app/samplelib/(.*)": "<rootDir>/libs/samplelib/src/$1",
       "@app/samplelib": "<rootDir>/libs/samplelib/src",
       "authdare/samplelib/(.*)": "<rootDir>/libs/samplelib/src/$1",
-      "authdare/samplelib": "<rootDir>/libs/samplelib/src"
+      "authdare/samplelib": "<rootDir>/libs/samplelib/src",
+      "authdare/anotherl/(.*)": "<rootDir>/libs/anotherl/src/$1",
+      "authdare/anotherl": "<rootDir>/libs/anotherl/src",
+      "authdare/nest/another2/(.*)": "<rootDir>/libs/nest/another2/src/$1",
+      "authdare/nest/another2": "<rootDir>/libs/nest/another2/src"
     }
   }
 }

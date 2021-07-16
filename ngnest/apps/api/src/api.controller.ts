@@ -1,6 +1,5 @@
 import { Controller, Get } from '@nestjs/common';
 import { ApiService } from './api.service';
-import { Hello } from '@authdare/hello';
 
 @Controller()
 export class ApiController {
@@ -9,10 +8,5 @@ export class ApiController {
   @Get()
   getHello(): string {
     return this.apiService.getHello();
-  }
-
-  @Get('hello')
-  anotherHello() {
-    return Hello;
   }
 }
