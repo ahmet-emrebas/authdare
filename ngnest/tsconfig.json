@@ -24,7 +24,9 @@
       "@authdare/navbar": ["libs/angular/navbar/src/lib"],
       "@authdare/navbar/*": ["libs/angular/navbar/src/lib/*"],
       "@authdare/table": ["libs/angular/table/src/lib"],
-      "@authdare/table/*": ["libs/angular/table/src/lib/*"]
+      "@authdare/table/*": ["libs/angular/table/src/lib/*"],
+      "@authdare/carousel": ["libs/angular/carousel/src/lib"],
+      "@authdare/carousel/*": ["libs/angular/carousel/src/lib/*"]
     },
     "lib": ["es2018", "dom"]
   },

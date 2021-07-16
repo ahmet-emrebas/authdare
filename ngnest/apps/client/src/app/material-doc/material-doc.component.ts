@@ -22,5 +22,10 @@ export class MaterialDocComponent {
       label: 'Table',
       icon: 'table',
     },
+    {
+      path: '/material-doc/CarouselComponent',
+      label: 'Carousel',
+      icon: 'live_tv',
+    },
   ];
 }

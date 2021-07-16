@@ -1,0 +1,40 @@
+<div #container class="carousel-container d-flex flex-column">
+  <div class="position-relative d-flex flex-row">
+    <div *ngFor="let cItem of carouselItems" style="min-width: 100%">
+      <img
+        class="carousel-image"
+        [style.backgroundImage]="'url(' + cItem.img + ')'"
+        [style.backgroundColor]="cItem.backgroundColor"
+        [@slideInLeftOnEnter]
+        [@slideOutRightOnLeave]
+        src="assets/imgs/placeholder-1366x768.png"
+      />
+
+      <!-- template variable -->
+      <span #helper [hidden]="true"></span>
+
+      <!-- Text content -->
+      <div class="carousel-text-content">
+        <h1 (click)="helper.hidden = !helper.hidden">{{ cItem.title }}</h1>
+        <p (click)="helper.hidden = !helper.hidden">{{ cItem.summary }}</p>
+
+        <p *ngIf="!helper.hidden" [@bounceInOnEnter] [@bounceOutOnLeave]>
+          {{ cItem.content }}
+        </p>
+
+        <button mat-raised-button color="accent" *ngIf="cItem.actionLabel">
+          {{ cItem.actionLabel }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="carousel-navigation-container">
+  <authdare-carousel-navigation
+    #carouselNavigation
+    [state]="carouselNavigationState"
+    (onChange)="scrollTo($event)"
+  >
+  </authdare-carousel-navigation>
+</div>

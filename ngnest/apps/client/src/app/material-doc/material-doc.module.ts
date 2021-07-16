@@ -11,6 +11,8 @@ import { NavbarModule } from '@authdare/navbar';
 import { NavbarDocComponent } from './navbar-doc/navbar-doc.component';
 import { TableDocComponent } from './table-doc/table-doc.component';
 import { TableModule } from '@authdare/table';
+import { CarouselDocComponent } from './carousel-doc/carousel-doc.component';
+import { CarouselModule } from '@authdare/carousel';
 
 @NgModule({
   declarations: [
@@ -18,6 +20,7 @@ import { TableModule } from '@authdare/table';
     NavbarDocComponent,
     SidenavDocComponent,
     TableDocComponent,
+    CarouselDocComponent,
   ],
   imports: [
     CommonModule,
@@ -27,6 +30,7 @@ import { TableModule } from '@authdare/table';
     SidenavModule,
     NavbarModule,
     TableModule,
+    CarouselModule,
     RouterModule.forChild([
       {
         path: '',
@@ -44,6 +48,10 @@ import { TableModule } from '@authdare/table';
           {
             path: 'TableComponent',
             component: TableDocComponent,
+          },
+          {
+            path: 'CarouselComponent',
+            component: CarouselDocComponent,
           },
         ],
       },

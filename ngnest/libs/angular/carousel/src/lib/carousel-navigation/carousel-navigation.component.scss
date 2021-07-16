@@ -1,0 +1,24 @@
+.authdare-carousel-navigation {
+  position: relative;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  width: 100%;
+}
+.authdare-carousel-navigation-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  user-select: none;
+  cursor: pointer;
+  pointer-events: all;
+}
+
+.authdare-carousel-navigation-item:hover {
+  background-color: rgba(128, 128, 128, 0.455);
+}
+
+.active-index {
+  fill: rgba(128, 128, 128, 0.452);
+}
