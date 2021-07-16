@@ -106,13 +106,13 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="modules/GreetingModule.html" data-type="entity-link" >GreetingModule</a>
                                     <li class="chapter inner">
                                         <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
-                                            'data-target="#components-links-module-GreetingModule-0e1bfd6343213e0d4f4dd7637990d989"' : 'data-target="#xs-components-links-module-GreetingModule-0e1bfd6343213e0d4f4dd7637990d989"' }>
+                                            'data-target="#components-links-module-GreetingModule-5de0987dc59d61790569d03397049a8a"' : 'data-target="#xs-components-links-module-GreetingModule-5de0987dc59d61790569d03397049a8a"' }>
                                             <span class="icon ion-md-cog"></span>
                                             <span>Components</span>
                                             <span class="icon ion-ios-arrow-down"></span>
                                         </div>
-                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-GreetingModule-0e1bfd6343213e0d4f4dd7637990d989"' :
-                                            'id="xs-components-links-module-GreetingModule-0e1bfd6343213e0d4f4dd7637990d989"' }>
+                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-GreetingModule-5de0987dc59d61790569d03397049a8a"' :
+                                            'id="xs-components-links-module-GreetingModule-5de0987dc59d61790569d03397049a8a"' }>
                                             <li class="link">
                                                 <a href="components/GreetingComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" >GreetingComponent</a>
                                             </li>
@@ -123,18 +123,38 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="modules/MaterialDocModule.html" data-type="entity-link" >MaterialDocModule</a>
                                     <li class="chapter inner">
                                         <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
-                                            'data-target="#components-links-module-MaterialDocModule-17e5cbd0913e58df8980a9adb27fbe3b"' : 'data-target="#xs-components-links-module-MaterialDocModule-17e5cbd0913e58df8980a9adb27fbe3b"' }>
+                                            'data-target="#components-links-module-MaterialDocModule-9c1a44d2fc4613e324814fe12efd6d20"' : 'data-target="#xs-components-links-module-MaterialDocModule-9c1a44d2fc4613e324814fe12efd6d20"' }>
                                             <span class="icon ion-md-cog"></span>
                                             <span>Components</span>
                                             <span class="icon ion-ios-arrow-down"></span>
                                         </div>
-                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-MaterialDocModule-17e5cbd0913e58df8980a9adb27fbe3b"' :
-                                            'id="xs-components-links-module-MaterialDocModule-17e5cbd0913e58df8980a9adb27fbe3b"' }>
+                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-MaterialDocModule-9c1a44d2fc4613e324814fe12efd6d20"' :
+                                            'id="xs-components-links-module-MaterialDocModule-9c1a44d2fc4613e324814fe12efd6d20"' }>
                                             <li class="link">
                                                 <a href="components/GreetingDocComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" >GreetingDocComponent</a>
                                             </li>
                                             <li class="link">
                                                 <a href="components/MaterialDocComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" >MaterialDocComponent</a>
+                                            </li>
+                                            <li class="link">
+                                                <a href="components/SidenavDocComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" >SidenavDocComponent</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                            </li>
+                            <li class="link">
+                                <a href="modules/SidenavModule.html" data-type="entity-link" >SidenavModule</a>
+                                    <li class="chapter inner">
+                                        <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
+                                            'data-target="#components-links-module-SidenavModule-58a476da59dc85e27736f5d3ed1aab6b"' : 'data-target="#xs-components-links-module-SidenavModule-58a476da59dc85e27736f5d3ed1aab6b"' }>
+                                            <span class="icon ion-md-cog"></span>
+                                            <span>Components</span>
+                                            <span class="icon ion-ios-arrow-down"></span>
+                                        </div>
+                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-SidenavModule-58a476da59dc85e27736f5d3ed1aab6b"' :
+                                            'id="xs-components-links-module-SidenavModule-58a476da59dc85e27736f5d3ed1aab6b"' }>
+                                            <li class="link">
+                                                <a href="components/SidenavComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" >SidenavComponent</a>
                                             </li>
                                         </ul>
                                     </li>
@@ -167,6 +187,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 </li>
                                 <li class="link">
                                     <a href="injectables/GreetingService.html" data-type="entity-link" >GreetingService</a>
+                                </li>
+                                <li class="link">
+                                    <a href="injectables/SidenavService.html" data-type="entity-link" >SidenavService</a>
                                 </li>
                             </ul>
                         </li>

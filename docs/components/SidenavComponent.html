@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>client documentation</title>
+        <title>ngnest documentation</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -14,7 +14,7 @@
     <body>
 
         <div class="navbar navbar-default navbar-fixed-top visible-xs">
-            <a href="../" class="navbar-brand">client documentation</a>
+            <a href="../" class="navbar-brand">ngnest documentation</a>
             <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
         </div>
 
@@ -49,12 +49,6 @@
             <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
         </li>
         <li >
-            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
-        </li>
-        <li >
-            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
-        </li>
-        <li >
             <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
         </li>
 </ul>
@@ -64,12 +58,18 @@
     <h3>File</h3>
 </p>
 <p class="comment">
-    <code>projects/sidenav/src/lib/sidenav.component.ts</code>
+    <code>libs/angular/sidenav/src/lib/sidenav.component.ts</code>
 </p>
 
 
 
 
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+    </p>
 
 
 <section>
@@ -92,17 +92,16 @@
                 <td class="col-md-9"><code>authdare-sidenav</code></td>
             </tr>
 
-            <tr>
-                <td class="col-md-3">styleUrls</td>
-                <td class="col-md-9"><code>./sidenav.component.scss</code></td>
-            </tr>
-
 
 
             <tr>
-                <td class="col-md-3">templateUrl</td>
-                <td class="col-md-9"><code>./sidenav.component.html</code></td>
+                <td class="col-md-3">template</td>
+                <td class="col-md-9"><pre class="line-numbers"><code class="language-html">&lt;h3&gt;Navigation&lt;/h3&gt;
+&lt;hr /&gt;
+&lt;ng-content&gt;&lt;/ng-content&gt;
+</code></pre></td>
             </tr>
+
 
 
 
@@ -119,24 +118,21 @@
     <h3 id="index">Index</h3>
     <table class="table table-sm table-bordered index-table">
         <tbody>
+
                 <tr>
                     <td class="col-md-4">
-                        <h6><b>Properties</b></h6>
+                        <h6><b>Methods</b></h6>
                     </td>
                 </tr>
                 <tr>
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#isHandset$" >isHandset$</a>
-                            </li>
-                            <li>
-                                <a href="#sidenav$" >sidenav$</a>
+                                <a href="#ngOnInit" >ngOnInit</a>
                             </li>
                         </ul>
                     </td>
                 </tr>
-
 
 
 
@@ -152,57 +148,15 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(breakpointObserver: BreakpointObserver, store: Store<literal type>)</code>
+<code>constructor()</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">projects/sidenav/src/lib/sidenav.component.ts:27</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">libs/angular/sidenav/src/lib/sidenav.component.ts:12</a></div>
                             </td>
                         </tr>
 
-                <tr>
-                    <td class="col-md-4">
-                            <div>
-                                    <b>Parameters :</b>
-                                    <table class="params">
-                                        <thead>
-                                            <tr>
-                                                <td>Name</td>
-                                                    <td>Type</td>
-                                                <td>Optional</td>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                                <tr>
-                                                        <td>breakpointObserver</td>
-                                                  
-                                                        <td>
-                                                                    <code>BreakpointObserver</code>
-                                                        </td>
-                                                  
-                                                    <td>
-                                                            No
-                                                    </td>
-                                                    
-                                                </tr>
-                                                <tr>
-                                                        <td>store</td>
-                                                  
-                                                        <td>
-                                                                    <code>Store&lt;literal type&gt;</code>
-                                                        </td>
-                                                  
-                                                    <td>
-                                                            No
-                                                    </td>
-                                                    
-                                                </tr>
-                                        </tbody>
-                                    </table>
-                            </div>
-                    </td>
-                </tr>
             </tbody>
         </table>
 </section>
@@ -211,71 +165,46 @@
 
 
 
-
     <section>
     
-    <h3 id="inputs">
-        Properties
+    <h3 id="methods">
+        Methods
     </h3>
     <table class="table table-sm table-bordered">
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="isHandset$"></a>
+                    <a name="ngOnInit"></a>
                     <span class="name">
-                        <span ><b>isHandset$</b></span>
-                        <a href="#isHandset$"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Type : </i>    <code>Observable&lt;boolean&gt;</code>
-
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Default value : </i><code>this.breakpointObserver
-    .observe(Breakpoints.Handset)
-    .pipe(
-      map((result) &#x3D;&gt; result.matches),
-      shareReplay()
-    )</code>
-                    </td>
-                </tr>
-                    <tr>
-                        <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">projects/sidenav/src/lib/sidenav.component.ts:22</a></div>
-                        </td>
-                    </tr>
-
-
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="sidenav$"></a>
-                    <span class="name">
-                        <span ><b>sidenav$</b></span>
-                        <a href="#sidenav$"><span class="icon ion-ios-link"></span></a>
-                    </span>
+<code>ngOnInit()</code>
                 </td>
             </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Default value : </i><code>this.store.pipe(map((d) &#x3D;&gt; d.sidenav))</code>
-                    </td>
-                </tr>
-                    <tr>
-                        <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">projects/sidenav/src/lib/sidenav.component.ts:20</a></div>
-                        </td>
-                    </tr>
 
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="15"
+                            class="link-to-prism">libs/angular/sidenav/src/lib/sidenav.component.ts:15</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
         </tbody>
     </table>
 </section>
@@ -284,164 +213,26 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, Input } from &#x27;@angular/core&#x27;;
-import { BreakpointObserver, Breakpoints } from &#x27;@angular/cdk/layout&#x27;;
-import { Observable } from &#x27;rxjs&#x27;;
-import { map, shareReplay } from &#x27;rxjs/operators&#x27;;
-import { Store } from &#x27;@ngrx/store&#x27;;
-import { SidenavStoreState } from &#x27;./sidenav.actions&#x27;;
-
-export type SidenavListItem &#x3D; {
-  icon: string;
-  path: string;
-  label: string;
-};
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
 
 @Component({
   selector: &#x27;authdare-sidenav&#x27;,
-  templateUrl: &#x27;./sidenav.component.html&#x27;,
-  styleUrls: [&#x27;./sidenav.component.scss&#x27;],
+  template: &#x60;
+    &lt;h3&gt;Navigation&lt;/h3&gt;
+    &lt;hr /&gt;
+    &lt;ng-content&gt;&lt;/ng-content&gt;
+  &#x60;,
+  styles: [],
 })
-export class SidenavComponent {
-  sidenav$ &#x3D; this.store.pipe(map((d) &#x3D;&gt; d.sidenav));
+export class SidenavComponent implements OnInit {
+  constructor() {}
 
-  isHandset$: Observable&lt;boolean&gt; &#x3D; this.breakpointObserver
-    .observe(Breakpoints.Handset)
-    .pipe(
-      map((result) &#x3D;&gt; result.matches),
-      shareReplay()
-    );
-
-  constructor(
-    private breakpointObserver: BreakpointObserver,
-    private store: Store&lt;{ sidenav: SidenavStoreState }&gt;
-  ) {}
+  ngOnInit(): void {}
 }
 </code></pre>
     </div>
 
-    <div class="tab-pane fade " id="c-templateData">
-        <pre class="line-numbers"><code class="language-html">&lt;ng-container *ngIf&#x3D;&quot;sidenav$ | async as sidenav&quot;&gt;
-  &lt;mat-sidenav-container class&#x3D;&quot;sidenav-container&quot;&gt;
-    &lt;mat-sidenav
-      #drawer
-      class&#x3D;&quot;sidenav&quot;
-      fixedInViewport
-      [attr.role]&#x3D;&quot;(isHandset$ | async) ? &#x27;dialog&#x27; : &#x27;navigation&#x27;&quot;
-      [mode]&#x3D;&quot;(isHandset$ | async) ? &#x27;over&#x27; : &#x27;side&#x27;&quot;
-      [opened]&#x3D;&quot;(isHandset$ | async) &#x3D;&#x3D;&#x3D; false&quot;
-    &gt;
-      &lt;!-- Application Logo --&gt;
-      &lt;ng-content select&#x3D;&quot;[LOGO]&quot;&gt;&lt;/ng-content&gt;
 
-      &lt;!-- Navigation Items --&gt;
-      &lt;mat-nav-list&gt;
-        &lt;!-- Navigation Item --&gt;
-
-        &lt;ng-container *ngFor&#x3D;&quot;let i of sidenav.sidenavItems&quot;&gt;
-          &lt;a mat-list-item [routerLink]&#x3D;&quot;[i.path]&quot;&gt;
-            &lt;!-- Navigation Item Logo  --&gt;
-            &lt;mat-icon mat-list-icon color&#x3D;&quot;primary&quot; matPrefix&gt;
-              {{ i.icon }}
-            &lt;/mat-icon&gt;
-            &lt;!-- Navigation Item Label --&gt;
-            &lt;span matLine routerLinkActive&#x3D;&quot;router-link-active&quot;&gt;
-              {{ i.label }}
-            &lt;/span&gt;
-          &lt;/a&gt;
-        &lt;/ng-container&gt;
-      &lt;/mat-nav-list&gt;
-    &lt;/mat-sidenav&gt;
-    &lt;mat-sidenav-content&gt;
-      &lt;mat-toolbar color&#x3D;&quot;primary&quot;&gt;
-        &lt;button
-          type&#x3D;&quot;button&quot;
-          aria-label&#x3D;&quot;Toggle sidenav&quot;
-          mat-icon-button
-          (click)&#x3D;&quot;drawer.toggle()&quot;
-          *ngIf&#x3D;&quot;isHandset$ | async&quot;
-        &gt;
-          &lt;mat-icon aria-label&#x3D;&quot;Side nav toggle icon&quot;&gt;menu&lt;/mat-icon&gt;
-        &lt;/button&gt;
-        &lt;span&gt;{{ sidenav.sidenavTitle }}&lt;/span&gt;
-      &lt;/mat-toolbar&gt;
-
-      &lt;!-- Main Content  --&gt;
-      &lt;div class&#x3D;&quot;realtive-container&quot;&gt;
-        &lt;ng-content select&#x3D;&quot;[MAIN]&quot;&gt;&lt;/ng-content&gt;
-      &lt;/div&gt;
-    &lt;/mat-sidenav-content&gt;
-  &lt;/mat-sidenav-container&gt;
-&lt;/ng-container&gt;
-</code></pre>
-    </div>
-
-    <div class="tab-pane fade " id="c-styleData">
-                <p class="comment">
-                    <code>./sidenav.component.scss</code>
-                </p>
-                <pre class="line-numbers"><code class="language-scss">.sidenav-container {
-  height: 100%;
-}
-
-.sidenav {
-  width: 200px;
-}
-
-.sidenav .mat-toolbar {
-  background: inherit;
-}
-
-.mat-toolbar.mat-primary {
-  position: sticky;
-  top: 0;
-  z-index: 1;
-}
-
-.router-link-active::before {
-  content: &quot;&quot;;
-  position: absolute;
-  height: 90%;
-  width: 100%;
-  bottom: 0px;
-  left: 0px;
-  border-top: 3px solid royalblue;
-  border-bottom: 3px solid royalblue;
-  background-color: rgba(143, 169, 248, 0.219);
-  bottom: 0px;
-  color: transparent;
-  user-select: none;
-  animation-name: left-border;
-  animation-duration: 400ms;
-  animation-timing-function: ease-in-out;
-  animation-iteration-count: 1;
-}
-
-@keyframes left-border {
-  from {
-    width: 0%;
-    height: 0%;
-    left: 50%;
-    bottom: 50%;
-    background-color: rgba(65, 105, 225, 0);
-  }
-  to {
-    width: 100%;
-    height: 90%;
-    left: 0%;
-    bottom: 0%;
-    background-color: rgba(143, 169, 248, 0.219);
-  }
-}
-
-.realtive-container {
-  position: relative;
-  height: 100%;
-  overflow-x: hidden;
-  width: 100%;
-}
-</code></pre>
-    </div>
 
     <div class="tab-pane fade " id="c-tree">
         <div id="tree-container"></div>
@@ -468,9 +259,9 @@ export class SidenavComponent {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><ng-container *ngIf="sidenav$ | async as sidenav">  <mat-sidenav-container class="sidenav-container">    <mat-sidenav      #drawer      class="sidenav"      fixedInViewport      [attr.role]="(isHandset$ | async) ? \'dialog\' : \'navigation\'"      [mode]="(isHandset$ | async) ? \'over\' : \'side\'"      [opened]="(isHandset$ | async) === false"    >      <!-- Application Logo -->      <ng-content select="[LOGO]"></ng-content>      <!-- Navigation Items -->      <mat-nav-list>        <!-- Navigation Item -->        <ng-container *ngFor="let i of sidenav.sidenavItems">          <a mat-list-item [routerLink]="[i.path]">            <!-- Navigation Item Logo  -->            <mat-icon mat-list-icon color="primary" matPrefix>              {{ i.icon }}            </mat-icon>            <!-- Navigation Item Label -->            <span matLine routerLinkActive="router-link-active">              {{ i.label }}            </span>          </a>        </ng-container>      </mat-nav-list>    </mat-sidenav>    <mat-sidenav-content>      <mat-toolbar color="primary">        <button          type="button"          aria-label="Toggle sidenav"          mat-icon-button          (click)="drawer.toggle()"          *ngIf="isHandset$ | async"        >          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>        </button>        <span>{{ sidenav.sidenavTitle }}</span>      </mat-toolbar>      <!-- Main Content  -->      <div class="realtive-container">        <ng-content select="[MAIN]"></ng-content>      </div>    </mat-sidenav-content>  </mat-sidenav-container></ng-container></div>'
-    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AuthdareMaterialComponent', 'selector': 'authdare-material'},{'name': 'ChartComponent', 'selector': 'authdare-chart'},{'name': 'DateFieldComponent', 'selector': 'authdare-date-field'},{'name': 'DocComponent', 'selector': 'app-doc'},{'name': 'FieldStatusComponent', 'selector': 'authdare-field-status'},{'name': 'FormComponent', 'selector': 'authdare-form'},{'name': 'FormFieldComponent', 'selector': 'authdare-form-field'},{'name': 'NavbarComponent', 'selector': 'lib-navbar'},{'name': 'SelectFieldComponent', 'selector': 'authdare-select-field'},{'name': 'SidenavComponent', 'selector': 'authdare-sidenav'},{'name': 'TextFieldComponent', 'selector': 'authdare-text-field'}];
-    var DIRECTIVES = [{'name': 'SetAttributeDirective', 'selector': '[authdareSetAttribute]'}];
+        var COMPONENT_TEMPLATE = '<div><h3>Navigation</h3><hr /><ng-content></ng-content></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'GreetingComponent', 'selector': 'authdare-greeting'},{'name': 'GreetingDocComponent', 'selector': ''},{'name': 'MaterialDocComponent', 'selector': ''},{'name': 'SidenavComponent', 'selector': 'authdare-sidenav'},{'name': 'SidenavDocComponent', 'selector': 'app-sidenav-doc'}];
+    var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'SidenavComponent'};
 </script>
 <script src="../js/tree.js"></script>

@@ -38,7 +38,7 @@
   <li>Components</li>
   <li
   >
-  GreetingDocComponent</li>
+  SidenavDocComponent</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -47,6 +47,9 @@
         </li>
         <li >
             <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
         </li>
         <li >
             <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
@@ -58,7 +61,7 @@
     <h3>File</h3>
 </p>
 <p class="comment">
-    <code>apps/client/src/app/material-doc/greeting-doc/greeting-doc.component.ts</code>
+    <code>apps/client/src/app/material-doc/sidenav-doc/sidenav-doc.component.ts</code>
 </p>
 
 
@@ -81,14 +84,18 @@
 
 
 
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-sidenav-doc</code></td>
+            </tr>
+
 
 
 
             <tr>
-                <td class="col-md-3">template</td>
-                <td class="col-md-9"><pre class="line-numbers"><code class="language-html">&lt;authdare-greeting username&#x3D;&quot;Ahmet Emrebas&quot;&gt;&lt;/authdare-greeting&gt;</code></pre></td>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./sidenav-doc.component.html</code></td>
             </tr>
-
 
 
 
@@ -116,12 +123,17 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component } from &#x27;@angular/core&#x27;;
 
 @Component({
-  template: &#x27;&lt;authdare-greeting username&#x3D;&quot;Ahmet Emrebas&quot;&gt;&lt;/authdare-greeting&gt;&#x27;,
+  selector: &#x27;app-sidenav-doc&#x27;,
+  templateUrl: &#x27;./sidenav-doc.component.html&#x27;,
 })
-export class GreetingDocComponent {}
+export class SidenavDocComponent {}
 </code></pre>
     </div>
 
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;authdare-sidenav&gt;&lt;/authdare-sidenav&gt;
+</code></pre>
+    </div>
 
 
     <div class="tab-pane fade " id="c-tree">
@@ -149,10 +161,10 @@ export class GreetingDocComponent {}
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><authdare-greeting username="Ahmet Emrebas"></authdare-greeting></div>'
+        var COMPONENT_TEMPLATE = '<div><authdare-sidenav></authdare-sidenav></div>'
     var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'GreetingComponent', 'selector': 'authdare-greeting'},{'name': 'GreetingDocComponent', 'selector': ''},{'name': 'MaterialDocComponent', 'selector': ''},{'name': 'SidenavComponent', 'selector': 'authdare-sidenav'},{'name': 'SidenavDocComponent', 'selector': 'app-sidenav-doc'}];
     var DIRECTIVES = [];
-    var ACTUAL_COMPONENT = {'name': 'GreetingDocComponent'};
+    var ACTUAL_COMPONENT = {'name': 'SidenavDocComponent'};
 </script>
 <script src="../js/tree.js"></script>
 
@@ -187,7 +199,7 @@ export class GreetingDocComponent {}
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
-            var COMPODOC_CURRENT_PAGE_URL = 'GreetingDocComponent.html';
+            var COMPODOC_CURRENT_PAGE_URL = 'SidenavDocComponent.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 
