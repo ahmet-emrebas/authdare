@@ -8,10 +8,17 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { NavbarModule } from '@authdare/navbar';
+import { TableModule } from '@authdare/table';
 import { NavbarDocComponent } from './navbar-doc/navbar-doc.component';
+import { TableDocComponent } from './table-doc/table-doc.component';
 
 @NgModule({
-  declarations: [MaterialDocComponent, NavbarDocComponent, SidenavDocComponent],
+  declarations: [
+    MaterialDocComponent,
+    NavbarDocComponent,
+    SidenavDocComponent,
+    TableDocComponent,
+  ],
   imports: [
     CommonModule,
     MatToolbarModule,
@@ -19,6 +26,7 @@ import { NavbarDocComponent } from './navbar-doc/navbar-doc.component';
     MatIconModule,
     SidenavModule,
     NavbarModule,
+    TableModule,
     RouterModule.forChild([
       {
         path: '',
@@ -32,6 +40,10 @@ import { NavbarDocComponent } from './navbar-doc/navbar-doc.component';
           {
             path: 'NavbarComponent',
             component: NavbarDocComponent,
+          },
+          {
+            path: 'TableComponent',
+            component: TableDocComponent,
           },
         ],
       },

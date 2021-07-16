@@ -1,0 +1,69 @@
+.down {
+  position: absolute;
+  left: 0px;
+  top: 50px;
+  z-index: 10;
+}
+
+.down button {
+  margin-top: 1px;
+}
+.up {
+  position: absolute;
+  bottom: 100%;
+  z-index: 10;
+}
+
+.up button {
+  margin-bottom: 1px;
+}
+
+.right {
+  display: flex;
+  position: absolute;
+  flex-direction: row;
+  top: 0px;
+  left: 50px;
+}
+.right button {
+  margin-left: 2px;
+}
+
+.left {
+  display: flex;
+  position: absolute;
+  flex-direction: row;
+  top: 0px;
+  right: 50px;
+}
+
+.left button {
+  margin-left: 2px;
+}
+
+.menu-item {
+  z-index: 20;
+  // animation-name: menuItemIn;
+  // animation-timing-function: ease-in-out;
+  // animation-iteration-count: 1;
+}
+
+@keyframes menuItemIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.overlay {
+  z-index: 10;
+  width: 200%;
+  height: 100%;
+  left: 0px;
+  top: 0px;
+  position: fixed;
+  background-color: rgba(128, 128, 128, 0.452);
+}

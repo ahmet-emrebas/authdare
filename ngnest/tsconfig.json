@@ -22,7 +22,9 @@
       "@authdare/sidenav": ["libs/angular/sidenav/src/lib"],
       "@authdare/sidenav/*": ["libs/angular/sidenav/src/lib/*"],
       "@authdare/navbar": ["libs/angular/navbar/src/lib"],
-      "@authdare/navbar/*": ["libs/angular/navbar/src/lib/*"]
+      "@authdare/navbar/*": ["libs/angular/navbar/src/lib/*"],
+      "@authdare/table": ["libs/angular/table/src/lib"],
+      "@authdare/table/*": ["libs/angular/table/src/lib/*"]
     },
     "lib": ["es2018", "dom"]
   },

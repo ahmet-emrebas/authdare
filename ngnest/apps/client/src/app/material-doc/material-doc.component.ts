@@ -16,5 +16,11 @@ export class MaterialDocComponent {
       label: 'Navbar',
       icon: 'menu',
     },
+
+    {
+      path: '/material-doc/TableComponent',
+      label: 'Table',
+      icon: 'table',
+    },
   ];
 }
