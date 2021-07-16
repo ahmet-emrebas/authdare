@@ -198,6 +198,37 @@
           }
         }
       }
+    },
+    "sidenav": {
+      "projectType": "library",
+      "root": "libs/angular/sidenav",
+      "sourceRoot": "libs/angular/sidenav/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "libs/angular/sidenav/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/angular/sidenav/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "libs/angular/sidenav/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "libs/angular/sidenav/src/test.ts",
+            "tsConfig": "libs/angular/sidenav/tsconfig.spec.json",
+            "karmaConfig": "libs/angular/sidenav/karma.conf.js"
+          }
+        }
+      }
     }
   },
   "defaultProject": "client"

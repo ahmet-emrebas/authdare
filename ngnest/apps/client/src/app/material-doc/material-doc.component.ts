@@ -1,12 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-material-doc',
-  templateUrl: './material-doc.component.html',
-  styleUrls: ['./material-doc.component.scss'],
+  template: `
+    <authdare-sidenav>
+      <router-outlet></router-outlet>
+    </authdare-sidenav>
+  `,
 })
-export class MaterialDocComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit(): void {}
-}
+export class MaterialDocComponent {}
