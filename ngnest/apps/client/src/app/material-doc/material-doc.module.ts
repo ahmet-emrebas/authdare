@@ -8,9 +8,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { NavbarModule } from '@authdare/navbar';
-import { TableModule } from '@authdare/table';
 import { NavbarDocComponent } from './navbar-doc/navbar-doc.component';
 import { TableDocComponent } from './table-doc/table-doc.component';
+import { TableModule } from '@authdare/table';
 
 @NgModule({
   declarations: [

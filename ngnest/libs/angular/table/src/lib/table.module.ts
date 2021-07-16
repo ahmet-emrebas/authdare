@@ -10,6 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MenuComponent } from './menu/menu.component';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [TableComponent, ColumnNamePipe, MenuComponent],
@@ -22,8 +23,9 @@ import { MenuComponent } from './menu/menu.component';
     MatIconModule,
     MatInputModule,
     MatFormFieldModule,
+    MatMenuModule,
   ],
 
-  exports: [TableComponent, MenuComponent],
+  exports: [TableComponent, ColumnNamePipe, MenuComponent],
 })
 export class TableModule {}

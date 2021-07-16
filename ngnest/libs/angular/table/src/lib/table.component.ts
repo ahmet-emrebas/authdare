@@ -19,7 +19,7 @@ export interface TableItem {
 }
 
 @Component({
-  selector: 'lib-table',
+  selector: 'authdare-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css'],
 })
@@ -29,6 +29,7 @@ export class TableComponent implements AfterViewInit, OnDestroy {
   @ViewChild(MatTable) table!: MatTable<TableItem>;
 
   @Input() tableData: { [key: string]: any }[] = [];
+
   @Output() onRowClick = new EventEmitter<number>();
 
   menuItems: MenuItem[] = [
