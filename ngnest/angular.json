@@ -167,6 +167,37 @@
           }
         }
       }
+    },
+    "greeting": {
+      "projectType": "library",
+      "root": "libs/angular/greeting",
+      "sourceRoot": "libs/angular/greeting/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "libs/angular/greeting/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/angular/greeting/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "libs/angular/greeting/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "libs/angular/greeting/src/test.ts",
+            "tsConfig": "libs/angular/greeting/tsconfig.spec.json",
+            "karmaConfig": "libs/angular/greeting/karma.conf.js"
+          }
+        }
+      }
     }
   },
   "defaultProject": "client"

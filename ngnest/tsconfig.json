@@ -18,7 +18,10 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "target": "es2017",
-    "paths": {},
+    "paths": {
+      "@authdare/greeting": ["libs/angular/greeting/src/lib"],
+      "@authdare/greeting/*": ["libs/angular/greeting/src/lib/*"]
+    },
     "lib": ["es2018", "dom"]
   },
   "angularCompilerOptions": {
