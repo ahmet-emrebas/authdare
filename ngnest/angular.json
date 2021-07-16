@@ -106,39 +106,6 @@
         }
       }
     },
-
-    "greeting": {
-      "projectType": "library",
-      "root": "libs/angular/greeting",
-      "sourceRoot": "libs/angular/greeting/src",
-      "prefix": "authdare",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "project": "libs/angular/greeting/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "libs/angular/greeting/tsconfig.lib.prod.json"
-            },
-
-            "development": {
-              "tsConfig": "libs/angular/greeting/tsconfig.lib.json"
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "libs/angular/greeting/src/test.ts",
-            "tsConfig": "libs/angular/greeting/tsconfig.spec.json",
-            "karmaConfig": "libs/angular/greeting/karma.conf.js"
-          }
-        }
-      }
-    },
     "sidenav": {
       "projectType": "library",
       "root": "libs/angular/sidenav",
@@ -166,6 +133,37 @@
             "main": "libs/angular/sidenav/src/test.ts",
             "tsConfig": "libs/angular/sidenav/tsconfig.spec.json",
             "karmaConfig": "libs/angular/sidenav/karma.conf.js"
+          }
+        }
+      }
+    },
+    "navbar": {
+      "projectType": "library",
+      "root": "libs/angular/navbar",
+      "sourceRoot": "libs/angular/navbar/src",
+      "prefix": "authdare",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "libs/angular/navbar/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/angular/navbar/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "libs/angular/navbar/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "libs/angular/navbar/src/test.ts",
+            "tsConfig": "libs/angular/navbar/tsconfig.spec.json",
+            "karmaConfig": "libs/angular/navbar/karma.conf.js"
           }
         }
       }

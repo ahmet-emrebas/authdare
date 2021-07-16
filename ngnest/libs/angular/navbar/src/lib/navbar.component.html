@@ -1,0 +1,23 @@
+<mat-toolbar>
+  <div>
+    <button
+      mat-fab
+      aria-label="Application main menu"
+      (click)="isMenuOpen = !isMenuOpen"
+      style="box-shadow: none"
+    >
+      <mat-icon>menu</mat-icon>
+    </button>
+    <div class="menu" role="menu">
+      <authdare-navbar-item
+        *ngFor="let navbarItem of navbarItems; let indexOfElement = index"
+        [index]="indexOfElement"
+        [@fadeOutOnLeave]
+        [navbarItem]="navbarItem"
+        [isVisible]="isMenuOpen"
+        (click)="isMenuOpen = false"
+      >
+      </authdare-navbar-item>
+    </div>
+  </div>
+</mat-toolbar>

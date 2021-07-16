@@ -1,0 +1,18 @@
+.mat-toolbar-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.menu {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+}
+
+.mat-toolbar {
+  background-color: transparent;
+  border-radius: 10px;
+  height: 100px;
+  overflow: visible;
+}

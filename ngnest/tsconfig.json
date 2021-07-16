@@ -19,11 +19,10 @@
     "importHelpers": true,
     "target": "es2017",
     "paths": {
-      "@authdare/greeting": ["libs/angular/greeting/src/lib"],
-      "@authdare/greeting/*": ["libs/angular/greeting/src/lib/*"],
-
       "@authdare/sidenav": ["libs/angular/sidenav/src/lib"],
-      "@authdare/sidenav/*": ["libs/angular/sidenav/src/lib/*"]
+      "@authdare/sidenav/*": ["libs/angular/sidenav/src/lib/*"],
+      "@authdare/navbar": ["libs/angular/navbar/src/lib"],
+      "@authdare/navbar/*": ["libs/angular/navbar/src/lib/*"]
     },
     "lib": ["es2018", "dom"]
   },

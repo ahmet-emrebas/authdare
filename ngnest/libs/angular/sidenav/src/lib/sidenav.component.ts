@@ -1,39 +1,37 @@
+import { Component, Input, ViewChild } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatSidenav } from '@angular/material/sidenav';
-import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map, shareReplay } from 'rxjs/operators';
+import { MatDrawer } from '@angular/material/sidenav';
 
-export enum SidenavPositions {
-  /**
-   * Left sidenav container, Ex: <tag LEFT_SIDENAV></tag>
-   */
-  LEFT_SIDENAV = 'LEFT_SIDENAV',
-  /**
-   * Right sidenav container, Ex: <tag RIGHT_SIDENAV></tag>
-   */
-  RIGHT_SIDENAV = 'RIGHT_SIDENAV',
-  /**
-   * Content container, Ex: <tag CONTENT></tag>
-   */
-  CONTENT = 'CONTENT',
-}
+export type SidenavItem = {
+  icon: string;
+  path: string;
+  label: string;
+};
 
 @Component({
   selector: 'authdare-sidenav',
   templateUrl: './sidenav.component.html',
-  styles: [],
+  styleUrls: ['./sidenav.component.scss'],
 })
-export class SidenavComponent implements OnInit {
-  isHandset$ = this.breakPointObserver
-    .observe([Breakpoints.Handset])
-    .pipe(map((e) => e.matches));
+export class SidenavComponent {
+  @Input() debug = false;
+  @ViewChild('drawer') drawer!: MatDrawer;
+  @Input() sidenavItems!: SidenavItem[];
+  @Input() sidenavTitle = '';
 
-  @ViewChild('leftSidenav') leftSidenav!: MatSidenav;
-  @ViewChild('rightSidenav') rightSidenav!: MatSidenav;
+  isHandset$: Observable<boolean> = this.breakpointObserver
+    .observe(Breakpoints.Handset)
+    .pipe(
+      map((result) => result.matches),
+      shareReplay(),
+    );
 
-  constructor(private breakPointObserver: BreakpointObserver) {}
+  constructor(private breakpointObserver: BreakpointObserver) {}
 
-  ngOnInit(): void {
-    this.isHandset$.subscribe(console.log);
+  async toggleIfHandset() {
+    if (await this.isHandset$.toPromise()) this.drawer.toggle();
+    return;
   }
 }

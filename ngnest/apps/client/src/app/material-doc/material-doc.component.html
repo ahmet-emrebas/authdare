@@ -1,27 +1,3 @@
-<authdare-sidenav #sidenav>
-  <mat-toolbar role="TOOLBAR" color="primary">
-    <mat-toolbar-row>
-      <button mat-icon-button (click)="sidenav.leftSidenav.toggle()">
-        <mat-icon>menu</mat-icon>
-      </button>
-      <button mat-icon-button (click)="sidenav.rightSidenav.toggle()">
-        <mat-icon>widgets</mat-icon>
-      </button>
-    </mat-toolbar-row>
-  </mat-toolbar>
-  <h1
-    role="LEFT_SIDENAV"
-    i18n="Sample Header |sample description for Left@@sampleHeader"
-  >
-    Hello, {{ 'clientName' }}
-  </h1>
-  <div
-    role="RIGHT_SIDENAV"
-    i18n="Sample Div | sample description for Right@@sampleDiv"
-  >
-    Right Menu
-  </div>
-
-  <div role="CONTENT">Content</div>
-  <router-outlet role="CONTENT"></router-outlet>
+<authdare-sidenav [sidenavItems]="sidenavItems" [sidenavTitle]="'Title'">
+  <router-outlet MAIN></router-outlet>
 </authdare-sidenav>
