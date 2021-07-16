@@ -3,9 +3,10 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { GreetingModule, GreetingComponent } from '@authdare/greeting';
 import { MaterialDocComponent } from './material-doc.component';
+import { GreetingDocComponent } from './greeting-doc/greeting-doc.component';
 
 @NgModule({
-  declarations: [MaterialDocComponent],
+  declarations: [MaterialDocComponent, GreetingDocComponent],
   imports: [
     CommonModule,
     GreetingModule,
