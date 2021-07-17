@@ -27,5 +27,11 @@ export class MaterialDocComponent {
       label: 'Carousel',
       icon: 'live_tv',
     },
+
+    {
+      path: '/material-doc/FormComponent',
+      label: 'Form',
+      icon: 'input',
+    },
   ];
 }

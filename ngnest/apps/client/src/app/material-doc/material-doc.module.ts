@@ -13,6 +13,8 @@ import { TableDocComponent } from './table-doc/table-doc.component';
 import { TableModule } from '@authdare/table';
 import { CarouselDocComponent } from './carousel-doc/carousel-doc.component';
 import { CarouselModule } from '@authdare/carousel';
+import { FormModule } from '@authdare/form';
+import { FormDocComponent } from './form-doc/form-doc.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,7 @@ import { CarouselModule } from '@authdare/carousel';
     SidenavDocComponent,
     TableDocComponent,
     CarouselDocComponent,
+    FormDocComponent,
   ],
   imports: [
     CommonModule,
@@ -31,6 +34,7 @@ import { CarouselModule } from '@authdare/carousel';
     NavbarModule,
     TableModule,
     CarouselModule,
+    FormModule,
     RouterModule.forChild([
       {
         path: '',
@@ -52,6 +56,10 @@ import { CarouselModule } from '@authdare/carousel';
           {
             path: 'CarouselComponent',
             component: CarouselDocComponent,
+          },
+          {
+            path: 'FormComponent',
+            component: FormDocComponent,
           },
         ],
       },

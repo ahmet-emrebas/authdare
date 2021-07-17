@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CarouselDocComponent } from './carousel-doc.component';
+import { TextFieldComponent } from './text-field.component';
 
-describe('CarouselDocComponent', () => {
-  let component: CarouselDocComponent;
-  let fixture: ComponentFixture<CarouselDocComponent>;
+describe('TextFieldComponent', () => {
+  let component: TextFieldComponent;
+  let fixture: ComponentFixture<TextFieldComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CarouselDocComponent],
+      declarations: [TextFieldComponent],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CarouselDocComponent);
+    fixture = TestBed.createComponent(TextFieldComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

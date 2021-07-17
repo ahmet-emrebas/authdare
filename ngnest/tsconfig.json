@@ -26,7 +26,9 @@
       "@authdare/table": ["libs/angular/table/src/lib"],
       "@authdare/table/*": ["libs/angular/table/src/lib/*"],
       "@authdare/carousel": ["libs/angular/carousel/src/lib"],
-      "@authdare/carousel/*": ["libs/angular/carousel/src/lib/*"]
+      "@authdare/carousel/*": ["libs/angular/carousel/src/lib/*"],
+      "@authdare/form": ["libs/angular/form/src/lib"],
+      "@authdare/form/*": ["libs/angular/form/src/lib/*"]
     },
     "lib": ["es2018", "dom"]
   },

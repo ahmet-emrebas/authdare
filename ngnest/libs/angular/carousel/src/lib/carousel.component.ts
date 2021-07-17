@@ -21,7 +21,6 @@ import {
   CarouselNavigation,
   CarouselNavigationComponent,
 } from './carousel-navigation/carousel-navigation.component';
-import { CarouselService } from './carousel.service';
 
 export class CarouselItem {
   public title = '';

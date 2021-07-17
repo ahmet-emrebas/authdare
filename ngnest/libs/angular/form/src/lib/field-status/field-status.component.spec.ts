@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CarouselDocComponent } from './carousel-doc.component';
+import { FieldStatusComponent } from './field-status.component';
 
-describe('CarouselDocComponent', () => {
-  let component: CarouselDocComponent;
-  let fixture: ComponentFixture<CarouselDocComponent>;
+describe('FieldStatusComponent', () => {
+  let component: FieldStatusComponent;
+  let fixture: ComponentFixture<FieldStatusComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CarouselDocComponent],
+      declarations: [FieldStatusComponent],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CarouselDocComponent);
+    fixture = TestBed.createComponent(FieldStatusComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CarouselDocComponent } from './carousel-doc.component';
+import { FormFieldComponent } from './form-field.component';
 
-describe('CarouselDocComponent', () => {
-  let component: CarouselDocComponent;
-  let fixture: ComponentFixture<CarouselDocComponent>;
+describe('FormFieldComponent', () => {
+  let component: FormFieldComponent;
+  let fixture: ComponentFixture<FormFieldComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CarouselDocComponent],
+      declarations: [FormFieldComponent],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CarouselDocComponent);
+    fixture = TestBed.createComponent(FormFieldComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
