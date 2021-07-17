@@ -35,7 +35,9 @@ td:first-child {
 .typing-stat {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  flex-wrap: wrap;
   border: 3px solid $bordercolor;
   border-radius: 10px;
   padding: 10px;
@@ -57,4 +59,10 @@ td:first-child {
 
 .wrong {
   background-color: rgba(243, 55, 55, 0.741);
+}
+
+.restart-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
 }

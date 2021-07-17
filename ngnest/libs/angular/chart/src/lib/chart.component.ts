@@ -38,7 +38,7 @@ const defaultConfig: ChartConfiguration = {
 export class ChartComponent implements OnInit, OnDestroy {
   subsink = new SubSink();
 
-  @Input() id = 100;
+  @Input() id = Date.now();
   @Input() chartConfig: ChartConfiguration<any, any, any> = defaultConfig;
 
   canvasId = 'canvas' + this.id;

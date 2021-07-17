@@ -5,27 +5,33 @@
     [@bounceInOnEnter]
     [@bounceOutOnLeave]
   >
-    <table>
-      <tr>
-        <td>Correct Words :</td>
-        <td>{{ s.corrects }}</td>
-      </tr>
-      <tr>
-        <td>Wrong Words :</td>
-        <td>{{ s.wrongs }}</td>
-      </tr>
-      <tr>
-        <td>Duration :</td>
-        <td>{{ s.duration }} Seconds</td>
-      </tr>
-      <tr>
-        <td>Speed :</td>
-        <td>{{ s.speed }} WPM</td>
-      </tr>
-    </table>
-    <button mat-icon-button (click)="restart()">
+    <button class="restart-button" mat-icon-button (click)="restart()">
       <mat-icon>restart_alt</mat-icon>
     </button>
+
+    <authdare-chart style="zoom: 0.9; margin-bottom: 10px"></authdare-chart>
+
+    <authdare-table
+      [isActionButtonVisible]="false"
+      [isIdsVisible]="false"
+      style="zoom: 0.75; margin-bottom: 10px"
+      [tableData]="[
+        {
+          corrects: s.corrects,
+          wrongs: s.wrongs,
+          'duration(s)': s.duration,
+          speed: s.speed
+        }
+      ]"
+    ></authdare-table>
+
+    <authdare-table
+      [tableData]="words"
+      style="zoom: 0.75"
+      [isActionButtonVisible]="false"
+      [isIdsVisible]="false"
+      [highlightBy]="['correct', 'wrong']"
+    ></authdare-table>
   </div>
   <hr />
   <div class="typing-content">

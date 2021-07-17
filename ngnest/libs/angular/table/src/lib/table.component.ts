@@ -30,6 +30,9 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(MatTable) table!: MatTable<TableItem>;
 
   @Input() tableData: { [key: string]: any }[] = [];
+  @Input() isActionButtonVisible = true;
+  @Input() isIdsVisible = true;
+  @Input() highlightBy: string[] = [''];
 
   @Output() onRowClick = new EventEmitter<number>();
   @Output() onMenuClick = new EventEmitter<{ path: string; id: number }>();
@@ -65,9 +68,15 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
       (e) => e !== 'path' && e !== 'groupId'
     );
 
-    this.columns.push('actions');
+    if (this.isActionButtonVisible) this.columns.push('actions');
 
-    this.displayedColumns = this.columns;
+    this.displayedColumns = this.columns.filter((e) => {
+      if (!this.isIdsVisible) {
+        return e !== 'id';
+      } else {
+        return true;
+      }
+    });
 
     this.dataSource = new MatTableDataSource(this.tableData);
   }

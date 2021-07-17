@@ -1,4 +1,4 @@
-<div class="mat-elevation-z8" #containerRef>
+<div #containerRef>
   <ng-container>
     <table mat-table class="full-width-table" matSort aria-label="Table Data">
       <!-- Columns  -->
@@ -30,6 +30,8 @@
         mat-row
         *matRowDef="let row; columns: displayedColumns"
         (click)="onRowClick.emit(row['id'])"
+        [class.highlight0]="highlightBy && row[highlightBy[0]] == true"
+        [class.highlight1]="highlightBy && row[highlightBy[1]] == true"
       ></tr>
     </table>
 

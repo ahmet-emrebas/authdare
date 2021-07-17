@@ -41,3 +41,11 @@ th:last-child * {
 .color-transparent * {
   visibility: hidden;
 }
+
+.highlight0 {
+  background-color: rgba(174, 233, 85, 0.597);
+}
+
+.highlight1 {
+  background-color: rgba(248, 76, 76, 0.522);
+}

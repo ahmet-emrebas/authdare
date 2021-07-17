@@ -4,6 +4,16 @@ import {
   bounceInOnEnterAnimation,
   bounceOutOnLeaveAnimation,
 } from 'angular-animations';
+
+interface WordStat {
+  id: number;
+  typed: string | undefined;
+  correct: boolean | undefined;
+  wrong: boolean | undefined;
+  value: string;
+  timing: number | undefined;
+}
+
 @Component({
   selector: 'authdare-typing',
   templateUrl: './typing.component.html',
@@ -23,50 +33,41 @@ export class TypingComponent implements OnInit {
     duration: number;
   };
 
-  words: {
-    typed: string | undefined;
-    correct: boolean | undefined;
-    wrong: boolean | undefined;
-    value: string;
-  }[] = this.toWords(this.rawSentence);
+  words: WordStat[] = this.toWords(this.rawSentence);
 
   currentIndex = 0;
   timeCounter = 0;
-  intervalRef: any;
+  eachWordTimeCounter: number | undefined = undefined;
+
+  // Chart
+  chartType = 'line';
+  chartData = [];
 
   constructor() {}
-
-  startCounter() {
-    if (!this.intervalRef)
-      this.intervalRef = setInterval(() => this.timeCounter++, 1000);
-  }
-
-  stopCounter() {
-    clearInterval(this.intervalRef);
-  }
 
   calculateStat() {
     this.stat = {
       corrects: this.words.filter((e) => e.correct).length,
       wrongs: this.words.filter((e) => e.wrong).length,
-      speed:
-        ~~(this.words.filter((e) => e.correct).length / this.timeCounter) * 60,
-      duration: this.timeCounter,
+      duration: this.timeCounter / 1000,
+      speed: ~~(
+        (this.words.filter((e) => e.correct).length / this.timeCounter) *
+        1000 *
+        60
+      ),
     };
   }
 
   toWords(sentence: string) {
-    return sentence.split(' ').map<{
-      typed: string | undefined;
-      correct: boolean | undefined;
-      wrong: boolean | undefined;
-      value: string;
-    }>((e) => {
+    let index = 0;
+    return sentence.split(' ').map<WordStat>((e) => {
       return {
+        id: index++,
+        value: e,
         typed: '',
         correct: undefined,
         wrong: undefined,
-        value: e,
+        timing: undefined,
       };
     });
   }
@@ -76,16 +77,21 @@ export class TypingComponent implements OnInit {
     this.words = this.toWords(this.rawSentence);
     this.currentIndex = 0;
     this.timeCounter = 0;
-    this.intervalRef = null;
   }
 
   ngOnInit(): void {
     const s = this.control.valueChanges.subscribe((value: string) => {
-      this.startCounter();
+      if (!this.timeCounter) {
+        this.timeCounter = Date.now();
+      }
+
+      if (!this.eachWordTimeCounter) {
+        this.eachWordTimeCounter = Date.now();
+      }
 
       // Is there any more word left?
       if (this.currentIndex > this.words.length - 1) {
-        this.stopCounter();
+        this.timeCounter = Date.now() - this.timeCounter;
         this.calculateStat();
         console.log('there are not more words!');
         return;
@@ -96,6 +102,10 @@ export class TypingComponent implements OnInit {
         // Then we check the input value with the actual text using the currentIndex value, its initial value is 0.
         // So we need to clean the input field.
         console.log(value, '< Typed value');
+
+        this.words[this.currentIndex].timing =
+          Date.now() - this.eachWordTimeCounter;
+        this.eachWordTimeCounter = undefined;
 
         // Trimming the ending space.
         value = value.trim();
