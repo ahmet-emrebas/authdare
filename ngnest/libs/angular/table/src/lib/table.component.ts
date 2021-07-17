@@ -31,7 +31,7 @@ export class TableComponent implements AfterViewInit, OnDestroy {
   @Input() tableData: { [key: string]: any }[] = [];
 
   @Output() onRowClick = new EventEmitter<number>();
-
+  @Output() onMenuClick = new EventEmitter<{ path: string; id: number }>();
   menuItems: MenuItem[] = [
     {
       icon: 'open_in_new',
@@ -60,8 +60,6 @@ export class TableComponent implements AfterViewInit, OnDestroy {
   dataSource!: MatTableDataSource<TableItem>;
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
 
-  subscription!: Subscription;
-
   ngAfterViewInit(): void {
     this.columns = keys(this.tableData[0]).filter(
       (e) => e !== 'path' && e !== 'groupId',
@@ -77,11 +75,9 @@ export class TableComponent implements AfterViewInit, OnDestroy {
     this.table.dataSource = this.dataSource;
   }
 
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-  }
+  ngOnDestroy(): void {}
 
-  onMenuClick(path: string, id: number) {
-    console.log(path, id);
+  onMenuClickHandle(path: string, id: number) {
+    this.onMenuClick.emit({ path, id });
   }
 }

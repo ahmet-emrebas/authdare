@@ -1,15 +1,7 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnDestroy,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { bounceInOnEnterAnimation } from 'angular-animations';
 
 export class CarouselNavigation {
-  id = 1;
   indexes: { duration: number }[] = [
     { duration: 1000 },
     { duration: 1000 },
@@ -38,10 +30,7 @@ export class CarouselNavigation {
   styleUrls: ['./carousel-navigation.component.scss'],
   animations: [bounceInOnEnterAnimation()],
 })
-export class CarouselNavigationComponent implements OnInit, OnDestroy {
-  ngOnDestroy(): void {
-    console.log('destroying the carousel navaigation component');
-  }
+export class CarouselNavigationComponent implements OnInit {
   /**
    * Emit the id of the carousel page.
    */
@@ -50,7 +39,7 @@ export class CarouselNavigationComponent implements OnInit, OnDestroy {
   /**
    * Current state of the component
    */
-  @Input() state = new CarouselNavigation();
+  @Input() state: Partial<CarouselNavigation> = new CarouselNavigation();
 
   /**
    * SVG circle cx attribute
@@ -109,16 +98,16 @@ export class CarouselNavigationComponent implements OnInit, OnDestroy {
         return;
       }
 
-      this.setStrokeDashArray(this.state.partialDistance + 1);
-      if (this.state.partialDistance >= this.distance) {
+      this.setStrokeDashArray(this.state.partialDistance! + 1);
+      if (this.state.partialDistance! >= this.distance) {
         this.state.partialDistance = 0;
-        if (this.state.currentIndex >= this.state.indexes.length - 1) {
+        if (this.state.currentIndex! >= this.state.indexes?.length! - 1) {
           this.navigateTo(0);
         } else {
-          this.navigateTo(this.state.currentIndex + 1);
+          this.navigateTo(this.state.currentIndex! + 1);
         }
       }
-    }, this.state.indexes[this.state.currentIndex].duration / this.distance);
+    }, this.state.indexes![this.state.currentIndex!].duration / this.distance);
   }
 
   /**

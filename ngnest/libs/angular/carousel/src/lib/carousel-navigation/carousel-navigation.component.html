@@ -41,7 +41,7 @@
         [attr.cx]="cx"
         [attr.cy]="cy"
         [attr.r]="radius"
-        [attr.fill]="state.fill"
+        [attr.fill]="state.fill || 'transparent'"
         [class.active-index]="state.currentIndex == indexOfElement"
         [attr.stroke-dasharray]="state.strokeDasharray"
         [attr.stroke-width]="state.strokeWidth"

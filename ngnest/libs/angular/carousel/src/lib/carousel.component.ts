@@ -6,6 +6,8 @@ import {
   OnDestroy,
   OnInit,
   ViewChild,
+  Output,
+  EventEmitter,
 } from '@angular/core';
 import {
   bounceInOnEnterAnimation,
@@ -15,8 +17,6 @@ import {
   slideInLeftOnEnterAnimation,
   slideOutRightOnLeaveAnimation,
 } from 'angular-animations';
-import { map } from 'rxjs/operators';
-import { SubSink } from 'subsink';
 import {
   CarouselNavigation,
   CarouselNavigationComponent,
@@ -36,29 +36,20 @@ export class CarouselItem {
   }
 }
 
-const defaultItems = [
+const defaultItems: Partial<CarouselItem>[] = [
   {
     title: 'Title',
     content: 'Content ',
     backgroundColor: 'black',
+    duration: 3000,
   },
   {
     img: '/assets/imgs/cars/1.png',
+    duration: 3000,
   },
   {
     img: '/assets/imgs/cars/1.png',
-  },
-  {
-    img: '/assets/imgs/cars/1.png',
-  },
-  {
-    img: '/assets/imgs/cars/1.png',
-  },
-  {
-    img: '/assets/imgs/cars/1.png',
-  },
-  {
-    img: '/assets/imgs/cars/1.png',
+    duration: 3000,
   },
 ];
 
@@ -75,43 +66,42 @@ const defaultItems = [
     bounceInOnEnterAnimation(),
   ],
 })
-export class CarouselComponent implements OnInit, OnDestroy, AfterViewInit {
-  subsink = new SubSink();
-
+export class CarouselComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('container') container!: ElementRef<HTMLDivElement>;
   @ViewChild('carouselNavigation')
   carouselNavigation!: CarouselNavigationComponent;
 
-  @Input() id = 1;
-  @Input() carouselItems: Partial<CarouselItem>[] = defaultItems;
+  @Input()
+  carouselItems: Partial<CarouselItem>[] = defaultItems;
 
-  carouselNavigationState = new CarouselNavigation({ stroke: 'white' });
+  @Input() carouselNavigationState!: Partial<CarouselNavigation>;
 
-  constructor(private service: CarouselService) {}
-  ngAfterViewInit(): void {
-    this.scrollTo(this.carouselNavigationState.currentIndex);
-  }
+  /**
+   * Emits the current state of the component on destroy
+   */
+  @Output() onDestroy = new EventEmitter();
 
   ngOnInit(): void {
-    this.subsink.sink = this.service.entities$
-      .pipe(map((e) => e.find((k) => k.id == this.id)))
-      .subscribe((state) => {
-        this.carouselNavigationState = new CarouselNavigation({
-          stroke: 'white',
-          indexes: this.carouselItems.map((e) => ({
-            duration: e.duration || 3000,
-          })),
-          ...state,
-        });
+    if (!this.carouselNavigationState) {
+      this.carouselNavigationState = new CarouselNavigation({
+        stroke: 'white',
+        currentIndex: 0,
+        isPlaying: true,
+        partialDistance: 0,
+        strokeDasharray: '0',
+        strokeWidth: 2,
+        indexes: this.carouselItems.map((e) => ({
+          duration: e.duration || 3000,
+        })),
       });
+    }
+  }
+  ngOnDestroy(): void {
+    this.onDestroy.emit(this.carouselNavigation.state);
   }
 
-  ngOnDestroy(): void {
-    this.service.upsertOneInCache({
-      ...this.carouselNavigation.state,
-      id: this.id,
-    });
-    this.subsink.unsubscribe();
+  ngAfterViewInit(): void {
+    this.scrollTo(this.carouselNavigationState.currentIndex || 0);
   }
 
   scrollTo(index: number) {
