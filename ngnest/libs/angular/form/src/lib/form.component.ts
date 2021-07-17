@@ -53,6 +53,7 @@ const defaultForm: FormOptions = {
       label: 'Interests',
       autocomplete: 'interests',
       hint: 'select interests',
+      multiple: true,
       options: [
         {
           label: 'First opton',
