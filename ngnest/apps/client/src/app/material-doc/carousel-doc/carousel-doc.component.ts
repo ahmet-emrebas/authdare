@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CarouselItem } from '@authdare/carousel';
 
+let state: any;
+
 @Component({
   selector: 'app-carousel-doc',
   templateUrl: './carousel-doc.component.html',
@@ -28,20 +30,15 @@ export class CarouselDocComponent implements OnInit {
     },
   ];
 
-  carouselNavigationState = {
-    stroke: 'white',
-    currentIndex: 2,
-    isPlaying: true,
-    partialDistance: 0,
-    strokeDasharray: '50 125',
-    strokeWidth: 2,
-
-    indexes: this.carouselItems.map((e) => ({
-      duration: e.duration || 3000,
-    })),
-  };
+  carouselNavigationState: any;
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.carouselNavigationState = state;
+  }
+  storeState(s: any) {
+    console.log(s);
+    state = s;
+  }
 }

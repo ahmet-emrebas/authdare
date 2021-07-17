@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnDestroy,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { bounceInOnEnterAnimation } from 'angular-animations';
 
 export class CarouselNavigation {
@@ -30,7 +37,7 @@ export class CarouselNavigation {
   styleUrls: ['./carousel-navigation.component.scss'],
   animations: [bounceInOnEnterAnimation()],
 })
-export class CarouselNavigationComponent implements OnInit {
+export class CarouselNavigationComponent implements OnInit, OnDestroy {
   /**
    * Emit the id of the carousel page.
    */
@@ -80,6 +87,9 @@ export class CarouselNavigationComponent implements OnInit {
     }
   }
 
+  ngOnDestroy(): void {
+    clearInterval(this.intervalref);
+  }
   /**
    * Interval referance to clear interval when animation stop.
    */
@@ -116,7 +126,7 @@ export class CarouselNavigationComponent implements OnInit {
    * Pause the animation
    */
   pause() {
-    this.state.isPlaying = false;
+    this.updateState({ isPlaying: false });
   }
 
   /**
