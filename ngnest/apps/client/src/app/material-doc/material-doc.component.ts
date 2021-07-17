@@ -1,17 +1,13 @@
 import { Component } from '@angular/core';
 import { SidenavItem } from '@authdare/sidenav';
-
+import { slideInLeftOnEnterAnimation } from 'angular-animations';
 @Component({
   styleUrls: ['./material-doc.component.scss'],
   templateUrl: './material-doc.component.html',
+  animations: [slideInLeftOnEnterAnimation()],
 })
 export class MaterialDocComponent {
   sidenavItems: SidenavItem[] = [
-    {
-      path: '/material-doc/SidenavComponent',
-      label: 'Home',
-      icon: 'home',
-    },
     {
       path: '/material-doc/NavbarComponent',
       label: 'Navbar',

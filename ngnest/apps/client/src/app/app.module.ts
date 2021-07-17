@@ -11,6 +11,7 @@ import { EntityDataModule } from '@ngrx/data';
 import { entityConfig } from './entity-metadata';
 import { EffectsModule } from '@ngrx/effects';
 import { HttpClientModule } from '@angular/common/http';
+import { NavbarModule } from '@authdare/navbar';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,6 +20,7 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    NavbarModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the app is stable
