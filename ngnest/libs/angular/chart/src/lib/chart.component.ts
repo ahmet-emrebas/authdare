@@ -1,6 +1,12 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 
-import { Chart, ChartConfiguration, ChartDataset, ChartType } from 'chart.js';
+import {
+  Chart,
+  ChartConfiguration,
+  ChartDataset,
+  ChartType,
+  ChartTypeRegistry,
+} from 'chart.js';
 
 import * as chartjs$ from 'chart.js/auto';
 import { filter, uniqBy, cloneDeep, max, min } from 'lodash';
@@ -39,7 +45,7 @@ export class ChartComponent implements OnInit, OnDestroy {
   subsink = new SubSink();
 
   @Input() id = Date.now();
-  @Input() chartConfig: ChartConfiguration<any, any, any> = defaultConfig;
+  @Input() chartConfig!: ChartConfiguration<any, any, any>;
 
   canvasId = 'canvas' + this.id;
   chartInstance!: Chart;
@@ -50,13 +56,18 @@ export class ChartComponent implements OnInit, OnDestroy {
   constructor(private chartService: ChartService) {}
 
   ngOnInit(): void {
+    try {
+      this.chartInstance.destroy();
+    } catch (err) {
+      // If exist destroy!
+    }
     setTimeout(() => {
-      try {
-        this.chartInstance.destroy();
-      } catch (err) {
-        // If exist destroy!
+      if (this.chartConfig) {
+        this.chartInstance = new Chart(this.canvasId, this.chartConfig);
+        return;
+      } else {
+        this.chartConfig = defaultConfig;
       }
-
       this.subsink.sink = this.chartService.entities$
         .pipe(map((d) => d.find((e) => e.id == this.id)))
         .subscribe((state) => {

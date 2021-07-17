@@ -5,7 +5,11 @@
     [@bounceInOnEnter]
     [@bounceOutOnLeave]
   >
-    <authdare-chart style="zoom: 0.9; margin-bottom: 10px"></authdare-chart>
+    <authdare-chart
+      #chartRef
+      style="margin-bottom: 10px"
+      [chartConfig]="chartConfig!"
+    ></authdare-chart>
 
     <authdare-table
       [isActionButtonVisible]="false"
