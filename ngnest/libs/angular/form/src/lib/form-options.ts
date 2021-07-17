@@ -21,12 +21,12 @@ export interface HTMLInputElementExtras {
   /**
    * Each field must have a formcontrolname
    */
-  formControlName: string;
+  controlName: string;
 
   /**
    * FormControlInstance
    */
-  formControl?: FormControl;
+  control?: FormControl;
 
   /**
    * Options for the select field
@@ -85,7 +85,7 @@ export interface FormOptions {
  * @param {Partial<FormOptions>} formOptions
  */
 export function validateAndTransformFormOptions(
-  formOptions: Partial<FormOptions>,
+  formOptions: Partial<FormOptions>
 ) {
   if (!formOptions) {
     throw new Error('FormOptions required!');
@@ -98,7 +98,7 @@ export function validateAndTransformFormOptions(
 
   for (const field of fieldOptionsList) {
     if (!field.type) field.type = 'text';
-    if (!field.formControlName) throw new Error('formControlName must set!');
+    if (!field.controlName) throw new Error('formControlName must set!');
     if (!field.label) throw new Error('label must set');
   }
 }
@@ -122,11 +122,11 @@ export function configureValidators(fieldOptionsList: Partial<FieldOptions>[]) {
         return (Validators as any)[key](value);
       });
 
-    const formControl = new FormControl('...', []);
+    const formControl = new FormControl('', []);
 
     formControl.setValidators(validators);
 
-    fieldOptions.formControl = formControl;
+    fieldOptions.control = formControl;
   }
 
   return fieldOptionsList;
@@ -139,17 +139,16 @@ export function configureValidators(fieldOptionsList: Partial<FieldOptions>[]) {
 export function createFormGroup(formOptions: Partial<FormOptions>) {
   const formGroup = new FormGroup({});
   for (const field of formOptions.fieldOptionsList!) {
-    formGroup.addControl(field.formControlName, field.formControl!);
+    formGroup.setControl(field.controlName, field.control!);
   }
   formOptions.formGroup = formGroup;
   formOptions.fieldOptionsList!.forEach((e) => {
     // these are for initiating the render! Without the following setters, Input elements do not render somehow.
-    setTimeout(() => {
-      e.formControl?.setValue('.');
-    });
-
-    setTimeout(() => {
-      e.formControl?.setValue('');
-    }, 100);
+    // setTimeout(() => {
+    //   e.control?.setValue('.');
+    // });
+    // setTimeout(() => {
+    //   e.control?.setValue('');
+    // }, 300);
   });
 }

@@ -35,7 +35,7 @@ export class FormFieldComponent {
    * When false, ready to display
    * @type {boolean}
    */
-  loading = true;
+  loading: boolean = true;
 
   /**
    * Label property of the attributes will be used as visible name. Visible name is visible to users.
@@ -50,6 +50,6 @@ export class FormFieldComponent {
    * @returns {string}
    */
   value(): string {
-    return this.attributes!.formControl!.value;
+    return this.attributes!.control!.value;
   }
 }

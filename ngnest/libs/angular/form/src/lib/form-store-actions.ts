@@ -14,7 +14,7 @@ export interface FormStoreState {
  */
 export const setFormOptions = createAction(
   `[FORM MODULE] SET FORM OPTIONS`,
-  props<FormOptions>(),
+  props<FormOptions>()
 );
 
 /**
@@ -22,7 +22,7 @@ export const setFormOptions = createAction(
  */
 export const submitForm = createAction(
   `[FORM MODULE] SUBMIT FORM`,
-  props<FormStoreFormOutput>(),
+  props<FormStoreFormOutput>()
 );
 
 export const formReducer = createReducer<FormStoreState>(
@@ -47,5 +47,5 @@ export const formReducer = createReducer<FormStoreState>(
         payload,
       ],
     };
-  }),
+  })
 );

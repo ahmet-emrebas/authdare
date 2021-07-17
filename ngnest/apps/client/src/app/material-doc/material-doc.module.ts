@@ -16,6 +16,12 @@ import { CarouselModule } from '@authdare/carousel';
 import { FormModule } from '@authdare/form';
 import { FormDocComponent } from './form-doc/form-doc.component';
 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { ChartDocComponent } from './chart-doc/chart-doc.component';
+import { ChartModule } from '@authdare/chart';
+
 @NgModule({
   declarations: [
     MaterialDocComponent,
@@ -24,6 +30,7 @@ import { FormDocComponent } from './form-doc/form-doc.component';
     TableDocComponent,
     CarouselDocComponent,
     FormDocComponent,
+    ChartDocComponent,
   ],
   imports: [
     CommonModule,
@@ -35,6 +42,12 @@ import { FormDocComponent } from './form-doc/form-doc.component';
     TableModule,
     CarouselModule,
     FormModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatFormFieldModule,
+
+    MatInputModule,
+    ChartModule,
     RouterModule.forChild([
       {
         path: '',
@@ -60,6 +73,10 @@ import { FormDocComponent } from './form-doc/form-doc.component';
           {
             path: 'FormComponent',
             component: FormDocComponent,
+          },
+          {
+            path: 'ChartComponent',
+            component: ChartDocComponent,
           },
         ],
       },

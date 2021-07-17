@@ -8,8 +8,9 @@ describe('DateFieldComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [DateFieldComponent],
-    }).compileComponents();
+      declarations: [ DateFieldComponent ]
+    })
+    .compileComponents();
   });
 
   beforeEach(() => {

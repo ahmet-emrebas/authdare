@@ -4,13 +4,13 @@
     matInput
     autocomplete="off"
     [authdareSetAttribute]="attributes"
-    [formControl]="attributes.formControl!"
+    [formControl]="attributes.control!"
     [errorStateMatcher]="errorStateMatcher"
   />
   <authdare-field-status
     matSuffix
     [isRequired]="attributes.required!"
-    [formControl]="attributes.formControl!"
+    [control]="attributes.control!"
     [loading]="loading"
   ></authdare-field-status>
 
@@ -18,7 +18,7 @@
 
   <mat-error
     *ngIf="
-      attributes.formControl!.errors! | validationError: visibleName() as error
+      attributes.control!.errors! | validationError: visibleName() as error
     "
   >
     {{ error }}

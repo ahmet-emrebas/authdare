@@ -1,30 +1,32 @@
-<mat-form-field [appearance]="appearance || 'standard'">
-  <mat-label [attr.for]="attributes.formControlName">{{
-    attributes.label
-  }}</mat-label>
-  <input
-    [attr.id]="attributes.formControlName"
-    matInput
-    autocomplete="off"
-    [authdareSetAttribute]="attributes"
-    [formControl]="attributes.formControl!"
-    [errorStateMatcher]="errorStateMatcher"
-  />
-  <authdare-field-status
-    matSuffix
-    [isRequired]="attributes.required!"
-    [formControl]="attributes.formControl!"
-    [loading]="loading"
-  ></authdare-field-status>
+<ng-container>
+  <mat-form-field [appearance]="appearance || 'standard'">
+    <mat-label [attr.for]="attributes.controlName">{{
+      attributes.label
+    }}</mat-label>
+    <input
+      [attr.id]="attributes.controlName"
+      matInput
+      autocomplete="off"
+      [authdareSetAttribute]="attributes"
+      [formControl]="attributes.control!"
+      [errorStateMatcher]="errorStateMatcher"
+      [value]=""
+    />
+    <authdare-field-status
+      matSuffix
+      [isRequired]="attributes.required!"
+      [control]="attributes.control!"
+      [loading]="loading"
+    ></authdare-field-status>
 
-  <mat-hint>{{ attributes.hint }}</mat-hint>
+    <mat-hint>{{ attributes.hint }}</mat-hint>
 
-  <mat-error
-    *ngIf="
-      attributes.formControl!.errors!
-        | validationError: attributes.label as error
-    "
-  >
-    {{ error }}
-  </mat-error>
-</mat-form-field>
+    <mat-error
+      *ngIf="
+        attributes.control!.errors! | validationError: attributes.label as error
+      "
+    >
+      {{ error }}
+    </mat-error>
+  </mat-form-field>
+</ng-container>

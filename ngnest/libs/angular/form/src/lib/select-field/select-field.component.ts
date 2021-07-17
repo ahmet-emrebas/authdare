@@ -3,10 +3,13 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'authdare-select-field',
   templateUrl: './select-field.component.html',
-  styleUrls: ['./select-field.component.css'],
+  styleUrls: ['./select-field.component.css']
 })
 export class SelectFieldComponent implements OnInit {
-  constructor() {}
 
-  ngOnInit(): void {}
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+
 }

@@ -1,1 +1,1 @@
-export * from './validation-error.pipe';
+export * from "./validation-error.pipe";

@@ -1,22 +1,20 @@
-import {
-  Component,
-  OnInit,
-  OnDestroy,
-  Output,
-  Input,
-  EventEmitter,
-  AfterViewInit,
-} from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { Store } from '@ngrx/store';
 import { fadeInOnEnterAnimation } from 'angular-animations';
 import { cloneDeep } from 'lodash';
+import { map } from 'rxjs/operators';
 import {
   configureValidators,
   createFormGroup,
   FormOptions,
   validateAndTransformFormOptions,
 } from './form-options';
-import { SubSink } from 'subsink';
+import {
+  FormStoreState,
+  setFormOptions,
+  submitForm,
+} from './form-store-actions';
 
 const defaultForm: FormOptions = {
   formName: 'default',
@@ -25,7 +23,7 @@ const defaultForm: FormOptions = {
 
   fieldOptionsList: [
     {
-      formControlName: 'firstName',
+      controlName: 'firstName',
       type: 'text',
       label: 'First Name',
       autocomplete: 'given-name',
@@ -35,7 +33,7 @@ const defaultForm: FormOptions = {
       required: true,
     },
     {
-      formControlName: 'lastName',
+      controlName: 'lastName',
       type: 'text',
       label: 'Last Name',
       autocomplete: 'given-name',
@@ -44,7 +42,7 @@ const defaultForm: FormOptions = {
       hint: 'Emrebas',
     },
     {
-      formControlName: 'email',
+      controlName: 'email',
       type: 'email',
       label: 'Email',
       autocomplete: 'email',
@@ -53,7 +51,7 @@ const defaultForm: FormOptions = {
       dependents: ['firstName', 'lastName'],
     },
     {
-      formControlName: 'age',
+      controlName: 'age',
       type: 'number',
       label: 'Age',
       autocomplete: 'given-name',
@@ -70,8 +68,7 @@ const defaultForm: FormOptions = {
   styleUrls: ['./form.component.scss'],
   animations: [fadeInOnEnterAnimation()],
 })
-export class FormComponent implements OnInit, OnDestroy, AfterViewInit {
-  subsink = new SubSink();
+export class FormComponent implements OnInit {
   /**
    * Visiblibity of the action buttons.
    */
@@ -84,45 +81,45 @@ export class FormComponent implements OnInit, OnDestroy, AfterViewInit {
   /**
    * Form identifier that helps to find the form configuration in store.
    */
-  @Input() formName = 'default';
+  @Input() formName: string = 'default';
 
   /**
    * Visibility of the form header.
    */
   @Input() formHeader = true;
 
-  @Input() formOptions!: FormOptions;
+  /**
+   * Form Options
+   */
+  options$ = this.store.pipe(
+    map((s) => {
+      const options = cloneDeep(
+        s.form.options.find((e) => e.formName == this.formName)
+      );
+      if (options) {
+        validateAndTransformFormOptions(options);
+        configureValidators(options.fieldOptionsList!);
+        createFormGroup(options);
+        this.formGroup = options.formGroup!;
+        return options;
+      }
+      throw new Error('formName must set!');
+    })
+  );
 
-  @Output() onSubmit = new EventEmitter<{ [key: string]: any }>();
-
-  @Output() onDestroy = new EventEmitter<{ [key: string]: any }>();
-
-  constructor() {}
-  ngAfterViewInit(): void {
-    const options = cloneDeep(this.formOptions || defaultForm);
-    validateAndTransformFormOptions(options);
-    configureValidators(options.fieldOptionsList!);
-    createFormGroup(options);
-
-    this.formGroup = options.formGroup!;
-    this.formOptions = options;
-  }
-  ngOnDestroy(): void {
-    this.onDestroy.emit(this.formGroup.value);
-  }
+  constructor(
+    private store: Store<{
+      form: FormStoreState;
+    }>
+  ) {}
 
   ngOnInit(): void {
-    const options = cloneDeep(this.formOptions || defaultForm);
-    validateAndTransformFormOptions(options);
-    configureValidators(options.fieldOptionsList!);
-    createFormGroup(options);
-
-    this.formGroup = options.formGroup!;
-    this.formOptions = options;
+    this.store.dispatch(setFormOptions(defaultForm));
   }
 
-  submit() {
-    this.onSubmit.emit(this.formGroup.value);
+  submit(formName: string, formData: { [key: string]: any }) {
+    console.log(formName, formData);
+    this.store.dispatch(submitForm({ formName, formData }));
   }
 
   isDependentValid(dependents: string[]): boolean {

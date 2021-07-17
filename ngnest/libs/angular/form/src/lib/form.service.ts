@@ -11,12 +11,12 @@ export class FormFieldOptions extends HTMLInputElement {
   /**
    * small defination of the field.
    */
-  hint = '';
+  hint: string = '';
 
   /**
    * Input label
    */
-  label = '';
+  label: string = '';
 
   /**
    * Email validation
@@ -26,7 +26,7 @@ export class FormFieldOptions extends HTMLInputElement {
   /**
    * Each field must have a formcontrolname
    */
-  formControlName = 'not set';
+  formControlName: string = 'not set';
 
   /**
    * Options for the select field

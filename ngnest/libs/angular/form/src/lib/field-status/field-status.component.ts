@@ -11,7 +11,7 @@ import { debounceTime, map } from 'rxjs/operators';
 })
 export class FieldStatusComponent implements OnInit {
   @Input() typingDebounceTime = 400;
-  @Input() formControl = new FormControl();
+  @Input() control = new FormControl();
 
   @Input() loading = true;
   /**
@@ -26,10 +26,10 @@ export class FieldStatusComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    this.formControl.valueChanges
+    this.control.valueChanges
       .pipe(
         map((__) => (this.typing = true)),
-        debounceTime(this.typingDebounceTime),
+        debounceTime(this.typingDebounceTime)
       )
       .subscribe((__) => {
         this.typing = false;
@@ -37,24 +37,16 @@ export class FieldStatusComponent implements OnInit {
   }
 
   backspace() {
-    this.formControl.setValue('');
+    this.control.setValue('');
   }
 
   invalid() {
-    return (
-      this.formControl.touched &&
-      this.formControl.dirty &&
-      this.formControl.invalid
-    );
+    return this.control.touched && this.control.dirty && this.control.invalid;
   }
   valid() {
-    return (
-      this.formControl.touched &&
-      this.formControl.dirty &&
-      this.formControl.valid
-    );
+    return this.control.touched && this.control.dirty && this.control.valid;
   }
   untouched() {
-    return this.formControl.untouched || !this.formControl.dirty;
+    return this.control.untouched || !this.control.dirty;
   }
 }

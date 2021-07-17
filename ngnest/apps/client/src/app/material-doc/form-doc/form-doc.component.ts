@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-form-doc',
@@ -6,10 +7,30 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./form-doc.component.scss'],
 })
 export class FormDocComponent implements OnInit {
+  formGroup!: FormGroup;
+
+  formFields = [
+    {
+      fieldName: 'firstName',
+    },
+    {
+      fieldName: 'lastName',
+    },
+  ];
   onDestroy(formValue: { [key: string]: any }) {
     console.log(formValue);
   }
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.formGroup = new FormGroup(
+      this.formFields
+        .map((e) => {
+          return {
+            [e.fieldName]: new FormControl('', []),
+          };
+        })
+        .reduce((p, c) => ({ ...p, ...c })),
+    );
+  }
 }

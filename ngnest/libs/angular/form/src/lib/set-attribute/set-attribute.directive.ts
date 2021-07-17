@@ -22,7 +22,7 @@ export class SetAttributeDirective implements OnInit {
   ngOnInit(): void {
     this.authdareSetAttribute = omit(
       this.authdareSetAttribute,
-      this.ignoreFields,
+      this.ignoreFields
     );
 
     if (this.authdareSetAttribute) {

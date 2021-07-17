@@ -1,0 +1,13 @@
+.canvas-container {
+  display: block;
+  background-color: white;
+  border-radius: 10px;
+}
+
+.active {
+  color: pink;
+}
+
+.mat-toolbar {
+  border-radius: 10px;
+}
