@@ -95,6 +95,7 @@ export class CarouselComponent implements OnInit, AfterViewInit, OnDestroy {
       });
     }
   }
+
   ngOnDestroy(): void {
     this.onDestroy.emit(this.carouselNavigation.state);
   }

@@ -37,8 +37,8 @@ export class CarouselDocComponent implements OnInit {
   ngOnInit(): void {
     this.carouselNavigationState = state;
   }
+
   storeState(s: any) {
-    console.log(s);
     state = s;
   }
 }

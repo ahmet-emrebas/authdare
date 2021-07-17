@@ -6,6 +6,7 @@ import {
   OnDestroy,
   Output,
   ViewChild,
+  OnInit,
 } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -23,7 +24,7 @@ export interface TableItem {
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css'],
 })
-export class TableComponent implements AfterViewInit, OnDestroy {
+export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<TableItem>;
@@ -54,15 +55,14 @@ export class TableComponent implements AfterViewInit, OnDestroy {
    * Whenever a row clicks, then emits the id of the associated item.
    */
 
-  columns: string[] = [];
-  displayedColumns: string[] = [];
+  columns!: string[];
+  displayedColumns!: string[];
 
   dataSource!: MatTableDataSource<TableItem>;
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-
-  ngAfterViewInit(): void {
+  ngOnInit(): void {
     this.columns = keys(this.tableData[0]).filter(
-      (e) => e !== 'path' && e !== 'groupId',
+      (e) => e !== 'path' && e !== 'groupId'
     );
 
     this.columns.push('actions');
@@ -70,6 +70,9 @@ export class TableComponent implements AfterViewInit, OnDestroy {
     this.displayedColumns = this.columns;
 
     this.dataSource = new MatTableDataSource(this.tableData);
+  }
+
+  ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;

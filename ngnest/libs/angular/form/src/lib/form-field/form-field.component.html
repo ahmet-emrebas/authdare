@@ -14,6 +14,7 @@
       matInput
       autocomplete="off"
       [authdareSetAttribute]="attributes"
+      [ignoreFields]="['hint']"
       [formControl]="attributes.control!"
       [errorStateMatcher]="errorStateMatcher"
     />
@@ -25,6 +26,7 @@
       matInput
       autocomplete="off"
       [authdareSetAttribute]="attributes"
+      [ignoreFields]="['type', 'hint']"
       [formControl]="attributes.control!"
       [errorStateMatcher]="errorStateMatcher"
       [multiple]="attributes.multiple"
@@ -104,8 +106,6 @@
       [control]="attributes.control!"
       [loading]="loading"
     ></authdare-field-status>
-
-    <mat-hint>{{ attributes.hint }}</mat-hint>
 
     <mat-error
       *ngIf="
