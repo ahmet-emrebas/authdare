@@ -1,4 +1,4 @@
-<ng-container *ngIf="options$ | async as options">
+<ng-container *ngIf="formOptions as options">
   <ng-container *ngIf="options.formGroup as formGroup">
     <ng-container>
       <mat-card>
@@ -34,7 +34,7 @@
             color="primary"
             matTooltip="Submit Form"
             matTooltipPosition="below"
-            (click)="submit(options.formName!, formGroup!.value)"
+            (click)="submit()"
             type="button"
           >
             Submit

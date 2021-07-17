@@ -136,19 +136,23 @@ export function configureValidators(fieldOptionsList: Partial<FieldOptions>[]) {
  * Create a FormGroup instance and add the FormControls to it.
  * @param {Partial<FormOptions>} formOptions
  */
-export function createFormGroup(formOptions: Partial<FormOptions>) {
+export function createFormGroup(
+  formOptions: Partial<FormOptions>,
+  state?: any
+) {
   const formGroup = new FormGroup({});
   for (const field of formOptions.fieldOptionsList!) {
     formGroup.setControl(field.controlName, field.control!);
+    if (state) {
+      const cvalue = state[field.controlName];
+      if (cvalue && cvalue.length > 0) {
+        field.control?.setValue(cvalue);
+        field.control?.markAsDirty();
+        field.control?.markAsTouched();
+      }
+      field.control;
+    }
   }
+
   formOptions.formGroup = formGroup;
-  formOptions.fieldOptionsList!.forEach((e) => {
-    // these are for initiating the render! Without the following setters, Input elements do not render somehow.
-    // setTimeout(() => {
-    //   e.control?.setValue('.');
-    // });
-    // setTimeout(() => {
-    //   e.control?.setValue('');
-    // }, 300);
-  });
 }

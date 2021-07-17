@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+
+let myFormState = {};
 
 @Component({
   selector: 'app-form-doc',
@@ -7,30 +8,19 @@ import { FormGroup, FormControl } from '@angular/forms';
   styleUrls: ['./form-doc.component.scss'],
 })
 export class FormDocComponent implements OnInit {
-  formGroup!: FormGroup;
+  formName = 'MyForm';
+  state: any;
+  ngOnInit(): void {
+    this.state = myFormState;
+  }
 
-  formFields = [
-    {
-      fieldName: 'firstName',
-    },
-    {
-      fieldName: 'lastName',
-    },
-  ];
-  onDestroy(formValue: { [key: string]: any }) {
+  storeState(formValue: any) {
+    myFormState = formValue;
     console.log(formValue);
   }
-  constructor() {}
 
-  ngOnInit(): void {
-    this.formGroup = new FormGroup(
-      this.formFields
-        .map((e) => {
-          return {
-            [e.fieldName]: new FormControl('', []),
-          };
-        })
-        .reduce((p, c) => ({ ...p, ...c })),
-    );
+  submit(formValue: any) {
+    myFormState = formValue;
+    console.log(formValue);
   }
 }

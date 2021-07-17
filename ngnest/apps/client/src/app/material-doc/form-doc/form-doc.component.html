@@ -1,1 +1,6 @@
-<authdare-form></authdare-form>
+<authdare-form
+  [state]="state"
+  [formName]="formName"
+  (onSubmit)="submit($event)"
+  (onDestroy)="storeState($event)"
+></authdare-form>

@@ -1,9 +1,15 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  Input,
+  EventEmitter,
+  Output,
+} from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { fadeInOnEnterAnimation } from 'angular-animations';
 import { cloneDeep } from 'lodash';
-import { map } from 'rxjs/operators';
 import {
   configureValidators,
   createFormGroup,
@@ -68,7 +74,7 @@ const defaultForm: FormOptions = {
   styleUrls: ['./form.component.scss'],
   animations: [fadeInOnEnterAnimation()],
 })
-export class FormComponent implements OnInit {
+export class FormComponent implements OnInit, OnDestroy {
   /**
    * Visiblibity of the action buttons.
    */
@@ -88,38 +94,37 @@ export class FormComponent implements OnInit {
    */
   @Input() formHeader = true;
 
-  /**
-   * Form Options
-   */
-  options$ = this.store.pipe(
-    map((s) => {
-      const options = cloneDeep(
-        s.form.options.find((e) => e.formName == this.formName)
-      );
-      if (options) {
-        validateAndTransformFormOptions(options);
-        configureValidators(options.fieldOptionsList!);
-        createFormGroup(options);
-        this.formGroup = options.formGroup!;
-        return options;
-      }
-      throw new Error('formName must set!');
-    })
-  );
+  @Input() options!: FormOptions;
 
-  constructor(
-    private store: Store<{
-      form: FormStoreState;
-    }>
-  ) {}
+  @Input() formOptions: FormOptions = defaultForm;
+
+  @Input() state: any;
+
+  @Output() onDestroy = new EventEmitter<{ [key: string]: any }>();
+
+  @Output() onSubmit = new EventEmitter<{ [key: string]: any }>();
+
+  constructor() {}
 
   ngOnInit(): void {
-    this.store.dispatch(setFormOptions(defaultForm));
+    const options = cloneDeep(this.formOptions);
+    if (options) {
+      validateAndTransformFormOptions(options);
+      configureValidators(options.fieldOptionsList!);
+      createFormGroup(options, this.state);
+      this.formGroup = options.formGroup!;
+      this.formOptions = options;
+      return;
+    }
+    throw new Error('formOptions must set');
   }
 
-  submit(formName: string, formData: { [key: string]: any }) {
-    console.log(formName, formData);
-    this.store.dispatch(submitForm({ formName, formData }));
+  ngOnDestroy(): void {
+    this.onDestroy.emit(this.formGroup.value);
+  }
+
+  submit() {
+    this.onSubmit.emit(this.formGroup.value);
   }
 
   isDependentValid(dependents: string[]): boolean {
