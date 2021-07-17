@@ -5,6 +5,7 @@ import {
   Output,
   Input,
   EventEmitter,
+  AfterViewInit,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { fadeInOnEnterAnimation } from 'angular-animations';
@@ -69,7 +70,7 @@ const defaultForm: FormOptions = {
   styleUrls: ['./form.component.scss'],
   animations: [fadeInOnEnterAnimation()],
 })
-export class FormComponent implements OnInit, OnDestroy {
+export class FormComponent implements OnInit, OnDestroy, AfterViewInit {
   subsink = new SubSink();
   /**
    * Visiblibity of the action buttons.
@@ -90,22 +91,32 @@ export class FormComponent implements OnInit, OnDestroy {
    */
   @Input() formHeader = true;
 
-  @Input() formOptions: FormOptions = defaultForm;
+  @Input() formOptions!: FormOptions;
 
   @Output() onSubmit = new EventEmitter<{ [key: string]: any }>();
 
   @Output() onDestroy = new EventEmitter<{ [key: string]: any }>();
 
   constructor() {}
+  ngAfterViewInit(): void {
+    const options = cloneDeep(this.formOptions || defaultForm);
+    validateAndTransformFormOptions(options);
+    configureValidators(options.fieldOptionsList!);
+    createFormGroup(options);
+
+    this.formGroup = options.formGroup!;
+    this.formOptions = options;
+  }
   ngOnDestroy(): void {
     this.onDestroy.emit(this.formGroup.value);
   }
 
   ngOnInit(): void {
-    const options = cloneDeep(this.formOptions);
+    const options = cloneDeep(this.formOptions || defaultForm);
     validateAndTransformFormOptions(options);
     configureValidators(options.fieldOptionsList!);
     createFormGroup(options);
+
     this.formGroup = options.formGroup!;
     this.formOptions = options;
   }

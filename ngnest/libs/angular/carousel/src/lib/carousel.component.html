@@ -3,8 +3,7 @@
     <div *ngFor="let cItem of carouselItems" style="min-width: 100%">
       <img
         class="carousel-image"
-        [style.backgroundImage]="'
-        url(' + cItem.img + ')'"
+        [style.backgroundImage]="cItem.img ? 'url(' + cItem.img + ')' : ''"
         [style.backgroundColor]="cItem.backgroundColor"
         [@slideInLeftOnEnter]
         [@slideOutRightOnLeave]

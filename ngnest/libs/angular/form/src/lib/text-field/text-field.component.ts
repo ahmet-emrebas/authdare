@@ -1,14 +1,5 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  ElementRef,
-  Inject,
-  Input,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
-import { toPairs } from 'lodash';
 import { DefaultErrorStateMatcher } from '../error-state-matcher';
 import { FieldOptions } from '../form-options';
 

@@ -139,7 +139,7 @@ export function configureValidators(fieldOptionsList: Partial<FieldOptions>[]) {
 export function createFormGroup(formOptions: Partial<FormOptions>) {
   const formGroup = new FormGroup({});
   for (const field of formOptions.fieldOptionsList!) {
-    formGroup.setControl(field.formControlName, field.formControl!);
+    formGroup.addControl(field.formControlName, field.formControl!);
   }
   formOptions.formGroup = formGroup;
   formOptions.fieldOptionsList!.forEach((e) => {
