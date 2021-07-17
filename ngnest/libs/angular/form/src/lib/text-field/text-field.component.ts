@@ -21,11 +21,6 @@ export class TextFieldComponent {
   @Input() errorStateMatcher = new DefaultErrorStateMatcher();
   typingField = '';
   @Input() appearance!: MatFormFieldAppearance;
-
-  /**
-   * Input element attributes
-   */
   @Input() attributes!: FieldOptions;
-
   loading = false;
 }

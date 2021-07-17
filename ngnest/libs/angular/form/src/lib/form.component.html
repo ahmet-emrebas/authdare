@@ -1,9 +1,9 @@
 <ng-container *ngIf="formOptions as options">
   <ng-container *ngIf="options.formGroup as formGroup">
     <ng-container>
-      <mat-card>
+      <mat-card class="form-card">
         <mat-card-header *ngIf="formHeader">
-          <mat-card-title>{{ options.formTitle }}</mat-card-title>
+          <mat-card-title>{{ formTitle }}</mat-card-title>
         </mat-card-header>
 
         <!-- Form Content  -->
@@ -12,12 +12,12 @@
             <ng-container *ngFor="let attributes of options.fieldOptionsList">
               <ng-container *ngIf="attributes.control as formControl">
                 <!-- Text or compatible fields -->
-                <authdare-text-field
+                <authdare-form-field
                   [appearance]="options.appearance!"
                   [attributes]="attributes"
                   *ngIf="isDependentValid(attributes.dependents!)"
                 >
-                </authdare-text-field>
+                </authdare-form-field>
               </ng-container>
               <!-- .... -->
             </ng-container>

@@ -9,6 +9,7 @@ let myFormState = {};
 })
 export class FormDocComponent implements OnInit {
   formName = 'MyForm';
+  formTitle = 'My Form Title';
   state: any;
   ngOnInit(): void {
     this.state = myFormState;

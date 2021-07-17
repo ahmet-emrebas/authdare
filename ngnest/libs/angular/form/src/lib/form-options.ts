@@ -31,7 +31,7 @@ export interface HTMLInputElementExtras {
   /**
    * Options for the select field
    */
-  options?: string[];
+  options?: { label: string; value: any }[];
 
   /**
    * Define a dependent field that this field does not appeart till the dependent field is valid.
@@ -55,19 +55,9 @@ export interface FormOptions {
   formName: string;
 
   /**
-   * Visible title of the form
-   */
-  formTitle: string;
-
-  /**
    * Input field appearance
    */
   appearance: MatFormFieldAppearance;
-
-  /**
-   * When true, only one input will be appear at a time
-   */
-  isSquenential?: boolean;
 
   /**
    * FormGroup instance
@@ -90,9 +80,8 @@ export function validateAndTransformFormOptions(
   if (!formOptions) {
     throw new Error('FormOptions required!');
   }
-  const { formName, formTitle, appearance, fieldOptionsList } = formOptions;
+  const { formName, appearance, fieldOptionsList } = formOptions;
   if (!formName) throw new Error('formName must set!');
-  if (!formTitle) formOptions.formTitle = 'Undefined formTitle';
   if (!appearance) formOptions.appearance = 'outline';
   if (!fieldOptionsList) throw new Error('fieldOptions must set!');
 

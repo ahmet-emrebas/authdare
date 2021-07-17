@@ -24,7 +24,6 @@ import {
 
 const defaultForm: FormOptions = {
   formName: 'default',
-  formTitle: 'Subscription',
   appearance: 'outline',
 
   fieldOptionsList: [
@@ -39,31 +38,49 @@ const defaultForm: FormOptions = {
       required: true,
     },
     {
-      controlName: 'lastName',
-      type: 'text',
-      label: 'Last Name',
-      autocomplete: 'given-name',
-      minLength: 2,
-      maxLength: 5,
-      hint: 'Emrebas',
-    },
-    {
       controlName: 'email',
       type: 'email',
       label: 'Email',
       autocomplete: 'email',
       email: true,
       hint: 'Emrebas',
-      dependents: ['firstName', 'lastName'],
+      dependents: ['firstName'],
     },
+
     {
-      controlName: 'age',
-      type: 'number',
+      controlName: 'interests',
+      type: 'select',
+      label: 'Interests',
+      autocomplete: 'interests',
+      hint: 'select interests',
+      options: [
+        {
+          label: 'First opton',
+          value: 1,
+        },
+        {
+          label: 'Second opton',
+          value: 2,
+        },
+        {
+          label: 'Third opton',
+          value: 3,
+        },
+      ],
+    },
+
+    {
+      controlName: 'birth',
+      type: 'date',
       label: 'Age',
-      autocomplete: 'given-name',
-      min: '18',
-      max: '41',
-      hint: 'Emrebas',
+      hint: 'Date of birth',
+    },
+
+    {
+      controlName: 'schedule',
+      type: 'date-range',
+      label: 'Slot',
+      hint: 'Date of schedule',
     },
   ],
 };
@@ -88,7 +105,7 @@ export class FormComponent implements OnInit, OnDestroy {
    * Form identifier that helps to find the form configuration in store.
    */
   @Input() formName: string = 'default';
-
+  @Input() formTitle: string = '';
   /**
    * Visibility of the form header.
    */
