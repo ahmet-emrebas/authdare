@@ -5,10 +5,6 @@
     [@bounceInOnEnter]
     [@bounceOutOnLeave]
   >
-    <button class="restart-button" mat-icon-button (click)="restart()">
-      <mat-icon>restart_alt</mat-icon>
-    </button>
-
     <authdare-chart style="zoom: 0.9; margin-bottom: 10px"></authdare-chart>
 
     <authdare-table
@@ -48,3 +44,7 @@
   <hr />
   <input class="typing-area" tabindex="0" [formControl]="control" />
 </div>
+
+<button class="restart-button" mat-mini-fab (click)="restart()" color="primary">
+  <mat-icon>restart_alt</mat-icon>
+</button>
