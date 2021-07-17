@@ -106,6 +106,8 @@ export class CarouselNavigationComponent implements OnInit {
         } else {
           this.navigateTo(this.state.currentIndex! + 1);
         }
+        this.pause();
+        this.play();
       }
     }, this.state.indexes![this.state.currentIndex!].duration / this.distance);
   }

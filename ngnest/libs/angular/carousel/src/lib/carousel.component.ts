@@ -89,8 +89,8 @@ export class CarouselComponent implements OnInit, AfterViewInit, OnDestroy {
         partialDistance: 0,
         strokeDasharray: '0',
         strokeWidth: 2,
-        indexes: this.carouselItems.map((e) => ({
-          duration: e.duration || 3000,
+        indexes: this.carouselItems.map(({ duration }) => ({
+          duration: duration || 3000,
         })),
       });
     }
