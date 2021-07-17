@@ -20,6 +20,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ChartDocComponent } from './chart-doc/chart-doc.component';
 import { ChartModule } from '@authdare/chart';
+import { TypingModule } from '@authdare/typing';
+import { TypingDocComponent } from './typing-doc/typing-doc.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,7 @@ import { ChartModule } from '@authdare/chart';
     CarouselDocComponent,
     FormDocComponent,
     ChartDocComponent,
+    TypingDocComponent,
   ],
   imports: [
     CommonModule,
@@ -46,6 +49,7 @@ import { ChartModule } from '@authdare/chart';
 
     MatInputModule,
     ChartModule,
+    TypingModule,
     RouterModule.forChild([
       {
         path: '',
@@ -70,6 +74,10 @@ import { ChartModule } from '@authdare/chart';
           {
             path: 'ChartComponent',
             component: ChartDocComponent,
+          },
+          {
+            path: 'TypingComponent',
+            component: TypingDocComponent,
           },
         ],
       },

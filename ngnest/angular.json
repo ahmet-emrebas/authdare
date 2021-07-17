@@ -291,6 +291,37 @@
           }
         }
       }
+    },
+    "typing": {
+      "projectType": "library",
+      "root": "libs/angular/typing",
+      "sourceRoot": "libs/angular/typing/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "libs/angular/typing/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/angular/typing/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "libs/angular/typing/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "libs/angular/typing/src/test.ts",
+            "tsConfig": "libs/angular/typing/tsconfig.spec.json",
+            "karmaConfig": "libs/angular/typing/karma.conf.js"
+          }
+        }
+      }
     }
   },
   "defaultProject": "client"

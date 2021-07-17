@@ -1,0 +1,44 @@
+<div class="typing-container">
+  <div
+    class="typing-stat"
+    *ngIf="stat as s"
+    [@bounceInOnEnter]
+    [@bounceOutOnLeave]
+  >
+    <table>
+      <tr>
+        <td>Correct Words :</td>
+        <td>{{ s.corrects }}</td>
+      </tr>
+      <tr>
+        <td>Wrong Words :</td>
+        <td>{{ s.wrongs }}</td>
+      </tr>
+      <tr>
+        <td>Duration :</td>
+        <td>{{ s.duration }} Seconds</td>
+      </tr>
+      <tr>
+        <td>Speed :</td>
+        <td>{{ s.speed }} WPM</td>
+      </tr>
+    </table>
+    <button mat-icon-button (click)="restart()">
+      <mat-icon>restart_alt</mat-icon>
+    </button>
+  </div>
+  <hr />
+  <div class="typing-content">
+    <span
+      class="word"
+      *ngFor="let word of words; let i = index"
+      [class.active]="currentIndex == i"
+      [class.correct]="word.correct == true"
+      [class.wrong]="word.wrong == true"
+    >
+      {{ word.value }}
+    </span>
+  </div>
+  <hr />
+  <input class="typing-area" tabindex="0" [formControl]="control" />
+</div>

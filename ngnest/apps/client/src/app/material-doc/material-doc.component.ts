@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { SidenavItem } from '@authdare/sidenav';
 import { slideInLeftOnEnterAnimation } from 'angular-animations';
+
 @Component({
   styleUrls: ['./material-doc.component.scss'],
   templateUrl: './material-doc.component.html',
@@ -34,6 +35,11 @@ export class MaterialDocComponent {
       path: '/material-doc/ChartComponent',
       label: 'Chart',
       icon: 'table_chart',
+    },
+    {
+      path: '/material-doc/TypingComponent',
+      label: 'Typing',
+      icon: 'keyboard',
     },
   ];
 }

@@ -1,0 +1,60 @@
+$bordercolor: gray;
+
+.typing-container {
+  position: relative;
+  border-radius: 10px;
+  width: 100%;
+  height: 100%;
+  border: 3px solid $bordercolor;
+  padding: 10px;
+}
+
+.typing-area {
+  position: relative;
+  width: 100%;
+  border: 3px solid $bordercolor;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.typing-area:focus,
+.typing-area:active {
+  outline: none;
+}
+
+td:first-child {
+  font-weight: bold;
+}
+
+.typing-content {
+  border: 3px solid $bordercolor;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.typing-stat {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border: 3px solid $bordercolor;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.word {
+  padding: 3px;
+  width: 100px;
+  border-radius: 3px;
+}
+
+.active {
+  background-color: $bordercolor;
+}
+
+.correct {
+  background-color: greenyellow;
+}
+
+.wrong {
+  background-color: rgba(243, 55, 55, 0.741);
+}
