@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>client documentation</title>
+        <title>ngnest documentation</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -14,7 +14,7 @@
     <body>
 
         <div class="navbar navbar-default navbar-fixed-top visible-xs">
-            <a href="../" class="navbar-brand">client documentation</a>
+            <a href="../" class="navbar-brand">ngnest documentation</a>
             <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
         </div>
 
@@ -55,7 +55,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>projects/form/src/lib/form-store.module.ts</code>
+            <code>libs/angular/form/src/lib/form-store.module.ts</code>
         </p>
 
 
@@ -73,11 +73,18 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { NgModule } from &#x27;@angular/core&#x27;;
+import { EntityDataModule } from &#x27;@ngrx/data&#x27;;
+import { EffectsModule } from &#x27;@ngrx/effects&#x27;;
 import { StoreModule } from &#x27;@ngrx/store&#x27;;
 import { formReducer } from &#x27;./form-store-actions&#x27;;
+import { entityConfig } from &#x27;./form.service&#x27;;
 
 @NgModule({
-  imports: [StoreModule.forFeature(&#x27;form&#x27;, formReducer)],
+  imports: [
+    StoreModule.forFeature(&#x27;form&#x27;, formReducer),
+    EntityDataModule.forRoot(entityConfig),
+    EffectsModule.forFeature([]),
+  ],
   exports: [StoreModule],
 })
 export class FormStoreModule {}

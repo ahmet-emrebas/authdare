@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>client documentation</title>
+        <title>ngnest documentation</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -14,7 +14,7 @@
     <body>
 
         <div class="navbar navbar-default navbar-fixed-top visible-xs">
-            <a href="../" class="navbar-brand">client documentation</a>
+            <a href="../" class="navbar-brand">ngnest documentation</a>
             <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
         </div>
 
@@ -64,7 +64,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>projects/form/src/lib/form-options.ts</code>
+            <code>libs/angular/form/src/lib/form-options.ts</code>
         </p>
 
 
@@ -85,7 +85,7 @@
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { FormControl, FormGroup, Validators } from &#x27;@angular/forms&#x27;;
 import { MatFormFieldAppearance } from &#x27;@angular/material/form-field&#x27;;
-import { cloneDeep, toPairs } from &#x27;lodash&#x27;;
+import { toPairs } from &#x27;lodash&#x27;;
 
 export interface HTMLInputElementExtras {
   /**
@@ -106,17 +106,17 @@ export interface HTMLInputElementExtras {
   /**
    * Each field must have a formcontrolname
    */
-  formControlName: string;
+  controlName: string;
 
   /**
    * FormControlInstance
    */
-  formControl?: FormControl;
+  control?: FormControl;
 
   /**
    * Options for the select field
    */
-  options?: string[];
+  options?: { label: string; value: any }[];
 
   /**
    * Define a dependent field that this field does not appeart till the dependent field is valid.
@@ -140,19 +140,9 @@ export interface FormOptions {
   formName: string;
 
   /**
-   * Visible title of the form
-   */
-  formTitle: string;
-
-  /**
    * Input field appearance
    */
   appearance: MatFormFieldAppearance;
-
-  /**
-   * When true, only one input will be appear at a time
-   */
-  isSquenential?: boolean;
 
   /**
    * FormGroup instance
@@ -165,25 +155,33 @@ export interface FormOptions {
   fieldOptionsList: FieldOptions[];
 }
 
+/**
+ * Valiate the form options and set default values for the empty options.
+ * @param {Partial&lt;FormOptions&gt;} formOptions
+ */
 export function validateAndTransformFormOptions(
   formOptions: Partial&lt;FormOptions&gt;
 ) {
   if (!formOptions) {
     throw new Error(&#x27;FormOptions required!&#x27;);
   }
-  const { formName, formTitle, appearance, fieldOptionsList } &#x3D; formOptions;
+  const { formName, appearance, fieldOptionsList } &#x3D; formOptions;
   if (!formName) throw new Error(&#x27;formName must set!&#x27;);
-  if (!formTitle) formOptions.formTitle &#x3D; &#x27;Undefined formTitle&#x27;;
   if (!appearance) formOptions.appearance &#x3D; &#x27;outline&#x27;;
   if (!fieldOptionsList) throw new Error(&#x27;fieldOptions must set!&#x27;);
 
   for (const field of fieldOptionsList) {
     if (!field.type) field.type &#x3D; &#x27;text&#x27;;
-    if (!field.formControlName) throw new Error(&#x27;formControlName must set!&#x27;);
+    if (!field.controlName) throw new Error(&#x27;formControlName must set!&#x27;);
     if (!field.label) throw new Error(&#x27;label must set&#x27;);
   }
 }
 
+/**
+ * Create a FormControl instance and configure validators
+ * @param {Partial&lt;FieldOptions&gt;} fieldOptionsList
+ * @returns
+ */
 export function configureValidators(fieldOptionsList: Partial&lt;FieldOptions&gt;[]) {
   for (const fieldOptions of fieldOptionsList) {
     const validators &#x3D; toPairs(fieldOptions)
@@ -198,31 +196,39 @@ export function configureValidators(fieldOptionsList: Partial&lt;FieldOptions&gt
         return (Validators as any)[key](value);
       });
 
-    const formControl &#x3D; new FormControl(&#x27;...&#x27;, []);
+    const formControl &#x3D; new FormControl(&#x27;&#x27;, []);
 
     formControl.setValidators(validators);
 
-    fieldOptions.formControl &#x3D; formControl;
+    fieldOptions.control &#x3D; formControl;
   }
 
   return fieldOptionsList;
 }
 
-export function createFormGroup(formOptions: Partial&lt;FormOptions&gt;) {
+/**
+ * Create a FormGroup instance and add the FormControls to it.
+ * @param {Partial&lt;FormOptions&gt;} formOptions
+ */
+export function createFormGroup(
+  formOptions: Partial&lt;FormOptions&gt;,
+  state?: any
+) {
   const formGroup &#x3D; new FormGroup({});
   for (const field of formOptions.fieldOptionsList!) {
-    formGroup.setControl(field.formControlName, field.formControl!);
+    formGroup.setControl(field.controlName, field.control!);
+    if (state) {
+      const cvalue &#x3D; state[field.controlName];
+      if (cvalue &amp;&amp; cvalue.length &gt; 0) {
+        field.control?.setValue(cvalue);
+        field.control?.markAsDirty();
+        field.control?.markAsTouched();
+      }
+      field.control;
+    }
   }
-  formOptions.formGroup &#x3D; formGroup;
-  formOptions.fieldOptionsList!.forEach((e) &#x3D;&gt; {
-    setTimeout(() &#x3D;&gt; {
-      e.formControl?.setValue(&#x27;.&#x27;);
-    });
 
-    setTimeout(() &#x3D;&gt; {
-      e.formControl?.setValue(&#x27;&#x27;);
-    }, 100);
-  });
+  formOptions.formGroup &#x3D; formGroup;
 }
 </code></pre>
     </div>

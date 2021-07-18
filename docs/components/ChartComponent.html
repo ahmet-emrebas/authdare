@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>client documentation</title>
+        <title>ngnest documentation</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -14,7 +14,7 @@
     <body>
 
         <div class="navbar navbar-default navbar-fixed-top visible-xs">
-            <a href="../" class="navbar-brand">client documentation</a>
+            <a href="../" class="navbar-brand">ngnest documentation</a>
             <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
         </div>
 
@@ -64,7 +64,7 @@
     <h3>File</h3>
 </p>
 <p class="comment">
-    <code>projects/chart/src/lib/chart.component.ts</code>
+    <code>libs/angular/chart/src/lib/chart.component.ts</code>
 </p>
 
 
@@ -135,10 +135,10 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#chartInstance" >chartInstance</a>
+                                <a href="#canvasId" >canvasId</a>
                             </li>
                             <li>
-                                <a href="#configuration$" >configuration$</a>
+                                <a href="#chartInstance" >chartInstance</a>
                             </li>
                             <li>
                                 <a href="#isMean" >isMean</a>
@@ -150,7 +150,7 @@
                                 <a href="#isMidrange" >isMidrange</a>
                             </li>
                             <li>
-                                <a href="#subs" >subs</a>
+                                <a href="#subsink" >subsink</a>
                             </li>
                         </ul>
                     </td>
@@ -168,7 +168,7 @@
                                 <a href="#addDataset" >addDataset</a>
                             </li>
                             <li>
-                                <a href="#getConfig" >getConfig</a>
+                                <a href="#initChart" >initChart</a>
                             </li>
                             <li>
                                 <a href="#meanLine" >meanLine</a>
@@ -198,6 +198,26 @@
                     </td>
                 </tr>
 
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#chartConfig" >chartConfig</a>
+                            </li>
+                            <li>
+                                <a href="#id" >id</a>
+                            </li>
+                            <li>
+                                <a href="#isFeatureStatVisible" >isFeatureStatVisible</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
 
 
 
@@ -206,8 +226,131 @@
     </table>
 </section>
 
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(chartService: <a href="../injectables/ChartService.html" target="_self">ChartService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="56" class="link-to-prism">libs/angular/chart/src/lib/chart.component.ts:56</a></div>
+                            </td>
+                        </tr>
 
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>chartService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ChartService.html" target="_self" >ChartService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
 
+    <section>
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="chartConfig"></a>
+                        <b>chartConfig</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>ChartConfiguration&lt;any | any | any&gt;</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">libs/angular/chart/src/lib/chart.component.ts:48</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="id"></a>
+                        <b>id</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>Date.now()</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">libs/angular/chart/src/lib/chart.component.ts:47</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="isFeatureStatVisible"></a>
+                        <b>isFeatureStatVisible</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>true</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">libs/angular/chart/src/lib/chart.component.ts:50</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
 
 
 
@@ -236,8 +379,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="79"
-                            class="link-to-prism">projects/chart/src/lib/chart.component.ts:79</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="123"
+                            class="link-to-prism">libs/angular/chart/src/lib/chart.component.ts:123</a></div>
                 </td>
             </tr>
 
@@ -290,24 +433,24 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="getConfig"></a>
+                    <a name="initChart"></a>
                     <span class="name">
-                        <span ><b>getConfig</b></span>
-                        <a href="#getConfig"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>initChart</b></span>
+                        <a href="#initChart"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>getConfig()</code>
+<code>initChart()</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="71"
-                            class="link-to-prism">projects/chart/src/lib/chart.component.ts:71</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="60"
+                            class="link-to-prism">libs/angular/chart/src/lib/chart.component.ts:60</a></div>
                 </td>
             </tr>
 
@@ -315,14 +458,8 @@
             <tr>
                 <td class="col-md-4">
 
-                    <div>
-                    </div>
                     <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
-
-                    </div>
-                    <div class="io-description">
-                        <p>the current configuration of the chart</p>
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
 
                     </div>
                 </td>
@@ -349,8 +486,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="175"
-                            class="link-to-prism">projects/chart/src/lib/chart.component.ts:175</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="217"
+                            class="link-to-prism">libs/angular/chart/src/lib/chart.component.ts:217</a></div>
                 </td>
             </tr>
 
@@ -388,8 +525,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="110"
-                            class="link-to-prism">projects/chart/src/lib/chart.component.ts:110</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="153"
+                            class="link-to-prism">libs/angular/chart/src/lib/chart.component.ts:153</a></div>
                 </td>
             </tr>
 
@@ -432,8 +569,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="144"
-                            class="link-to-prism">projects/chart/src/lib/chart.component.ts:144</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="187"
+                            class="link-to-prism">libs/angular/chart/src/lib/chart.component.ts:187</a></div>
                 </td>
             </tr>
 
@@ -476,8 +613,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="53"
-                            class="link-to-prism">projects/chart/src/lib/chart.component.ts:53</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="88"
+                            class="link-to-prism">libs/angular/chart/src/lib/chart.component.ts:88</a></div>
                 </td>
             </tr>
 
@@ -513,8 +650,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="43"
-                            class="link-to-prism">projects/chart/src/lib/chart.component.ts:43</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="84"
+                            class="link-to-prism">libs/angular/chart/src/lib/chart.component.ts:84</a></div>
                 </td>
             </tr>
 
@@ -550,8 +687,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="99"
-                            class="link-to-prism">projects/chart/src/lib/chart.component.ts:99</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="143"
+                            class="link-to-prism">libs/angular/chart/src/lib/chart.component.ts:143</a></div>
                 </td>
             </tr>
 
@@ -620,8 +757,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="89"
-                            class="link-to-prism">projects/chart/src/lib/chart.component.ts:89</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="133"
+                            class="link-to-prism">libs/angular/chart/src/lib/chart.component.ts:133</a></div>
                 </td>
             </tr>
 
@@ -690,8 +827,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="63"
-                            class="link-to-prism">projects/chart/src/lib/chart.component.ts:63</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="107"
+                            class="link-to-prism">libs/angular/chart/src/lib/chart.component.ts:107</a></div>
                 </td>
             </tr>
 
@@ -750,21 +887,21 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="chartInstance"></a>
+                    <a name="canvasId"></a>
                     <span class="name">
-                        <span ><b>chartInstance</b></span>
-                        <a href="#chartInstance"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>canvasId</b></span>
+                        <a href="#canvasId"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Default value : </i><code>new Chart(&#x27;canvas&#x27;, this.configuration$.getValue())</code>
+                        <i>Default value : </i><code>&#x27;canvas&#x27; + this.id</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">projects/chart/src/lib/chart.component.ts:41</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="52" class="link-to-prism">libs/angular/chart/src/lib/chart.component.ts:52</a></div>
                         </td>
                     </tr>
 
@@ -775,23 +912,22 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="configuration$"></a>
+                    <a name="chartInstance"></a>
                     <span class="name">
-                        <span ><b>configuration$</b></span>
-                        <a href="#configuration$"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>chartInstance</b></span>
+                        <a href="#chartInstance"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Default value : </i><code>new BehaviorSubject&lt;ChartConfiguration&lt;any, any, any&gt;&gt;(
-    defaultConfig
-  )</code>
+                        <i>Type : </i>    <code>Chart</code>
+
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">projects/chart/src/lib/chart.component.ts:38</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="53" class="link-to-prism">libs/angular/chart/src/lib/chart.component.ts:53</a></div>
                         </td>
                     </tr>
 
@@ -816,7 +952,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="171" class="link-to-prism">projects/chart/src/lib/chart.component.ts:171</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="56" class="link-to-prism">libs/angular/chart/src/lib/chart.component.ts:56</a></div>
                         </td>
                     </tr>
 
@@ -841,7 +977,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="105" class="link-to-prism">projects/chart/src/lib/chart.component.ts:105</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">libs/angular/chart/src/lib/chart.component.ts:54</a></div>
                         </td>
                     </tr>
 
@@ -866,7 +1002,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="139" class="link-to-prism">projects/chart/src/lib/chart.component.ts:139</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="55" class="link-to-prism">libs/angular/chart/src/lib/chart.component.ts:55</a></div>
                         </td>
                     </tr>
 
@@ -877,27 +1013,21 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="subs"></a>
+                    <a name="subsink"></a>
                     <span class="name">
-                        <span ><b>subs</b></span>
-                        <a href="#subs"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>subsink</b></span>
+                        <a href="#subsink"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Type : </i>    <code>Subscription[]</code>
-
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Default value : </i><code>[]</code>
+                        <i>Default value : </i><code>new SubSink()</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">projects/chart/src/lib/chart.component.ts:37</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">libs/angular/chart/src/lib/chart.component.ts:45</a></div>
                         </td>
                     </tr>
 
@@ -910,13 +1040,21 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnDestroy, OnInit } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, Input, OnDestroy, OnInit } from &#x27;@angular/core&#x27;;
 
-import { Chart, ChartConfiguration, ChartDataset, ChartType } from &#x27;chart.js&#x27;;
+import {
+  Chart,
+  ChartConfiguration,
+  ChartDataset,
+  ChartType,
+  ChartTypeRegistry,
+} from &#x27;chart.js&#x27;;
 
 import * as chartjs$ from &#x27;chart.js/auto&#x27;;
 import { filter, uniqBy, cloneDeep, max, min } from &#x27;lodash&#x27;;
-import { BehaviorSubject, Subscription } from &#x27;rxjs&#x27;;
+import { map } from &#x27;rxjs/operators&#x27;;
+import { SubSink } from &#x27;subsink&#x27;;
+import { ChartService } from &#x27;./chart.service&#x27;;
 
 const ___ &#x3D; chartjs$.default;
 const defaultConfig: ChartConfiguration &#x3D; {
@@ -946,26 +1084,62 @@ const defaultConfig: ChartConfiguration &#x3D; {
   styleUrls: [&#x27;./chart.component.css&#x27;],
 })
 export class ChartComponent implements OnInit, OnDestroy {
-  subs: Subscription[] &#x3D; [];
-  configuration$ &#x3D; new BehaviorSubject&lt;ChartConfiguration&lt;any, any, any&gt;&gt;(
-    defaultConfig
-  );
-  chartInstance &#x3D; new Chart(&#x27;canvas&#x27;, this.configuration$.getValue());
+  subsink &#x3D; new SubSink();
+
+  @Input() id &#x3D; Date.now();
+  @Input() chartConfig!: ChartConfiguration&lt;any, any, any&gt;;
+
+  @Input() isFeatureStatVisible &#x3D; true;
+
+  canvasId &#x3D; &#x27;canvas&#x27; + this.id;
+  chartInstance!: Chart;
+  isMedian &#x3D; false;
+  isMidrange &#x3D; false;
+  isMean &#x3D; false;
+
+  constructor(private chartService: ChartService) {}
+
+  initChart() {
+    try {
+      this.chartInstance.destroy();
+    } catch (err) {
+      // If exist destroy!
+    }
+    setTimeout(() &#x3D;&gt; {
+      if (this.chartConfig) {
+        this.chartInstance &#x3D; new Chart(this.canvasId, this.chartConfig);
+        return;
+      } else {
+        this.chartConfig &#x3D; defaultConfig;
+      }
+      this.subsink.sink &#x3D; this.chartService.entities$
+        .pipe(map((d) &#x3D;&gt; d.find((e) &#x3D;&gt; e.id &#x3D;&#x3D; this.id)))
+        .subscribe((state) &#x3D;&gt; {
+          this.isMidrange &#x3D; state?.isMidrange || false;
+          this.isMean &#x3D; state?.isMean || false;
+          this.isMedian &#x3D; state?.isMedian || false;
+        });
+      this.chartInstance &#x3D; new Chart(this.canvasId, this.chartConfig);
+    }, 300);
+  }
 
   ngOnInit(): void {
-    const s &#x3D; this.configuration$.subscribe(
-      (config: ChartConfiguration&lt;any&gt;) &#x3D;&gt; {
-        this.chartInstance.destroy();
-        this.chartInstance &#x3D; new Chart(&#x27;canvas&#x27;, config);
-      }
-    );
-    this.subs.push(s);
+    this.initChart();
   }
 
   ngOnDestroy(): void {
-    for (const s of this.subs) {
-      s.unsubscribe();
-    }
+    this.subsink.unsubscribe();
+
+    this.chartService.upsertOneInCache({
+      id: this.id,
+      isMean: this.isMean,
+      isMedian: this.isMedian,
+      isMidrange: this.isMidrange,
+    });
+
+    setTimeout(() &#x3D;&gt; {
+      this.chartInstance.destroy();
+    });
   }
 
   /**
@@ -973,15 +1147,15 @@ export class ChartComponent implements OnInit, OnDestroy {
    * @param config
    */
   updateConfig(config: ChartConfiguration) {
-    this.configuration$.next(config);
-  }
-
-  /**
-   *
-   * @returns the current configuration of the chart
-   */
-  getConfig() {
-    return this.configuration$.getValue();
+    this.chartConfig &#x3D; { ...config };
+    setTimeout(() &#x3D;&gt; {
+      try {
+        this.chartInstance.destroy();
+      } catch (err) {
+        // If exist destroy!
+      }
+      this.chartInstance &#x3D; new Chart(this.canvasId, this.chartConfig);
+    }, 300);
   }
 
   /**
@@ -989,7 +1163,7 @@ export class ChartComponent implements OnInit, OnDestroy {
    * @param dataset
    */
   addDataset(dataset: ChartDataset) {
-    const currentConfiguration &#x3D; this.configuration$.getValue();
+    const currentConfiguration &#x3D; this.chartConfig;
     currentConfiguration.data.datasets.push(dataset);
     this.updateConfig(currentConfiguration);
   }
@@ -999,7 +1173,7 @@ export class ChartComponent implements OnInit, OnDestroy {
    * @param {ChartType} ctype
    */
   setType(ctype: ChartType) {
-    const cc &#x3D; this.getConfig();
+    const cc &#x3D; this.chartConfig;
     cc.type &#x3D; ctype;
     this.updateConfig(cc);
   }
@@ -1009,12 +1183,11 @@ export class ChartComponent implements OnInit, OnDestroy {
    * @param label
    */
   removeByLabel(label: string) {
-    const cv &#x3D; this.getConfig();
+    const cv &#x3D; this.chartConfig;
     cv.data.datasets &#x3D; filter(cv.data.datasets, (e) &#x3D;&gt; e.label !&#x3D; label) as any;
     this.updateConfig(cv);
   }
 
-  isMedian &#x3D; false;
   /**
    * Display median value of the dataset in the first index.
    * @returns
@@ -1028,7 +1201,7 @@ export class ChartComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const cv &#x3D; this.getConfig();
+    const cv &#x3D; this.chartConfig;
     const nds &#x3D; cloneDeep(cv.data.datasets[0]);
     nds.label &#x3D; label;
     const ndsData &#x3D; nds.data;
@@ -1048,7 +1221,7 @@ export class ChartComponent implements OnInit, OnDestroy {
 
     this.isMedian &#x3D; !this.isMedian;
   }
-  isMidrange &#x3D; false;
+
   /**
    * Display midrange value of the dataset in the first index.
    * @returns
@@ -1062,7 +1235,7 @@ export class ChartComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const cv &#x3D; this.getConfig();
+    const cv &#x3D; this.chartConfig;
     const nds &#x3D; cloneDeep(cv.data.datasets[0]);
     nds.label &#x3D; label;
     const ndsData &#x3D; nds.data as number[];
@@ -1080,7 +1253,6 @@ export class ChartComponent implements OnInit, OnDestroy {
     this.isMidrange &#x3D; !this.isMidrange;
   }
 
-  isMean &#x3D; false;
   /**
    * Display the Mean line of the dataset at the first index.
    */
@@ -1093,18 +1265,18 @@ export class ChartComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const cv &#x3D; this.getConfig();
+    const cv &#x3D; this.chartConfig;
     const nds &#x3D; cloneDeep(cv.data.datasets[0]);
     nds.label &#x3D; label;
     nds.data &#x3D; new Array(nds.data.length).fill(
       nds.data.reduce((p: number, c: number) &#x3D;&gt; p + c) / nds.data.length
     );
+
     nds.borderColor &#x3D; color;
     nds.backgroundColor &#x3D; color;
     cv.data.datasets.push(nds);
     cv.data.datasets &#x3D; uniqBy(cv.data.datasets, &#x27;label&#x27;);
     this.updateConfig(cv);
-
     this.isMean &#x3D; !this.isMean;
   }
 }
@@ -1113,13 +1285,13 @@ export class ChartComponent implements OnInit, OnDestroy {
 
     <div class="tab-pane fade " id="c-templateData">
         <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;canvas-container&quot;&gt;
-  &lt;mat-toolbar color&#x3D;&quot;primary&quot;&gt;
+  &lt;mat-toolbar color&#x3D;&quot;primary&quot; *ngIf&#x3D;&quot;isFeatureStatVisible&quot;&gt;
     &lt;button
       mat-icon-button
       (click)&#x3D;&quot;meanLine()&quot;
       matTooltip&#x3D;&quot;Mean&quot;
       matTooltipPosition&#x3D;&quot;below&quot;
-      [class.border]&#x3D;&quot;isMean&quot;
+      [class.active]&#x3D;&quot;isMean&quot;
     &gt;
       &lt;mat-icon&gt;adjust&lt;/mat-icon&gt;
     &lt;/button&gt;
@@ -1128,7 +1300,7 @@ export class ChartComponent implements OnInit, OnDestroy {
       (click)&#x3D;&quot;medianLine()&quot;
       matTooltip&#x3D;&quot;Median&quot;
       matTooltipPosition&#x3D;&quot;below&quot;
-      [class.border]&#x3D;&quot;isMedian&quot;
+      [class.active]&#x3D;&quot;isMedian&quot;
     &gt;
       &lt;mat-icon&gt;filter_tilt_shift&lt;/mat-icon&gt;
     &lt;/button&gt;
@@ -1137,12 +1309,14 @@ export class ChartComponent implements OnInit, OnDestroy {
       (click)&#x3D;&quot;midrangeLine()&quot;
       matTooltip&#x3D;&quot;Midrange&quot;
       matTooltipPosition&#x3D;&quot;below&quot;
-      [class.border]&#x3D;&quot;isMedian&quot;
+      [class.active]&#x3D;&quot;isMidrange&quot;
     &gt;
       &lt;mat-icon&gt;center_focus_strong&lt;/mat-icon&gt;
     &lt;/button&gt;
   &lt;/mat-toolbar&gt;
-  &lt;canvas id&#x3D;&quot;canvas&quot;&gt;&lt;/canvas&gt;
+
+  &lt;canvas [id]&#x3D;&quot;canvasId&quot;&gt;&lt;/canvas&gt;
+  &lt;ng-content&gt;&lt;/ng-content&gt;
 &lt;/div&gt;
 </code></pre>
     </div>
@@ -1153,10 +1327,16 @@ export class ChartComponent implements OnInit, OnDestroy {
                 </p>
                 <pre class="line-numbers"><code class="language-scss">.canvas-container {
   display: block;
+  background-color: white;
+  border-radius: 10px;
 }
 
-.border {
+.active {
   color: pink;
+}
+
+.mat-toolbar {
+  border-radius: 10px;
 }
 </code></pre>
     </div>
@@ -1186,8 +1366,8 @@ export class ChartComponent implements OnInit, OnDestroy {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><div class="canvas-container">  <mat-toolbar color="primary">    <button      mat-icon-button      (click)="meanLine()"      matTooltip="Mean"      matTooltipPosition="below"      [class.border]="isMean"    >      <mat-icon>adjust</mat-icon>    </button>    <button      mat-icon-button      (click)="medianLine()"      matTooltip="Median"      matTooltipPosition="below"      [class.border]="isMedian"    >      <mat-icon>filter_tilt_shift</mat-icon>    </button>    <button      mat-icon-button      (click)="midrangeLine()"      matTooltip="Midrange"      matTooltipPosition="below"      [class.border]="isMedian"    >      <mat-icon>center_focus_strong</mat-icon>    </button>  </mat-toolbar>  <canvas id="canvas"></canvas></div></div>'
-    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AuthdareMaterialComponent', 'selector': 'authdare-material'},{'name': 'ChartComponent', 'selector': 'authdare-chart'},{'name': 'DateFieldComponent', 'selector': 'authdare-date-field'},{'name': 'DocComponent', 'selector': 'app-doc'},{'name': 'FieldStatusComponent', 'selector': 'authdare-field-status'},{'name': 'FormComponent', 'selector': 'authdare-form'},{'name': 'FormFieldComponent', 'selector': 'authdare-form-field'},{'name': 'NavbarComponent', 'selector': 'lib-navbar'},{'name': 'SelectFieldComponent', 'selector': 'authdare-select-field'},{'name': 'SidenavComponent', 'selector': 'authdare-sidenav'},{'name': 'TextFieldComponent', 'selector': 'authdare-text-field'}];
+        var COMPONENT_TEMPLATE = '<div><div class="canvas-container">  <mat-toolbar color="primary" *ngIf="isFeatureStatVisible">    <button      mat-icon-button      (click)="meanLine()"      matTooltip="Mean"      matTooltipPosition="below"      [class.active]="isMean"    >      <mat-icon>adjust</mat-icon>    </button>    <button      mat-icon-button      (click)="medianLine()"      matTooltip="Median"      matTooltipPosition="below"      [class.active]="isMedian"    >      <mat-icon>filter_tilt_shift</mat-icon>    </button>    <button      mat-icon-button      (click)="midrangeLine()"      matTooltip="Midrange"      matTooltipPosition="below"      [class.active]="isMidrange"    >      <mat-icon>center_focus_strong</mat-icon>    </button>  </mat-toolbar>  <canvas [id]="canvasId"></canvas>  <ng-content></ng-content></div></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CarouselComponent', 'selector': 'authdare-carousel'},{'name': 'CarouselDocComponent', 'selector': 'app-carousel-doc'},{'name': 'CarouselNavigationComponent', 'selector': 'authdare-carousel-navigation'},{'name': 'CarouselPersistentComponent', 'selector': 'authdare-carousel-persistent'},{'name': 'ChartComponent', 'selector': 'authdare-chart'},{'name': 'ChartDocComponent', 'selector': 'app-chart-doc'},{'name': 'DateFieldComponent', 'selector': 'authdare-date-field'},{'name': 'FieldStatusComponent', 'selector': 'authdare-field-status'},{'name': 'FormComponent', 'selector': 'authdare-form'},{'name': 'FormDocComponent', 'selector': 'app-form-doc'},{'name': 'FormFieldComponent', 'selector': 'authdare-form-field'},{'name': 'GreetingComponent', 'selector': 'authdare-greeting'},{'name': 'MaterialDocComponent', 'selector': ''},{'name': 'MenuComponent', 'selector': 'authdare-menu'},{'name': 'NavbarComponent', 'selector': 'authdare-navbar'},{'name': 'NavbarDocComponent', 'selector': 'app-navbar-doc'},{'name': 'NavbarItemComponent', 'selector': 'authdare-navbar-item'},{'name': 'SelectFieldComponent', 'selector': 'authdare-select-field'},{'name': 'SidenavComponent', 'selector': 'authdare-sidenav'},{'name': 'TableComponent', 'selector': 'authdare-table'},{'name': 'TableDocComponent', 'selector': 'app-table-doc'},{'name': 'TextFieldComponent', 'selector': 'authdare-text-field'},{'name': 'TypingComponent', 'selector': 'authdare-typing'},{'name': 'TypingDocComponent', 'selector': 'app-typing-doc'}];
     var DIRECTIVES = [{'name': 'SetAttributeDirective', 'selector': '[authdareSetAttribute]'}];
     var ACTUAL_COMPONENT = {'name': 'ChartComponent'};
 </script>
