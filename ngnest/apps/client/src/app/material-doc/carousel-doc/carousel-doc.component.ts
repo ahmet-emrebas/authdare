@@ -11,21 +11,26 @@ let state: any;
 export class CarouselDocComponent implements OnInit {
   carouselItems: Partial<CarouselItem>[] = [
     {
-      title: 'Hello there!',
-      content: '1 second',
-      backgroundColor: 'black',
-      duration: 1000,
+      title: 'Full Stack Software Development',
+      summary:
+        "Let's solve your busines problem with our amazing team! I think we are the fastest team in the world! Honestly, most of our clients do not need a software, they just like us! Would you like to enjoy being with us! Let's have fun solving your business problem with amazing people!",
+      img: '/assets/imgs/fullstack.png',
+      backgroundColor: 'rgba(70, 0, 0,  0.7)',
+      duration: 3000,
     },
     {
-      title: 'This is the second one!',
-      content: '2 seconds',
+      title: 'I do not have my lambo yet!',
+      summary: 'Could you please help me to get my lambo!',
+      backgroundColor: 'rgba(70, 0, 0,  0.7)',
       img: '/assets/imgs/cars/1.png',
       duration: 3000,
     },
     {
-      title: '3000 Milliseconds!!',
-      content: 'Wooow',
-      img: '/assets/imgs/cars/1.png',
+      title: 'Our Strength ',
+      summary:
+        'Node, Angular, Typescirpt, Javascript, Responsive Design, PWA, Complex Web Applications, Android Service and App development!',
+      backgroundColor: 'rgba(70, 0, 0,  0.7)',
+      img: '/assets/imgs/softwaredev.jpg',
       duration: 3000,
     },
   ];
