@@ -7,12 +7,13 @@ import {
   Output,
   ViewChild,
   OnInit,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { keys } from 'lodash';
-import { Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import { MenuItem } from './menu';
 
 export interface TableItem {
@@ -29,13 +30,14 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<TableItem>;
 
-  @Input() tableData: { [key: string]: any }[] = [];
+  @Input() tableData!: { [key: string]: any }[];
   @Input() isActionButtonVisible = true;
   @Input() isIdsVisible = true;
   @Input() highlightBy: string[] = [''];
 
   @Output() onRowClick = new EventEmitter<number>();
   @Output() onMenuClick = new EventEmitter<{ path: string; id: number }>();
+
   menuItems: MenuItem[] = [
     {
       icon: 'open_in_new',
@@ -54,15 +56,10 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
     },
   ];
 
-  /**
-   * Whenever a row clicks, then emits the id of the associated item.
-   */
-
   columns!: string[];
   displayedColumns!: string[];
-
   dataSource!: MatTableDataSource<TableItem>;
-  /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
+
   ngOnInit(): void {
     this.columns = keys(this.tableData[0]).filter(
       (e) => e !== 'path' && e !== 'groupId'
@@ -90,6 +87,10 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnDestroy(): void {}
 
   onMenuClickHandle(path: string, id: number) {
+    if (path == 'delete') {
+      this.tableData = this.tableData.filter((e) => e.id !== id);
+      this.dataSource.data = this.tableData;
+    }
     this.onMenuClick.emit({ path, id });
   }
 }
