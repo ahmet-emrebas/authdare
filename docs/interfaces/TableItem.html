@@ -84,7 +84,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">libs/angular/table/src/lib/table.component.ts:18</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">libs/angular/table/src/lib/table.component.ts:19</a></div>
                             </td>
                         </tr>
             </tbody>
@@ -104,12 +104,13 @@
   Output,
   ViewChild,
   OnInit,
+  ChangeDetectionStrategy,
 } from &#x27;@angular/core&#x27;;
 import { MatPaginator } from &#x27;@angular/material/paginator&#x27;;
 import { MatSort } from &#x27;@angular/material/sort&#x27;;
 import { MatTable, MatTableDataSource } from &#x27;@angular/material/table&#x27;;
 import { keys } from &#x27;lodash&#x27;;
-import { Subscription } from &#x27;rxjs&#x27;;
+import { Observable } from &#x27;rxjs&#x27;;
 import { MenuItem } from &#x27;./menu&#x27;;
 
 export interface TableItem {
@@ -126,13 +127,14 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable&lt;TableItem&gt;;
 
-  @Input() tableData: { [key: string]: any }[] &#x3D; [];
+  @Input() tableData!: { [key: string]: any }[];
   @Input() isActionButtonVisible &#x3D; true;
   @Input() isIdsVisible &#x3D; true;
   @Input() highlightBy: string[] &#x3D; [&#x27;&#x27;];
 
   @Output() onRowClick &#x3D; new EventEmitter&lt;number&gt;();
   @Output() onMenuClick &#x3D; new EventEmitter&lt;{ path: string; id: number }&gt;();
+
   menuItems: MenuItem[] &#x3D; [
     {
       icon: &#x27;open_in_new&#x27;,
@@ -151,15 +153,10 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
     },
   ];
 
-  /**
-   * Whenever a row clicks, then emits the id of the associated item.
-   */
-
   columns!: string[];
   displayedColumns!: string[];
-
   dataSource!: MatTableDataSource&lt;TableItem&gt;;
-  /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
+
   ngOnInit(): void {
     this.columns &#x3D; keys(this.tableData[0]).filter(
       (e) &#x3D;&gt; e !&#x3D;&#x3D; &#x27;path&#x27; &amp;&amp; e !&#x3D;&#x3D; &#x27;groupId&#x27;
@@ -187,6 +184,10 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnDestroy(): void {}
 
   onMenuClickHandle(path: string, id: number) {
+    if (path &#x3D;&#x3D; &#x27;delete&#x27;) {
+      this.tableData &#x3D; this.tableData.filter((e) &#x3D;&gt; e.id !&#x3D;&#x3D; id);
+      this.dataSource.data &#x3D; this.tableData;
+    }
     this.onMenuClick.emit({ path, id });
   }
 }

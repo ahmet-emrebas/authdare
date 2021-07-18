@@ -77,6 +77,10 @@
     <table class="table table-sm table-hover">
         <tbody>
 
+            <tr>
+                <td class="col-md-3">changeDetection</td>
+                <td class="col-md-9"><code>ChangeDetectionStrategy.OnPush</code></td>
+            </tr>
 
 
 
@@ -130,6 +134,9 @@
                             <li>
                                 <a href="#tableData" >tableData</a>
                             </li>
+                            <li>
+                                <a href="#tableRef" >tableRef</a>
+                            </li>
                         </ul>
                     </td>
                 </tr>
@@ -167,22 +174,47 @@
             </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Type : </i>    <code>[]</code>
+                        <i>Default value : </i><code>genFakeData(100)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">apps/client/src/app/material-doc/table-doc/table-doc.component.ts:40</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="tableRef"></a>
+                    <span class="name">
+                        <span ><b>tableRef</b></span>
+                        <a href="#tableRef"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../components/TableComponent.html" target="_self" >TableComponent</a></code>
 
                     </td>
                 </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Default value : </i><code>[
-    { id: 1, firstName: &#x27;Ahmet&#x27; },
-    { id: 1, firstName: &#x27;Ahmet&#x27; },
-    { id: 1, firstName: &#x27;Ahmet&#x27; },
-  ]</code>
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ViewChild(&#x27;tableRef&#x27;)<br />
+                        </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">apps/client/src/app/material-doc/table-doc/table-doc.component.ts:9</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">apps/client/src/app/material-doc/table-doc/table-doc.component.ts:38</a></div>
                         </td>
                     </tr>
 
@@ -195,25 +227,52 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  Component,
+  Output,
+  ViewChild,
+  ChangeDetectionStrategy,
+} from &#x27;@angular/core&#x27;;
+import { name, internet } from &#x27;faker&#x27;;
+import { TableComponent } from &#x27;@authdare/table&#x27;;
+
+import { BehaviorSubject } from &#x27;rxjs&#x27;;
+let i &#x3D; 0;
+function genFakeData(size: number): any[] {
+  const list &#x3D; new Array(size).fill(0).map((e) &#x3D;&gt; {
+    const firstName &#x3D; name.firstName();
+    const lastName &#x3D; name.lastName();
+    const email &#x3D; internet.email(firstName, lastName);
+    const age &#x3D; ~~(Math.random() * 100) + 20;
+
+    return {
+      id: i++,
+      firstName,
+      lastName,
+      email,
+      age,
+    };
+  });
+
+  return list;
+}
 
 @Component({
   selector: &#x27;app-table-doc&#x27;,
   templateUrl: &#x27;./table-doc.component.html&#x27;,
   styleUrls: [&#x27;./table-doc.component.scss&#x27;],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TableDocComponent {
-  tableData &#x3D; [
-    { id: 1, firstName: &#x27;Ahmet&#x27; },
-    { id: 1, firstName: &#x27;Ahmet&#x27; },
-    { id: 1, firstName: &#x27;Ahmet&#x27; },
-  ];
+  @ViewChild(&#x27;tableRef&#x27;) tableRef!: TableComponent;
+
+  tableData &#x3D; genFakeData(100);
 }
 </code></pre>
     </div>
 
     <div class="tab-pane fade " id="c-templateData">
-        <pre class="line-numbers"><code class="language-html">&lt;authdare-table [tableData]&#x3D;&quot;tableData&quot;&gt;&lt;/authdare-table&gt;
+        <pre class="line-numbers"><code class="language-html">&lt;authdare-table #tableRef [tableData]&#x3D;&quot;tableData&quot;&gt;&lt;/authdare-table&gt;
 </code></pre>
     </div>
 
@@ -249,7 +308,7 @@ export class TableDocComponent {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><authdare-table [tableData]="tableData"></authdare-table></div>'
+        var COMPONENT_TEMPLATE = '<div><authdare-table #tableRef [tableData]="tableData"></authdare-table></div>'
     var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CarouselComponent', 'selector': 'authdare-carousel'},{'name': 'CarouselDocComponent', 'selector': 'app-carousel-doc'},{'name': 'CarouselNavigationComponent', 'selector': 'authdare-carousel-navigation'},{'name': 'CarouselPersistentComponent', 'selector': 'authdare-carousel-persistent'},{'name': 'ChartComponent', 'selector': 'authdare-chart'},{'name': 'ChartDocComponent', 'selector': 'app-chart-doc'},{'name': 'DateFieldComponent', 'selector': 'authdare-date-field'},{'name': 'FieldStatusComponent', 'selector': 'authdare-field-status'},{'name': 'FormComponent', 'selector': 'authdare-form'},{'name': 'FormDocComponent', 'selector': 'app-form-doc'},{'name': 'FormFieldComponent', 'selector': 'authdare-form-field'},{'name': 'GreetingComponent', 'selector': 'authdare-greeting'},{'name': 'MaterialDocComponent', 'selector': ''},{'name': 'MenuComponent', 'selector': 'authdare-menu'},{'name': 'NavbarComponent', 'selector': 'authdare-navbar'},{'name': 'NavbarDocComponent', 'selector': 'app-navbar-doc'},{'name': 'NavbarItemComponent', 'selector': 'authdare-navbar-item'},{'name': 'SelectFieldComponent', 'selector': 'authdare-select-field'},{'name': 'SidenavComponent', 'selector': 'authdare-sidenav'},{'name': 'TableComponent', 'selector': 'authdare-table'},{'name': 'TableDocComponent', 'selector': 'app-table-doc'},{'name': 'TextFieldComponent', 'selector': 'authdare-text-field'},{'name': 'TypingComponent', 'selector': 'authdare-typing'},{'name': 'TypingDocComponent', 'selector': 'app-typing-doc'}];
     var DIRECTIVES = [{'name': 'SetAttributeDirective', 'selector': '[authdareSetAttribute]'}];
     var ACTUAL_COMPONENT = {'name': 'TableDocComponent'};
