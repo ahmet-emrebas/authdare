@@ -184,6 +184,9 @@
                                 <a href="#setStrokeDashArray" >setStrokeDashArray</a>
                             </li>
                             <li>
+                                <a href="#toggle" >toggle</a>
+                            </li>
+                            <li>
                                     <span class="modifier">Private</span>
                                 <a href="#updateState" >updateState</a>
                             </li>
@@ -320,8 +323,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="135"
-                            class="link-to-prism">libs/angular/carousel/src/lib/carousel-navigation/carousel-navigation.component.ts:135</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="142"
+                            class="link-to-prism">libs/angular/carousel/src/lib/carousel-navigation/carousel-navigation.component.ts:142</a></div>
                 </td>
             </tr>
 
@@ -596,6 +599,43 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="toggle"></a>
+                    <span class="name">
+                        <span ><b>toggle</b></span>
+                        <a href="#toggle"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggle()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="131"
+                            class="link-to-prism">libs/angular/carousel/src/lib/carousel-navigation/carousel-navigation.component.ts:131</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="updateState"></a>
                     <span class="name">
                         <span class="modifier">Private</span>
@@ -614,8 +654,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="142"
-                            class="link-to-prism">libs/angular/carousel/src/lib/carousel-navigation/carousel-navigation.component.ts:142</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="149"
+                            class="link-to-prism">libs/angular/carousel/src/lib/carousel-navigation/carousel-navigation.component.ts:149</a></div>
                 </td>
             </tr>
 
@@ -982,6 +1022,13 @@ export class CarouselNavigationComponent implements OnInit, OnDestroy {
     this.updateState({ isPlaying: false });
   }
 
+  toggle() {
+    if (this.state.isPlaying) {
+      this.updateState({ isPlaying: false });
+    } else {
+      this.play();
+    }
+  }
   /**
    * Play the next element with the corresponding index
    * @param {number} index

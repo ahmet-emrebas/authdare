@@ -557,6 +557,13 @@ export class CarouselNavigationComponent implements OnInit, OnDestroy {
     this.updateState({ isPlaying: false });
   }
 
+  toggle() {
+    if (this.state.isPlaying) {
+      this.updateState({ isPlaying: false });
+    } else {
+      this.play();
+    }
+  }
   /**
    * Play the next element with the corresponding index
    * @param {number} index
