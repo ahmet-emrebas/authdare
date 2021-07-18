@@ -1,118 +1,113 @@
-<ng-container>
-  <mat-form-field
-    [appearance]="appearance || 'standard'"
-    style="margin-bottom: 20px"
+<mat-form-field [appearance]="appearance || 'standard'">
+  <mat-label [attr.for]="attributes.controlName">{{
+    attributes.label
+  }}</mat-label>
+
+  <!-- Text input  -->
+  <input
+    *ngIf="fieldType == 'text'"
+    [attr.id]="attributes.controlName"
+    matInput
+    autocomplete="off"
+    [authdareSetAttribute]="attributes"
+    [ignoreFields]="['hint']"
+    [formControl]="attributes.control!"
+    [errorStateMatcher]="errorStateMatcher"
+  />
+
+  <!-- Select Input -->
+  <mat-select
+    *ngIf="fieldType == 'select'"
+    [attr.id]="attributes.controlName"
+    matInput
+    autocomplete="off"
+    [authdareSetAttribute]="attributes"
+    [ignoreFields]="['type', 'hint']"
+    [formControl]="attributes.control!"
+    [errorStateMatcher]="errorStateMatcher"
+    [multiple]="attributes.multiple"
   >
-    <mat-label [attr.for]="attributes.controlName">{{
-      attributes.label
-    }}</mat-label>
+    <mat-option>---</mat-option>
+    <mat-option
+      *ngFor="let option of attributes.options"
+      [value]="option.value"
+    >
+      {{ option.label }}
+    </mat-option>
+  </mat-select>
 
-    <!-- Text input  -->
+  <!-- Date Input -->
+  <ng-container *ngIf="fieldType == 'date'">
     <input
-      *ngIf="fieldType == 'text'"
       [attr.id]="attributes.controlName"
       matInput
-      autocomplete="off"
-      [authdareSetAttribute]="attributes"
-      [ignoreFields]="['hint']"
-      [formControl]="attributes.control!"
-      [errorStateMatcher]="errorStateMatcher"
-    />
-
-    <!-- Select Input -->
-    <mat-select
-      *ngIf="fieldType == 'select'"
-      [attr.id]="attributes.controlName"
-      matInput
+      [matDatepicker]="picker"
       autocomplete="off"
       [authdareSetAttribute]="attributes"
       [ignoreFields]="['type', 'hint']"
       [formControl]="attributes.control!"
       [errorStateMatcher]="errorStateMatcher"
-      [multiple]="attributes.multiple"
-    >
-      <mat-option>---</mat-option>
-      <mat-option
-        *ngFor="let option of attributes.options"
-        [value]="option.value"
-      >
-        {{ option.label }}
-      </mat-option>
-    </mat-select>
-
-    <!-- Date Input -->
-    <ng-container *ngIf="fieldType == 'date'">
-      <input
-        [attr.id]="attributes.controlName"
-        matInput
-        [matDatepicker]="picker"
-        autocomplete="off"
-        [authdareSetAttribute]="attributes"
-        [ignoreFields]="['type', 'hint']"
-        [formControl]="attributes.control!"
-        [errorStateMatcher]="errorStateMatcher"
-      />
-      <mat-datepicker-toggle
-        style="position: absolute; right: 0px; top: 0px"
-        matSuffix
-        [for]="picker"
-      ></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </ng-container>
-
-    <!-- Date Range Input  -->
-
-    <ng-container *ngIf="fieldType == 'date-range'">
-      <input
-        #dr
-        [attr.id]="attributes.controlName"
-        matInput
-        autocomplete="off"
-        [authdareSetAttribute]="attributes"
-        [formControl]="attributes.control!"
-        [errorStateMatcher]="errorStateMatcher"
-      />
-      <mat-date-range-input [rangePicker]="picker" hidden>
-        <input
-          (dateInput)="
-            attributes.control!.setValue(startDate.value + ',' + endDate.value);
-            attributes.control!.markAsDirty()
-          "
-          #startDate
-          matStartDate
-          placeholder="Start date"
-        />
-        <input
-          (dateInput)="
-            attributes.control!.setValue(startDate.value + ',' + endDate.value);
-            attributes.control!.markAsDirty()
-          "
-          #endDate
-          matEndDate
-          placeholder="End date"
-        />
-      </mat-date-range-input>
-      <mat-datepicker-toggle
-        style="position: absolute; right: 0px; top: 0px"
-        matSuffix
-        [for]="picker"
-      ></mat-datepicker-toggle>
-      <mat-date-range-picker #picker></mat-date-range-picker>
-    </ng-container>
-
-    <authdare-field-status
+    />
+    <mat-datepicker-toggle
+      style="position: absolute; right: 0px; top: 0px"
       matSuffix
-      [isRequired]="attributes.required!"
-      [control]="attributes.control!"
-      [loading]="loading"
-    ></authdare-field-status>
+      [for]="picker"
+    ></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </ng-container>
 
-    <mat-error
-      *ngIf="
-        attributes.control!.errors! | validationError: attributes.label as error
-      "
-    >
-      {{ error }}
-    </mat-error>
-  </mat-form-field>
-</ng-container>
+  <!-- Date Range Input  -->
+
+  <ng-container *ngIf="fieldType == 'date-range'">
+    <input
+      #dr
+      [attr.id]="attributes.controlName"
+      matInput
+      autocomplete="off"
+      [authdareSetAttribute]="attributes"
+      [formControl]="attributes.control!"
+      [errorStateMatcher]="errorStateMatcher"
+    />
+    <mat-date-range-input [rangePicker]="picker" hidden>
+      <input
+        (dateInput)="
+          attributes.control!.setValue(startDate.value + ',' + endDate.value);
+          attributes.control!.markAsDirty()
+        "
+        #startDate
+        matStartDate
+        placeholder="Start date"
+      />
+      <input
+        (dateInput)="
+          attributes.control!.setValue(startDate.value + ',' + endDate.value);
+          attributes.control!.markAsDirty()
+        "
+        #endDate
+        matEndDate
+        placeholder="End date"
+      />
+    </mat-date-range-input>
+    <mat-datepicker-toggle
+      style="position: absolute; right: 0px; top: 0px"
+      matSuffix
+      [for]="picker"
+    ></mat-datepicker-toggle>
+    <mat-date-range-picker #picker></mat-date-range-picker>
+  </ng-container>
+
+  <authdare-field-status
+    matSuffix
+    [isRequired]="attributes.required!"
+    [control]="attributes.control!"
+    [loading]="loading"
+  ></authdare-field-status>
+
+  <mat-error
+    *ngIf="
+      attributes.control!.errors! | validationError: attributes.label as error
+    "
+  >
+    {{ error }}
+  </mat-error>
+</mat-form-field>

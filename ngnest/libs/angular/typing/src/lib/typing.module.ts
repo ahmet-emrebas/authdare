@@ -6,6 +6,7 @@ import { TypingComponent } from './typing.component';
 import { MatButtonModule } from '@angular/material/button';
 import { TableModule } from '@authdare/table';
 import { ChartModule } from '@authdare/chart';
+import { FormModule as AFormModule } from '@authdare/form';
 @NgModule({
   declarations: [TypingComponent],
   imports: [
@@ -16,6 +17,7 @@ import { ChartModule } from '@authdare/chart';
     MatButtonModule,
     TableModule,
     ChartModule,
+    AFormModule,
   ],
   exports: [TypingComponent],
 })

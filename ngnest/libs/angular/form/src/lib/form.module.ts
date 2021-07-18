@@ -54,6 +54,6 @@ import { FormStoreModule } from './form-store.module';
     FormStoreModule,
   ],
   providers: [],
-  exports: [FormComponent],
+  exports: [FormComponent, FormFieldComponent],
 })
 export class FormModule {}

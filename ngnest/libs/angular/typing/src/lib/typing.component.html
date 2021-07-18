@@ -5,29 +5,51 @@
     [@bounceInOnEnter]
     [@bounceOutOnLeave]
   >
-    <authdare-chart
-      #chartRef
-      style="margin-bottom: 10px"
-      [chartConfig]="chartConfig!"
-    ></authdare-chart>
+    <!-- Chart  -->
+    <div
+      style="
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      "
+    >
+      <authdare-chart
+        style="position: relative; min-height: 170px"
+        #chartRef
+        [chartConfig]="chartConfig!"
+        [isFeatureStatVisible]="false"
+        *ngIf="delayValue(400, true) | async"
+      >
+      </authdare-chart>
+
+      <!-- Select Chart Type -->
+      <authdare-form-field
+        style="position: relative; width: min-content"
+        appearance="outline"
+        [fieldType]="'select'"
+        [attributes]="chartTypeFieldOptions"
+      ></authdare-form-field>
+    </div>
 
     <authdare-table
       [isActionButtonVisible]="false"
       [isIdsVisible]="false"
-      style="zoom: 0.75; margin-bottom: 10px"
+      style="transform: scale(0.8); margin-bottom: 10px"
       [tableData]="[
         {
           corrects: s.corrects,
           wrongs: s.wrongs,
           'duration(s)': s.duration,
-          speed: s.speed
+          speed: s.speed + ' WPM'
         }
       ]"
     ></authdare-table>
 
     <authdare-table
       [tableData]="words"
-      style="zoom: 0.75"
+      style="transform: scale(0.8); margin-bottom: 10px"
       [isActionButtonVisible]="false"
       [isIdsVisible]="false"
       [highlightBy]="['correct', 'wrong']"

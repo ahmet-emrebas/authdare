@@ -47,6 +47,8 @@ export class ChartComponent implements OnInit, OnDestroy {
   @Input() id = Date.now();
   @Input() chartConfig!: ChartConfiguration<any, any, any>;
 
+  @Input() isFeatureStatVisible = true;
+
   canvasId = 'canvas' + this.id;
   chartInstance!: Chart;
   isMedian = false;
@@ -55,7 +57,7 @@ export class ChartComponent implements OnInit, OnDestroy {
 
   constructor(private chartService: ChartService) {}
 
-  ngOnInit(): void {
+  initChart() {
     try {
       this.chartInstance.destroy();
     } catch (err) {
@@ -77,6 +79,10 @@ export class ChartComponent implements OnInit, OnDestroy {
         });
       this.chartInstance = new Chart(this.canvasId, this.chartConfig);
     }, 300);
+  }
+
+  ngOnInit(): void {
+    this.initChart();
   }
 
   ngOnDestroy(): void {

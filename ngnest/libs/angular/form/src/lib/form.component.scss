@@ -2,10 +2,6 @@
   display: block;
 }
 
-input::autocomple {
-  color: green;
-}
-
 mat-form-field *[class^="mat-select"] {
   max-width: 90% !important;
   margin-left: 5%;

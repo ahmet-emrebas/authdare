@@ -1,5 +1,5 @@
 <div class="canvas-container">
-  <mat-toolbar color="primary">
+  <mat-toolbar color="primary" *ngIf="isFeatureStatVisible">
     <button
       mat-icon-button
       (click)="meanLine()"
@@ -28,5 +28,7 @@
       <mat-icon>center_focus_strong</mat-icon>
     </button>
   </mat-toolbar>
+
   <canvas [id]="canvasId"></canvas>
+  <ng-content></ng-content>
 </div>
