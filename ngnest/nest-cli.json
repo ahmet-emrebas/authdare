@@ -19,31 +19,13 @@
         "tsConfigPath": "apps/api/tsconfig.app.json"
       }
     },
-    "samplelib": {
+    "auth": {
       "type": "library",
-      "root": "libs/samplelib",
+      "root": "libs/auth",
       "entryFile": "index",
-      "sourceRoot": "libs/samplelib/src",
+      "sourceRoot": "libs/auth/src",
       "compilerOptions": {
-        "tsConfigPath": "libs/samplelib/tsconfig.lib.json"
-      }
-    },
-    "anotherl": {
-      "type": "library",
-      "root": "libs/anotherl",
-      "entryFile": "index",
-      "sourceRoot": "libs/anotherl/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/anotherl/tsconfig.lib.json"
-      }
-    },
-    "nest/another2": {
-      "type": "library",
-      "root": "libs/nest/another2",
-      "entryFile": "index",
-      "sourceRoot": "libs/nest/another2/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/nest/another2/tsconfig.lib.json"
+        "tsConfigPath": "libs/auth/tsconfig.lib.json"
       }
     }
   }

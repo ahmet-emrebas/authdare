@@ -143,7 +143,8 @@
     "testEnvironment": "node",
     "roots": [
       "<rootDir>/apps/api",
-      "<rootDir>/libs/"
+      "<rootDir>/libs/",
+      "<rootDir>/apps/"
     ],
     "moduleNameMapper": {
       "@app/samplelib/(.*)": "<rootDir>/libs/samplelib/src/$1",
@@ -153,7 +154,17 @@
       "authdare/anotherl/(.*)": "<rootDir>/libs/anotherl/src/$1",
       "authdare/anotherl": "<rootDir>/libs/anotherl/src",
       "authdare/nest/another2/(.*)": "<rootDir>/libs/nest/another2/src/$1",
-      "authdare/nest/another2": "<rootDir>/libs/nest/another2/src"
+      "authdare/nest/another2": "<rootDir>/libs/nest/another2/src",
+      "@authdare/samplelib/(.*)": "<rootDir>/libs/samplelib/src/$1",
+      "@authdare/samplelib": "<rootDir>/libs/samplelib/src",
+      "@authdare/./nest/samplelib0/(.*)": "<rootDir>/libs/nest/samplelib0/src/$1",
+      "@authdare/./nest/samplelib0": "<rootDir>/libs/nest/samplelib0/src",
+      "@authdare/nestauth/(.*)": "<rootDir>/libs/nestauth/src/$1",
+      "@authdare/nestauth": "<rootDir>/libs/nestauth/src",
+      "@authdare/nest/auth/(.*)": "<rootDir>/libs/nest/auth/src/$1",
+      "@authdare/nest/auth": "<rootDir>/libs/nest/auth/src",
+      "@authdare/auth/(.*)": "<rootDir>/libs/auth/src/$1",
+      "@authdare/auth": "<rootDir>/libs/auth/src"
     }
   }
 }
