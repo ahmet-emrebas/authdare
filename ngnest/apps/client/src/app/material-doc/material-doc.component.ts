@@ -41,5 +41,10 @@ export class MaterialDocComponent {
       label: 'Typing',
       icon: 'keyboard',
     },
+    {
+      path: '/material-doc/QrcodeComponent',
+      label: 'Qrcode',
+      icon: 'code',
+    },
   ];
 }

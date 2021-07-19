@@ -1,0 +1,6 @@
+<canvas #canvas></canvas>
+<canvas #canvas2 style="transform: scale(-1, 1)"></canvas>
+<input #qrInput type="file" accept=".png,.jpg" (input)="scanFile($event)" />
+<button (click)="scanFromCamera()">Scan from camera</button>
+<img #img alt="" />
+<video #video autoplay="true" controls></video>

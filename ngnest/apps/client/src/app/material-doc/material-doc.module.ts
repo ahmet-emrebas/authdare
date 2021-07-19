@@ -22,6 +22,7 @@ import { ChartDocComponent } from './chart-doc/chart-doc.component';
 import { ChartModule } from '@authdare/chart';
 import { TypingModule } from '@authdare/typing';
 import { TypingDocComponent } from './typing-doc/typing-doc.component';
+import { QrcodeDocComponent } from './qrcode-doc/qrcode-doc.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { TypingDocComponent } from './typing-doc/typing-doc.component';
     FormDocComponent,
     ChartDocComponent,
     TypingDocComponent,
+    QrcodeDocComponent,
   ],
   imports: [
     CommonModule,
@@ -78,6 +80,10 @@ import { TypingDocComponent } from './typing-doc/typing-doc.component';
           {
             path: 'TypingComponent',
             component: TypingDocComponent,
+          },
+          {
+            path: 'QrcodeComponent',
+            component: QrcodeDocComponent,
           },
         ],
       },
