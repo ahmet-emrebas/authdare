@@ -10,10 +10,11 @@ import {
   Input,
 } from '@angular/core';
 import {} from 'qrcode';
-import * as jsqr from 'jsqr';
 import { BehaviorSubject } from 'rxjs';
 import { SubSink } from 'subsink';
 import { debounceTime } from 'rxjs/operators';
+
+import * as jsqr from 'jsqr';
 const QRCode = jsqr.default;
 
 @Component({
@@ -22,22 +23,39 @@ const QRCode = jsqr.default;
   styleUrls: ['./qrcode-reader.component.css'],
 })
 export class QrcodeReaderComponent implements OnInit, AfterViewInit, OnDestroy {
-  @Input() scanType: 'camera' | 'file' = 'file';
   @ViewChild('video') video!: ElementRef<HTMLVideoElement>;
   @ViewChild('canvas') canvas!: ElementRef<HTMLCanvasElement>;
   @ViewChild('qrInput') qrInput!: ElementRef<HTMLInputElement>;
   @ViewChild('img') img!: ElementRef<HTMLImageElement>;
+
+  /**
+   * There are two type of scanning, file and camera scanning. Default scanning type is file scanning.
+   */
+  @Input() scanType: 'camera' | 'file' = 'file';
+  /**
+   * After successfull scanning, emit the decoded data.
+   */
   @Output() onRead = new EventEmitter<any>();
 
+  /**
+   * When QR is valid, indicate it by style.
+   */
   isValidQR: boolean | undefined = undefined;
+
+  /**
+   * When QR is scanning, indicate it by style animation.
+   */
   isScanning: boolean = false;
+
   subsink = new SubSink();
+
   canvasStateReadyToRead$ = new BehaviorSubject<boolean>(false);
+
   videoInterval: any;
 
   constructor() {}
 
-  ngOnInit() {
+  async ngOnInit() {
     this.subsink.sink = this.canvasStateReadyToRead$
       .pipe(debounceTime(1000))
       .subscribe(async (isReady) => {
@@ -60,7 +78,7 @@ export class QrcodeReaderComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   ngAfterViewInit(): void {
     if (this.scanType == 'camera') {
-      this.readFromCamera();
+      this.scanFromCamere();
     }
   }
 
@@ -70,7 +88,6 @@ export class QrcodeReaderComponent implements OnInit, AfterViewInit, OnDestroy {
 
   clearState() {
     this.videoInterval && clearInterval(this.videoInterval);
-
     const ctx = this.canvas.nativeElement.getContext('2d');
     ctx!.fillStyle = 'white';
     ctx?.fillRect(0, 0, 300, 300);
@@ -105,9 +122,10 @@ export class QrcodeReaderComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   /**
-   * Renders user's webcam to canvas and read the QR from canvas.
+   * Render the video resouce to canvas and read QR code from it.
    */
-  async readFromCamera() {
+  async scanFromCamere() {
+    this.scanType = 'camera';
     this.video.nativeElement.onloadeddata = () => {
       this.videoInterval = setInterval(async () => {
         await this.drawElementToCanvas(this.video.nativeElement);
@@ -116,7 +134,12 @@ export class QrcodeReaderComponent implements OnInit, AfterViewInit, OnDestroy {
     await this.captureVideo();
   }
 
-  async readFromFile() {
+  /**
+   * Render the user input image to canvas and read QR code from it.
+   */
+  async scanFromFile() {
+    this.scanType = 'file';
+    this.clearState();
     const el = this.qrInput.nativeElement;
     if (el && el.files) {
       const file = el.files[0];

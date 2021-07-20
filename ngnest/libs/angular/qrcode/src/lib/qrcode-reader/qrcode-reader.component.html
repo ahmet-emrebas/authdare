@@ -1,6 +1,4 @@
 <div style="max-width: min-content; min-width: 300px">
-  <h1>Show your QRCode</h1>
-  <hr />
   <canvas #canvas width="300" height="300" class="hidden"></canvas>
 
   <video
@@ -14,20 +12,7 @@
 
   <div style="position: relative">
     <button
-      mat-raised-button
-      color="primary"
-      style="
-        position: relative;
-        box-sizing: border-box;
-        width: 90%;
-        display: block;
-        margin: 5%;
-      "
-      (click)="readFromCamera()"
-    >
-      Scan
-    </button>
-    <button
+      *ngIf="scanType == 'file'"
       mat-raised-button
       color="primary"
       style="
@@ -42,8 +27,8 @@
       Upload QR
     </button>
 
-    <input #qrInput type="file" class="hidden" (input)="readFromFile()" />
-    <img #img />
+    <input #qrInput type="file" class="hidden" (input)="scanFromFile()" />
+    <img #img class="hidden" />
   </div>
 </div>
 
