@@ -44,7 +44,12 @@ export class MaterialDocComponent {
     {
       path: '/material-doc/QrcodeComponent',
       label: 'Qrcode',
-      icon: 'code',
+      icon: 'qr_code_2',
+    },
+    {
+      path: '/material-doc/InvoiceComponent',
+      label: 'Invoice',
+      icon: 'receipt',
     },
   ];
 }

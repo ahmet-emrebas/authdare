@@ -353,6 +353,37 @@
           }
         }
       }
+    },
+    "invoice": {
+      "projectType": "library",
+      "root": "libs/angular/invoice",
+      "sourceRoot": "libs/angular/invoice/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "libs/angular/invoice/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/angular/invoice/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "libs/angular/invoice/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "libs/angular/invoice/src/test.ts",
+            "tsConfig": "libs/angular/invoice/tsconfig.spec.json",
+            "karmaConfig": "libs/angular/invoice/karma.conf.js"
+          }
+        }
+      }
     }
   },
   "defaultProject": "client"

@@ -34,7 +34,9 @@
       "@authdare/typing": ["libs/angular/typing/src/lib"],
       "@authdare/typing/*": ["libs/angular/typing/src/lib/*"],
       "@authdare/qrcode": ["libs/angular/qrcode/src/lib"],
-      "@authdare/qrcode/*": ["libs/angular/qrcode/src/lib/*"]
+      "@authdare/qrcode/*": ["libs/angular/qrcode/src/lib/*"],
+      "@authdare/invoice": ["libs/angular/invoice/src/lib"],
+      "@authdare/invoice/*": ["libs/angular/invoice/src/lib/*"]
     },
     "lib": ["es2018", "dom"]
   },

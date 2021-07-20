@@ -24,7 +24,8 @@ import { TypingModule } from '@authdare/typing';
 import { TypingDocComponent } from './typing-doc/typing-doc.component';
 import { QrcodeDocComponent } from './qrcode-doc/qrcode-doc.component';
 import { QrcodeModule } from '@authdare/qrcode/qrcode.module';
-
+import { InvoiceDocComponent } from './invoice-doc/invoice-doc.component';
+import { InvoiceModule } from '@authdare/invoice';
 @NgModule({
   declarations: [
     MaterialDocComponent,
@@ -35,6 +36,7 @@ import { QrcodeModule } from '@authdare/qrcode/qrcode.module';
     ChartDocComponent,
     TypingDocComponent,
     QrcodeDocComponent,
+    InvoiceDocComponent,
   ],
   imports: [
     CommonModule,
@@ -54,6 +56,7 @@ import { QrcodeModule } from '@authdare/qrcode/qrcode.module';
     ChartModule,
     TypingModule,
     QrcodeModule,
+    InvoiceModule,
     RouterModule.forChild([
       {
         path: '',
@@ -86,6 +89,10 @@ import { QrcodeModule } from '@authdare/qrcode/qrcode.module';
           {
             path: 'QrcodeComponent',
             component: QrcodeDocComponent,
+          },
+          {
+            path: 'InvoiceComponent',
+            component: InvoiceDocComponent,
           },
         ],
       },
