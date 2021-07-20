@@ -9,10 +9,6 @@ const routes: Routes = [
         (m) => m.MaterialDocModule
       ),
   },
-  {
-    path: '**',
-    redirectTo: '/authdare/materials',
-  },
 ];
 
 @NgModule({
