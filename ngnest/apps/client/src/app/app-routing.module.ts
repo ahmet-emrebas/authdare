@@ -6,13 +6,13 @@ const routes: Routes = [
     path: 'material-doc',
     loadChildren: () =>
       import('./material-doc/material-doc.module').then(
-        (m) => m.MaterialDocModule,
+        (m) => m.MaterialDocModule
       ),
   },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { useHash: true })],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}
