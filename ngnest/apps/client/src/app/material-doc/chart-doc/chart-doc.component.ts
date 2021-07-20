@@ -150,7 +150,7 @@ export class ChartDocComponent implements OnInit, OnDestroy {
         ~~(Math.random() * 50) + 10
       );
       this.weatherChart.chartInstance.update();
-    }, 100);
+    }, 400);
   }
 
   ngOnDestroy(): void {
