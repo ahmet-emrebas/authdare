@@ -1,9 +1,7 @@
 import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import 'qrcode';
 import { toCanvas } from 'qrcode';
-import * as jsqr from 'jsqr';
-
-const QRCode = jsqr.default;
+import { QRCode } from 'jsqr';
 
 @Component({
   selector: 'app-qrcode-doc',
@@ -11,5 +9,11 @@ const QRCode = jsqr.default;
   styleUrls: ['./qrcode-doc.component.scss'],
 })
 export class QrcodeDocComponent implements OnInit {
+  readData!: QRCode;
   ngOnInit(): void {}
+
+  setReadData(qrData: QRCode) {
+    console.log(qrData);
+    this.readData = qrData;
+  }
 }

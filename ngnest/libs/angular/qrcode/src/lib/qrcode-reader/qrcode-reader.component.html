@@ -27,7 +27,7 @@
       Upload QR
     </button>
 
-    <input #qrInput type="file" class="hidden" (input)="scanFromFile()" />
+    <input #qrInput type="file" class="hidden" (input)="scanFromFile($event)" />
     <img #img class="hidden" />
   </div>
 </div>

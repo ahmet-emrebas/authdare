@@ -14,8 +14,8 @@ import { BehaviorSubject } from 'rxjs';
 import { SubSink } from 'subsink';
 import { debounceTime } from 'rxjs/operators';
 
-import * as jsqr from 'jsqr';
-const QRCode = jsqr.default;
+import * as JSQR from 'jsqr';
+const jsqr = JSQR.default;
 
 @Component({
   selector: 'authdare-qrcode-reader',
@@ -91,7 +91,6 @@ export class QrcodeReaderComponent implements OnInit, AfterViewInit, OnDestroy {
     ctx?.fillRect(0, 0, 300, 300);
     this.img.nativeElement.src = '';
     this.qrInput.nativeElement.value = '';
-    this.qrInput.nativeElement.files = null;
     this.isScanning = false;
     this.video.nativeElement.srcObject = null;
   }
@@ -135,12 +134,11 @@ export class QrcodeReaderComponent implements OnInit, AfterViewInit, OnDestroy {
   /**
    * Render the user input image to canvas and read QR code from it.
    */
-  async scanFromFile() {
+  async scanFromFile(event: Event) {
     this.scanType = 'file';
-    this.clearState();
-    const el = this.qrInput.nativeElement;
+    const el = event.currentTarget as HTMLInputElement;
     if (el && el.files) {
-      const file = el.files[0];
+      const file = el.files![el.files.length - 1];
       const inputFileData = await this.readInputFile(file);
       await this.setImgSrc(inputFileData as string);
       await this.drawElementToCanvas(this.img.nativeElement);
@@ -161,7 +159,7 @@ export class QrcodeReaderComponent implements OnInit, AfterViewInit, OnDestroy {
       }, 1000);
       setTimeout(() => {
         res(true);
-      }, 3000);
+      }, 1500);
     });
   }
 
@@ -191,6 +189,6 @@ export class QrcodeReaderComponent implements OnInit, AfterViewInit, OnDestroy {
    * @returns
    */
   async scanCode(ctx: CanvasRenderingContext2D) {
-    return QRCode(ctx?.getImageData(0, 0, 300, 300).data as any, 300, 300);
+    return jsqr(ctx?.getImageData(0, 0, 300, 300).data as any, 300, 300);
   }
 }

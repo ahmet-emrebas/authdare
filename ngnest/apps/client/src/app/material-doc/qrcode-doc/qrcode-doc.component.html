@@ -1,4 +1,13 @@
-<authdare-qrcode-reader [scanType]="'camera'"></authdare-qrcode-reader>
+<authdare-qrcode-reader
+  [scanType]="'camera'"
+  (onRead)="setReadData($event)"
+></authdare-qrcode-reader>
+<authdare-qrcode-reader
+  [scanType]="'file'"
+  (onRead)="setReadData($event)"
+></authdare-qrcode-reader>
+
+<p>QR Data : {{ readData | json }}</p>
 <authdare-qrcode-gen
   [qrData]="
     'Hi, My name is Ahmet! I am a Full Stack Developer expertise in NodeJS, Nestjs, and Angular Framework. All my products are custumer satisfaction granteed!'
