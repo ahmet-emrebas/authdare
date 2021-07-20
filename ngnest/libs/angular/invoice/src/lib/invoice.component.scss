@@ -1,8 +1,7 @@
-.invoice-container {
+.a4-page {
     width: 100%;
-    height: auto;
-    border: 3px dashed gray;
-    padding: 30px;
+    height: 842px;
+    padding: 20px;
 }
 
 .invoice-logo {
@@ -22,7 +21,7 @@
 }
 
 .bordered {
-    border: thin dashed black;
+    border: thin solid black;
     border-radius: 10px;
     padding: 5px;
     margin: 3px;
@@ -51,4 +50,10 @@ q {
     text-align: center;
     display: block;
     width: 100%;
+}
+
+.centered {
+    display: flex;
+
+    justify-content: center;
 }

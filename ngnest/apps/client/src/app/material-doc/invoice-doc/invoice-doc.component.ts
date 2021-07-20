@@ -24,9 +24,9 @@ export class InvoiceDocComponent implements OnInit {
       { name: '1 year emergency assistance', price: '$5000.00' }
     ],
     paymentMethods: [
-      { name: 'CashApp', credential: 'aemrebas', },
-      { name: 'Zelle', credential: '+1 832 874 24 22' },
-      { name: 'Stripe', link: '/notimplemented' }
+      { name: 'CashApp', link: 'N/A', credential: 'aemrebas', },
+      { name: 'Zelle', link: 'N/A', credential: '+1 832 874 24 22' },
+      { name: 'Stripe', link: 'N/A', credential: 'N/A' }
     ],
     total: '$17200.00'
   }

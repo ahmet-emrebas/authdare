@@ -16,8 +16,8 @@ import { toCanvas } from 'qrcode';
 export class QrcodeGenComponent implements AfterViewInit {
   @ViewChild('canvas') canvas!: ElementRef<HTMLCanvasElement>;
   @Input() qrData!: string;
-  constructor() {}
-  ngOnInit(): void {}
+  constructor() { }
+  ngOnInit(): void { }
   ngAfterViewInit(): void {
     toCanvas(this.canvas.nativeElement, this.qrData, function (error) {
       if (error) {

@@ -1,74 +1,86 @@
-<div class="invoice-container">
+<mat-toolbar color="primary" style="border-radius: 10px;">
+    <mat-toolbar-row>
+        <div style="flex:1 1 ; "></div>
+        <button mat-icon-button color="white" (click)="printPDF()">
+            <mat-icon>print</mat-icon>
+        </button>
+    </mat-toolbar-row>
+</mat-toolbar>
 
-    <div class="flex-row-between ">
-        <div class="logo">
-            <img [src]="invoice.logo" class="invoice-logo" alt="Business Logo">
-            <h1 class="invoice-logo-text">{{invoice.businessName}}</h1>
+<div #invoiceRef>
+
+    <div class="a4-page">
+        <div class="flex-row-between ">
+            <div class="logo">
+                <img [src]="invoice.logo" class="invoice-logo" alt="Business Logo">
+                <h1 class="invoice-logo-text">{{invoice.businessName}}</h1>
+            </div>
+            <div class="invoice-details bordered">
+                <p><span class="bold">Invoice Id: </span>{{invoice.invoiceId}}</p>
+                <p><span class="bold">Created At: </span>{{invoice.created}}</p>
+                <p><span class="bold">Due Date: </span>{{invoice.due}}</p>
+            </div>
         </div>
-        <div class="invoice-details bordered">
-            <p><span class="bold">Invoice Id: </span>{{invoice.invoiceId}}</p>
-            <p><span class="bold">Created At: </span>{{invoice.created}}</p>
-            <p><span class="bold">Due Date: </span>{{invoice.due}}</p>
+        <hr />
+        <q><i>It was an amazing experience to work with you! Thank you so much. I hope we work together again
+                soon!</i></q>
+        <hr />
+        <div class="flex-row-between ">
+            <div class="bordered">
+                <h3 class="bold">Business</h3>
+                <p>{{invoice.businessName}}</p>
+                <p>{{invoice.businessAddress}}</p>
+            </div>
+
+            <div class="bordered">
+                <h3 class="bold">Client</h3>
+                <p>{{invoice.clientBusinessName}}</p>
+                <p>{{invoice.clientBusinessAdress}}</p>
+                <p>{{invoice.clientEmail}}</p>
+            </div>
         </div>
-    </div>
-    <hr />
-    <q>
-        <i>
-            It was an amazing experience to work with you! Thank you so much. I hope we work together again soon!
-        </i>
-    </q>
-    <hr />
-    <div class="flex-row-between ">
+        <hr />
+
         <div class="bordered">
-            <h3 class="bold">Business</h3>
-            <p>{{invoice.businessName}}</p>
-            <p>{{invoice.businessAddress}}</p>
+            <table>
+                <thead>
+                    <th>Method</th>
+                    <th>Link</th>
+                    <th>Credential</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let paymentMethod of invoice.paymentMethods">
+                        <td> {{paymentMethod.name}} </td>
+                        <td> <a [href]="paymentMethod.link" *ngIf="paymentMethod.link">{{paymentMethod.link}}</a></td>
+                        <td> <span *ngIf="paymentMethod.credential">{{paymentMethod.credential }}</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
         </div>
 
+        <hr />
         <div class="bordered">
-            <h3 class="bold">Client</h3>
-            <p>{{invoice.clientBusinessName}}</p>
-            <p>{{invoice.clientBusinessAdress}}</p>
-            <p>{{invoice.clientEmail}}</p>
-        </div>
-    </div>
-    <hr />
-
-    <div class="bordered">
-        <table>
-            <thead>
-                <th>Method</th>
-                <th>Link</th>
-                <th>Credential</th>
-            </thead>
-            <tbody>
-                <tr *ngFor="let paymentMethod of invoice.paymentMethods">
-                    <td> {{paymentMethod.name}} </td>
-                    <td> <a [href]="paymentMethod.link" *ngIf="paymentMethod.link">{{paymentMethod.link}}</a></td>
-                    <td> <span *ngIf="paymentMethod.credential">{{paymentMethod.credential }}</span></td>
+            <table>
+                <thead>
+                    <th>Service/Product Name</th>
+                    <th>Price </th>
+                </thead>
+                <tr *ngFor="let item of invoice.items">
+                    <td>{{item.name}}</td>
+                    <td>{{item.price}}</td>
                 </tr>
-            </tbody>
-        </table>
+                <tr>
+                    <td class="bold">Total</td>
+                    <td>{{invoice.total}}</td>
+                </tr>
+            </table>
+        </div>
 
     </div>
 
-    <hr />
-    <div class="bordered">
-        <table>
-            <thead>
-                <th>Service/Product Name</th>
-                <th>Price </th>
-            </thead>
-            <tr *ngFor="let item of invoice.items">
-                <td>{{item.name}}</td>
-                <td>{{item.price}}</td>
-            </tr>
-        </table>
-    </div>
-
-    <hr />
-
-    <div class="invoice-qrcode">
+    <!-- QR -->
+    <div class="a4-page centered">
         <authdare-qrcode-gen [qrData]="invoiceQR"></authdare-qrcode-gen>
     </div>
 
