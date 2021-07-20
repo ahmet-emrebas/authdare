@@ -65,12 +65,10 @@ export class QrcodeReaderComponent implements OnInit, AfterViewInit, OnDestroy {
             this.canvas.nativeElement.getContext('2d')!
           );
           if (scannedCode) {
-            console.log(scannedCode);
             this.onRead.emit(scannedCode);
             this.clearState();
             this.isValidQR = true;
           } else {
-            console.log(scannedCode);
             this.isValidQR = false;
           }
         }
