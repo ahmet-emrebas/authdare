@@ -23,6 +23,7 @@ import { ChartModule } from '@authdare/chart';
 import { TypingModule } from '@authdare/typing';
 import { TypingDocComponent } from './typing-doc/typing-doc.component';
 import { QrcodeDocComponent } from './qrcode-doc/qrcode-doc.component';
+import { QrcodeModule } from '@authdare/qrcode/qrcode.module';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { QrcodeDocComponent } from './qrcode-doc/qrcode-doc.component';
     MatInputModule,
     ChartModule,
     TypingModule,
+    QrcodeModule,
     RouterModule.forChild([
       {
         path: '',

@@ -1,0 +1,42 @@
+video {
+  user-select: none;
+  border: 5px solid rgb(60, 73, 53);
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(46, 42, 42, 0.487);
+  margin: 10px;
+  width: 300px;
+}
+
+h1 {
+  user-select: none;
+}
+
+.hidden {
+  position: fixed;
+  right: 10000px;
+}
+
+.isValidQR {
+  border: 5px solid greenyellow;
+}
+
+.isInvlaidQR {
+  border: 5px solid tomato;
+}
+
+.isScanning {
+  border: 5px solid royalblue;
+  animation-name: scanning;
+  animation-duration: 1000ms;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+@keyframes scanning {
+  from {
+    border: 5px solid royalblue;
+  }
+  to {
+    border: 5px solid yellow;
+  }
+}

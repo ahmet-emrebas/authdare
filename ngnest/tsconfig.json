@@ -32,7 +32,9 @@
       "@authdare/chart": ["libs/angular/chart/src/lib"],
       "@authdare/chart/*": ["libs/angular/chart/src/lib/*"],
       "@authdare/typing": ["libs/angular/typing/src/lib"],
-      "@authdare/typing/*": ["libs/angular/typing/src/lib/*"]
+      "@authdare/typing/*": ["libs/angular/typing/src/lib/*"],
+      "@authdare/qrcode": ["libs/angular/qrcode/src/lib"],
+      "@authdare/qrcode/*": ["libs/angular/qrcode/src/lib/*"]
     },
     "lib": ["es2018", "dom"]
   },
