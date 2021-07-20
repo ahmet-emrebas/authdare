@@ -1,20 +1,13 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-
-import {
-  Chart,
-  ChartConfiguration,
-  ChartDataset,
-  ChartType,
-  ChartTypeRegistry,
-} from 'chart.js';
-
+import { Chart, ChartConfiguration, ChartDataset, ChartType } from 'chart.js';
 import * as chartjs$ from 'chart.js/auto';
 import { filter, uniqBy, cloneDeep, max, min } from 'lodash';
 import { map } from 'rxjs/operators';
 import { SubSink } from 'subsink';
 import { ChartService } from './chart.service';
 
-const ___ = chartjs$.default;
+const cjs = chartjs$.default;
+
 const defaultConfig: ChartConfiguration = {
   type: 'line',
 
@@ -44,11 +37,11 @@ const defaultConfig: ChartConfiguration = {
 export class ChartComponent implements OnInit, OnDestroy {
   subsink = new SubSink();
 
-  @Input() id = Date.now();
+  @Input() id = ~~(Math.random() * 10000);
   @Input() chartConfig!: ChartConfiguration<any, any, any>;
 
   @Input() isFeatureStatVisible = true;
-
+  @Input() title!: string;
   canvasId = 'canvas' + this.id;
   chartInstance!: Chart;
   isMedian = false;
@@ -66,9 +59,10 @@ export class ChartComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       if (this.chartConfig) {
         this.chartInstance = new Chart(this.canvasId, this.chartConfig);
+
         return;
       } else {
-        this.chartConfig = defaultConfig;
+        this.chartConfig = cloneDeep(defaultConfig);
       }
       this.subsink.sink = this.chartService.entities$
         .pipe(map((d) => d.find((e) => e.id == this.id)))

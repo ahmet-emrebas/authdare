@@ -1,5 +1,6 @@
 .canvas-container {
   display: block;
+  position: relative;
   background-color: white;
   border-radius: 10px;
 }
@@ -10,4 +11,12 @@
 
 .mat-toolbar {
   border-radius: 10px;
+}
+
+.title {
+  position: absolute;
+  right: 10px;
+  color: white;
+  text-decoration: underline;
+  letter-spacing: 2px;
 }

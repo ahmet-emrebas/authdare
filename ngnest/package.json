@@ -60,6 +60,7 @@
     "bcrypt": "^5.0.1",
     "bootstrap": "^5.0.2",
     "chart.js": "^3.4.1",
+    "chartjs-plugin-zoom": "^1.1.1",
     "class-transformer": "^0.4.0",
     "class-validator": "^0.13.1",
     "cookie-parser": "^1.4.5",

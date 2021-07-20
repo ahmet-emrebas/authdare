@@ -1,5 +1,8 @@
 <div class="canvas-container">
   <mat-toolbar color="primary" *ngIf="isFeatureStatVisible">
+    <h3 class="title">
+      {{ title }}
+    </h3>
     <button
       mat-icon-button
       (click)="meanLine()"

@@ -1,1 +1,21 @@
-<authdare-chart></authdare-chart>
+<div class="d-flex flex-wrap">
+  <div style="width: 500px; margin: 5px">
+    <authdare-chart
+      #weatherChart
+      [chartConfig]="currentWeather"
+      title="Current Weather"
+    ></authdare-chart>
+  </div>
+  <div style="width: 500px; margin: 5px">
+    <authdare-chart
+      [chartConfig]="likesByDay"
+      title="Likes By Day"
+    ></authdare-chart>
+  </div>
+  <div style="width: 500px; margin: 5px">
+    <authdare-chart
+      [chartConfig]="salesByYear"
+      title="Sales By Year"
+    ></authdare-chart>
+  </div>
+</div>
