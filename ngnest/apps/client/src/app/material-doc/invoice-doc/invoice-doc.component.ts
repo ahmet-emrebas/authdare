@@ -8,24 +8,32 @@ import { Invoice } from '@authdare/invoice';
 export class InvoiceDocComponent implements OnInit {
   invoice: Partial<Invoice> = {
     invoiceId: '123',
-    businessAddress: '1234 Dr, Houston, TX 90900',
     businessName: 'Ahmet Emrebas',
     logo: '/assets/icons/icon-72x72.png',
-    clientBusinessAdress: '3312 client, Houston, TX 88040',
-    clientBusinessName: 'Client Business Name',
-    clientEmail: 'client@client.com',
+    city: 'Houston',
+    street: '123 Street',
+    state: 'Texas',
+    zip: '90900',
+    phone: "+1 832 874 24 22",
+    email: 'aemrebas.dev@gmail.com',
+    clientName: 'Client Name',
+    clientCity: 'Houston',
+    clientStreet: "567 Street",
+    clientState: 'Texas',
+    clientZip: '99010',
     created: '10 Jun, 2020',
     due: '30 Jun, 2020',
     discount: "%12",
     items: [
-      { name: 'Web based Inventory Application', price: '$10000.00' },
-      { name: '1 year SMS service', price: '$200.00' },
-      { name: '5 year hosting service', price: '$2000.00' },
-      { name: '1 year emergency assistance', price: '$5000.00' }
+      { discount: '0%', description: 'Description of the service', qty: 1, unitPrice: '$10000.00', name: 'Web based Inventory Application', price: '$10000.00' },
+      { discount: '0%', description: 'Description of the service', qty: 1, unitPrice: '$10000.00', name: '1 year SMS service', price: '$200.00' },
+      { discount: '0%', description: 'Description of the service', qty: 1, unitPrice: '$10000.00', name: '5 year hosting service', price: '$2000.00' },
+      { discount: '0%', description: 'Description of the service', qty: 1, unitPrice: '$10000.00', name: '1 year emergency assistance', price: '$5000.00' }
     ],
     paymentMethods: [
-      { name: 'CashApp', link: 'N/A', credential: 'aemrebas', },
-      { name: 'Zelle', link: 'N/A', credential: '+1 832 874 24 22' },
+      { name: "Check", credential: 'Ahmet Emrebas' },
+      { name: 'CashApp', credential: 'aemrebas', },
+      { name: 'Zelle', credential: '+1 832 874 24 22' },
       { name: 'Stripe', link: 'N/A', credential: 'N/A' }
     ],
     total: '$17200.00'

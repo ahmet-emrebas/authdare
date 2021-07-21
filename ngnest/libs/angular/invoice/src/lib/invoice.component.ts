@@ -5,15 +5,21 @@ export interface Invoice {
   invoiceId: string;
   logo: string;
   businessName: string;
-  businessAddress: string;
+  phone: string;
+  email: string;
+  street: string;
+  city: string;
+  state: string;
+  zip: string;
   paymentMethods: { name: string, link?: string; credential?: string }[]
-  clientBusinessName: string;
-  clientBusinessAdress: string;
-  clientEmail: string;
-
+  clientName: string;
+  clientStreet: string;
+  clientCity: string;
+  clientState: string;
+  clientZip: string;
   created: string;
   due: string;
-  items: { name: string, price: string }[];
+  items: { name: string, description: string, unitPrice: string, qty: number, discount: string, price: string }[];
   discount: string;
   total: string;
 }
@@ -50,4 +56,5 @@ export class InvoiceComponent implements OnInit {
       });
     }, 1000);
   }
+
 }

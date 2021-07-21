@@ -1,59 +1,70 @@
-.a4-page {
-    width: 100%;
-    height: 842px;
-    padding: 20px;
-}
+$brandColor: rgb(2, 182, 182);
 
-.invoice-logo {
-    width: 100px;
-    height: 100px;
-    opacity: 0.4;
-}
-
-.invoice-logo-text {
-    font-weight: bold;
-}
-.flex-row-between {
-    position: relative;
+.business-container {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
+    background-color: $brandColor;
+    color: white;
 }
-
-.bordered {
-    border: thin solid black;
-    border-radius: 10px;
-    padding: 5px;
-    margin: 3px;
-}
-
-.invoice-qrcode {
-    @extend .bordered;
+.business-container > div:nth-child(2) {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    width: 50%;
+    padding: 30px;
+    justify-content: space-between;
+}
+
+.items-table th {
+    color: $brandColor;
+}
+
+.customer-table th {
+    color: rgba(128, 128, 128, 0.46);
+    font-weight: 400;
+    font-size: 10pt;
+}
+
+.items-table tr {
+    height: 60px;
+    border-bottom: thin solid rgba(128, 128, 128, 0.2);
 }
 .bold {
-    font-weight: bold;
+    color: rgb(70, 70, 70);
+    font-weight: 500;
 }
 
+.full {
+    width: 100%;
+}
+
+.big-highlight {
+    color: $brandColor;
+    font-size: 25pt;
+    line-height: 25pt;
+}
+
+th,
 td {
-    border-bottom: thin solid black;
-}
-
-table {
-    width: 100%;
-}
-
-q {
-    font-size: 8pt;
     text-align: center;
-    display: block;
-    width: 100%;
+    vertical-align: top;
 }
 
-.centered {
-    display: flex;
+th:last-child,
+td:last-child {
+    text-align: right;
+}
 
-    justify-content: center;
+th:first-child,
+td:first-child {
+    text-align: left;
+}
+
+.hr {
+    background-color: $brandColor;
+    height: 3px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    position: relative;
 }
