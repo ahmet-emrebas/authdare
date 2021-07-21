@@ -19,13 +19,40 @@
         "tsConfigPath": "apps/api/tsconfig.app.json"
       }
     },
-    "auth": {
-      "type": "library",
-      "root": "libs/auth",
-      "entryFile": "index",
-      "sourceRoot": "libs/auth/src",
+    "server": {
+      "type": "application",
+      "root": "apps/server",
+      "entryFile": "main",
+      "sourceRoot": "apps/server/src",
       "compilerOptions": {
-        "tsConfigPath": "libs/auth/tsconfig.lib.json"
+        "tsConfigPath": "apps/server/tsconfig.app.json"
+      }
+    },
+    "auth-user": {
+      "type": "library",
+      "root": "libs/auth-user",
+      "entryFile": "index",
+      "sourceRoot": "libs/auth-user/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/auth-user/tsconfig.lib.json"
+      }
+    },
+    "auth": {
+      "type": "application",
+      "root": "apps/auth",
+      "entryFile": "main",
+      "sourceRoot": "apps/auth/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/auth/tsconfig.app.json"
+      }
+    },
+    "resource": {
+      "type": "library",
+      "root": "libs/resource",
+      "entryFile": "index",
+      "sourceRoot": "libs/resource/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/resource/tsconfig.lib.json"
       }
     }
   }

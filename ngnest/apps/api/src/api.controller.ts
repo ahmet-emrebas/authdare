@@ -3,7 +3,7 @@ import { ApiService } from './api.service';
 
 @Controller()
 export class ApiController {
-  constructor(private readonly apiService: ApiService) {}
+  constructor(private readonly apiService: ApiService) { }
 
   @Get()
   getHello(): string {

@@ -1,12 +1,10 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "strict": true,
     "baseUrl": "./",
     "module": "commonjs",
     "sourceMap": true,
     "forceConsistentCasingInFileNames": true,
-    "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "declaration": true,
     "incremental": true,
@@ -19,24 +17,131 @@
     "importHelpers": true,
     "target": "es2017",
     "paths": {
-      "@authdare/sidenav": ["libs/angular/sidenav/src/lib"],
-      "@authdare/sidenav/*": ["libs/angular/sidenav/src/lib/*"],
-      "@authdare/navbar": ["libs/angular/navbar/src/lib"],
-      "@authdare/navbar/*": ["libs/angular/navbar/src/lib/*"],
-      "@authdare/table": ["libs/angular/table/src/lib"],
-      "@authdare/table/*": ["libs/angular/table/src/lib/*"],
-      "@authdare/carousel": ["libs/angular/carousel/src/lib"],
-      "@authdare/carousel/*": ["libs/angular/carousel/src/lib/*"],
-      "@authdare/form": ["libs/angular/form/src/lib"],
-      "@authdare/form/*": ["libs/angular/form/src/lib/*"],
-      "@authdare/chart": ["libs/angular/chart/src/lib"],
-      "@authdare/chart/*": ["libs/angular/chart/src/lib/*"],
-      "@authdare/typing": ["libs/angular/typing/src/lib"],
-      "@authdare/typing/*": ["libs/angular/typing/src/lib/*"],
-      "@authdare/auth": ["libs/auth/src"],
-      "@authdare/auth/*": ["libs/auth/src/*"]
+      "@base": [
+        "apps/server/src/base"
+      ],
+      "@base/*": [
+        "apps/server/src/base/*"
+      ],
+      "@decorators": [
+        "apps/server/src/decorators"
+      ],
+      "@decorators/*": [
+        "apps/server/src/decorators/*"
+      ],
+      "@filters": [
+        "apps/server/src/filters"
+      ],
+      "@filters/*": [
+        "apps/server/src/filters/*"
+      ],
+      "@guards": [
+        "apps/server/src/guards"
+      ],
+      "@guards/*": [
+        "apps/server/src/guards/*"
+      ],
+      "@interceptors": [
+        "apps/server/src/interceptors"
+      ],
+      "@interceptors/*": [
+        "apps/server/src/interceptors/*"
+      ],
+      "@middlewares": [
+        "apps/server/src/middlewares"
+      ],
+      "@middlewares/*": [
+        "apps/server/src/middlewares/*"
+      ],
+      "@pipes": [
+        "apps/server/src/pipes"
+      ],
+      "@pipes/*": [
+        "apps/server/src/pipes/*"
+      ],
+      "@resources": [
+        "apps/server/src/resources"
+      ],
+      "@resources/*": [
+        "apps/server/src/resources/*"
+      ],
+      "@auth": [
+        "apps/server/src/auth"
+      ],
+      "@auth/*": [
+        "apps/server/src/auth/*"
+      ],
+      "@cli": [
+        "apps/server/src/cli"
+      ],
+      "@cli/*": [
+        "apps/server/src/cli/*"
+      ],
+      "@authdare/sidenav": [
+        "libs/angular/sidenav/src/lib"
+      ],
+      "@authdare/sidenav/*": [
+        "libs/angular/sidenav/src/lib/*"
+      ],
+      "@authdare/navbar": [
+        "libs/angular/navbar/src/lib"
+      ],
+      "@authdare/navbar/*": [
+        "libs/angular/navbar/src/lib/*"
+      ],
+      "@authdare/table": [
+        "libs/angular/table/src/lib"
+      ],
+      "@authdare/table/*": [
+        "libs/angular/table/src/lib/*"
+      ],
+      "@authdare/carousel": [
+        "libs/angular/carousel/src/lib"
+      ],
+      "@authdare/carousel/*": [
+        "libs/angular/carousel/src/lib/*"
+      ],
+      "@authdare/form": [
+        "libs/angular/form/src/lib"
+      ],
+      "@authdare/form/*": [
+        "libs/angular/form/src/lib/*"
+      ],
+      "@authdare/chart": [
+        "libs/angular/chart/src/lib"
+      ],
+      "@authdare/chart/*": [
+        "libs/angular/chart/src/lib/*"
+      ],
+      "@authdare/typing": [
+        "libs/angular/typing/src/lib"
+      ],
+      "@authdare/typing/*": [
+        "libs/angular/typing/src/lib/*"
+      ],
+      "@authdare/auth": [
+        "libs/auth/src"
+      ],
+      "@authdare/auth/*": [
+        "libs/auth/src/*"
+      ],
+      "@authdare/auth-user": [
+        "libs/auth-user/src"
+      ],
+      "@authdare/auth-user/*": [
+        "libs/auth-user/src/*"
+      ],
+      "@authdare/resource": [
+        "libs/resource/src"
+      ],
+      "@authdare/resource/*": [
+        "libs/resource/src/*"
+      ]
     },
-    "lib": ["es2018", "dom"]
+    "lib": [
+      "es2018",
+      "dom"
+    ]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

@@ -1,0 +1,3 @@
+export enum DiEnum {
+  RESOURCE_PERMISSION = 'RESOURCE_PERMISSION',
+}
