@@ -45,6 +45,7 @@ export class InvoiceComponent implements OnInit {
 
     setTimeout(() => {
       const doc = new jsPDF('p', 'pt', 'a4')
+      doc.addFont('/assets/fonts/Material-Icons/Material-icons.scss', 'Material Icons', 'filled')
       doc.setProperties({ author: 'Ahmet Emrebas', keywords: 'Invoice', subject: 'Invoice', title: 'Invoice' })
       doc.html(this.invoiceRef.nativeElement, {
         callback: (pdf) => {

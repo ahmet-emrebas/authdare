@@ -1,92 +1,120 @@
-<div class="invoice-container">
+<div class="outer-container">
 
+    <button mat-fab (click)="printPDF()" style="position: absolute; right:20px; top:20px;">
+        <mat-icon>print</mat-icon>
+    </button>
 
-    <!-- Business Information Table  -->
+    <div #invoiceRef class="invoice-container">
+        <!-- Business Information Table  -->
 
-    <div class="full business-container">
-        <div>
-            <img [src]="invoice.logo" alt="Business logo" width="100" />
-        </div>
-        <div>
+        <div class="full business-container">
             <div>
-                <span>{{invoice.phone}}</span><br />
-                <span>{{invoice.email}}</span>
+                <img [src]="invoice.logo" alt="Business logo" />
+                <div class="qr-code">
+                    <authdare-qrcode-gen [qrData]="invoiceQR"></authdare-qrcode-gen>
+                </div>
             </div>
             <div>
-                <span>{{invoice.street}}</span> <br />
-                <span>{{invoice.city + ", " + invoice.state}}</span> <br />
-                <span>{{invoice.zip}}</span>
+                <div>
+                    <div class="icon-line">
+                        <!-- <mat-icon>business</mat-icon> -->
+                        <img src="/assets/png-icons/white-business.png" width="30" />
+                        <span>{{invoice.businessName}}</span>
+                    </div>
+                    <div class="icon-line">
+                        <img src="/assets/png-icons/white-phone.png" width="30" />
+                        <span> {{invoice.phone}} </span>
+                    </div>
+                    <div class="icon-line">
+                        <img src="/assets/png-icons/white-email.png" width="30" />
+                        <span> {{invoice.email}} </span>
+                    </div>
+
+                    <div class="icon-line">
+                        <img src="/assets/png-icons/white-streetview.png" width="30" />
+                        <span>{{invoice.street}}</span>
+                    </div>
+                    <div class="icon-line">
+                        <img src="/assets/png-icons/white-city.png" width="30" />
+                        <span>{{invoice.city + ", " + invoice.state}}</span>
+                    </div>
+                    <div class="icon-line">
+                        <img src="/assets/png-icons/white-flag.png" width="30" />
+                        <span>{{invoice.zip}}</span>
+                    </div>
+                </div>
             </div>
+
         </div>
+
+
+
+        <div class="hr"></div>
+        <!-- Customer Information Table  -->
+        <table class="full customer-table">
+            <thead>
+                <th>Billed To</th>
+                <th>Invoince Number</th>
+                <th>Date Of Issue</th>
+                <th>Invoice Total</th>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td class="bold">
+                        <span> {{invoice.clientName}} </span> <br />
+                        <span>{{invoice.clientStreet}}</span><br />
+                        <span>{{invoice.clientCity + ", " + invoice.clientState }}</span><br />
+                        <span>{{invoice.clientZip}}</span><br />
+                    </td>
+                    <td class="bold">
+                        <span># {{invoice.invoiceId}}</span>
+                    </td>
+
+                    <td class="bold">
+                        <span>{{invoice.created}}</span>
+
+                    </td>
+
+                    <td>
+                        <span class="big-highlight">{{invoice.total}}</span> <br />
+
+                        <small>Due Date : <span class="bold"> {{invoice.due}} </span> </small>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="hr"></div>
+
+        <!-- Items Table  -->
+        <table class="full items-table">
+            <thead>
+                <th> Product/Service </th>
+                <th>Unit Price</th>
+                <th>QTY/ HR Rate</th>
+                <th>Discount</th>
+                <th>Amount</th>
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let item of invoice.items">
+                    <td>
+                        <span class="bold"> {{item.name}} </span><br />
+                        <small>{{item.description}}</small>
+                    </td>
+
+                    <td> {{item.unitPrice}} </td>
+                    <td> {{item.qty}} </td>
+                    <td> {{item.discount}} </td>
+                    <td> {{item.price}} </td>
+                </tr>
+            </tbody>
+        </table>
+
+
 
     </div>
-
-
-
-    <div class="hr"></div>
-    <!-- Customer Information Table  -->
-    <table class="full customer-table">
-        <thead>
-            <th>Billed To</th>
-            <th>Invoince Number</th>
-            <th>Date Of Issue</th>
-            <th>Payment Due </th>
-            <th>Invoice Total</th>
-        </thead>
-
-        <tbody>
-            <tr>
-                <td class="bold">
-                    <span> {{invoice.clientName}} </span> <br />
-                    <span>{{invoice.clientStreet}}</span><br />
-                    <span>{{invoice.clientCity + ", " + invoice.clientState }}</span><br />
-                    <span>{{invoice.clientZip}}</span><br />
-                </td>
-                <td class="bold">
-                    <span># {{invoice.invoiceId}}</span>
-                </td>
-
-                <td class="bold">
-                    <span>{{invoice.created}}</span>
-                </td>
-                <td class="bold">
-                    <span>{{invoice.due}}</span>
-                </td>
-                <td class="big-highlight">
-                    <span>{{invoice.total}}</span>
-
-                </td>
-            </tr>
-        </tbody>
-    </table>
-
-    <div class="hr"></div>
-
-    <!-- Items Table  -->
-    <table class="full items-table">
-        <thead>
-            <th> Product/Service </th>
-            <th>Unit Price</th>
-            <th>QTY/ HR Rate</th>
-            <th>Discount</th>
-            <th>Amount</th>
-        </thead>
-
-        <tbody>
-            <tr *ngFor="let item of invoice.items">
-                <td>
-                    <span class="bold"> {{item.name}} </span><br />
-                    <small>{{item.description}}</small>
-                </td>
-
-                <td> {{item.unitPrice}} </td>
-                <td> {{item.qty}} </td>
-                <td> {{item.discount}} </td>
-                <td> {{item.price}} </td>
-            </tr>
-        </tbody>
-    </table>
-
-
 
 </div>
