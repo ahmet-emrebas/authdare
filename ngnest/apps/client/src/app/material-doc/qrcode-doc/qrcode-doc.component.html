@@ -1,22 +1,16 @@
 <!-- Video Scanner  -->
-<authdare-qrcode-reader
-  #videScanner
-  [scanType]="'camera'"
-  (onRead)="setReadData($event)"
-></authdare-qrcode-reader>
+<authdare-qrcode-reader #videScanner [scanType]="'camera'" (onRead)="setReadData($event)"></authdare-qrcode-reader>
 
 <!-- File Scannner -->
-<authdare-qrcode-reader
-  #fileScanner
-  [scanType]="'file'"
-  (onRead)="setReadData($event)"
-></authdare-qrcode-reader>
+<authdare-qrcode-reader #fileScanner [scanType]="'file'" (onRead)="setReadData($event)"></authdare-qrcode-reader>
 <!-- Read Data -->
 <p>QR Data : {{ readData | json }}</p>
 
-<!-- Genearted QR  -->
-<authdare-qrcode-gen
-  [qrData]="
-    'Hi, My name is Ahmet! I am a Full Stack Developer expertise in NodeJS, Nestjs, and Angular Framework. All my products are custumer satisfaction granteed!'
-  "
-></authdare-qrcode-gen>
+<div style="width: 200px;">
+
+  <!-- Genearted QR  -->
+  <authdare-qrcode-gen [qrData]="
+  'Hi, My name is Ahmet! I am a Full Stack Developer expertise in NodeJS, Nestjs, and Angular Framework. All my products are custumer satisfaction granteed!'
+  "></authdare-qrcode-gen>
+
+</div>

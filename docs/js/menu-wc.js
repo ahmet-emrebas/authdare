@@ -251,16 +251,33 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                     </li>
                             </li>
                             <li class="link">
-                                <a href="modules/MaterialDocModule.html" data-type="entity-link" >MaterialDocModule</a>
+                                <a href="modules/InvoiceModule.html" data-type="entity-link" >InvoiceModule</a>
                                     <li class="chapter inner">
                                         <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
-                                            'data-target="#components-links-module-MaterialDocModule-79d53adf2ced2291bce94144878565cb"' : 'data-target="#xs-components-links-module-MaterialDocModule-79d53adf2ced2291bce94144878565cb"' }>
+                                            'data-target="#components-links-module-InvoiceModule-9cdd85b8a896fbbc3711754c26b9b815"' : 'data-target="#xs-components-links-module-InvoiceModule-9cdd85b8a896fbbc3711754c26b9b815"' }>
                                             <span class="icon ion-md-cog"></span>
                                             <span>Components</span>
                                             <span class="icon ion-ios-arrow-down"></span>
                                         </div>
-                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-MaterialDocModule-79d53adf2ced2291bce94144878565cb"' :
-                                            'id="xs-components-links-module-MaterialDocModule-79d53adf2ced2291bce94144878565cb"' }>
+                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-InvoiceModule-9cdd85b8a896fbbc3711754c26b9b815"' :
+                                            'id="xs-components-links-module-InvoiceModule-9cdd85b8a896fbbc3711754c26b9b815"' }>
+                                            <li class="link">
+                                                <a href="components/InvoiceComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" >InvoiceComponent</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                            </li>
+                            <li class="link">
+                                <a href="modules/MaterialDocModule.html" data-type="entity-link" >MaterialDocModule</a>
+                                    <li class="chapter inner">
+                                        <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
+                                            'data-target="#components-links-module-MaterialDocModule-cb51ec42f740d8c23d37d1cd4099bd3f"' : 'data-target="#xs-components-links-module-MaterialDocModule-cb51ec42f740d8c23d37d1cd4099bd3f"' }>
+                                            <span class="icon ion-md-cog"></span>
+                                            <span>Components</span>
+                                            <span class="icon ion-ios-arrow-down"></span>
+                                        </div>
+                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-MaterialDocModule-cb51ec42f740d8c23d37d1cd4099bd3f"' :
+                                            'id="xs-components-links-module-MaterialDocModule-cb51ec42f740d8c23d37d1cd4099bd3f"' }>
                                             <li class="link">
                                                 <a href="components/CarouselDocComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" >CarouselDocComponent</a>
                                             </li>
@@ -269,6 +286,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                             </li>
                                             <li class="link">
                                                 <a href="components/FormDocComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" >FormDocComponent</a>
+                                            </li>
+                                            <li class="link">
+                                                <a href="components/InvoiceDocComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" >InvoiceDocComponent</a>
                                             </li>
                                             <li class="link">
                                                 <a href="components/MaterialDocComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" >MaterialDocComponent</a>
@@ -480,6 +500,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                     <a href="injectables/GreetingService.html" data-type="entity-link" >GreetingService</a>
                                 </li>
                                 <li class="link">
+                                    <a href="injectables/InvoiceService.html" data-type="entity-link" >InvoiceService</a>
+                                </li>
+                                <li class="link">
                                     <a href="injectables/TypingService.html" data-type="entity-link" >TypingService</a>
                                 </li>
                             </ul>
@@ -512,6 +535,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             </li>
                             <li class="link">
                                 <a href="interfaces/HTMLInputElementExtras.html" data-type="entity-link" >HTMLInputElementExtras</a>
+                            </li>
+                            <li class="link">
+                                <a href="interfaces/Invoice.html" data-type="entity-link" >Invoice</a>
                             </li>
                             <li class="link">
                                 <a href="interfaces/MenuItem.html" data-type="entity-link" >MenuItem</a>

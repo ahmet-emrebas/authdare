@@ -343,28 +343,21 @@ export class QrcodeDocComponent implements OnInit {
 
     <div class="tab-pane fade " id="c-templateData">
         <pre class="line-numbers"><code class="language-html">&lt;!-- Video Scanner  --&gt;
-&lt;authdare-qrcode-reader
-  #videScanner
-  [scanType]&#x3D;&quot;&#x27;camera&#x27;&quot;
-  (onRead)&#x3D;&quot;setReadData($event)&quot;
-&gt;&lt;/authdare-qrcode-reader&gt;
+&lt;authdare-qrcode-reader #videScanner [scanType]&#x3D;&quot;&#x27;camera&#x27;&quot; (onRead)&#x3D;&quot;setReadData($event)&quot;&gt;&lt;/authdare-qrcode-reader&gt;
 
 &lt;!-- File Scannner --&gt;
-&lt;authdare-qrcode-reader
-  #fileScanner
-  [scanType]&#x3D;&quot;&#x27;file&#x27;&quot;
-  (onRead)&#x3D;&quot;setReadData($event)&quot;
-&gt;&lt;/authdare-qrcode-reader&gt;
+&lt;authdare-qrcode-reader #fileScanner [scanType]&#x3D;&quot;&#x27;file&#x27;&quot; (onRead)&#x3D;&quot;setReadData($event)&quot;&gt;&lt;/authdare-qrcode-reader&gt;
 &lt;!-- Read Data --&gt;
 &lt;p&gt;QR Data : {{ readData | json }}&lt;/p&gt;
 
-&lt;!-- Genearted QR  --&gt;
-&lt;authdare-qrcode-gen
-  [qrData]&#x3D;&quot;
-    &#x27;Hi, My name is Ahmet! I am a Full Stack Developer expertise in NodeJS, Nestjs, and Angular Framework. All my products are custumer satisfaction granteed!&#x27;
-  &quot;
-&gt;&lt;/authdare-qrcode-gen&gt;
-</code></pre>
+&lt;div style&#x3D;&quot;width: 200px;&quot;&gt;
+
+  &lt;!-- Genearted QR  --&gt;
+  &lt;authdare-qrcode-gen [qrData]&#x3D;&quot;
+  &#x27;Hi, My name is Ahmet! I am a Full Stack Developer expertise in NodeJS, Nestjs, and Angular Framework. All my products are custumer satisfaction granteed!&#x27;
+  &quot;&gt;&lt;/authdare-qrcode-gen&gt;
+
+&lt;/div&gt;</code></pre>
     </div>
 
     <div class="tab-pane fade " id="c-styleData">
@@ -399,8 +392,8 @@ export class QrcodeDocComponent implements OnInit {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><!-- Video Scanner  --><authdare-qrcode-reader  #videScanner  [scanType]="\'camera\'"  (onRead)="setReadData($event)"></authdare-qrcode-reader><!-- File Scannner --><authdare-qrcode-reader  #fileScanner  [scanType]="\'file\'"  (onRead)="setReadData($event)"></authdare-qrcode-reader><!-- Read Data --><p>QR Data : {{ readData | json }}</p><!-- Genearted QR  --><authdare-qrcode-gen  [qrData]="    \'Hi, My name is Ahmet! I am a Full Stack Developer expertise in NodeJS, Nestjs, and Angular Framework. All my products are custumer satisfaction granteed!\'  "></authdare-qrcode-gen></div>'
-    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CarouselComponent', 'selector': 'authdare-carousel'},{'name': 'CarouselDocComponent', 'selector': 'app-carousel-doc'},{'name': 'CarouselNavigationComponent', 'selector': 'authdare-carousel-navigation'},{'name': 'CarouselPersistentComponent', 'selector': 'authdare-carousel-persistent'},{'name': 'ChartComponent', 'selector': 'authdare-chart'},{'name': 'ChartDocComponent', 'selector': 'app-chart-doc'},{'name': 'DateFieldComponent', 'selector': 'authdare-date-field'},{'name': 'FieldStatusComponent', 'selector': 'authdare-field-status'},{'name': 'FormComponent', 'selector': 'authdare-form'},{'name': 'FormDocComponent', 'selector': 'app-form-doc'},{'name': 'FormFieldComponent', 'selector': 'authdare-form-field'},{'name': 'GreetingComponent', 'selector': 'authdare-greeting'},{'name': 'MaterialDocComponent', 'selector': ''},{'name': 'MenuComponent', 'selector': 'authdare-menu'},{'name': 'NavbarComponent', 'selector': 'authdare-navbar'},{'name': 'NavbarDocComponent', 'selector': 'app-navbar-doc'},{'name': 'NavbarItemComponent', 'selector': 'authdare-navbar-item'},{'name': 'QrcodeDocComponent', 'selector': 'app-qrcode-doc'},{'name': 'QrcodeGenComponent', 'selector': 'authdare-qrcode-gen'},{'name': 'QrcodeReaderComponent', 'selector': 'authdare-qrcode-reader'},{'name': 'SelectFieldComponent', 'selector': 'authdare-select-field'},{'name': 'SidenavComponent', 'selector': 'authdare-sidenav'},{'name': 'TableComponent', 'selector': 'authdare-table'},{'name': 'TableDocComponent', 'selector': 'app-table-doc'},{'name': 'TextFieldComponent', 'selector': 'authdare-text-field'},{'name': 'TypingComponent', 'selector': 'authdare-typing'},{'name': 'TypingDocComponent', 'selector': 'app-typing-doc'}];
+        var COMPONENT_TEMPLATE = '<div><!-- Video Scanner  --><authdare-qrcode-reader #videScanner [scanType]="\'camera\'" (onRead)="setReadData($event)"></authdare-qrcode-reader><!-- File Scannner --><authdare-qrcode-reader #fileScanner [scanType]="\'file\'" (onRead)="setReadData($event)"></authdare-qrcode-reader><!-- Read Data --><p>QR Data : {{ readData | json }}</p><div style="width: 200px;">  <!-- Genearted QR  -->  <authdare-qrcode-gen [qrData]="  \'Hi, My name is Ahmet! I am a Full Stack Developer expertise in NodeJS, Nestjs, and Angular Framework. All my products are custumer satisfaction granteed!\'  "></authdare-qrcode-gen></div></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CarouselComponent', 'selector': 'authdare-carousel'},{'name': 'CarouselDocComponent', 'selector': 'app-carousel-doc'},{'name': 'CarouselNavigationComponent', 'selector': 'authdare-carousel-navigation'},{'name': 'CarouselPersistentComponent', 'selector': 'authdare-carousel-persistent'},{'name': 'ChartComponent', 'selector': 'authdare-chart'},{'name': 'ChartDocComponent', 'selector': 'app-chart-doc'},{'name': 'DateFieldComponent', 'selector': 'authdare-date-field'},{'name': 'FieldStatusComponent', 'selector': 'authdare-field-status'},{'name': 'FormComponent', 'selector': 'authdare-form'},{'name': 'FormDocComponent', 'selector': 'app-form-doc'},{'name': 'FormFieldComponent', 'selector': 'authdare-form-field'},{'name': 'GreetingComponent', 'selector': 'authdare-greeting'},{'name': 'InvoiceComponent', 'selector': 'authdare-invoice'},{'name': 'InvoiceDocComponent', 'selector': ''},{'name': 'MaterialDocComponent', 'selector': ''},{'name': 'MenuComponent', 'selector': 'authdare-menu'},{'name': 'NavbarComponent', 'selector': 'authdare-navbar'},{'name': 'NavbarDocComponent', 'selector': 'app-navbar-doc'},{'name': 'NavbarItemComponent', 'selector': 'authdare-navbar-item'},{'name': 'QrcodeDocComponent', 'selector': 'app-qrcode-doc'},{'name': 'QrcodeGenComponent', 'selector': 'authdare-qrcode-gen'},{'name': 'QrcodeReaderComponent', 'selector': 'authdare-qrcode-reader'},{'name': 'SelectFieldComponent', 'selector': 'authdare-select-field'},{'name': 'SidenavComponent', 'selector': 'authdare-sidenav'},{'name': 'TableComponent', 'selector': 'authdare-table'},{'name': 'TableDocComponent', 'selector': 'app-table-doc'},{'name': 'TextFieldComponent', 'selector': 'authdare-text-field'},{'name': 'TypingComponent', 'selector': 'authdare-typing'},{'name': 'TypingDocComponent', 'selector': 'app-typing-doc'}];
     var DIRECTIVES = [{'name': 'SetAttributeDirective', 'selector': '[authdareSetAttribute]'}];
     var ACTUAL_COMPONENT = {'name': 'QrcodeDocComponent'};
 </script>

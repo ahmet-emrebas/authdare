@@ -15,6 +15,11 @@
                 <img [src]="invoice.logo" class="invoice-logo" alt="Business Logo">
                 <h1 class="invoice-logo-text">{{invoice.businessName}}</h1>
             </div>
+            <!-- QR Code -->
+            <div style="width: 30%;  position: relative;">
+                <authdare-qrcode-gen [qrData]="invoiceQR"></authdare-qrcode-gen>
+            </div>
+
             <div class="invoice-details bordered">
                 <p><span class="bold">Invoice Id: </span>{{invoice.invoiceId}}</p>
                 <p><span class="bold">Created At: </span>{{invoice.created}}</p>
@@ -80,8 +85,8 @@
     </div>
 
     <!-- QR -->
-    <div class="a4-page centered">
+    <!-- <div class="a4-page centered">
         <authdare-qrcode-gen [qrData]="invoiceQR"></authdare-qrcode-gen>
-    </div>
+    </div> -->
 
 </div>

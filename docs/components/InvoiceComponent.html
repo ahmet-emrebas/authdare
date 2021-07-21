@@ -1,0 +1,696 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ngnest documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css" media="(prefers-color-scheme: dark)">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">ngnest documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li
+  >
+  InvoiceComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>libs/angular/invoice/src/lib/invoice.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="../miscellaneous/variables.html#i" target="_self" >OnInit</a></code>
+    </p>
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>authdare-invoice</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./invoice.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./invoice.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#invoiceQR" >invoiceQR</a>
+                            </li>
+                            <li>
+                                <a href="#invoiceRef" >invoiceRef</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#printPDF" >printPDF</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#invoice" >invoice</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor()</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">libs/angular/invoice/src/lib/invoice.component.ts:29</a></div>
+                            </td>
+                        </tr>
+
+            </tbody>
+        </table>
+</section>
+
+    <section>
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="invoice"></a>
+                        <b>invoice</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Invoice.html" target="_self" >Partial&lt;Invoice&gt;</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">libs/angular/invoice/src/lib/invoice.component.ts:28</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+    <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="32"
+                            class="link-to-prism">libs/angular/invoice/src/lib/invoice.component.ts:32</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../miscellaneous/variables.html#i" target="_self" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="printPDF"></a>
+                    <span class="name">
+                        <span ><b>printPDF</b></span>
+                        <a href="#printPDF"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>printPDF()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="36"
+                            class="link-to-prism">libs/angular/invoice/src/lib/invoice.component.ts:36</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../miscellaneous/variables.html#i" target="_self" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section>
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="invoiceQR"></a>
+                    <span class="name">
+                        <span ><b>invoiceQR</b></span>
+                        <a href="#invoiceQR"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../miscellaneous/variables.html#i" target="_self" >string</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">libs/angular/invoice/src/lib/invoice.component.ts:29</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="invoiceRef"></a>
+                    <span class="name">
+                        <span ><b>invoiceRef</b></span>
+                        <a href="#invoiceRef"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../miscellaneous/variables.html#i" target="_self" >ElementRef&lt;HTMLDivElement&gt;</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ViewChild(&#x27;invoiceRef&#x27;)<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">libs/angular/invoice/src/lib/invoice.component.ts:27</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, ElementRef, Input, OnInit, ViewChild } from &#x27;@angular/core&#x27;;
+import { jsPDF } from &#x27;jspdf&#x27;
+
+export interface Invoice {
+  invoiceId: string;
+  logo: string;
+  businessName: string;
+  businessAddress: string;
+  paymentMethods: { name: string, link?: string; credential?: string }[]
+  clientBusinessName: string;
+  clientBusinessAdress: string;
+  clientEmail: string;
+
+  created: string;
+  due: string;
+  items: { name: string, price: string }[];
+  discount: string;
+  total: string;
+}
+
+@Component({
+  selector: &#x27;authdare-invoice&#x27;,
+  templateUrl: &#x27;./invoice.component.html&#x27;,
+  styleUrls: [&#x27;./invoice.component.scss&#x27;]
+})
+export class InvoiceComponent implements OnInit {
+  @ViewChild(&#x27;invoiceRef&#x27;) invoiceRef!: ElementRef&lt;HTMLDivElement&gt;;
+  @Input() invoice!: Partial&lt;Invoice&gt;;
+  invoiceQR!: string;
+  constructor() { }
+
+  ngOnInit(): void {
+    this.invoiceQR &#x3D; JSON.stringify(this.invoice)
+  }
+
+  printPDF() {
+
+    this.invoiceRef.nativeElement.style.width &#x3D; &#x27;595px&#x27;
+
+    setTimeout(() &#x3D;&gt; {
+      const doc &#x3D; new jsPDF(&#x27;p&#x27;, &#x27;pt&#x27;, &#x27;a4&#x27;)
+      doc.setProperties({ author: &#x27;Ahmet Emrebas&#x27;, keywords: &#x27;Invoice&#x27;, subject: &#x27;Invoice&#x27;, title: &#x27;Invoice&#x27; })
+      doc.html(this.invoiceRef.nativeElement, {
+        callback: (pdf) &#x3D;&gt; {
+
+          doc.save(&#x27;ae-invoice.pdf&#x27;);
+          this.invoiceRef.nativeElement.style.width &#x3D; &#x27;100%&#x27;
+          this.invoiceRef.nativeElement.style.opacity &#x3D; &#x27;1&#x27;
+        }
+      });
+    }, 1000);
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;mat-toolbar color&#x3D;&quot;primary&quot; style&#x3D;&quot;border-radius: 10px;&quot;&gt;
+    &lt;mat-toolbar-row&gt;
+        &lt;div style&#x3D;&quot;flex:1 1 ; &quot;&gt;&lt;/div&gt;
+        &lt;button mat-icon-button color&#x3D;&quot;white&quot; (click)&#x3D;&quot;printPDF()&quot;&gt;
+            &lt;mat-icon&gt;print&lt;/mat-icon&gt;
+        &lt;/button&gt;
+    &lt;/mat-toolbar-row&gt;
+&lt;/mat-toolbar&gt;
+
+&lt;div #invoiceRef&gt;
+
+    &lt;div class&#x3D;&quot;a4-page&quot;&gt;
+        &lt;div class&#x3D;&quot;flex-row-between &quot;&gt;
+            &lt;div class&#x3D;&quot;logo&quot;&gt;
+                &lt;img [src]&#x3D;&quot;invoice.logo&quot; class&#x3D;&quot;invoice-logo&quot; alt&#x3D;&quot;Business Logo&quot;&gt;
+                &lt;h1 class&#x3D;&quot;invoice-logo-text&quot;&gt;{{invoice.businessName}}&lt;/h1&gt;
+            &lt;/div&gt;
+            &lt;!-- QR Code --&gt;
+            &lt;div style&#x3D;&quot;width: 30%;  position: relative;&quot;&gt;
+                &lt;authdare-qrcode-gen [qrData]&#x3D;&quot;invoiceQR&quot;&gt;&lt;/authdare-qrcode-gen&gt;
+            &lt;/div&gt;
+
+            &lt;div class&#x3D;&quot;invoice-details bordered&quot;&gt;
+                &lt;p&gt;&lt;span class&#x3D;&quot;bold&quot;&gt;Invoice Id: &lt;/span&gt;{{invoice.invoiceId}}&lt;/p&gt;
+                &lt;p&gt;&lt;span class&#x3D;&quot;bold&quot;&gt;Created At: &lt;/span&gt;{{invoice.created}}&lt;/p&gt;
+                &lt;p&gt;&lt;span class&#x3D;&quot;bold&quot;&gt;Due Date: &lt;/span&gt;{{invoice.due}}&lt;/p&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;hr /&gt;
+        &lt;q&gt;&lt;i&gt;It was an amazing experience to work with you! Thank you so much. I hope we work together again
+                soon!&lt;/i&gt;&lt;/q&gt;
+        &lt;hr /&gt;
+        &lt;div class&#x3D;&quot;flex-row-between &quot;&gt;
+            &lt;div class&#x3D;&quot;bordered&quot;&gt;
+                &lt;h3 class&#x3D;&quot;bold&quot;&gt;Business&lt;/h3&gt;
+                &lt;p&gt;{{invoice.businessName}}&lt;/p&gt;
+                &lt;p&gt;{{invoice.businessAddress}}&lt;/p&gt;
+            &lt;/div&gt;
+
+            &lt;div class&#x3D;&quot;bordered&quot;&gt;
+                &lt;h3 class&#x3D;&quot;bold&quot;&gt;Client&lt;/h3&gt;
+                &lt;p&gt;{{invoice.clientBusinessName}}&lt;/p&gt;
+                &lt;p&gt;{{invoice.clientBusinessAdress}}&lt;/p&gt;
+                &lt;p&gt;{{invoice.clientEmail}}&lt;/p&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;hr /&gt;
+
+        &lt;div class&#x3D;&quot;bordered&quot;&gt;
+            &lt;table&gt;
+                &lt;thead&gt;
+                    &lt;th&gt;Method&lt;/th&gt;
+                    &lt;th&gt;Link&lt;/th&gt;
+                    &lt;th&gt;Credential&lt;/th&gt;
+                &lt;/thead&gt;
+                &lt;tbody&gt;
+                    &lt;tr *ngFor&#x3D;&quot;let paymentMethod of invoice.paymentMethods&quot;&gt;
+                        &lt;td&gt; {{paymentMethod.name}} &lt;/td&gt;
+                        &lt;td&gt; &lt;a [href]&#x3D;&quot;paymentMethod.link&quot; *ngIf&#x3D;&quot;paymentMethod.link&quot;&gt;{{paymentMethod.link}}&lt;/a&gt;&lt;/td&gt;
+                        &lt;td&gt; &lt;span *ngIf&#x3D;&quot;paymentMethod.credential&quot;&gt;{{paymentMethod.credential }}&lt;/span&gt;&lt;/td&gt;
+                    &lt;/tr&gt;
+                &lt;/tbody&gt;
+            &lt;/table&gt;
+
+        &lt;/div&gt;
+
+        &lt;hr /&gt;
+        &lt;div class&#x3D;&quot;bordered&quot;&gt;
+            &lt;table&gt;
+                &lt;thead&gt;
+                    &lt;th&gt;Service/Product Name&lt;/th&gt;
+                    &lt;th&gt;Price &lt;/th&gt;
+                &lt;/thead&gt;
+                &lt;tr *ngFor&#x3D;&quot;let item of invoice.items&quot;&gt;
+                    &lt;td&gt;{{item.name}}&lt;/td&gt;
+                    &lt;td&gt;{{item.price}}&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                    &lt;td class&#x3D;&quot;bold&quot;&gt;Total&lt;/td&gt;
+                    &lt;td&gt;{{invoice.total}}&lt;/td&gt;
+                &lt;/tr&gt;
+            &lt;/table&gt;
+        &lt;/div&gt;
+
+    &lt;/div&gt;
+
+    &lt;!-- QR --&gt;
+    &lt;!-- &lt;div class&#x3D;&quot;a4-page centered&quot;&gt;
+        &lt;authdare-qrcode-gen [qrData]&#x3D;&quot;invoiceQR&quot;&gt;&lt;/authdare-qrcode-gen&gt;
+    &lt;/div&gt; --&gt;
+
+&lt;/div&gt;</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-styleData">
+                <p class="comment">
+                    <code>./invoice.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">.a4-page {
+    width: 100%;
+    height: 842px;
+    padding: 20px;
+}
+
+.invoice-logo {
+    width: 100px;
+    height: 100px;
+    opacity: 0.4;
+}
+
+.invoice-logo-text {
+    font-weight: bold;
+}
+.flex-row-between {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.bordered {
+    border: thin solid black;
+    border-radius: 10px;
+    padding: 5px;
+    margin: 3px;
+}
+
+.invoice-qrcode {
+    @extend .bordered;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.bold {
+    font-weight: bold;
+}
+
+td {
+    border-bottom: thin solid black;
+}
+
+table {
+    width: 100%;
+}
+
+q {
+    font-size: 8pt;
+    text-align: center;
+    display: block;
+    width: 100%;
+}
+
+.centered {
+    display: flex;
+
+    justify-content: center;
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><mat-toolbar color="primary" style="border-radius: 10px;">    <mat-toolbar-row>        <div style="flex:1 1 ; "></div>        <button mat-icon-button color="white" (click)="printPDF()">            <mat-icon>print</mat-icon>        </button>    </mat-toolbar-row></mat-toolbar><div #invoiceRef>    <div class="a4-page">        <div class="flex-row-between ">            <div class="logo">                <img [src]="invoice.logo" class="invoice-logo" alt="Business Logo">                <h1 class="invoice-logo-text">{{invoice.businessName}}</h1>            </div>            <!-- QR Code -->            <div style="width: 30%;  position: relative;">                <authdare-qrcode-gen [qrData]="invoiceQR"></authdare-qrcode-gen>            </div>            <div class="invoice-details bordered">                <p><span class="bold">Invoice Id: </span>{{invoice.invoiceId}}</p>                <p><span class="bold">Created At: </span>{{invoice.created}}</p>                <p><span class="bold">Due Date: </span>{{invoice.due}}</p>            </div>        </div>        <hr />        <q><i>It was an amazing experience to work with you! Thank you so much. I hope we work together again                soon!</i></q>        <hr />        <div class="flex-row-between ">            <div class="bordered">                <h3 class="bold">Business</h3>                <p>{{invoice.businessName}}</p>                <p>{{invoice.businessAddress}}</p>            </div>            <div class="bordered">                <h3 class="bold">Client</h3>                <p>{{invoice.clientBusinessName}}</p>                <p>{{invoice.clientBusinessAdress}}</p>                <p>{{invoice.clientEmail}}</p>            </div>        </div>        <hr />        <div class="bordered">            <table>                <thead>                    <th>Method</th>                    <th>Link</th>                    <th>Credential</th>                </thead>                <tbody>                    <tr *ngFor="let paymentMethod of invoice.paymentMethods">                        <td> {{paymentMethod.name}} </td>                        <td> <a [href]="paymentMethod.link" *ngIf="paymentMethod.link">{{paymentMethod.link}}</a></td>                        <td> <span *ngIf="paymentMethod.credential">{{paymentMethod.credential }}</span></td>                    </tr>                </tbody>            </table>        </div>        <hr />        <div class="bordered">            <table>                <thead>                    <th>Service/Product Name</th>                    <th>Price </th>                </thead>                <tr *ngFor="let item of invoice.items">                    <td>{{item.name}}</td>                    <td>{{item.price}}</td>                </tr>                <tr>                    <td class="bold">Total</td>                    <td>{{invoice.total}}</td>                </tr>            </table>        </div>    </div>    <!-- QR -->    <!-- <div class="a4-page centered">        <authdare-qrcode-gen [qrData]="invoiceQR"></authdare-qrcode-gen>    </div> --></div></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CarouselComponent', 'selector': 'authdare-carousel'},{'name': 'CarouselDocComponent', 'selector': 'app-carousel-doc'},{'name': 'CarouselNavigationComponent', 'selector': 'authdare-carousel-navigation'},{'name': 'CarouselPersistentComponent', 'selector': 'authdare-carousel-persistent'},{'name': 'ChartComponent', 'selector': 'authdare-chart'},{'name': 'ChartDocComponent', 'selector': 'app-chart-doc'},{'name': 'DateFieldComponent', 'selector': 'authdare-date-field'},{'name': 'FieldStatusComponent', 'selector': 'authdare-field-status'},{'name': 'FormComponent', 'selector': 'authdare-form'},{'name': 'FormDocComponent', 'selector': 'app-form-doc'},{'name': 'FormFieldComponent', 'selector': 'authdare-form-field'},{'name': 'GreetingComponent', 'selector': 'authdare-greeting'},{'name': 'InvoiceComponent', 'selector': 'authdare-invoice'},{'name': 'InvoiceDocComponent', 'selector': ''},{'name': 'MaterialDocComponent', 'selector': ''},{'name': 'MenuComponent', 'selector': 'authdare-menu'},{'name': 'NavbarComponent', 'selector': 'authdare-navbar'},{'name': 'NavbarDocComponent', 'selector': 'app-navbar-doc'},{'name': 'NavbarItemComponent', 'selector': 'authdare-navbar-item'},{'name': 'QrcodeDocComponent', 'selector': 'app-qrcode-doc'},{'name': 'QrcodeGenComponent', 'selector': 'authdare-qrcode-gen'},{'name': 'QrcodeReaderComponent', 'selector': 'authdare-qrcode-reader'},{'name': 'SelectFieldComponent', 'selector': 'authdare-select-field'},{'name': 'SidenavComponent', 'selector': 'authdare-sidenav'},{'name': 'TableComponent', 'selector': 'authdare-table'},{'name': 'TableDocComponent', 'selector': 'app-table-doc'},{'name': 'TextFieldComponent', 'selector': 'authdare-text-field'},{'name': 'TypingComponent', 'selector': 'authdare-typing'},{'name': 'TypingDocComponent', 'selector': 'app-typing-doc'}];
+    var DIRECTIVES = [{'name': 'SetAttributeDirective', 'selector': '[authdareSetAttribute]'}];
+    var ACTUAL_COMPONENT = {'name': 'InvoiceComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+                   
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'InvoiceComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       
+       <script type="module" src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

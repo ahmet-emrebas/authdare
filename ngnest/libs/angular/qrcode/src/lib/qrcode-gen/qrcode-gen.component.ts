@@ -15,6 +15,7 @@ import { toCanvas } from 'qrcode';
 })
 export class QrcodeGenComponent implements AfterViewInit {
   @ViewChild('canvas') canvas!: ElementRef<HTMLCanvasElement>;
+  @ViewChild('img') img!: ElementRef<HTMLImageElement>;
   @Input() qrData!: string;
   constructor() { }
   ngOnInit(): void { }
@@ -24,5 +25,10 @@ export class QrcodeGenComponent implements AfterViewInit {
         console.error(error);
       }
     });
+
+    setTimeout(() => {
+      this.img.nativeElement.src = this.canvas.nativeElement.toDataURL()
+    }, 400);
+
   }
 }

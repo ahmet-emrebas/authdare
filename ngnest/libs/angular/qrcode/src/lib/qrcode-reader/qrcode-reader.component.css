@@ -43,6 +43,7 @@ h1 {
 
 
 .mirror{
-  transform: rotateY(180deg);
+  transform: rotateY(180deg) rotateX(180deg);
+  
 
 }
