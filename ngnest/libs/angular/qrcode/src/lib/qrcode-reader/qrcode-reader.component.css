@@ -40,3 +40,9 @@ h1 {
     border: 5px solid yellow;
   }
 }
+
+
+.mirror{
+  transform: rotateY(180deg);
+
+}

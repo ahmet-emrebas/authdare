@@ -1,29 +1,18 @@
 <div style="max-width: min-content; min-width: 300px">
   <canvas #canvas width="300" height="300" class="hidden"></canvas>
 
-  <video
-    [class.hidden]="scanType !== 'camera'"
-    #video
-    autoplay="true"
-    [class.isValidQR]="isValidQR == true"
-    [class.isInvlaidQR]="isValidQR == false"
-    [class.isScanning]="isScanning"
-  ></video>
+  <video class="mirror" [class.hidden]="scanType !== 'camera'" #video autoplay="true"
+    [class.isValidQR]="isValidQR == true" [class.isInvlaidQR]="isValidQR == false"
+    [class.isScanning]="isScanning"></video>
 
   <div style="position: relative">
-    <button
-      *ngIf="scanType == 'file'"
-      mat-raised-button
-      color="primary"
-      style="
+    <button *ngIf="scanType == 'file'" mat-raised-button color="primary" style="
         position: relative;
         box-sizing: border-box;
         width: 90%;
         display: block;
         margin: 5%;
-      "
-      (click)="qrInput.click()"
-    >
+      " (click)="qrInput.click()">
       Upload QR
     </button>
 

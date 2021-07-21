@@ -9,13 +9,16 @@ import {
   Output,
   Input,
 } from '@angular/core';
-import {} from 'qrcode';
+import { } from 'qrcode';
 import { BehaviorSubject } from 'rxjs';
 import { SubSink } from 'subsink';
 import { debounceTime } from 'rxjs/operators';
 
 import * as JSQR from 'jsqr';
 const jsqr = JSQR.default;
+
+const QR_WIDTH = 300 * 10;
+const QR_HEIGHT = 300 * 10;
 
 @Component({
   selector: 'authdare-qrcode-reader',
@@ -53,7 +56,7 @@ export class QrcodeReaderComponent implements OnInit, AfterViewInit, OnDestroy {
 
   videoInterval: any;
 
-  constructor() {}
+  constructor() { }
 
   async ngOnInit() {
     this.subsink.sink = this.canvasStateReadyToRead$
@@ -88,7 +91,7 @@ export class QrcodeReaderComponent implements OnInit, AfterViewInit, OnDestroy {
     this.videoInterval && clearInterval(this.videoInterval);
     const ctx = this.canvas.nativeElement.getContext('2d');
     ctx!.fillStyle = 'white';
-    ctx?.fillRect(0, 0, 300, 300);
+    ctx?.fillRect(0, 0, QR_WIDTH, QR_HEIGHT);
     this.img.nativeElement.src = '';
     this.qrInput.nativeElement.value = '';
     this.isScanning = false;
@@ -108,7 +111,10 @@ export class QrcodeReaderComponent implements OnInit, AfterViewInit, OnDestroy {
       setTimeout(() => {
         const canvasEl = this.canvas.nativeElement;
         const ctx = canvasEl.getContext('2d');
-        ctx?.drawImage(source, 0, 0, 300, 300);
+        this.canvas.nativeElement.width = QR_WIDTH;
+        this.canvas.nativeElement.height = QR_HEIGHT;
+
+        ctx?.drawImage(source, 0, 0, QR_WIDTH, QR_HEIGHT);
       }, 1);
 
       setTimeout(() => {
@@ -156,10 +162,10 @@ export class QrcodeReaderComponent implements OnInit, AfterViewInit, OnDestroy {
     return new Promise((res, rej) => {
       setTimeout(() => {
         this.img.nativeElement.src = imgSrc;
-      }, 1000);
+      }, 100);
       setTimeout(() => {
         res(true);
-      }, 1500);
+      }, 1000);
     });
   }
 
@@ -189,6 +195,6 @@ export class QrcodeReaderComponent implements OnInit, AfterViewInit, OnDestroy {
    * @returns
    */
   async scanCode(ctx: CanvasRenderingContext2D) {
-    return jsqr(ctx?.getImageData(0, 0, 300, 300).data as any, 300, 300);
+    return jsqr(ctx?.getImageData(0, 0, QR_WIDTH, QR_HEIGHT).data as any, QR_WIDTH, QR_HEIGHT);
   }
 }
