@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1626831656680,
+  "timestamp": 1626871772181,
   "index": "authdare/materials/index.html",
   "assetGroups": [
     {
@@ -16,7 +16,7 @@
         "authdare/materials/977.98871d6240eec022303c.js",
         "authdare/materials/favicon.ico",
         "authdare/materials/index.html",
-        "authdare/materials/main.2cb4923d7f307b357e3f.js",
+        "authdare/materials/main.e16269a5f7cf4798691d.js",
         "authdare/materials/manifest.webmanifest",
         "authdare/materials/polyfills.a6673f19019690870929.js",
         "authdare/materials/runtime.705ddc34e125fdbd64cc.js",
@@ -175,7 +175,14 @@
         "authdare/materials/assets/imgs/placeholder-1366x768.png",
         "authdare/materials/assets/imgs/placeholder-image.png",
         "authdare/materials/assets/imgs/profile-placeholder.png",
-        "authdare/materials/assets/imgs/softwaredev.jpg"
+        "authdare/materials/assets/imgs/softwaredev.jpg",
+        "authdare/materials/assets/png-icons/white-business.png",
+        "authdare/materials/assets/png-icons/white-city.png",
+        "authdare/materials/assets/png-icons/white-email.png",
+        "authdare/materials/assets/png-icons/white-flag.png",
+        "authdare/materials/assets/png-icons/white-phone.png",
+        "authdare/materials/assets/png-icons/white-pin-drop.png",
+        "authdare/materials/assets/png-icons/white-streetview.png"
       ],
       "patterns": []
     }
@@ -329,9 +336,16 @@
     "authdare/materials/assets/imgs/placeholder-image.png": "176336fed2706c89b92a613844caf8ccd83693eb",
     "authdare/materials/assets/imgs/profile-placeholder.png": "18a8e70e47faf132ef4d08ba3b2a80824b8c22a2",
     "authdare/materials/assets/imgs/softwaredev.jpg": "6b58a4fb314f6b693b4b1aa754eef0427514c458",
+    "authdare/materials/assets/png-icons/white-business.png": "1a01abcd36fc64e58d981ba208e05143ca399b3d",
+    "authdare/materials/assets/png-icons/white-city.png": "6adf42270fc76d99cef4062beab6275781542f08",
+    "authdare/materials/assets/png-icons/white-email.png": "2f21b414152237df49147ac8e0eff997889ce969",
+    "authdare/materials/assets/png-icons/white-flag.png": "042f88819c203c4d4bbb369c3b8cdd125e3fe1d2",
+    "authdare/materials/assets/png-icons/white-phone.png": "57a1bed1ebe3a686a7916355e15ca1a3e4bc349e",
+    "authdare/materials/assets/png-icons/white-pin-drop.png": "6062a6433196da2efa879b6b1b56044bb52c4588",
+    "authdare/materials/assets/png-icons/white-streetview.png": "e55279fb919b0d16c70264c605317faf44840296",
     "authdare/materials/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
-    "authdare/materials/index.html": "606cc2eea01015ed057296477d083afe34c2b84f",
-    "authdare/materials/main.2cb4923d7f307b357e3f.js": "85170e0890a889cf2c5b60dec38fd7bf48d323ed",
+    "authdare/materials/index.html": "8441741b7fa26f4e422375f0a5528ede9db4729c",
+    "authdare/materials/main.e16269a5f7cf4798691d.js": "e4452dec3050c1e36478e22f5e4fc815d48f006d",
     "authdare/materials/manifest.webmanifest": "605dfc89b1c053da2014a31b2816dfb196e3d3bc",
     "authdare/materials/polyfills.a6673f19019690870929.js": "92fcbad25c6b7a7aaf59a1ec38c72840d52c91c6",
     "authdare/materials/runtime.705ddc34e125fdbd64cc.js": "7a656c21b07f37b600ffbdd36928bdb7bebe8baa",

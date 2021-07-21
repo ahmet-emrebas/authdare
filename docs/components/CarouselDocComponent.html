@@ -180,7 +180,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">apps/client/src/app/material-doc/carousel-doc/carousel-doc.component.ts:38</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">apps/client/src/app/material-doc/carousel-doc/carousel-doc.component.ts:39</a></div>
                             </td>
                         </tr>
 
@@ -217,8 +217,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="42"
-                            class="link-to-prism">apps/client/src/app/material-doc/carousel-doc/carousel-doc.component.ts:42</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="43"
+                            class="link-to-prism">apps/client/src/app/material-doc/carousel-doc/carousel-doc.component.ts:43</a></div>
                 </td>
             </tr>
 
@@ -254,8 +254,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="46"
-                            class="link-to-prism">apps/client/src/app/material-doc/carousel-doc/carousel-doc.component.ts:46</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="47"
+                            class="link-to-prism">apps/client/src/app/material-doc/carousel-doc/carousel-doc.component.ts:47</a></div>
                 </td>
             </tr>
 
@@ -332,7 +332,7 @@
       title: &#x27;Full Stack Software Development&#x27;,
       summary:
         &quot;Let&#x27;s solve your busines problem with our amazing team! I think we are the fastest team in the world! Honestly, most of our clients do not need a software, they just like us! Would you like to enjoy being with us! Let&#x27;s have fun solving your business problem with amazing people!&quot;,
-      img: &#x27;/authdare/materials/assets/imgs/fullstack.png&#x27;,
+      img: asset(&#x27;imgs/fullstack.png&#x27;),
       backgroundColor: &#x27;rgba(70, 0, 0,  0.7)&#x27;,
       duration: 3000,
     },
@@ -340,7 +340,7 @@
       title: &#x27;I do not have my lambo yet!&#x27;,
       summary: &#x27;Could you please help me to get my lambo!&#x27;,
       backgroundColor: &#x27;rgba(70, 0, 0,  0.7)&#x27;,
-      img: &#x27;/authdare/materials/assets/imgs/cars/1.png&#x27;,
+      img: asset(&#x27;imgs/cars/1.png&#x27;),
       duration: 3000,
     },
     {
@@ -348,7 +348,7 @@
       summary:
         &#x27;Node, Angular, Typescirpt, Javascript, Responsive Design, PWA, Complex Web Applications, Android Service and App development!&#x27;,
       backgroundColor: &#x27;rgba(70, 0, 0,  0.7)&#x27;,
-      img: &#x27;/authdare/materials/assets/imgs/softwaredev.jpg&#x27;,
+      img: asset(&#x27;imgs/softwaredev.jpg&#x27;),
       duration: 3000,
     },
   ]</code>
@@ -356,7 +356,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">apps/client/src/app/material-doc/carousel-doc/carousel-doc.component.ts:12</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">apps/client/src/app/material-doc/carousel-doc/carousel-doc.component.ts:13</a></div>
                         </td>
                     </tr>
 
@@ -382,7 +382,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">apps/client/src/app/material-doc/carousel-doc/carousel-doc.component.ts:38</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">apps/client/src/app/material-doc/carousel-doc/carousel-doc.component.ts:39</a></div>
                         </td>
                     </tr>
 
@@ -397,6 +397,7 @@
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
 import { CarouselItem } from &#x27;@authdare/carousel&#x27;;
+import { asset } from &#x27;@authdare/utils&#x27;;
 
 let state: any;
 
@@ -411,7 +412,7 @@ export class CarouselDocComponent implements OnInit {
       title: &#x27;Full Stack Software Development&#x27;,
       summary:
         &quot;Let&#x27;s solve your busines problem with our amazing team! I think we are the fastest team in the world! Honestly, most of our clients do not need a software, they just like us! Would you like to enjoy being with us! Let&#x27;s have fun solving your business problem with amazing people!&quot;,
-      img: &#x27;/authdare/materials/assets/imgs/fullstack.png&#x27;,
+      img: asset(&#x27;imgs/fullstack.png&#x27;),
       backgroundColor: &#x27;rgba(70, 0, 0,  0.7)&#x27;,
       duration: 3000,
     },
@@ -419,7 +420,7 @@ export class CarouselDocComponent implements OnInit {
       title: &#x27;I do not have my lambo yet!&#x27;,
       summary: &#x27;Could you please help me to get my lambo!&#x27;,
       backgroundColor: &#x27;rgba(70, 0, 0,  0.7)&#x27;,
-      img: &#x27;/authdare/materials/assets/imgs/cars/1.png&#x27;,
+      img: asset(&#x27;imgs/cars/1.png&#x27;),
       duration: 3000,
     },
     {
@@ -427,14 +428,14 @@ export class CarouselDocComponent implements OnInit {
       summary:
         &#x27;Node, Angular, Typescirpt, Javascript, Responsive Design, PWA, Complex Web Applications, Android Service and App development!&#x27;,
       backgroundColor: &#x27;rgba(70, 0, 0,  0.7)&#x27;,
-      img: &#x27;/authdare/materials/assets/imgs/softwaredev.jpg&#x27;,
+      img: asset(&#x27;imgs/softwaredev.jpg&#x27;),
       duration: 3000,
     },
   ];
 
   carouselNavigationState: any;
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit(): void {
     this.carouselNavigationState &#x3D; state;
@@ -491,7 +492,7 @@ export class CarouselDocComponent implements OnInit {
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><div style="max-width: 1000px">  <authdare-carousel    [carouselItems]="carouselItems"    [carouselNavigationState]="carouselNavigationState"    (onDestroy)="storeState($event)"  ></authdare-carousel></div></div>'
-    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CarouselComponent', 'selector': 'authdare-carousel'},{'name': 'CarouselDocComponent', 'selector': 'app-carousel-doc'},{'name': 'CarouselNavigationComponent', 'selector': 'authdare-carousel-navigation'},{'name': 'CarouselPersistentComponent', 'selector': 'authdare-carousel-persistent'},{'name': 'ChartComponent', 'selector': 'authdare-chart'},{'name': 'ChartDocComponent', 'selector': 'app-chart-doc'},{'name': 'DateFieldComponent', 'selector': 'authdare-date-field'},{'name': 'FieldStatusComponent', 'selector': 'authdare-field-status'},{'name': 'FormComponent', 'selector': 'authdare-form'},{'name': 'FormDocComponent', 'selector': 'app-form-doc'},{'name': 'FormFieldComponent', 'selector': 'authdare-form-field'},{'name': 'GreetingComponent', 'selector': 'authdare-greeting'},{'name': 'InvoiceComponent', 'selector': 'authdare-invoice'},{'name': 'InvoiceDocComponent', 'selector': ''},{'name': 'MaterialDocComponent', 'selector': ''},{'name': 'MenuComponent', 'selector': 'authdare-menu'},{'name': 'NavbarComponent', 'selector': 'authdare-navbar'},{'name': 'NavbarDocComponent', 'selector': 'app-navbar-doc'},{'name': 'NavbarItemComponent', 'selector': 'authdare-navbar-item'},{'name': 'QrcodeDocComponent', 'selector': 'app-qrcode-doc'},{'name': 'QrcodeGenComponent', 'selector': 'authdare-qrcode-gen'},{'name': 'QrcodeReaderComponent', 'selector': 'authdare-qrcode-reader'},{'name': 'SelectFieldComponent', 'selector': 'authdare-select-field'},{'name': 'SidenavComponent', 'selector': 'authdare-sidenav'},{'name': 'TableComponent', 'selector': 'authdare-table'},{'name': 'TableDocComponent', 'selector': 'app-table-doc'},{'name': 'TextFieldComponent', 'selector': 'authdare-text-field'},{'name': 'TypingComponent', 'selector': 'authdare-typing'},{'name': 'TypingDocComponent', 'selector': 'app-typing-doc'}];
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CarouselComponent', 'selector': 'authdare-carousel'},{'name': 'CarouselDocComponent', 'selector': 'app-carousel-doc'},{'name': 'CarouselNavigationComponent', 'selector': 'authdare-carousel-navigation'},{'name': 'CarouselPersistentComponent', 'selector': 'authdare-carousel-persistent'},{'name': 'ChartComponent', 'selector': 'authdare-chart'},{'name': 'ChartDocComponent', 'selector': 'app-chart-doc'},{'name': 'DateFieldComponent', 'selector': 'authdare-date-field'},{'name': 'FieldStatusComponent', 'selector': 'authdare-field-status'},{'name': 'FormComponent', 'selector': 'authdare-form'},{'name': 'FormDocComponent', 'selector': 'app-form-doc'},{'name': 'FormFieldComponent', 'selector': 'authdare-form-field'},{'name': 'GreetingComponent', 'selector': 'authdare-greeting'},{'name': 'InvoiceComponent', 'selector': 'authdare-invoice'},{'name': 'InvoiceDocComponent', 'selector': ''},{'name': 'MaterialDocComponent', 'selector': ''},{'name': 'MenuComponent', 'selector': 'authdare-menu'},{'name': 'NavbarComponent', 'selector': 'authdare-navbar'},{'name': 'NavbarDocComponent', 'selector': 'app-navbar-doc'},{'name': 'NavbarItemComponent', 'selector': 'authdare-navbar-item'},{'name': 'QrcodeDocComponent', 'selector': 'app-qrcode-doc'},{'name': 'QrcodeGenComponent', 'selector': 'authdare-qrcode-gen'},{'name': 'QrcodeReaderComponent', 'selector': 'authdare-qrcode-reader'},{'name': 'SelectFieldComponent', 'selector': 'authdare-select-field'},{'name': 'SidenavComponent', 'selector': 'authdare-sidenav'},{'name': 'TableComponent', 'selector': 'authdare-table'},{'name': 'TableDocComponent', 'selector': 'app-table-doc'},{'name': 'TextFieldComponent', 'selector': 'authdare-text-field'},{'name': 'TypingComponent', 'selector': 'authdare-typing'},{'name': 'TypingDocComponent', 'selector': 'app-typing-doc'},{'name': 'UtilsComponent', 'selector': 'lib-utils'}];
     var DIRECTIVES = [{'name': 'SetAttributeDirective', 'selector': '[authdareSetAttribute]'}];
     var ACTUAL_COMPONENT = {'name': 'CarouselDocComponent'};
 </script>

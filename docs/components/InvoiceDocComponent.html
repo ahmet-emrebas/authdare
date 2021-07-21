@@ -173,7 +173,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">apps/client/src/app/material-doc/invoice-doc/invoice-doc.component.ts:34</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">apps/client/src/app/material-doc/invoice-doc/invoice-doc.component.ts:42</a></div>
                             </td>
                         </tr>
 
@@ -210,8 +210,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="37"
-                            class="link-to-prism">apps/client/src/app/material-doc/invoice-doc/invoice-doc.component.ts:37</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="45"
+                            class="link-to-prism">apps/client/src/app/material-doc/invoice-doc/invoice-doc.component.ts:45</a></div>
                 </td>
             </tr>
 
@@ -254,24 +254,32 @@
                     <td class="col-md-4">
                         <i>Default value : </i><code>{
     invoiceId: &#x27;123&#x27;,
-    businessAddress: &#x27;1234 Dr, Houston, TX 90900&#x27;,
     businessName: &#x27;Ahmet Emrebas&#x27;,
     logo: &#x27;/assets/icons/icon-72x72.png&#x27;,
-    clientBusinessAdress: &#x27;3312 client, Houston, TX 88040&#x27;,
-    clientBusinessName: &#x27;Client Business Name&#x27;,
-    clientEmail: &#x27;client@client.com&#x27;,
+    city: &#x27;Houston&#x27;,
+    street: &#x27;123 Street&#x27;,
+    state: &#x27;Texas&#x27;,
+    zip: &#x27;90900&#x27;,
+    phone: &quot;+1 832 874 24 22&quot;,
+    email: &#x27;aemrebas.dev@gmail.com&#x27;,
+    clientName: &#x27;Client Name&#x27;,
+    clientCity: &#x27;Houston&#x27;,
+    clientStreet: &quot;567 Street&quot;,
+    clientState: &#x27;Texas&#x27;,
+    clientZip: &#x27;99010&#x27;,
     created: &#x27;10 Jun, 2020&#x27;,
     due: &#x27;30 Jun, 2020&#x27;,
     discount: &quot;%12&quot;,
     items: [
-      { name: &#x27;Web based Inventory Application&#x27;, price: &#x27;$10000.00&#x27; },
-      { name: &#x27;1 year SMS service&#x27;, price: &#x27;$200.00&#x27; },
-      { name: &#x27;5 year hosting service&#x27;, price: &#x27;$2000.00&#x27; },
-      { name: &#x27;1 year emergency assistance&#x27;, price: &#x27;$5000.00&#x27; }
+      { discount: &#x27;0%&#x27;, description: &#x27;Description of the service&#x27;, qty: 1, unitPrice: &#x27;$10000.00&#x27;, name: &#x27;Web based Inventory Application&#x27;, price: &#x27;$10000.00&#x27; },
+      { discount: &#x27;0%&#x27;, description: &#x27;Description of the service&#x27;, qty: 1, unitPrice: &#x27;$10000.00&#x27;, name: &#x27;1 year SMS service&#x27;, price: &#x27;$200.00&#x27; },
+      { discount: &#x27;0%&#x27;, description: &#x27;Description of the service&#x27;, qty: 1, unitPrice: &#x27;$10000.00&#x27;, name: &#x27;5 year hosting service&#x27;, price: &#x27;$2000.00&#x27; },
+      { discount: &#x27;0%&#x27;, description: &#x27;Description of the service&#x27;, qty: 1, unitPrice: &#x27;$10000.00&#x27;, name: &#x27;1 year emergency assistance&#x27;, price: &#x27;$5000.00&#x27; }
     ],
     paymentMethods: [
-      { name: &#x27;CashApp&#x27;, link: &#x27;N/A&#x27;, credential: &#x27;aemrebas&#x27;, },
-      { name: &#x27;Zelle&#x27;, link: &#x27;N/A&#x27;, credential: &#x27;+1 832 874 24 22&#x27; },
+      { name: &quot;Check&quot;, credential: &#x27;Ahmet Emrebas&#x27; },
+      { name: &#x27;CashApp&#x27;, credential: &#x27;aemrebas&#x27;, },
+      { name: &#x27;Zelle&#x27;, credential: &#x27;+1 832 874 24 22&#x27; },
       { name: &#x27;Stripe&#x27;, link: &#x27;N/A&#x27;, credential: &#x27;N/A&#x27; }
     ],
     total: &#x27;$17200.00&#x27;
@@ -305,7 +313,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">apps/client/src/app/material-doc/invoice-doc/invoice-doc.component.ts:34</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">apps/client/src/app/material-doc/invoice-doc/invoice-doc.component.ts:42</a></div>
                         </td>
                     </tr>
 
@@ -328,24 +336,32 @@ import { Invoice } from &#x27;@authdare/invoice&#x27;;
 export class InvoiceDocComponent implements OnInit {
   invoice: Partial&lt;Invoice&gt; &#x3D; {
     invoiceId: &#x27;123&#x27;,
-    businessAddress: &#x27;1234 Dr, Houston, TX 90900&#x27;,
     businessName: &#x27;Ahmet Emrebas&#x27;,
     logo: &#x27;/assets/icons/icon-72x72.png&#x27;,
-    clientBusinessAdress: &#x27;3312 client, Houston, TX 88040&#x27;,
-    clientBusinessName: &#x27;Client Business Name&#x27;,
-    clientEmail: &#x27;client@client.com&#x27;,
+    city: &#x27;Houston&#x27;,
+    street: &#x27;123 Street&#x27;,
+    state: &#x27;Texas&#x27;,
+    zip: &#x27;90900&#x27;,
+    phone: &quot;+1 832 874 24 22&quot;,
+    email: &#x27;aemrebas.dev@gmail.com&#x27;,
+    clientName: &#x27;Client Name&#x27;,
+    clientCity: &#x27;Houston&#x27;,
+    clientStreet: &quot;567 Street&quot;,
+    clientState: &#x27;Texas&#x27;,
+    clientZip: &#x27;99010&#x27;,
     created: &#x27;10 Jun, 2020&#x27;,
     due: &#x27;30 Jun, 2020&#x27;,
     discount: &quot;%12&quot;,
     items: [
-      { name: &#x27;Web based Inventory Application&#x27;, price: &#x27;$10000.00&#x27; },
-      { name: &#x27;1 year SMS service&#x27;, price: &#x27;$200.00&#x27; },
-      { name: &#x27;5 year hosting service&#x27;, price: &#x27;$2000.00&#x27; },
-      { name: &#x27;1 year emergency assistance&#x27;, price: &#x27;$5000.00&#x27; }
+      { discount: &#x27;0%&#x27;, description: &#x27;Description of the service&#x27;, qty: 1, unitPrice: &#x27;$10000.00&#x27;, name: &#x27;Web based Inventory Application&#x27;, price: &#x27;$10000.00&#x27; },
+      { discount: &#x27;0%&#x27;, description: &#x27;Description of the service&#x27;, qty: 1, unitPrice: &#x27;$10000.00&#x27;, name: &#x27;1 year SMS service&#x27;, price: &#x27;$200.00&#x27; },
+      { discount: &#x27;0%&#x27;, description: &#x27;Description of the service&#x27;, qty: 1, unitPrice: &#x27;$10000.00&#x27;, name: &#x27;5 year hosting service&#x27;, price: &#x27;$2000.00&#x27; },
+      { discount: &#x27;0%&#x27;, description: &#x27;Description of the service&#x27;, qty: 1, unitPrice: &#x27;$10000.00&#x27;, name: &#x27;1 year emergency assistance&#x27;, price: &#x27;$5000.00&#x27; }
     ],
     paymentMethods: [
-      { name: &#x27;CashApp&#x27;, link: &#x27;N/A&#x27;, credential: &#x27;aemrebas&#x27;, },
-      { name: &#x27;Zelle&#x27;, link: &#x27;N/A&#x27;, credential: &#x27;+1 832 874 24 22&#x27; },
+      { name: &quot;Check&quot;, credential: &#x27;Ahmet Emrebas&#x27; },
+      { name: &#x27;CashApp&#x27;, credential: &#x27;aemrebas&#x27;, },
+      { name: &#x27;Zelle&#x27;, credential: &#x27;+1 832 874 24 22&#x27; },
       { name: &#x27;Stripe&#x27;, link: &#x27;N/A&#x27;, credential: &#x27;N/A&#x27; }
     ],
     total: &#x27;$17200.00&#x27;
@@ -362,8 +378,11 @@ export class InvoiceDocComponent implements OnInit {
     </div>
 
     <div class="tab-pane fade " id="c-templateData">
-        <pre class="line-numbers"><code class="language-html">&lt;authdare-invoice [invoice]&#x3D;&quot;invoice&quot;&gt;
-&lt;/authdare-invoice&gt;</code></pre>
+        <pre class="line-numbers"><code class="language-html">&lt;div style&#x3D;&quot;height: 2000px;&quot;&gt;
+
+    &lt;authdare-invoice [invoice]&#x3D;&quot;invoice&quot;&gt;
+    &lt;/authdare-invoice&gt;
+&lt;/div&gt;</code></pre>
     </div>
 
     <div class="tab-pane fade " id="c-styleData">
@@ -398,8 +417,8 @@ export class InvoiceDocComponent implements OnInit {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><authdare-invoice [invoice]="invoice"></authdare-invoice></div>'
-    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CarouselComponent', 'selector': 'authdare-carousel'},{'name': 'CarouselDocComponent', 'selector': 'app-carousel-doc'},{'name': 'CarouselNavigationComponent', 'selector': 'authdare-carousel-navigation'},{'name': 'CarouselPersistentComponent', 'selector': 'authdare-carousel-persistent'},{'name': 'ChartComponent', 'selector': 'authdare-chart'},{'name': 'ChartDocComponent', 'selector': 'app-chart-doc'},{'name': 'DateFieldComponent', 'selector': 'authdare-date-field'},{'name': 'FieldStatusComponent', 'selector': 'authdare-field-status'},{'name': 'FormComponent', 'selector': 'authdare-form'},{'name': 'FormDocComponent', 'selector': 'app-form-doc'},{'name': 'FormFieldComponent', 'selector': 'authdare-form-field'},{'name': 'GreetingComponent', 'selector': 'authdare-greeting'},{'name': 'InvoiceComponent', 'selector': 'authdare-invoice'},{'name': 'InvoiceDocComponent', 'selector': ''},{'name': 'MaterialDocComponent', 'selector': ''},{'name': 'MenuComponent', 'selector': 'authdare-menu'},{'name': 'NavbarComponent', 'selector': 'authdare-navbar'},{'name': 'NavbarDocComponent', 'selector': 'app-navbar-doc'},{'name': 'NavbarItemComponent', 'selector': 'authdare-navbar-item'},{'name': 'QrcodeDocComponent', 'selector': 'app-qrcode-doc'},{'name': 'QrcodeGenComponent', 'selector': 'authdare-qrcode-gen'},{'name': 'QrcodeReaderComponent', 'selector': 'authdare-qrcode-reader'},{'name': 'SelectFieldComponent', 'selector': 'authdare-select-field'},{'name': 'SidenavComponent', 'selector': 'authdare-sidenav'},{'name': 'TableComponent', 'selector': 'authdare-table'},{'name': 'TableDocComponent', 'selector': 'app-table-doc'},{'name': 'TextFieldComponent', 'selector': 'authdare-text-field'},{'name': 'TypingComponent', 'selector': 'authdare-typing'},{'name': 'TypingDocComponent', 'selector': 'app-typing-doc'}];
+        var COMPONENT_TEMPLATE = '<div><div style="height: 2000px;">    <authdare-invoice [invoice]="invoice">    </authdare-invoice></div></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CarouselComponent', 'selector': 'authdare-carousel'},{'name': 'CarouselDocComponent', 'selector': 'app-carousel-doc'},{'name': 'CarouselNavigationComponent', 'selector': 'authdare-carousel-navigation'},{'name': 'CarouselPersistentComponent', 'selector': 'authdare-carousel-persistent'},{'name': 'ChartComponent', 'selector': 'authdare-chart'},{'name': 'ChartDocComponent', 'selector': 'app-chart-doc'},{'name': 'DateFieldComponent', 'selector': 'authdare-date-field'},{'name': 'FieldStatusComponent', 'selector': 'authdare-field-status'},{'name': 'FormComponent', 'selector': 'authdare-form'},{'name': 'FormDocComponent', 'selector': 'app-form-doc'},{'name': 'FormFieldComponent', 'selector': 'authdare-form-field'},{'name': 'GreetingComponent', 'selector': 'authdare-greeting'},{'name': 'InvoiceComponent', 'selector': 'authdare-invoice'},{'name': 'InvoiceDocComponent', 'selector': ''},{'name': 'MaterialDocComponent', 'selector': ''},{'name': 'MenuComponent', 'selector': 'authdare-menu'},{'name': 'NavbarComponent', 'selector': 'authdare-navbar'},{'name': 'NavbarDocComponent', 'selector': 'app-navbar-doc'},{'name': 'NavbarItemComponent', 'selector': 'authdare-navbar-item'},{'name': 'QrcodeDocComponent', 'selector': 'app-qrcode-doc'},{'name': 'QrcodeGenComponent', 'selector': 'authdare-qrcode-gen'},{'name': 'QrcodeReaderComponent', 'selector': 'authdare-qrcode-reader'},{'name': 'SelectFieldComponent', 'selector': 'authdare-select-field'},{'name': 'SidenavComponent', 'selector': 'authdare-sidenav'},{'name': 'TableComponent', 'selector': 'authdare-table'},{'name': 'TableDocComponent', 'selector': 'app-table-doc'},{'name': 'TextFieldComponent', 'selector': 'authdare-text-field'},{'name': 'TypingComponent', 'selector': 'authdare-typing'},{'name': 'TypingDocComponent', 'selector': 'app-typing-doc'},{'name': 'UtilsComponent', 'selector': 'lib-utils'}];
     var DIRECTIVES = [{'name': 'SetAttributeDirective', 'selector': '[authdareSetAttribute]'}];
     var ACTUAL_COMPONENT = {'name': 'InvoiceDocComponent'};
 </script>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CarouselItem } from '@authdare/carousel';
+import { asset } from '@authdare/utils';
 
 let state: any;
 
@@ -14,7 +15,7 @@ export class CarouselDocComponent implements OnInit {
       title: 'Full Stack Software Development',
       summary:
         "Let's solve your busines problem with our amazing team! I think we are the fastest team in the world! Honestly, most of our clients do not need a software, they just like us! Would you like to enjoy being with us! Let's have fun solving your business problem with amazing people!",
-      img: '/authdare/materials/assets/imgs/fullstack.png',
+      img: asset('imgs/fullstack.png'),
       backgroundColor: 'rgba(70, 0, 0,  0.7)',
       duration: 3000,
     },
@@ -22,7 +23,7 @@ export class CarouselDocComponent implements OnInit {
       title: 'I do not have my lambo yet!',
       summary: 'Could you please help me to get my lambo!',
       backgroundColor: 'rgba(70, 0, 0,  0.7)',
-      img: '/authdare/materials/assets/imgs/cars/1.png',
+      img: asset('imgs/cars/1.png'),
       duration: 3000,
     },
     {
@@ -30,14 +31,14 @@ export class CarouselDocComponent implements OnInit {
       summary:
         'Node, Angular, Typescirpt, Javascript, Responsive Design, PWA, Complex Web Applications, Android Service and App development!',
       backgroundColor: 'rgba(70, 0, 0,  0.7)',
-      img: '/authdare/materials/assets/imgs/softwaredev.jpg',
+      img: asset('imgs/softwaredev.jpg'),
       duration: 3000,
     },
   ];
 
   carouselNavigationState: any;
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit(): void {
     this.carouselNavigationState = state;

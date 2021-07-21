@@ -4,6 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from "@angular/material/icon";
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { QrcodeModule } from '@authdare/qrcode';
+import { UtilsModule } from '@authdare/utils';
 import { InvoiceComponent } from './invoice.component';
 
 
@@ -14,6 +15,7 @@ import { InvoiceComponent } from './invoice.component';
   ],
   imports: [
     CommonModule,
+    UtilsModule,
     QrcodeModule,
     MatButtonModule,
     MatIconModule,

@@ -14,235 +14,235 @@
 <title>cluster_MaterialDocModule</title>
 <polygon fill="none" stroke="black" stroke-dasharray="1,5" points="8,-32.8 8,-157.8 2539,-157.8 2539,-32.8 8,-32.8"/>
 </g>
-<g id="clust2" class="cluster">
-<title>cluster_MaterialDocModule_declarations</title>
-<polygon fill="none" stroke="black" points="1074,-40.8 1074,-92.8 2531,-92.8 2531,-40.8 1074,-40.8"/>
-</g>
 <g id="clust12" class="cluster">
 <title>cluster_MaterialDocModule_imports</title>
-<polygon fill="none" stroke="black" points="16,-40.8 16,-92.8 1066,-92.8 1066,-40.8 16,-40.8"/>
+<polygon fill="none" stroke="black" points="1481,-40.8 1481,-92.8 2531,-92.8 2531,-40.8 1481,-40.8"/>
+</g>
+<g id="clust2" class="cluster">
+<title>cluster_MaterialDocModule_declarations</title>
+<polygon fill="none" stroke="black" points="16,-40.8 16,-92.8 1473,-92.8 1473,-40.8 16,-40.8"/>
 </g>
 <!-- CarouselDocComponent -->
 <g id="node1" class="node">
 <title>CarouselDocComponent</title>
-<polygon fill="#ffffb3" stroke="black" points="2523.42,-84.8 2368.58,-84.8 2368.58,-48.8 2523.42,-48.8 2523.42,-84.8"/>
-<text text-anchor="middle" x="2446" y="-62.6" font-family="Times,serif" font-size="14.00">CarouselDocComponent</text>
+<polygon fill="#ffffb3" stroke="black" points="1465.42,-84.8 1310.58,-84.8 1310.58,-48.8 1465.42,-48.8 1465.42,-84.8"/>
+<text text-anchor="middle" x="1388" y="-62.6" font-family="Times,serif" font-size="14.00">CarouselDocComponent</text>
 </g>
 <!-- MaterialDocModule -->
 <g id="node10" class="node">
 <title>MaterialDocModule</title>
-<polygon fill="#8dd3c7" stroke="black" points="1144.29,-149.8 1141.29,-153.8 1120.29,-153.8 1117.29,-149.8 1013.71,-149.8 1013.71,-113.8 1144.29,-113.8 1144.29,-149.8"/>
-<text text-anchor="middle" x="1079" y="-127.6" font-family="Times,serif" font-size="14.00">MaterialDocModule</text>
+<polygon fill="#8dd3c7" stroke="black" points="1528.29,-149.8 1525.29,-153.8 1504.29,-153.8 1501.29,-149.8 1397.71,-149.8 1397.71,-113.8 1528.29,-113.8 1528.29,-149.8"/>
+<text text-anchor="middle" x="1463" y="-127.6" font-family="Times,serif" font-size="14.00">MaterialDocModule</text>
 </g>
 <!-- CarouselDocComponent&#45;&gt;MaterialDocModule -->
 <g id="edge1" class="edge">
 <title>CarouselDocComponent&#45;&gt;MaterialDocModule</title>
-<path fill="none" stroke="black" d="M2446,-85.12C2446,-108.46 2446,-145.8 2446,-145.8 2446,-145.8 1154.47,-145.8 1154.47,-145.8"/>
-<polygon fill="black" stroke="black" points="1154.47,-142.3 1144.47,-145.8 1154.47,-149.3 1154.47,-142.3"/>
+<path fill="none" stroke="black" d="M1431.53,-84.91C1431.53,-84.91 1431.53,-103.79 1431.53,-103.79"/>
+<polygon fill="black" stroke="black" points="1428.03,-103.79 1431.53,-113.79 1435.03,-103.79 1428.03,-103.79"/>
 </g>
 <!-- ChartDocComponent -->
 <g id="node2" class="node">
 <title>ChartDocComponent</title>
-<polygon fill="#ffffb3" stroke="black" points="2350.76,-84.8 2215.24,-84.8 2215.24,-48.8 2350.76,-48.8 2350.76,-84.8"/>
-<text text-anchor="middle" x="2283" y="-62.6" font-family="Times,serif" font-size="14.00">ChartDocComponent</text>
+<polygon fill="#ffffb3" stroke="black" points="1292.76,-84.8 1157.24,-84.8 1157.24,-48.8 1292.76,-48.8 1292.76,-84.8"/>
+<text text-anchor="middle" x="1225" y="-62.6" font-family="Times,serif" font-size="14.00">ChartDocComponent</text>
 </g>
 <!-- ChartDocComponent&#45;&gt;MaterialDocModule -->
 <g id="edge2" class="edge">
 <title>ChartDocComponent&#45;&gt;MaterialDocModule</title>
-<path fill="none" stroke="black" d="M2283,-84.96C2283,-107.15 2283,-141.8 2283,-141.8 2283,-141.8 1154.16,-141.8 1154.16,-141.8"/>
-<polygon fill="black" stroke="black" points="1154.16,-138.3 1144.16,-141.8 1154.16,-145.3 1154.16,-138.3"/>
+<path fill="none" stroke="black" d="M1225,-84.92C1225,-99.58 1225,-117.8 1225,-117.8 1225,-117.8 1387.65,-117.8 1387.65,-117.8"/>
+<polygon fill="black" stroke="black" points="1387.65,-121.3 1397.65,-117.8 1387.65,-114.3 1387.65,-121.3"/>
 </g>
 <!-- FormDocComponent -->
 <g id="node3" class="node">
 <title>FormDocComponent</title>
-<polygon fill="#ffffb3" stroke="black" points="2197.49,-84.8 2062.51,-84.8 2062.51,-48.8 2197.49,-48.8 2197.49,-84.8"/>
-<text text-anchor="middle" x="2130" y="-62.6" font-family="Times,serif" font-size="14.00">FormDocComponent</text>
+<polygon fill="#ffffb3" stroke="black" points="1139.49,-84.8 1004.51,-84.8 1004.51,-48.8 1139.49,-48.8 1139.49,-84.8"/>
+<text text-anchor="middle" x="1072" y="-62.6" font-family="Times,serif" font-size="14.00">FormDocComponent</text>
 </g>
 <!-- FormDocComponent&#45;&gt;MaterialDocModule -->
 <g id="edge3" class="edge">
 <title>FormDocComponent&#45;&gt;MaterialDocModule</title>
-<path fill="none" stroke="black" d="M2130,-85.08C2130,-106.12 2130,-137.8 2130,-137.8 2130,-137.8 1154.35,-137.8 1154.35,-137.8"/>
-<polygon fill="black" stroke="black" points="1154.35,-134.3 1144.35,-137.8 1154.35,-141.3 1154.35,-134.3"/>
+<path fill="none" stroke="black" d="M1072,-84.81C1072,-100.85 1072,-121.8 1072,-121.8 1072,-121.8 1387.56,-121.8 1387.56,-121.8"/>
+<polygon fill="black" stroke="black" points="1387.56,-125.3 1397.56,-121.8 1387.56,-118.3 1387.56,-125.3"/>
 </g>
 <!-- InvoiceDocComponent -->
 <g id="node4" class="node">
 <title>InvoiceDocComponent</title>
-<polygon fill="#ffffb3" stroke="black" points="2044.13,-84.8 1897.87,-84.8 1897.87,-48.8 2044.13,-48.8 2044.13,-84.8"/>
-<text text-anchor="middle" x="1971" y="-62.6" font-family="Times,serif" font-size="14.00">InvoiceDocComponent</text>
+<polygon fill="#ffffb3" stroke="black" points="986.13,-84.8 839.87,-84.8 839.87,-48.8 986.13,-48.8 986.13,-84.8"/>
+<text text-anchor="middle" x="913" y="-62.6" font-family="Times,serif" font-size="14.00">InvoiceDocComponent</text>
 </g>
 <!-- InvoiceDocComponent&#45;&gt;MaterialDocModule -->
 <g id="edge4" class="edge">
 <title>InvoiceDocComponent&#45;&gt;MaterialDocModule</title>
-<path fill="none" stroke="black" d="M1971,-85.11C1971,-104.95 1971,-133.8 1971,-133.8 1971,-133.8 1154.23,-133.8 1154.23,-133.8"/>
-<polygon fill="black" stroke="black" points="1154.23,-130.3 1144.23,-133.8 1154.23,-137.3 1154.23,-130.3"/>
+<path fill="none" stroke="black" d="M913,-84.82C913,-102.17 913,-125.8 913,-125.8 913,-125.8 1387.75,-125.8 1387.75,-125.8"/>
+<polygon fill="black" stroke="black" points="1387.75,-129.3 1397.75,-125.8 1387.75,-122.3 1387.75,-129.3"/>
 </g>
 <!-- MaterialDocComponent -->
 <g id="node5" class="node">
 <title>MaterialDocComponent</title>
-<polygon fill="#ffffb3" stroke="black" points="1880.07,-84.8 1727.93,-84.8 1727.93,-48.8 1880.07,-48.8 1880.07,-84.8"/>
-<text text-anchor="middle" x="1804" y="-62.6" font-family="Times,serif" font-size="14.00">MaterialDocComponent</text>
+<polygon fill="#ffffb3" stroke="black" points="822.07,-84.8 669.93,-84.8 669.93,-48.8 822.07,-48.8 822.07,-84.8"/>
+<text text-anchor="middle" x="746" y="-62.6" font-family="Times,serif" font-size="14.00">MaterialDocComponent</text>
 </g>
 <!-- MaterialDocComponent&#45;&gt;MaterialDocModule -->
 <g id="edge5" class="edge">
 <title>MaterialDocComponent&#45;&gt;MaterialDocModule</title>
-<path fill="none" stroke="black" d="M1804,-85.02C1804,-103.63 1804,-129.8 1804,-129.8 1804,-129.8 1154.3,-129.8 1154.3,-129.8"/>
-<polygon fill="black" stroke="black" points="1154.3,-126.3 1144.3,-129.8 1154.3,-133.3 1154.3,-126.3"/>
+<path fill="none" stroke="black" d="M746,-85.02C746,-103.63 746,-129.8 746,-129.8 746,-129.8 1387.79,-129.8 1387.79,-129.8"/>
+<polygon fill="black" stroke="black" points="1387.79,-133.3 1397.79,-129.8 1387.79,-126.3 1387.79,-133.3"/>
 </g>
 <!-- NavbarDocComponent -->
 <g id="node6" class="node">
 <title>NavbarDocComponent</title>
-<polygon fill="#ffffb3" stroke="black" points="1709.85,-84.8 1564.15,-84.8 1564.15,-48.8 1709.85,-48.8 1709.85,-84.8"/>
-<text text-anchor="middle" x="1637" y="-62.6" font-family="Times,serif" font-size="14.00">NavbarDocComponent</text>
+<polygon fill="#ffffb3" stroke="black" points="651.85,-84.8 506.15,-84.8 506.15,-48.8 651.85,-48.8 651.85,-84.8"/>
+<text text-anchor="middle" x="579" y="-62.6" font-family="Times,serif" font-size="14.00">NavbarDocComponent</text>
 </g>
 <!-- NavbarDocComponent&#45;&gt;MaterialDocModule -->
 <g id="edge6" class="edge">
 <title>NavbarDocComponent&#45;&gt;MaterialDocModule</title>
-<path fill="none" stroke="black" d="M1637,-84.82C1637,-102.17 1637,-125.8 1637,-125.8 1637,-125.8 1154.38,-125.8 1154.38,-125.8"/>
-<polygon fill="black" stroke="black" points="1154.38,-122.3 1144.38,-125.8 1154.38,-129.3 1154.38,-122.3"/>
+<path fill="none" stroke="black" d="M579,-85.11C579,-104.95 579,-133.8 579,-133.8 579,-133.8 1387.64,-133.8 1387.64,-133.8"/>
+<polygon fill="black" stroke="black" points="1387.64,-137.3 1397.64,-133.8 1387.64,-130.3 1387.64,-137.3"/>
 </g>
 <!-- QrcodeDocComponent -->
 <g id="node7" class="node">
 <title>QrcodeDocComponent</title>
-<polygon fill="#ffffb3" stroke="black" points="1545.85,-84.8 1400.15,-84.8 1400.15,-48.8 1545.85,-48.8 1545.85,-84.8"/>
-<text text-anchor="middle" x="1473" y="-62.6" font-family="Times,serif" font-size="14.00">QrcodeDocComponent</text>
+<polygon fill="#ffffb3" stroke="black" points="487.85,-84.8 342.15,-84.8 342.15,-48.8 487.85,-48.8 487.85,-84.8"/>
+<text text-anchor="middle" x="415" y="-62.6" font-family="Times,serif" font-size="14.00">QrcodeDocComponent</text>
 </g>
 <!-- QrcodeDocComponent&#45;&gt;MaterialDocModule -->
 <g id="edge7" class="edge">
 <title>QrcodeDocComponent&#45;&gt;MaterialDocModule</title>
-<path fill="none" stroke="black" d="M1473,-84.81C1473,-100.85 1473,-121.8 1473,-121.8 1473,-121.8 1154.5,-121.8 1154.5,-121.8"/>
-<polygon fill="black" stroke="black" points="1154.5,-118.3 1144.5,-121.8 1154.5,-125.3 1154.5,-118.3"/>
+<path fill="none" stroke="black" d="M415,-85.08C415,-106.12 415,-137.8 415,-137.8 415,-137.8 1387.84,-137.8 1387.84,-137.8"/>
+<polygon fill="black" stroke="black" points="1387.84,-141.3 1397.84,-137.8 1387.84,-134.3 1387.84,-141.3"/>
 </g>
 <!-- TableDocComponent -->
 <g id="node8" class="node">
 <title>TableDocComponent</title>
-<polygon fill="#ffffb3" stroke="black" points="1382.03,-84.8 1245.97,-84.8 1245.97,-48.8 1382.03,-48.8 1382.03,-84.8"/>
-<text text-anchor="middle" x="1314" y="-62.6" font-family="Times,serif" font-size="14.00">TableDocComponent</text>
+<polygon fill="#ffffb3" stroke="black" points="324.03,-84.8 187.97,-84.8 187.97,-48.8 324.03,-48.8 324.03,-84.8"/>
+<text text-anchor="middle" x="256" y="-62.6" font-family="Times,serif" font-size="14.00">TableDocComponent</text>
 </g>
 <!-- TableDocComponent&#45;&gt;MaterialDocModule -->
 <g id="edge8" class="edge">
 <title>TableDocComponent&#45;&gt;MaterialDocModule</title>
-<path fill="none" stroke="black" d="M1314,-84.92C1314,-99.58 1314,-117.8 1314,-117.8 1314,-117.8 1154.15,-117.8 1154.15,-117.8"/>
-<polygon fill="black" stroke="black" points="1154.15,-114.3 1144.15,-117.8 1154.15,-121.3 1154.15,-114.3"/>
+<path fill="none" stroke="black" d="M256,-84.96C256,-107.15 256,-141.8 256,-141.8 256,-141.8 1387.68,-141.8 1387.68,-141.8"/>
+<polygon fill="black" stroke="black" points="1387.68,-145.3 1397.68,-141.8 1387.68,-138.3 1387.68,-145.3"/>
 </g>
 <!-- TypingDocComponent -->
 <g id="node9" class="node">
 <title>TypingDocComponent</title>
-<polygon fill="#ffffb3" stroke="black" points="1227.6,-84.8 1082.4,-84.8 1082.4,-48.8 1227.6,-48.8 1227.6,-84.8"/>
-<text text-anchor="middle" x="1155" y="-62.6" font-family="Times,serif" font-size="14.00">TypingDocComponent</text>
+<polygon fill="#ffffb3" stroke="black" points="169.6,-84.8 24.4,-84.8 24.4,-48.8 169.6,-48.8 169.6,-84.8"/>
+<text text-anchor="middle" x="97" y="-62.6" font-family="Times,serif" font-size="14.00">TypingDocComponent</text>
 </g>
 <!-- TypingDocComponent&#45;&gt;MaterialDocModule -->
 <g id="edge9" class="edge">
 <title>TypingDocComponent&#45;&gt;MaterialDocModule</title>
-<path fill="none" stroke="black" d="M1113.3,-84.91C1113.3,-84.91 1113.3,-103.79 1113.3,-103.79"/>
-<polygon fill="black" stroke="black" points="1109.8,-103.79 1113.3,-113.79 1116.8,-103.79 1109.8,-103.79"/>
+<path fill="none" stroke="black" d="M97,-85.12C97,-108.46 97,-145.8 97,-145.8 97,-145.8 1387.58,-145.8 1387.58,-145.8"/>
+<polygon fill="black" stroke="black" points="1387.58,-149.3 1397.58,-145.8 1387.58,-142.3 1387.58,-149.3"/>
 </g>
 <!-- CarouselModule -->
 <g id="node11" class="node">
 <title>CarouselModule</title>
-<polygon fill="#8dd3c7" stroke="black" points="1057.81,-84.8 1054.81,-88.8 1033.81,-88.8 1030.81,-84.8 948.19,-84.8 948.19,-48.8 1057.81,-48.8 1057.81,-84.8"/>
-<text text-anchor="middle" x="1003" y="-62.6" font-family="Times,serif" font-size="14.00">CarouselModule</text>
+<polygon fill="#8dd3c7" stroke="black" points="2522.81,-84.8 2519.81,-88.8 2498.81,-88.8 2495.81,-84.8 2413.19,-84.8 2413.19,-48.8 2522.81,-48.8 2522.81,-84.8"/>
+<text text-anchor="middle" x="2468" y="-62.6" font-family="Times,serif" font-size="14.00">CarouselModule</text>
 </g>
 <!-- CarouselModule&#45;&gt;MaterialDocModule -->
 <g id="edge10" class="edge">
 <title>CarouselModule&#45;&gt;MaterialDocModule</title>
-<path fill="none" stroke="black" d="M1035.75,-84.91C1035.75,-84.91 1035.75,-103.79 1035.75,-103.79"/>
-<polygon fill="black" stroke="black" points="1032.25,-103.79 1035.75,-113.79 1039.25,-103.79 1032.25,-103.79"/>
+<path fill="none" stroke="black" d="M2468,-85.12C2468,-108.46 2468,-145.8 2468,-145.8 2468,-145.8 1538.17,-145.8 1538.17,-145.8"/>
+<polygon fill="black" stroke="black" points="1538.17,-142.3 1528.17,-145.8 1538.17,-149.3 1538.17,-142.3"/>
 </g>
 <!-- ChartModule -->
 <g id="node12" class="node">
 <title>ChartModule</title>
-<polygon fill="#8dd3c7" stroke="black" points="930.15,-84.8 927.15,-88.8 906.15,-88.8 903.15,-84.8 839.85,-84.8 839.85,-48.8 930.15,-48.8 930.15,-84.8"/>
-<text text-anchor="middle" x="885" y="-62.6" font-family="Times,serif" font-size="14.00">ChartModule</text>
+<polygon fill="#8dd3c7" stroke="black" points="2395.15,-84.8 2392.15,-88.8 2371.15,-88.8 2368.15,-84.8 2304.85,-84.8 2304.85,-48.8 2395.15,-48.8 2395.15,-84.8"/>
+<text text-anchor="middle" x="2350" y="-62.6" font-family="Times,serif" font-size="14.00">ChartModule</text>
 </g>
 <!-- ChartModule&#45;&gt;MaterialDocModule -->
 <g id="edge11" class="edge">
 <title>ChartModule&#45;&gt;MaterialDocModule</title>
-<path fill="none" stroke="black" d="M885,-84.92C885,-99.58 885,-117.8 885,-117.8 885,-117.8 1003.59,-117.8 1003.59,-117.8"/>
-<polygon fill="black" stroke="black" points="1003.59,-121.3 1013.59,-117.8 1003.59,-114.3 1003.59,-121.3"/>
+<path fill="none" stroke="black" d="M2350,-84.96C2350,-107.15 2350,-141.8 2350,-141.8 2350,-141.8 1538.22,-141.8 1538.22,-141.8"/>
+<polygon fill="black" stroke="black" points="1538.22,-138.3 1528.22,-141.8 1538.22,-145.3 1538.22,-138.3"/>
 </g>
 <!-- FormModule -->
 <g id="node13" class="node">
 <title>FormModule</title>
-<polygon fill="#8dd3c7" stroke="black" points="821.88,-84.8 818.88,-88.8 797.88,-88.8 794.88,-84.8 732.12,-84.8 732.12,-48.8 821.88,-48.8 821.88,-84.8"/>
-<text text-anchor="middle" x="777" y="-62.6" font-family="Times,serif" font-size="14.00">FormModule</text>
+<polygon fill="#8dd3c7" stroke="black" points="2286.88,-84.8 2283.88,-88.8 2262.88,-88.8 2259.88,-84.8 2197.12,-84.8 2197.12,-48.8 2286.88,-48.8 2286.88,-84.8"/>
+<text text-anchor="middle" x="2242" y="-62.6" font-family="Times,serif" font-size="14.00">FormModule</text>
 </g>
 <!-- FormModule&#45;&gt;MaterialDocModule -->
 <g id="edge12" class="edge">
 <title>FormModule&#45;&gt;MaterialDocModule</title>
-<path fill="none" stroke="black" d="M777,-84.81C777,-100.85 777,-121.8 777,-121.8 777,-121.8 1003.84,-121.8 1003.84,-121.8"/>
-<polygon fill="black" stroke="black" points="1003.84,-125.3 1013.84,-121.8 1003.84,-118.3 1003.84,-125.3"/>
+<path fill="none" stroke="black" d="M2242,-85.08C2242,-106.12 2242,-137.8 2242,-137.8 2242,-137.8 1538.41,-137.8 1538.41,-137.8"/>
+<polygon fill="black" stroke="black" points="1538.41,-134.3 1528.41,-137.8 1538.41,-141.3 1538.41,-134.3"/>
 </g>
 <!-- InvoiceModule -->
 <g id="node14" class="node">
 <title>InvoiceModule</title>
-<polygon fill="#8dd3c7" stroke="black" points="713.53,-84.8 710.53,-88.8 689.53,-88.8 686.53,-84.8 612.47,-84.8 612.47,-48.8 713.53,-48.8 713.53,-84.8"/>
-<text text-anchor="middle" x="663" y="-62.6" font-family="Times,serif" font-size="14.00">InvoiceModule</text>
+<polygon fill="#8dd3c7" stroke="black" points="2178.53,-84.8 2175.53,-88.8 2154.53,-88.8 2151.53,-84.8 2077.47,-84.8 2077.47,-48.8 2178.53,-48.8 2178.53,-84.8"/>
+<text text-anchor="middle" x="2128" y="-62.6" font-family="Times,serif" font-size="14.00">InvoiceModule</text>
 </g>
 <!-- InvoiceModule&#45;&gt;MaterialDocModule -->
 <g id="edge13" class="edge">
 <title>InvoiceModule&#45;&gt;MaterialDocModule</title>
-<path fill="none" stroke="black" d="M663,-84.82C663,-102.17 663,-125.8 663,-125.8 663,-125.8 1003.54,-125.8 1003.54,-125.8"/>
-<polygon fill="black" stroke="black" points="1003.54,-129.3 1013.54,-125.8 1003.54,-122.3 1003.54,-129.3"/>
+<path fill="none" stroke="black" d="M2128,-85.11C2128,-104.95 2128,-133.8 2128,-133.8 2128,-133.8 1538.28,-133.8 1538.28,-133.8"/>
+<polygon fill="black" stroke="black" points="1538.28,-130.3 1528.28,-133.8 1538.28,-137.3 1538.28,-130.3"/>
 </g>
 <!-- NavbarModule -->
 <g id="node15" class="node">
 <title>NavbarModule</title>
-<polygon fill="#8dd3c7" stroke="black" points="594.25,-84.8 591.25,-88.8 570.25,-88.8 567.25,-84.8 493.75,-84.8 493.75,-48.8 594.25,-48.8 594.25,-84.8"/>
-<text text-anchor="middle" x="544" y="-62.6" font-family="Times,serif" font-size="14.00">NavbarModule</text>
+<polygon fill="#8dd3c7" stroke="black" points="2059.25,-84.8 2056.25,-88.8 2035.25,-88.8 2032.25,-84.8 1958.75,-84.8 1958.75,-48.8 2059.25,-48.8 2059.25,-84.8"/>
+<text text-anchor="middle" x="2009" y="-62.6" font-family="Times,serif" font-size="14.00">NavbarModule</text>
 </g>
 <!-- NavbarModule&#45;&gt;MaterialDocModule -->
 <g id="edge14" class="edge">
 <title>NavbarModule&#45;&gt;MaterialDocModule</title>
-<path fill="none" stroke="black" d="M544,-85.02C544,-103.63 544,-129.8 544,-129.8 544,-129.8 1003.67,-129.8 1003.67,-129.8"/>
-<polygon fill="black" stroke="black" points="1003.67,-133.3 1013.67,-129.8 1003.67,-126.3 1003.67,-133.3"/>
+<path fill="none" stroke="black" d="M2009,-85.02C2009,-103.63 2009,-129.8 2009,-129.8 2009,-129.8 1538.32,-129.8 1538.32,-129.8"/>
+<polygon fill="black" stroke="black" points="1538.32,-126.3 1528.32,-129.8 1538.32,-133.3 1538.32,-126.3"/>
 </g>
 <!-- QrcodeModule -->
 <g id="node16" class="node">
 <title>QrcodeModule</title>
-<polygon fill="#8dd3c7" stroke="black" points="475.25,-84.8 472.25,-88.8 451.25,-88.8 448.25,-84.8 374.75,-84.8 374.75,-48.8 475.25,-48.8 475.25,-84.8"/>
-<text text-anchor="middle" x="425" y="-62.6" font-family="Times,serif" font-size="14.00">QrcodeModule</text>
+<polygon fill="#8dd3c7" stroke="black" points="1940.25,-84.8 1937.25,-88.8 1916.25,-88.8 1913.25,-84.8 1839.75,-84.8 1839.75,-48.8 1940.25,-48.8 1940.25,-84.8"/>
+<text text-anchor="middle" x="1890" y="-62.6" font-family="Times,serif" font-size="14.00">QrcodeModule</text>
 </g>
 <!-- QrcodeModule&#45;&gt;MaterialDocModule -->
 <g id="edge15" class="edge">
 <title>QrcodeModule&#45;&gt;MaterialDocModule</title>
-<path fill="none" stroke="black" d="M425,-85.11C425,-104.95 425,-133.8 425,-133.8 425,-133.8 1003.6,-133.8 1003.6,-133.8"/>
-<polygon fill="black" stroke="black" points="1003.6,-137.3 1013.6,-133.8 1003.6,-130.3 1003.6,-137.3"/>
+<path fill="none" stroke="black" d="M1890,-84.82C1890,-102.17 1890,-125.8 1890,-125.8 1890,-125.8 1538.32,-125.8 1538.32,-125.8"/>
+<polygon fill="black" stroke="black" points="1538.32,-122.3 1528.32,-125.8 1538.32,-129.3 1538.32,-122.3"/>
 </g>
 <!-- SidenavModule -->
 <g id="node17" class="node">
 <title>SidenavModule</title>
-<polygon fill="#8dd3c7" stroke="black" points="356.15,-84.8 353.15,-88.8 332.15,-88.8 329.15,-84.8 251.85,-84.8 251.85,-48.8 356.15,-48.8 356.15,-84.8"/>
-<text text-anchor="middle" x="304" y="-62.6" font-family="Times,serif" font-size="14.00">SidenavModule</text>
+<polygon fill="#8dd3c7" stroke="black" points="1821.15,-84.8 1818.15,-88.8 1797.15,-88.8 1794.15,-84.8 1716.85,-84.8 1716.85,-48.8 1821.15,-48.8 1821.15,-84.8"/>
+<text text-anchor="middle" x="1769" y="-62.6" font-family="Times,serif" font-size="14.00">SidenavModule</text>
 </g>
 <!-- SidenavModule&#45;&gt;MaterialDocModule -->
 <g id="edge16" class="edge">
 <title>SidenavModule&#45;&gt;MaterialDocModule</title>
-<path fill="none" stroke="black" d="M304,-85.08C304,-106.12 304,-137.8 304,-137.8 304,-137.8 1003.59,-137.8 1003.59,-137.8"/>
-<polygon fill="black" stroke="black" points="1003.59,-141.3 1013.59,-137.8 1003.59,-134.3 1003.59,-141.3"/>
+<path fill="none" stroke="black" d="M1769,-84.81C1769,-100.85 1769,-121.8 1769,-121.8 1769,-121.8 1538.27,-121.8 1538.27,-121.8"/>
+<polygon fill="black" stroke="black" points="1538.27,-118.3 1528.27,-121.8 1538.27,-125.3 1538.27,-118.3"/>
 </g>
 <!-- TableModule -->
 <g id="node18" class="node">
 <title>TableModule</title>
-<polygon fill="#8dd3c7" stroke="black" points="233.92,-84.8 230.92,-88.8 209.92,-88.8 206.92,-84.8 142.08,-84.8 142.08,-48.8 233.92,-48.8 233.92,-84.8"/>
-<text text-anchor="middle" x="188" y="-62.6" font-family="Times,serif" font-size="14.00">TableModule</text>
+<polygon fill="#8dd3c7" stroke="black" points="1698.92,-84.8 1695.92,-88.8 1674.92,-88.8 1671.92,-84.8 1607.08,-84.8 1607.08,-48.8 1698.92,-48.8 1698.92,-84.8"/>
+<text text-anchor="middle" x="1653" y="-62.6" font-family="Times,serif" font-size="14.00">TableModule</text>
 </g>
 <!-- TableModule&#45;&gt;MaterialDocModule -->
 <g id="edge17" class="edge">
 <title>TableModule&#45;&gt;MaterialDocModule</title>
-<path fill="none" stroke="black" d="M188,-84.96C188,-107.15 188,-141.8 188,-141.8 188,-141.8 1003.84,-141.8 1003.84,-141.8"/>
-<polygon fill="black" stroke="black" points="1003.84,-145.3 1013.84,-141.8 1003.84,-138.3 1003.84,-145.3"/>
+<path fill="none" stroke="black" d="M1653,-84.92C1653,-99.58 1653,-117.8 1653,-117.8 1653,-117.8 1538.39,-117.8 1538.39,-117.8"/>
+<polygon fill="black" stroke="black" points="1538.39,-114.3 1528.39,-117.8 1538.39,-121.3 1538.39,-114.3"/>
 </g>
 <!-- TypingModule -->
 <g id="node19" class="node">
 <title>TypingModule</title>
-<polygon fill="#8dd3c7" stroke="black" points="123.99,-84.8 120.99,-88.8 99.99,-88.8 96.99,-84.8 24.01,-84.8 24.01,-48.8 123.99,-48.8 123.99,-84.8"/>
-<text text-anchor="middle" x="74" y="-62.6" font-family="Times,serif" font-size="14.00">TypingModule</text>
+<polygon fill="#8dd3c7" stroke="black" points="1588.99,-84.8 1585.99,-88.8 1564.99,-88.8 1561.99,-84.8 1489.01,-84.8 1489.01,-48.8 1588.99,-48.8 1588.99,-84.8"/>
+<text text-anchor="middle" x="1539" y="-62.6" font-family="Times,serif" font-size="14.00">TypingModule</text>
 </g>
 <!-- TypingModule&#45;&gt;MaterialDocModule -->
 <g id="edge18" class="edge">
 <title>TypingModule&#45;&gt;MaterialDocModule</title>
-<path fill="none" stroke="black" d="M74,-85.12C74,-108.46 74,-145.8 74,-145.8 74,-145.8 1003.83,-145.8 1003.83,-145.8"/>
-<polygon fill="black" stroke="black" points="1003.83,-149.3 1013.83,-145.8 1003.83,-142.3 1003.83,-149.3"/>
+<path fill="none" stroke="black" d="M1508.57,-84.91C1508.57,-84.91 1508.57,-103.79 1508.57,-103.79"/>
+<polygon fill="black" stroke="black" points="1505.07,-103.79 1508.57,-113.79 1512.07,-103.79 1505.07,-103.79"/>
 </g>
 </g>
 </svg>

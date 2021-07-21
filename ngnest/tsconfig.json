@@ -19,26 +19,74 @@
     "importHelpers": true,
     "target": "es2017",
     "paths": {
-      "@authdare/sidenav": ["libs/angular/sidenav/src/lib"],
-      "@authdare/sidenav/*": ["libs/angular/sidenav/src/lib/*"],
-      "@authdare/navbar": ["libs/angular/navbar/src/lib"],
-      "@authdare/navbar/*": ["libs/angular/navbar/src/lib/*"],
-      "@authdare/table": ["libs/angular/table/src/lib"],
-      "@authdare/table/*": ["libs/angular/table/src/lib/*"],
-      "@authdare/carousel": ["libs/angular/carousel/src/lib"],
-      "@authdare/carousel/*": ["libs/angular/carousel/src/lib/*"],
-      "@authdare/form": ["libs/angular/form/src/lib"],
-      "@authdare/form/*": ["libs/angular/form/src/lib/*"],
-      "@authdare/chart": ["libs/angular/chart/src/lib"],
-      "@authdare/chart/*": ["libs/angular/chart/src/lib/*"],
-      "@authdare/typing": ["libs/angular/typing/src/lib"],
-      "@authdare/typing/*": ["libs/angular/typing/src/lib/*"],
-      "@authdare/qrcode": ["libs/angular/qrcode/src/lib"],
-      "@authdare/qrcode/*": ["libs/angular/qrcode/src/lib/*"],
-      "@authdare/invoice": ["libs/angular/invoice/src/lib"],
-      "@authdare/invoice/*": ["libs/angular/invoice/src/lib/*"]
+      "@environments": [
+        "src/environments/*"
+      ],
+      "@authdare/sidenav": [
+        "libs/angular/sidenav/src/lib"
+      ],
+      "@authdare/sidenav/*": [
+        "libs/angular/sidenav/src/lib/*"
+      ],
+      "@authdare/navbar": [
+        "libs/angular/navbar/src/lib"
+      ],
+      "@authdare/navbar/*": [
+        "libs/angular/navbar/src/lib/*"
+      ],
+      "@authdare/table": [
+        "libs/angular/table/src/lib"
+      ],
+      "@authdare/table/*": [
+        "libs/angular/table/src/lib/*"
+      ],
+      "@authdare/carousel": [
+        "libs/angular/carousel/src/lib"
+      ],
+      "@authdare/carousel/*": [
+        "libs/angular/carousel/src/lib/*"
+      ],
+      "@authdare/form": [
+        "libs/angular/form/src/lib"
+      ],
+      "@authdare/form/*": [
+        "libs/angular/form/src/lib/*"
+      ],
+      "@authdare/chart": [
+        "libs/angular/chart/src/lib"
+      ],
+      "@authdare/chart/*": [
+        "libs/angular/chart/src/lib/*"
+      ],
+      "@authdare/typing": [
+        "libs/angular/typing/src/lib"
+      ],
+      "@authdare/typing/*": [
+        "libs/angular/typing/src/lib/*"
+      ],
+      "@authdare/qrcode": [
+        "libs/angular/qrcode/src/lib"
+      ],
+      "@authdare/qrcode/*": [
+        "libs/angular/qrcode/src/lib/*"
+      ],
+      "@authdare/invoice": [
+        "libs/angular/invoice/src/lib"
+      ],
+      "@authdare/invoice/*": [
+        "libs/angular/invoice/src/lib/*"
+      ],
+      "@authdare/utils": [
+        "libs/angular/utils/src/lib"
+      ],
+      "@authdare/utils/*": [
+        "libs/angular/utils/src/lib/*"
+      ],
     },
-    "lib": ["es2018", "dom"]
+    "lib": [
+      "es2018",
+      "dom"
+    ]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
