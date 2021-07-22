@@ -10,22 +10,15 @@ export class BaseResourceService<Entity, CreateDTO, UpdateDTO> {
     }
 
     async save(createDto: CreateDTO) {
-        return await tryCatch(() => {
-            const created = this.repository.create(createDto);
-            return this.repository.save(created);
-        })
+        return await tryCatch(() => this.repository.save(this.repository.create(createDto)))
     }
 
     async update(id: number | string, udpateDto: UpdateDTO) {
-        return await tryCatch(() => {
-            return this.repository.update(id, udpateDto);
-        })
+        return await tryCatch(() => this.repository.update(id, udpateDto))
     }
 
     async delete(id: number | string) {
-        tryCatch(() => {
-            return this.repository.delete(id);
-        })
+        return await tryCatch(() => this.repository.delete(id))
     }
 
 }

@@ -12,7 +12,6 @@ export class BaseController<Entity, CreateDTO, UpdateDTO> {
 
     @Get()
     async findAll(@Query() query: FindManyOptions) {
-
         return await this.resourceService.find(query);
     }
 
