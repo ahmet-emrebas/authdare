@@ -9,7 +9,6 @@ import {
   Output,
   Input,
 } from '@angular/core';
-import { } from 'qrcode';
 import { BehaviorSubject } from 'rxjs';
 import { SubSink } from 'subsink';
 import { debounceTime } from 'rxjs/operators';
