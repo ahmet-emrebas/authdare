@@ -17,66 +17,6 @@
     "importHelpers": true,
     "target": "es2017",
     "paths": {
-      "@base": [
-        "apps/server/src/base"
-      ],
-      "@base/*": [
-        "apps/server/src/base/*"
-      ],
-      "@decorators": [
-        "apps/server/src/decorators"
-      ],
-      "@decorators/*": [
-        "apps/server/src/decorators/*"
-      ],
-      "@filters": [
-        "apps/server/src/filters"
-      ],
-      "@filters/*": [
-        "apps/server/src/filters/*"
-      ],
-      "@guards": [
-        "apps/server/src/guards"
-      ],
-      "@guards/*": [
-        "apps/server/src/guards/*"
-      ],
-      "@interceptors": [
-        "apps/server/src/interceptors"
-      ],
-      "@interceptors/*": [
-        "apps/server/src/interceptors/*"
-      ],
-      "@middlewares": [
-        "apps/server/src/middlewares"
-      ],
-      "@middlewares/*": [
-        "apps/server/src/middlewares/*"
-      ],
-      "@pipes": [
-        "apps/server/src/pipes"
-      ],
-      "@pipes/*": [
-        "apps/server/src/pipes/*"
-      ],
-      "@resources": [
-        "apps/server/src/resources"
-      ],
-      "@resources/*": [
-        "apps/server/src/resources/*"
-      ],
-      "@auth": [
-        "apps/server/src/auth"
-      ],
-      "@auth/*": [
-        "apps/server/src/auth/*"
-      ],
-      "@cli": [
-        "apps/server/src/cli"
-      ],
-      "@cli/*": [
-        "apps/server/src/cli/*"
-      ],
       "@authdare/sidenav": [
         "libs/angular/sidenav/src/lib"
       ],
@@ -119,24 +59,24 @@
       "@authdare/typing/*": [
         "libs/angular/typing/src/lib/*"
       ],
-      "@authdare/auth": [
-        "libs/auth/src"
+      "@authdare/common": [
+        "libs/common/src"
       ],
-      "@authdare/auth/*": [
-        "libs/auth/src/*"
+      "@authdare/common/*": [
+        "libs/common/src/*"
       ],
-      "@authdare/auth-user": [
-        "libs/auth-user/src"
+      "@authdare/utils": [
+        "libs/utils/src"
       ],
-      "@authdare/auth-user/*": [
-        "libs/auth-user/src/*"
+      "@authdare/utils/*": [
+        "libs/utils/src/*"
       ],
-      "@authdare/resource": [
-        "libs/resource/src"
+      "@authdare/core": [
+        "libs/core/src"
       ],
-      "@authdare/resource/*": [
-        "libs/resource/src/*"
-      ]
+      "@authdare/core/*": [
+        "libs/core/src/*"
+      ],
     },
     "lib": [
       "es2018",

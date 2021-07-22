@@ -17,7 +17,7 @@ export class AuthGuard implements CanActivate {
   constructor(
     private readonly reflector: Reflector,
     private readonly jwt: JwtService,
-  ) {}
+  ) { }
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const isPublic = this.reflector.get<string>(
@@ -40,7 +40,7 @@ export class AuthGuard implements CanActivate {
     const requiredPermission = toPermissionString(method, resouceName);
 
     try {
-      const user = await this.jwt.verify<CreateUserDto>(authToken);
+      const user = this.jwt.verify<CreateUserDto>(authToken);
       request['user'] = user;
       if (
         user.permissions.includes('all') ||

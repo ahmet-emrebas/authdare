@@ -12,7 +12,7 @@ import { AuthService } from './auth.service';
   controllers: [AuthController],
   imports: [
     JwtModule.register({
-      secret: readFileSync(__filename),
+      secret: 'secret',
     }),
     UserModule,
     MailerModule$,
@@ -26,4 +26,4 @@ import { AuthService } from './auth.service';
   ],
   exports: [JwtModule],
 })
-export class AuthModule {}
+export class AuthModule { }

@@ -3,10 +3,10 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { config } from 'dotenv';
 import { join } from 'path';
-import { ConfigEnum } from '@base';
+
 import { Logger } from '@nestjs/common';
 import * as cors from 'cors';
-import * as helmet from 'helmet';
+
 import * as cookieParser from 'cookie-parser';
 
 config({ debug: true, path: join(process.cwd(), 'config', '.conf') });
@@ -17,7 +17,7 @@ async function bootstrap() {
   // app.use(helmet());
   app.use(cookieParser());
 
-  app.setGlobalPrefix(process.env[ConfigEnum.GLOBAL_PREFIX]);
+  app.setGlobalPrefix('api');
 
   const config = new DocumentBuilder()
     .setTitle('Swagger Title')

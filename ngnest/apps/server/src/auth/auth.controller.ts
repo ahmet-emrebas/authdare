@@ -33,7 +33,7 @@ export class AuthController {
   constructor(
     private authService: AuthService,
     private mailService: MailerService,
-  ) {}
+  ) { }
 
   @Get('unsubscribe')
   async unsubscribe(@GetUser() user: UserEntity, @Res() res: Response) {
@@ -72,12 +72,12 @@ export class AuthController {
   }
 
   @Get('verifyemail')
-  verifyEmail(
+  async verifyEmail(
     @Query(AuthEnum.AUTH_COOKIE_NAME) token: string,
     @Res() res: Response,
     @Req() req: Request,
   ) {
-    this.authService.verifyEmail(req['user'].email);
+    await this.authService.verifyEmail(req['user'].email);
     res.cookie(AuthEnum.AUTH_COOKIE_NAME, token);
     res.redirect('/');
   }

@@ -12,10 +12,10 @@ import { SignupDto } from './signup.dto';
 
 @Injectable()
 export class AuthService {
-  constructor(private userService: UserService, private jwt: JwtService) {}
+  constructor(private userService: UserService, private jwt: JwtService) { }
 
   private async signToken(payload: any) {
-    return await this.jwt.sign(payload);
+    return this.jwt.sign(payload, { secret: 'secret' });
   }
 
   async login(loginDto: AuthLoginDto) {
