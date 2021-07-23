@@ -22,7 +22,6 @@ export class BaseResourceService<T = any, CreateDTO = any, UpdateDTO = any> {
         return await tryCatchError(() => this.repository.find(options))
     }
 
-
     async update(id: number | string, value: UpdateDTO) {
         const errors = await validateDto(new this.updateDTO(value))
         if (errors) {
