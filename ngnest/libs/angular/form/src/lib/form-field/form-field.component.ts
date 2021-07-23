@@ -15,7 +15,7 @@ export class FormFieldComponent implements OnInit {
   @Input() attributes!: FieldOptions;
   loading = false;
 
-  @Input() fieldType: string = 'text';
+  @Input() fieldType = 'text';
 
   ngOnInit(): void {
     const fieldType = this.attributes.type;

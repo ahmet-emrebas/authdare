@@ -7,11 +7,10 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  constructor(private readonly reflector: Reflector) { }
+  constructor(private readonly reflector: Reflector) {}
   canActivate(
-    context: ExecutionContext,
+    context: ExecutionContext
   ): boolean | Promise<boolean> | Observable<boolean> {
-
     const isPublic = this.reflector.getAllAndOverride<boolean>(IS_PUBLIC_KEY, [
       context.getHandler(),
       context.getClass(),
@@ -21,7 +20,7 @@ export class AuthGuard implements CanActivate {
       return true;
     }
 
-    const req = context.switchToHttp().getRequest<Request>()
+    const req = context.switchToHttp().getRequest<Request>();
 
     const user: CreateUserDto = req['user'] as CreateUserDto;
     const method = req.method;
@@ -29,6 +28,5 @@ export class AuthGuard implements CanActivate {
     console.log(user, method, resource);
 
     return true;
-
   }
 }

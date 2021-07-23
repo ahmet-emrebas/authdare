@@ -1,2 +1,2 @@
-export * from "./lib";
-export * from "./public-api";
+export * from './lib';
+export * from './public-api';

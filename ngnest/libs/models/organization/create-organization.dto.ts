@@ -1,21 +1,19 @@
 import { Expose, Exclude } from 'class-transformer';
-import { BaseDto } from "@authdare/core";
-import { ApiProperty } from "@nestjs/swagger";
+import { BaseDto } from '@authdare/core';
+import { ApiProperty } from '@nestjs/swagger';
 import { Length } from 'class-validator';
-
 
 @Exclude()
 export class CreateOrganizationDto extends BaseDto<CreateOrganizationDto> {
-    @Expose()
-    @ApiProperty({
-        type: 'string',
-        maxLength: 50,
-        minLength: 1,
-        nullable: false,
-        required: true,
-        default: 'authdare'
-    })
-    @Length(1, 50)
-    organizationName: string;
-
+  @Expose()
+  @ApiProperty({
+    type: 'string',
+    maxLength: 50,
+    minLength: 1,
+    nullable: false,
+    required: true,
+    default: 'authdare',
+  })
+  @Length(1, 50)
+  organizationName: string;
 }

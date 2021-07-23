@@ -8,6 +8,6 @@ import { OrganizationController } from './organization.controller';
   imports: [TypeOrmModule.forFeature([Organization])],
   controllers: [OrganizationController],
   providers: [OrganizationService],
-  exports: [OrganizationService, TypeOrmModule]
+  exports: [OrganizationService, TypeOrmModule],
 })
-export class OrganizationModule { }
+export class OrganizationModule {}

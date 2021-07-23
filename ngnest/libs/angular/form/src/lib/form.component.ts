@@ -105,8 +105,8 @@ export class FormComponent implements OnInit, OnDestroy {
   /**
    * Form identifier that helps to find the form configuration in store.
    */
-  @Input() formName: string = 'default';
-  @Input() formTitle: string = '';
+  @Input() formName = 'default';
+  @Input() formTitle = '';
   /**
    * Visibility of the form header.
    */

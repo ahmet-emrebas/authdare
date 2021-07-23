@@ -25,7 +25,7 @@ export class SidenavComponent {
     .observe(Breakpoints.Handset)
     .pipe(
       map((result) => result.matches),
-      shareReplay(),
+      shareReplay()
     );
 
   constructor(private breakpointObserver: BreakpointObserver) {}

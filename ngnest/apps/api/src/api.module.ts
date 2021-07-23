@@ -1,37 +1,112 @@
+import {
+  Blog,
+  BlogContent,
+  Category,
+  Organization,
+  Permission,
+  Photo,
+  Product,
+  Profile,
+  Project,
+  Role,
+  Sprint,
+  Tag,
+  Ticket,
+  User,
+} from '@authdare/models';
+import {
+  BlogModule,
+  CategoryModule,
+  OrganizationModule,
+  PermissionModule,
+  PhotoModule,
+  ProductModule,
+  ProfileModule,
+  ProjectModule,
+  RoleModule,
+  SprintModule,
+  TagModule,
+  TicketModule,
+  UserModule,
 
-import { Organization, Profile, User, Product, Category, Role, Permission, Sprint, Project, Ticket, Photo, Tag, Blog, BlogContent } from '@authdare/models';
+} from '@authdare/modules';
 import { AuthGuard, AuthMiddleware } from '@authdare/common';
 import { JwtModule } from '@nestjs/jwt';
 import { DatabaseConfig } from '@authdare/config';
-import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
+import {
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+  RequestMethod,
+} from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ApiController } from './api.controller';
 import { ApiService } from './api.service';
 import { APP_GUARD } from '@nestjs/core';
-import { UserModule, OrganizationModule, RoleModule, PermissionModule } from '@authdare/modules';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       ...DatabaseConfig,
-      entities: [Blog, BlogContent, Category, Organization, Permission, Photo, Product, Profile, Project, Role, Sprint, Tag, Ticket, User,]
+      entities: [
+        Blog,
+        BlogContent,
+        Category,
+        Organization,
+        Permission,
+        Photo,
+        Product,
+        Profile,
+        Project,
+        Role,
+        Sprint,
+        Tag,
+        Ticket,
+        User,
+      ],
     }),
-    TypeOrmModule.forFeature([Blog, BlogContent, Category, Organization, Permission, Photo, Product, Profile, Project, Role, Sprint, Tag, Ticket, User]),
-    UserModule,
+    TypeOrmModule.forFeature([
+      Blog,
+      BlogContent,
+      Category,
+      Organization,
+      Permission,
+      Photo,
+      Product,
+      Profile,
+      Project,
+      Role,
+      Sprint,
+      Tag,
+      Ticket,
+      User,
+    ]),
+    BlogModule,
+    CategoryModule,
     OrganizationModule,
-    RoleModule,
     PermissionModule,
+    PhotoModule,
+    ProductModule,
+    ProfileModule,
+    ProjectModule,
+    RoleModule,
+    SprintModule,
+    TagModule,
+    TicketModule,
+    UserModule,
+
     JwtModule.register({
-      secret: 'secret'
-    })
+      secret: 'secret',
+    }),
   ],
   controllers: [ApiController],
   providers: [
     {
       provide: APP_GUARD,
-      useClass: AuthGuard
+      useClass: AuthGuard,
     },
-    ApiService],
+    ApiService,
+  ],
 })
 export class ApiModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
@@ -39,5 +114,4 @@ export class ApiModule implements NestModule {
       .apply(AuthMiddleware)
       .forRoutes({ path: '*', method: RequestMethod.ALL });
   }
-
 }

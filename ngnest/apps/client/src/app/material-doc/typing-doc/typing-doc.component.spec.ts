@@ -8,9 +8,8 @@ describe('TypingDocComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TypingDocComponent ]
-    })
-    .compileComponents();
+      declarations: [TypingDocComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

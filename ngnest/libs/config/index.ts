@@ -1,3 +1,3 @@
-export * from "./server.config";
-export * from './database.config'
-export * from './client.config'
+export * from './server.config';
+export * from './database.config';
+export * from './client.config';

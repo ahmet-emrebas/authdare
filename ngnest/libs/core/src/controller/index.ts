@@ -1,3 +1,1 @@
-export * from "./base.resource-service";
-
-
+export * from './base.resource-service';

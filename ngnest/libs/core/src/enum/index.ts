@@ -1,1 +1,1 @@
-export * from "./cookie.enum";
+export * from './cookie.enum';

@@ -5,10 +5,11 @@ import { Injectable, NestMiddleware } from '@nestjs/common';
 
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {
-  constructor(private jwt: JwtService) { }
+  constructor(private jwt: JwtService) {}
   async use(req: Request, res: Response, next: () => void) {
-
-    const loginCookie = req.cookies[CookieEnum.LOGIN_COOKIE] || req.query[CookieEnum.LOGIN_COOKIE]
+    const loginCookie =
+      req.cookies[CookieEnum.LOGIN_COOKIE] ||
+      req.query[CookieEnum.LOGIN_COOKIE];
     try {
       const authUser = await this.jwt.verify(loginCookie);
       req['user'] = authUser;

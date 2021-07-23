@@ -21,7 +21,7 @@ describe('TableComponent', () => {
           MatTableModule,
         ],
       }).compileComponents();
-    }),
+    })
   );
 
   beforeEach(() => {

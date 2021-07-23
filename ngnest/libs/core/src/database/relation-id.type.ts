@@ -1,1 +1,1 @@
-export type RelationID = { id: number | string }
+export type RelationID = { id: number | string };

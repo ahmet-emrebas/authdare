@@ -6,7 +6,7 @@ const routes: Routes = [
     path: 'material-doc',
     loadChildren: () =>
       import('./material-doc/material-doc.module').then(
-        (m) => m.MaterialDocModule,
+        (m) => m.MaterialDocModule
       ),
   },
 ];

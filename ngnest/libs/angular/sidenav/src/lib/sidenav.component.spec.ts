@@ -27,7 +27,7 @@ describe('SidenavComponent', () => {
           MatToolbarModule,
         ],
       }).compileComponents();
-    }),
+    })
   );
 
   beforeEach(() => {
