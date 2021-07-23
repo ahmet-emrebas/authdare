@@ -77,6 +77,18 @@
       "@authdare/core/*": [
         "libs/core/src/*"
       ],
+      "@authdare/config": [
+        "libs/config"
+      ],
+      "@authdare/config/*": [
+        "libs/config/*"
+      ],
+      "@authdare/models": [
+        "libs/models"
+      ],
+      "@authdare/models/*": [
+        "libs/models/*"
+      ],
     },
     "lib": [
       "es2018",

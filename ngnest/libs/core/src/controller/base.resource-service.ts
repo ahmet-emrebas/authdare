@@ -1,24 +1,37 @@
 import { Repository, FindManyOptions } from "typeorm";
-import { tryCatch } from '@authdare/utils'
+import { tryCatchError } from '@authdare/utils'
+import { Constructor } from '@authdare/core'
+import { validateDto } from '../dto'
 
-export class BaseResourceService<Entity, CreateDTO, UpdateDTO> {
+export class BaseResourceService {
 
-    constructor(private readonly repository: Repository<Entity>) { }
+    constructor(private readonly repository: Repository<any>,
+        private readonly createDTO: Constructor,
+        private readonly updateDTO: Constructor) { }
+
+    async save(value: any) {
+        const errors = await validateDto(new this.createDTO(value))
+        if (errors && errors.length > 0) {
+            return errors;
+        }
+        return await tryCatchError(() => this.repository.save(this.repository.create(value)))
+    }
 
     async find(options: FindManyOptions) {
-        return await tryCatch(() => this.repository.find(options))
+        return await tryCatchError(() => this.repository.find(options))
     }
 
-    async save(createDto: CreateDTO) {
-        return await tryCatch(() => this.repository.save(this.repository.create(createDto)))
-    }
 
-    async update(id: number | string, udpateDto: UpdateDTO) {
-        return await tryCatch(() => this.repository.update(id, udpateDto))
+    async update(id: number | string, value: any) {
+        const errors = await validateDto(new this.updateDTO(value))
+        if (errors) {
+            return errors;
+        }
+        return await tryCatchError(() => this.repository.update(id, value))
     }
 
     async delete(id: number | string) {
-        return await tryCatch(() => this.repository.delete(id))
+        return await tryCatchError(() => this.repository.delete(id))
     }
 
 }

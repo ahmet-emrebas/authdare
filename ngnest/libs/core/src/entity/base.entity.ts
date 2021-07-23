@@ -7,7 +7,7 @@ import {
 import { BaseDto } from '../dto';
 
 /**
- * Each typeorm entity will extend this class
+ * Each entity will extend this class
  */
 export abstract class BaseEntity<T> extends BaseDto<T> {
     @PrimaryGeneratedColumn() id?: number;

@@ -1,31 +1,35 @@
-import { NestFactory, } from '@nestjs/core';
-import { Logger, HttpStatus } from '@nestjs/common';
+import { NestFactory } from '@nestjs/core';
+import { Logger, INestApplication } from '@nestjs/common';
 import { yellow } from 'chalk'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ApiModule } from './api.module';
-import { Config, startConfigServer } from './config';
 import * as cookieParser from 'cookie-parser'
 import * as cors from 'cors';
+import { ApiConfig } from '@authdare/config';
+
+function configureSwagger(app: INestApplication) {
+  const config = new DocumentBuilder()
+    .setTitle(ApiConfig.APP_NAME)
+    .setDescription('Backend application of Authdare Products')
+    .setVersion('1.0')
+    .addTag('Api')
+    .build();
+
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup(ApiConfig.SWAGGER_PATH, app, document);
+}
 
 
 async function bootstrap() {
   const app = await NestFactory.create(ApiModule);
-  app.setGlobalPrefix(Config.API_BASEPATH);
+  app.setGlobalPrefix(ApiConfig.API_BASEPATH);
+
   app.use(cors());
   app.use(cookieParser())
-  const config = new DocumentBuilder()
-    .setTitle('Authdare Api')
-    .setDescription('Api')
-    .setVersion('1.0')
-    .addTag('Authdare')
-    .build();
 
-  const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup(Config.SWAGGER_PATH, app, document);
-
-  const PORT = process.env['PORT'] || Config.PORT
-  await app.listen(PORT, () => {
-    Logger.log(`Nest application started at port ${yellow(PORT)}`, 'NestApplication')
+  configureSwagger(app);
+  await app.listen(ApiConfig.PORT, () => {
+    Logger.log(`Nest application started at port ${yellow(ApiConfig.PORT)}`, 'NestApplication')
   });
 }
 

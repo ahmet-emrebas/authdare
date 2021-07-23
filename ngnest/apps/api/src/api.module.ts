@@ -1,25 +1,32 @@
-import { Module } from '@nestjs/common';
+import { Organization, Profile, User, Product, Category, Role, Permission } from '@authdare/models';
+import { AuthMiddleware } from '@authdare/common';
+import { JwtModule } from '@nestjs/jwt';
+import { DatabaseConfig } from '@authdare/config';
+import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ApiController } from './api.controller';
 import { ApiService } from './api.service';
-import { Product } from './product';
-import { ProductModule } from './product/product.module';
+
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-
-      type: 'postgres',
-      // database: 'database/api.sqlite',
-      username: "postgres",
-      password: 'password',
-      synchronize: true,
-      dropSchema: true,
-      entities: [Product]
+      ...DatabaseConfig,
+      entities: [Product, Organization, User, Profile, Product, Category, Role, Permission]
     }),
-    ProductModule
+    TypeOrmModule.forFeature([Product, Organization, User, Profile, Product, Category, Role, Permission]),
+    JwtModule.register({
+      secret: 'secret'
+    })
   ],
   controllers: [ApiController],
   providers: [ApiService],
 })
-export class ApiModule { }
+export class ApiModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(AuthMiddleware)
+      .forRoutes({ path: '*', method: RequestMethod.ALL });
+  }
+
+}
