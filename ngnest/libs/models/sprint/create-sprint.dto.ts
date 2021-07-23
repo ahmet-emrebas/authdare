@@ -8,6 +8,6 @@ export class CreateSprintDto extends BaseDto<CreateSprintDto>{
 
     @Expose() @ApiProperty({}) sprintName: string;
     @Expose() @ApiProperty({}) description: string;
-    @Expose() @ApiProperty({}) project: CreateProjectDto;
+    @Expose() @ApiProperty({ default: { id: 1 } }) project: { id: number | string };
 
 }

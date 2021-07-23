@@ -1,8 +1,7 @@
 import { BaseDto } from '@authdare/core';
-import { CreateOrganizationDto, CreateProfileDto, CreateRoleDto } from '@authdare/models';
 import { ApiProperty } from '@nestjs/swagger';
-import { Exclude, Expose, Type } from 'class-transformer';
-import { IsEmail, IsNotEmptyObject, IsObject, IsPhoneNumber, IsString, Length, ValidateNested } from 'class-validator';
+import { Exclude, Expose } from 'class-transformer';
+import { IsEmail, IsString, Length } from 'class-validator';
 import { name, internet, phone } from 'faker'
 
 @Exclude()
@@ -74,41 +73,23 @@ export class CreateUserDto extends BaseDto<CreateUserDto> {
     @ApiProperty({
         nullable: false,
         required: true,
-        default: { "id": 1 }
+        default: { id: 1 }
     })
-    @IsNotEmptyObject()
-    @IsObject()
-    @ValidateNested()
-    @Type(() => CreateOrganizationDto)
-    organization: CreateOrganizationDto;
+    organization: { id: number | string };
 
     @Expose()
     @ApiProperty({
         nullable: true,
-        default: { photo: '/assets/img/default-profile.png' }
+        default: { id: 100 }
     })
-    @IsNotEmptyObject()
-    @IsObject()
-    @ValidateNested()
-    @Type(() => CreateProfileDto)
-    profile: CreateProfileDto;
+    profile: { id: number | string };
 
 
-    @Expose()
     @Expose()
     @ApiProperty({
         nullable: true,
-        default: {
-            roleName: 'none', permissions: [{
-                method: "GET",
-                resource: "users"
-            }]
-        }
+        default: [{ id: 3 }]
     })
-    @IsNotEmptyObject()
-    @IsObject()
-    @ValidateNested()
-    @Type(() => CreateRoleDto)
-    roles: CreateRoleDto[];
+    roles: { id: number | string }[];
 
 }

@@ -1,7 +1,7 @@
 import { BaseEntity } from '@authdare/core';
 
 import { Organization, Sprint } from '@authdare/models';
-import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 
 
 @Entity()
@@ -12,6 +12,7 @@ export class Project extends BaseEntity<Project>{
     @Column() due: string;
 
     @ManyToOne(() => Organization, (org: Organization) => org.users, { nullable: false, createForeignKeyConstraints: true })
+    @JoinColumn()
     organization: Organization;
 
     @OneToMany(() => Sprint, sprint => sprint.project)

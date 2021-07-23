@@ -22,23 +22,22 @@ export class CreateTicketDto extends BaseDto<CreateTicketDto>{
 
 
     @Expose()
-    @ApiProperty({})
-    @IsObject()
-    @ValidateNested()
-    @Type(() => Category)
-    category: Category;
+    @ApiProperty({
+        default: [{ id: 1 }, { id: 2 }]
+    })
+    categories: { id: number | string }[];
 
 
     @Expose()
     @ApiProperty({
         default: { "id": 1 }
     })
-    createdBy: User;
+    createdBy: { id: number | string };
 
 
     @Expose()
     @ApiProperty({
         default: [{ "id": 1 }, { "id": 2 }]
     })
-    assignedTo: {}[]
+    assignedTo: { id: number | string }[]
 }

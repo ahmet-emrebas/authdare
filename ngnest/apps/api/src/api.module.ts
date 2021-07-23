@@ -8,7 +8,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ApiController } from './api.controller';
 import { ApiService } from './api.service';
 import { APP_GUARD } from '@nestjs/core';
-import { UserModule, OrganizationModule } from '@authdare/modules';
+import { UserModule, OrganizationModule, RoleModule, PermissionModule } from '@authdare/modules';
 
 @Module({
   imports: [
@@ -19,6 +19,8 @@ import { UserModule, OrganizationModule } from '@authdare/modules';
     TypeOrmModule.forFeature([Product, Organization, User, Profile, Product, Category, Role, Permission, Project, Sprint, Ticket]),
     UserModule,
     OrganizationModule,
+    RoleModule,
+    PermissionModule,
     JwtModule.register({
       secret: 'secret'
     })

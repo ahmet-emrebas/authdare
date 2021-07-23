@@ -14,6 +14,7 @@ export class Product extends BaseEntity<Product>{
     @Column() price: number;
 
     @ManyToOne(() => Organization, (org: Organization) => org.products)
+    @JoinColumn()
     organization: Organization;
 
     @ManyToMany(() => Category, category => category.id, { eager: true, nullable: false, createForeignKeyConstraints: true })

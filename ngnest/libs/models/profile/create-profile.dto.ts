@@ -6,7 +6,8 @@ import { IsString } from 'class-validator';
 
 @Exclude()
 export class CreateProfileDto extends BaseDto<CreateProfileDto> {
-    @Expose() @ApiProperty({
+    @Expose()
+    @ApiProperty({
         type: 'text',
         default: '/assets/imgs/default-profile.png',
         nullable: true,

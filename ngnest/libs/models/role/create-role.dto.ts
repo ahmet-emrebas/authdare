@@ -6,12 +6,12 @@ import { Exclude, Expose } from 'class-transformer';
 
 @Exclude()
 export class CreatePermissionDto extends BaseDto<CreateRoleDto> {
-    @Expose() @ApiProperty({}) method: string;
-    @Expose() @ApiProperty({}) resource: string
+    @Expose() @ApiProperty({ default: 'GET' }) method: string;
+    @Expose() @ApiProperty({ default: 'users' }) resource: string
 }
 
 @Exclude()
 export class CreateRoleDto extends BaseDto<CreateRoleDto> {
-    @Expose() @ApiProperty({}) rolename: string;
-    @Expose() @ApiProperty({}) permissions: CreatePermissionDto[]
+    @Expose() @ApiProperty({ default: 'public' }) roleName: string;
+    @Expose() @ApiProperty({ default: [{ id: 1, }, { id: 2 }] }) permissions: { id: number | string }[]
 }
