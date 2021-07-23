@@ -20,7 +20,8 @@ export class CreateUserDto extends BaseDto<CreateUserDto> {
     @Length(3, 50)
     firstName: string;
 
-    @Expose() @ApiProperty({
+    @Expose()
+    @ApiProperty({
         type: 'string',
         required: true,
         nullable: false,
@@ -45,7 +46,8 @@ export class CreateUserDto extends BaseDto<CreateUserDto> {
     @Length(6, 100)
     password: string;
 
-    @Expose() @ApiProperty({
+    @Expose()
+    @ApiProperty({
         type: 'string',
         required: true,
         nullable: false,
