@@ -9,10 +9,10 @@ export class CreateProfileDto extends BaseDto<CreateProfileDto> {
     @Expose()
     @ApiProperty({
         type: 'text',
-        default: '/assets/imgs/default-profile.png',
+        default: { id: 1 },
         nullable: true,
         required: false,
     })
     @IsString()
-    photo: string;
+    photos: { id: number | string }[];
 }

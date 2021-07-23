@@ -5,5 +5,5 @@ import { BaseEntity } from '@authdare/core';
 
 @Entity()
 export class Category extends BaseEntity<Category>{
-    @Column() category: string;
+    @Column({ unique: true, nullable: false }) category: string;
 }

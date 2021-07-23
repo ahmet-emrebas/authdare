@@ -1,7 +1,7 @@
 
-import { Column, JoinTable, } from 'typeorm';
+import { Column, JoinTable, OneToMany, OneToOne } from 'typeorm';
 import { Organization, Profile, Role } from '@authdare/models';
-import { Entity, JoinColumn, ManyToOne, OneToOne, ManyToMany } from 'typeorm';
+import { Entity, ManyToOne, ManyToMany } from 'typeorm';
 import { BaseEntity } from '@authdare/core';
 
 @Entity()
@@ -22,6 +22,5 @@ export class User extends BaseEntity<User> {
     roles: Role[];
 
     @OneToOne(() => Profile, profile => profile.user, { eager: true, cascade: true })
-    @JoinColumn()
     profile: Profile;
 }

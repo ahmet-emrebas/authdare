@@ -1,5 +1,6 @@
 export * from "./category";
 export * from "./organization";
+export * from "./photo";
 export * from "./product";
 export * from "./profile";
 export * from "./project";

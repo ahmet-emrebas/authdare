@@ -2,6 +2,7 @@ import { Column, OneToOne, JoinColumn, OneToMany, JoinTable, ManyToMany } from '
 import { Organization, Category } from '@authdare/models';
 import { BaseEntity } from '@authdare/core';
 import { Entity, ManyToOne } from 'typeorm';
+import { Photo } from '../photo/photo.entity';
 
 
 @Entity()
@@ -19,5 +20,8 @@ export class Product extends BaseEntity<Product>{
 
     @ManyToMany(() => Category, category => category.id, { eager: true, nullable: false, createForeignKeyConstraints: true })
     @JoinTable({ name: 'product_category' })
-    categories: Category[]
+    categories: Category[];
+
+    @OneToMany(() => Photo, photo => photo.product)
+    photos: Photo[]
 }
