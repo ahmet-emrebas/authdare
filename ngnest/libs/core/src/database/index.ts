@@ -1,7 +1,7 @@
 import { DatabaseConfig } from '@authdare/config';
-import { Constructor } from './../types/constructor';
+import { Constructor } from '../types/constructor';
 import { cloneDeep } from 'lodash';
-import { BaseResourceService } from './../controller';
+import { BaseResourceService } from '../controller';
 import { ConnectionOptions, Connection, getConnection, Repository, createConnection } from 'typeorm';
 
 /**

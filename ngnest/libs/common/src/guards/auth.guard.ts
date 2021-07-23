@@ -1,4 +1,4 @@
-import { AuthUser } from '@authdare/core';
+import { CreateUserDto } from '@authdare/models';
 import { Request } from 'express';
 import { IS_PUBLIC_KEY } from '@authdare/common';
 import { Reflector } from '@nestjs/core';
@@ -23,16 +23,12 @@ export class AuthGuard implements CanActivate {
 
     const req = context.switchToHttp().getRequest<Request>()
 
-    const user: AuthUser = req['user'] as AuthUser;
+    const user: CreateUserDto = req['user'] as CreateUserDto;
     const method = req.method;
-    const resource = context.getClass();
+    const resource = context.getClass().name;
+    console.log(user, method, resource);
 
-
-    if (req['user']) {
-      return true;
-    } else {
-      return false;
-    }
+    return true;
 
   }
 }

@@ -1,5 +1,5 @@
 import { JwtService } from '@nestjs/jwt';
-import { CookieEnum, AuthUser } from '@authdare/core';
+import { CookieEnum } from '@authdare/core';
 import { Request, Response } from 'express';
 import { Injectable, NestMiddleware } from '@nestjs/common';
 

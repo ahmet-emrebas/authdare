@@ -2,14 +2,15 @@ import { Repository, FindManyOptions } from "typeorm";
 import { tryCatchError } from '@authdare/utils'
 import { Constructor } from '@authdare/core'
 import { validateDto } from '../dto'
+import { ValidationError } from "class-validator";
 
-export class BaseResourceService {
+export class BaseResourceService<T = any, CreateDTO = any, UpdateDTO = any> {
 
-    constructor(private readonly repository: Repository<any>,
+    constructor(private readonly repository: Repository<T>,
         private readonly createDTO: Constructor,
         private readonly updateDTO: Constructor) { }
 
-    async save(value: any) {
+    async save(value: CreateDTO): Promise<T | ValidationError[]> {
         const errors = await validateDto(new this.createDTO(value))
         if (errors && errors.length > 0) {
             return errors;
@@ -22,7 +23,7 @@ export class BaseResourceService {
     }
 
 
-    async update(id: number | string, value: any) {
+    async update(id: number | string, value: UpdateDTO) {
         const errors = await validateDto(new this.updateDTO(value))
         if (errors) {
             return errors;

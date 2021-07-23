@@ -89,6 +89,12 @@
       "@authdare/models/*": [
         "libs/models/*"
       ],
+      "@authdare/modules": [
+        "libs/modules"
+      ],
+      "@authdare/modules/*": [
+        "libs/modules/*"
+      ],
     },
     "lib": [
       "es2018",

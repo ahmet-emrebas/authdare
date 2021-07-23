@@ -1,4 +1,4 @@
-import { AuthUser } from '@authdare/core';
+import { CreateUserDto } from '@authdare/models';
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
 
 /**
@@ -6,5 +6,5 @@ import { createParamDecorator, ExecutionContext } from '@nestjs/common';
  */
 export const GetAuthUser = createParamDecorator((data: unknown, ctx: ExecutionContext) => {
     const request = ctx.switchToHttp().getRequest();
-    return request.user as AuthUser;
+    return request.user as CreateUserDto;
 })
