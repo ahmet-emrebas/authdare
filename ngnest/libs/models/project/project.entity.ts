@@ -1,7 +1,6 @@
 import { BaseEntity } from '@authdare/core';
-
-import { Organization, Sprint } from '@authdare/models';
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
+import { Organization } from '@authdare/models';
+import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
 @Entity()
 export class Project extends BaseEntity<Project> {

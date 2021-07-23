@@ -1,4 +1,3 @@
-import { CreateProjectDto } from './../project/create-project.dto';
 import { Exclude, Expose } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 import { BaseDto, RelationID } from '@authdare/core';

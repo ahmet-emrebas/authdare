@@ -4,7 +4,6 @@ import { Exclude, Expose } from 'class-transformer';
 import {
   IsNotEmpty,
   IsNumber,
-  IsString,
   Length,
   MaxLength,
 } from 'class-validator';

@@ -1,5 +1,4 @@
 import { Photo } from './../photo/photo.entity';
-
 import { User } from '@authdare/models';
 import { BaseEntity } from '@authdare/core';
 import {

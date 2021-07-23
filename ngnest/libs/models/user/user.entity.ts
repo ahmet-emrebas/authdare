@@ -1,4 +1,4 @@
-import { Column, JoinColumn, JoinTable, OneToMany, OneToOne } from 'typeorm';
+import { Column, JoinColumn, JoinTable, OneToOne } from 'typeorm';
 import { Organization, Profile, Role } from '@authdare/models';
 import { Entity, ManyToOne, ManyToMany } from 'typeorm';
 import { BaseEntity } from '@authdare/core';

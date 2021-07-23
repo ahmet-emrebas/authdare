@@ -1,8 +1,7 @@
-import { User } from '@authdare/models';
 import { BaseDto } from '@authdare/core';
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude, Expose } from 'class-transformer';
-import { IsNotEmpty, Length, MaxLength, MinLength } from 'class-validator';
+import { IsNotEmpty, Length, MaxLength } from 'class-validator';
 
 @Exclude()
 export class CreatePhotoDto extends BaseDto<CreatePhotoDto> {
