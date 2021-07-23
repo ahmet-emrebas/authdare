@@ -4,6 +4,8 @@ import { cloneDeep } from 'lodash';
 import { BaseResourceService } from '../controller';
 import { ConnectionOptions, Connection, getConnection, Repository, createConnection } from 'typeorm';
 
+
+export * from './relation-id.type'
 /**
  * Get the database connection by name if alive or create the new conneciton with the proviced configurations. 
  * @param name 
@@ -75,5 +77,6 @@ export async function grantAllPrivilegesOnDatabaseToUser(database: string, usern
     const result = await admin.query(`GRANT ALL PRIVILEGES ON DATABASE ${database} to ${username}`)
     return result;
 }
+
 
 

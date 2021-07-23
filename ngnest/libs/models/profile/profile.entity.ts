@@ -2,13 +2,18 @@ import { Photo } from './../photo/photo.entity';
 
 import { User } from '@authdare/models';
 import { BaseEntity } from '@authdare/core';
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne } from 'typeorm';
+import { Entity, JoinColumn, JoinTable, OneToMany, OneToOne, Column } from 'typeorm';
 
 
 @Entity()
 export class Profile extends BaseEntity<Profile>  {
 
-    @OneToMany(() => Photo, photo => photo.profile)
+    @Column({ length: 400 })
+    nickname: string;
+
+
+    @OneToMany(() => Photo, photo => photo.id)
+    @JoinTable({ name: 'profile_photo' })
     photos: Photo[];
 
     @OneToOne(() => User, user => user.profile)

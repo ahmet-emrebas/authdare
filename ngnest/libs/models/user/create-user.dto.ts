@@ -1,4 +1,4 @@
-import { BaseDto } from '@authdare/core';
+import { BaseDto, RelationID } from '@authdare/core';
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude, Expose } from 'class-transformer';
 import { IsEmail, IsString, Length } from 'class-validator';
@@ -75,14 +75,14 @@ export class CreateUserDto extends BaseDto<CreateUserDto> {
         required: true,
         default: { id: 1 }
     })
-    organization: { id: number | string };
+    organization: RelationID;
 
     @Expose()
     @ApiProperty({
         nullable: true,
         default: { id: 100 }
     })
-    profile: { id: number | string };
+    profile: RelationID;
 
 
     @Expose()
@@ -90,6 +90,6 @@ export class CreateUserDto extends BaseDto<CreateUserDto> {
         nullable: true,
         default: [{ id: 3 }]
     })
-    roles: { id: number | string }[];
+    roles: RelationID[];
 
 }

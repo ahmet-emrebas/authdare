@@ -2,31 +2,19 @@ import { User } from '@authdare/models';
 import { BaseDto } from '@authdare/core';
 import { ApiProperty } from "@nestjs/swagger";
 import { Exclude, Expose } from "class-transformer";
+import { IsNotEmpty, Length, MaxLength, MinLength } from 'class-validator';
 
 
 @Exclude()
 export class CreatePhotoDto extends BaseDto<CreatePhotoDto>{
     @Expose()
-    @ApiProperty({ type: 'string', nullable: false, required: true })
+    @ApiProperty({ type: 'string', minLength: 5, maxLength: 200, nullable: false, required: true })
+    @Length(5, 200)
+    @IsNotEmpty()
     photo: string;
 
-
-
     @Expose()
-    @ApiProperty({
-        nullable: false,
-        description: 'object containing the id of the profile to which the photo belongs',
-        default: { id: 1 },
-        required: true
-    })
-    profile: { id: number | string };
-
-
-    @Expose()
-    @ApiProperty({
-        nullable: true,
-        description: 'object containing the id of the product to which the photo belongs',
-        default: { id: 1 }
-    })
-    product: { id: number | string };
+    @ApiProperty({ type: 'string', maxLength: 20, nullable: true })
+    @MaxLength(20)
+    position: string;
 }

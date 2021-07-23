@@ -1,27 +1,30 @@
-import { Column, OneToOne, JoinColumn, OneToMany, JoinTable, ManyToMany } from 'typeorm';
-import { Organization, Category } from '@authdare/models';
+import { Organization, Photo, Category } from '@authdare/models';
+import { Column, JoinColumn, OneToMany, JoinTable, ManyToMany } from 'typeorm';
 import { BaseEntity } from '@authdare/core';
 import { Entity, ManyToOne } from 'typeorm';
-import { Photo } from '../photo/photo.entity';
 
 
 @Entity()
 export class Product extends BaseEntity<Product>{
 
-    @Column() brand: string;
-    @Column() productname: string;
-    @Column() description: string;
-    @Column() details: string;
-    @Column() price: number;
+    @Column({ nullable: false, length: 50 }) brand: string;
+    @Column({ nullable: false, length: 50 }) productName: string;
+    @Column({ nullable: true, length: 400 }) description: string;
+    @Column({ nullable: true, length: 20 }) color: string;
+    @Column({ nullable: true }) price: number;
+    @Column({ nullable: true, }) rate: number;
 
-    @ManyToOne(() => Organization, (org: Organization) => org.products)
+    @ManyToOne(() => Organization, (org: Organization) => org.id)
     @JoinColumn()
     organization: Organization;
+
+
 
     @ManyToMany(() => Category, category => category.id, { eager: true, nullable: false, createForeignKeyConstraints: true })
     @JoinTable({ name: 'product_category' })
     categories: Category[];
 
-    @OneToMany(() => Photo, photo => photo.product)
+    @OneToMany(() => Photo, photo => photo.id, { eager: true })
+    @JoinTable({ name: 'product_photo' })
     photos: Photo[]
 }

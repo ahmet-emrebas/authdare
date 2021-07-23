@@ -1,9 +1,7 @@
-import { Category, User } from '@authdare/models';
-import { Exclude, Expose, Type } from 'class-transformer';
+import { Exclude, Expose } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
-import { BaseDto } from '@authdare/core';
-import { IsObject, ValidateNested, } from 'class-validator';
-import { } from 'faker'
+import { BaseDto, RelationID } from '@authdare/core';
+import { IsNotEmptyObject } from 'class-validator';
 
 @Exclude()
 export class CreateTicketDto extends BaseDto<CreateTicketDto>{
@@ -13,31 +11,44 @@ export class CreateTicketDto extends BaseDto<CreateTicketDto>{
     ticketName: string;
 
     @Expose()
-    @ApiProperty({ type: 'string' })
+    @ApiProperty({ type: 'string', nullable: true, default: "description of the ticket " })
     description: string;
 
     @Expose()
-    @ApiProperty({ type: 'string' })
+    @ApiProperty({ type: 'string', nullable: true, default: "10/10/2050 14:30 PM" })
     due: string;
 
+    @Expose()
+    @ApiProperty({
+        type: 'string', nullable: true, default: 'undefined'
+    })
+    status: string;
+
+
 
     @Expose()
     @ApiProperty({
+        nullable: true,
         default: [{ id: 1 }, { id: 2 }]
     })
-    categories: { id: number | string }[];
+    categories: RelationID[];
 
 
     @Expose()
     @ApiProperty({
-        default: { "id": 1 }
+        default: { "id": 1 },
+        required: true,
+        nullable: false,
+
     })
-    createdBy: { id: number | string };
+    @IsNotEmptyObject()
+    createdBy: RelationID;
 
 
     @Expose()
     @ApiProperty({
-        default: [{ "id": 1 }, { "id": 2 }]
+        default: [{ "id": 1 }, { "id": 2 }],
+        nullable: true,
     })
-    assignedTo: { id: number | string }[]
+    assignedTo: RelationID[]
 }

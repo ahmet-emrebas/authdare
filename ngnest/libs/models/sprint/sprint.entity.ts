@@ -8,7 +8,7 @@ export class Sprint extends BaseEntity<Sprint>{
     @Column({}) sprintName: string;
     @Column({}) description: string;
 
-    @ManyToOne(() => Project, project => project.sprints, { eager: true, createForeignKeyConstraints: true })
+    @ManyToOne(() => Project, project => project.id, { eager: true, createForeignKeyConstraints: true })
     @JoinColumn()
     project: Project
 }

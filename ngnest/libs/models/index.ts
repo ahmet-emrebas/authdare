@@ -1,3 +1,5 @@
+export * from "./appliance";
+export * from "./blog";
 export * from "./category";
 export * from "./organization";
 export * from "./photo";
@@ -6,5 +8,6 @@ export * from "./profile";
 export * from "./project";
 export * from "./role";
 export * from "./sprint";
+export * from "./tag";
 export * from "./ticket";
 export * from "./user";

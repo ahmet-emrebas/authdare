@@ -1,18 +1,9 @@
 
 import { BaseEntity } from '@authdare/core';
-import { User, Product } from '@authdare/models';
-import { Column, Entity, OneToMany } from 'typeorm';
+import { Column, Entity } from 'typeorm';
 
 @Entity()
 export class Organization extends BaseEntity<Organization>{
-
-    @Column({ unique: true, nullable: false })
+    @Column({ unique: true, nullable: false, length: 50 })
     organizationName: string;
-
-    @OneToMany(() => User, user => user.organization)
-    users: User[];
-
-    @OneToMany(() => Product, product => product.organization)
-    products: Product[]
-
 }

@@ -1,5 +1,5 @@
 
-import { Organization, Profile, User, Product, Category, Role, Permission, Sprint, Project, Ticket, Photo } from '@authdare/models';
+import { Organization, Profile, User, Product, Category, Role, Permission, Sprint, Project, Ticket, Photo, Tag, Blog, BlogContent } from '@authdare/models';
 import { AuthGuard, AuthMiddleware } from '@authdare/common';
 import { JwtModule } from '@nestjs/jwt';
 import { DatabaseConfig } from '@authdare/config';
@@ -14,9 +14,9 @@ import { UserModule, OrganizationModule, RoleModule, PermissionModule } from '@a
   imports: [
     TypeOrmModule.forRoot({
       ...DatabaseConfig,
-      entities: [Product, Organization, User, Profile, Product, Category, Role, Permission, Project, Sprint, Ticket, Photo]
+      entities: [Blog, BlogContent, Category, Organization, Permission, Photo, Product, Profile, Project, Role, Sprint, Tag, Ticket, User,]
     }),
-    TypeOrmModule.forFeature([Product, Organization, User, Profile, Product, Category, Role, Permission, Project, Sprint, Ticket, Photo]),
+    TypeOrmModule.forFeature([Blog, BlogContent, Category, Organization, Permission, Photo, Product, Profile, Project, Role, Sprint, Tag, Ticket, User]),
     UserModule,
     OrganizationModule,
     RoleModule,
