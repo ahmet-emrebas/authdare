@@ -5,5 +5,5 @@ export * from "./profile";
 export * from "./project";
 export * from "./role";
 export * from "./sprint";
+export * from "./ticket";
 export * from "./user";
-export * from './ticket'
