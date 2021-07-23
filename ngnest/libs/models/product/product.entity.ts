@@ -1,4 +1,4 @@
-import { Column, OneToOne, JoinColumn } from 'typeorm';
+import { Column, OneToOne, JoinColumn, OneToMany, JoinTable, ManyToMany } from 'typeorm';
 import { Organization, Category } from '@authdare/models';
 import { BaseEntity } from '@authdare/core';
 import { Entity, ManyToOne } from 'typeorm';
@@ -16,7 +16,7 @@ export class Product extends BaseEntity<Product>{
     @ManyToOne(() => Organization, (org: Organization) => org.products)
     organization: Organization;
 
-    @OneToOne(() => Category, category => category.id)
-    @JoinColumn()
-    category: Category
+    @ManyToMany(() => Category, category => category.id, { eager: true, nullable: false, createForeignKeyConstraints: true })
+    @JoinTable({ name: 'product_category' })
+    categories: Category[]
 }
