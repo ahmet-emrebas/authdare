@@ -1,7 +1,6 @@
 import { RelationID, BaseDto } from '@authdare/core';
 import { ApiProperty } from '@nestjs/swagger';
-import { Exclude, Expose, Type } from 'class-transformer';
-import { ValidateNested } from 'class-validator';
+import { Exclude, Expose } from 'class-transformer';
 import { CreatePhotoDto } from '../photo';
 
 @Exclude()
@@ -44,8 +43,8 @@ export class CreateBlogContentDto extends BaseDto<CreateBlogContentDto> {
   content: string;
 
   @Expose()
-  @ApiProperty()
-  order: string;
+  @ApiProperty({ default: 1 })
+  order: number;
 
   @Expose()
   @ApiProperty({})

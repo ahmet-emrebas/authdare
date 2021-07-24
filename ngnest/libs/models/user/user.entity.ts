@@ -21,14 +21,15 @@ export class User extends BaseEntity<User> {
 
   @ManyToMany(() => Role, (role) => role.users, {
     eager: true,
-    nullable: true,
     createForeignKeyConstraints: true,
-    cascade: true
   })
   @JoinTable({ name: 'user_role' })
   roles: Role[];
 
-  @OneToOne(() => Profile, (profile) => profile.id, { eager: true, nullable: true })
+  @OneToOne(() => Profile, (profile) => profile.id, {
+    eager: true,
+    createForeignKeyConstraints: true,
+  })
   @JoinColumn()
   profile: Profile;
 }

@@ -9,6 +9,8 @@ import {
   Param,
   Query,
   Controller,
+  UnprocessableEntityException,
+  Logger,
 } from '@nestjs/common';
 import { FindManyOptions } from 'typeorm';
 import {
@@ -22,13 +24,19 @@ import {
 @ApiTags('UserController')
 @Controller('users')
 export class UserController {
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService) { }
 
   @ApiCreatedResponse()
   @ApiUnprocessableEntityResponse()
   @Post()
   async create(@Body() creaetDto: CreateUserDto) {
-    return await this.userService.save(creaetDto);
+    try {
+
+      return await this.userService.save(creaetDto);
+    } catch (err) {
+      Logger.error(err, UserController.name);
+      throw new UnprocessableEntityException('Organization is not found!')
+    }
   }
 
   @ApiOkResponse()

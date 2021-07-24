@@ -79,12 +79,12 @@ export class CreateUserDto extends BaseDto<CreateUserDto> {
     nullable: true,
     default: { id: 100 },
   })
-  profile: RelationID;
+  profile?: RelationID;
 
   @Expose()
   @ApiProperty({
     nullable: true,
     default: [{ id: 3 }],
   })
-  roles: RelationID[];
+  roles?: RelationID[];
 }
