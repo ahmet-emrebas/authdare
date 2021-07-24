@@ -1,4 +1,5 @@
-import { Column } from 'typeorm';
+import { Product } from '@authdare/models';
+import { Column, ManyToOne } from 'typeorm';
 import { Entity } from 'typeorm';
 import { BaseEntity } from '@authdare/core';
 

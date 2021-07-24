@@ -16,14 +16,13 @@ export class Product extends BaseEntity<Product> {
   @JoinColumn()
   organization: Organization;
 
-  @ManyToMany(() => Category, (category) => category.id, {
-    eager: true,
-    createForeignKeyConstraints: true,
+  @ManyToMany(() => Category, (category) => category, {
+    eager: true, createForeignKeyConstraints: true,
   })
   @JoinTable({ name: 'product_category' })
   categories: Category[];
 
-  @OneToMany(() => Photo, (photo) => photo.id, { eager: true })
+  @OneToMany(() => Photo, (photo) => photo.id, { eager: true, createForeignKeyConstraints: true })
   @JoinTable({ name: 'product_photo' })
   photos: Photo[];
 }

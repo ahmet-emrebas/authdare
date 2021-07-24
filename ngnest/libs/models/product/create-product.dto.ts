@@ -48,7 +48,6 @@ export class CreateProductDto extends BaseDto<CreateProductDto> {
     nullable: true,
     default: [{ id: 1 }, { id: 2 }],
   })
-  @MaxLength(100)
   categories: RelationID[];
 
   @Expose()
@@ -57,6 +56,5 @@ export class CreateProductDto extends BaseDto<CreateProductDto> {
     nullable: true,
     default: [{ id: 1 }, { id: 2 }],
   })
-  @MaxLength(100)
   photos: RelationID[];
 }

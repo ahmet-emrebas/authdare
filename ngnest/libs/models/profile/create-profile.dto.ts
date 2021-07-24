@@ -16,6 +16,5 @@ export class CreateProfileDto extends BaseDto<CreateProfileDto> {
     nullable: true,
     default: [{ id: 1 }, { id: 2 }],
   })
-  @MaxLength(100)
   photos: RelationID[];
 }

@@ -20,9 +20,9 @@ import {
 } from '@nestjs/swagger';
 
 @ApiTags('CategoryController')
-@Controller('categorys')
+@Controller('categories')
 export class CategoryController {
-  constructor(private categoryService: CategoryService) {}
+  constructor(private categoryService: CategoryService) { }
 
   @ApiCreatedResponse()
   @ApiUnprocessableEntityResponse()
