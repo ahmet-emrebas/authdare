@@ -1,5 +1,6 @@
+import { QueryOptions } from './../../core/src/controller/query-options';
 import { TicketService } from './ticket.service';
-import { CreateTicketDto, UpdateTicketDto } from '@authdare/models';
+import { CreateTicketDto, UpdateTicketDto, Ticket } from '@authdare/models';
 import {
   Post,
   Body,
@@ -9,8 +10,8 @@ import {
   Param,
   Query,
   Controller,
+  Logger,
 } from '@nestjs/common';
-import { FindManyOptions } from 'typeorm';
 import {
   ApiCreatedResponse,
   ApiNotFoundResponse,
@@ -22,32 +23,52 @@ import {
 @ApiTags('TicketController')
 @Controller('tickets')
 export class TicketController {
-  constructor(private ticketService: TicketService) {}
+  constructor(private ticketService: TicketService) { }
 
   @ApiCreatedResponse()
   @ApiUnprocessableEntityResponse()
   @Post()
   async create(@Body() creaetDto: CreateTicketDto) {
-    return await this.ticketService.save(creaetDto);
+    try {
+      return await this.ticketService.save(creaetDto);
+    } catch (err) {
+      Logger.error(err, TicketController.name);
+      return err;
+    }
   }
 
   @ApiOkResponse()
   @Get()
-  async findAll(@Query() query: FindManyOptions) {
-    return await this.ticketService.find(query);
+  async findAll(@Query() query: QueryOptions<Ticket>) {
+    try {
+      return await this.ticketService.find(query);
+    } catch (err) {
+      Logger.error(err);
+      return err;
+    }
   }
 
   @ApiOkResponse()
   @Post('query')
-  async findAllQuery(@Body() query: FindManyOptions) {
-    return await this.ticketService.find(query);
+  async findAllQuery(@Body() query: QueryOptions<Ticket>) {
+    try {
+      return await this.ticketService.find(query);
+    } catch (err) {
+      Logger.error(err);
+      return err;
+    }
   }
 
   @ApiOkResponse()
   @ApiNotFoundResponse()
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    return await this.ticketService.find({ where: { id } });
+    try {
+      return await this.ticketService.find({ where: { id } });
+    } catch (err) {
+      Logger.error(err);
+      return err;
+    }
   }
 
   @ApiCreatedResponse()
@@ -55,13 +76,23 @@ export class TicketController {
   @ApiNotFoundResponse()
   @Patch(':id')
   async update(@Param('id') id: string, @Body() updateDto: UpdateTicketDto) {
-    return await this.ticketService.update(id, updateDto);
+    try {
+      return await this.ticketService.update(id, updateDto);
+    } catch (err) {
+      Logger.error(err);
+      return err;
+    }
   }
 
   @ApiOkResponse()
   @ApiNotFoundResponse()
   @Delete(':id')
   async remove(@Param('id') id: string) {
-    return await this.ticketService.delete(id);
+    try {
+      return await this.ticketService.delete(id);
+    } catch (err) {
+      Logger.error(err);
+      return err;
+    }
   }
 }

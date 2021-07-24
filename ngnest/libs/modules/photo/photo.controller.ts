@@ -1,5 +1,6 @@
+import { QueryOptions } from './../../core/src/controller/query-options';
 import { PhotoService } from './photo.service';
-import { CreatePhotoDto, UpdatePhotoDto } from '@authdare/models';
+import { CreatePhotoDto, UpdatePhotoDto, Photo } from '@authdare/models';
 import {
   Post,
   Body,
@@ -9,8 +10,8 @@ import {
   Param,
   Query,
   Controller,
+  Logger,
 } from '@nestjs/common';
-import { FindManyOptions } from 'typeorm';
 import {
   ApiCreatedResponse,
   ApiNotFoundResponse,
@@ -22,32 +23,52 @@ import {
 @ApiTags('PhotoController')
 @Controller('photos')
 export class PhotoController {
-  constructor(private photoService: PhotoService) {}
+  constructor(private photoService: PhotoService) { }
 
   @ApiCreatedResponse()
   @ApiUnprocessableEntityResponse()
   @Post()
   async create(@Body() creaetDto: CreatePhotoDto) {
-    return await this.photoService.save(creaetDto);
+    try {
+      return await this.photoService.save(creaetDto);
+    } catch (err) {
+      Logger.error(err, PhotoController.name);
+      return err;
+    }
   }
 
   @ApiOkResponse()
   @Get()
-  async findAll(@Query() query: FindManyOptions) {
-    return await this.photoService.find(query);
+  async findAll(@Query() query: QueryOptions<Photo>) {
+    try {
+      return await this.photoService.find(query);
+    } catch (err) {
+      Logger.error(err);
+      return err;
+    }
   }
 
   @ApiOkResponse()
   @Post('query')
-  async findAllQuery(@Body() query: FindManyOptions) {
-    return await this.photoService.find(query);
+  async findAllQuery(@Body() query: QueryOptions<Photo>) {
+    try {
+      return await this.photoService.find(query);
+    } catch (err) {
+      Logger.error(err);
+      return err;
+    }
   }
 
   @ApiOkResponse()
   @ApiNotFoundResponse()
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    return await this.photoService.find({ where: { id } });
+    try {
+      return await this.photoService.find({ where: { id } });
+    } catch (err) {
+      Logger.error(err);
+      return err;
+    }
   }
 
   @ApiCreatedResponse()
@@ -55,13 +76,23 @@ export class PhotoController {
   @ApiNotFoundResponse()
   @Patch(':id')
   async update(@Param('id') id: string, @Body() updateDto: UpdatePhotoDto) {
-    return await this.photoService.update(id, updateDto);
+    try {
+      return await this.photoService.update(id, updateDto);
+    } catch (err) {
+      Logger.error(err);
+      return err;
+    }
   }
 
   @ApiOkResponse()
   @ApiNotFoundResponse()
   @Delete(':id')
   async remove(@Param('id') id: string) {
-    return await this.photoService.delete(id);
+    try {
+      return await this.photoService.delete(id);
+    } catch (err) {
+      Logger.error(err);
+      return err;
+    }
   }
 }

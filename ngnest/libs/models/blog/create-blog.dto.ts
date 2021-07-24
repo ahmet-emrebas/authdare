@@ -52,5 +52,5 @@ export class CreateBlogContentDto extends BaseDto<CreateBlogContentDto> {
 
   @Expose()
   @ApiProperty({})
-  photos: CreatePhotoDto[];
+  photos?: CreatePhotoDto[];
 }

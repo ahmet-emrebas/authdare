@@ -1,5 +1,6 @@
+import { QueryOptions } from './../../core/src/controller/query-options';
 import { BlogService } from './blog.service';
-import { CreateBlogDto, UpdateBlogDto } from '@authdare/models';
+import { CreateBlogDto, UpdateBlogDto, Blog } from '@authdare/models';
 import {
   Post,
   Body,
@@ -9,8 +10,8 @@ import {
   Param,
   Query,
   Controller,
+  Logger,
 } from '@nestjs/common';
-import { FindManyOptions } from 'typeorm';
 import {
   ApiCreatedResponse,
   ApiNotFoundResponse,
@@ -22,32 +23,52 @@ import {
 @ApiTags('BlogController')
 @Controller('blogs')
 export class BlogController {
-  constructor(private blogService: BlogService) {}
+  constructor(private blogService: BlogService) { }
 
   @ApiCreatedResponse()
   @ApiUnprocessableEntityResponse()
   @Post()
   async create(@Body() creaetDto: CreateBlogDto) {
-    return await this.blogService.save(creaetDto);
+    try {
+      return await this.blogService.save(creaetDto);
+    } catch (err) {
+      Logger.error(err, BlogController.name);
+      return err;
+    }
   }
 
   @ApiOkResponse()
   @Get()
-  async findAll(@Query() query: FindManyOptions) {
-    return await this.blogService.find(query);
+  async findAll(@Query() query: QueryOptions<Blog>) {
+    try {
+      return await this.blogService.find(query);
+    } catch (err) {
+      Logger.error(err);
+      return err;
+    }
   }
 
   @ApiOkResponse()
   @Post('query')
-  async findAllQuery(@Body() query: FindManyOptions) {
-    return await this.blogService.find(query);
+  async findAllQuery(@Body() query: QueryOptions<Blog>) {
+    try {
+      return await this.blogService.find(query);
+    } catch (err) {
+      Logger.error(err);
+      return err;
+    }
   }
 
   @ApiOkResponse()
   @ApiNotFoundResponse()
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    return await this.blogService.find({ where: { id } });
+    try {
+      return await this.blogService.find({ where: { id } });
+    } catch (err) {
+      Logger.error(err);
+      return err;
+    }
   }
 
   @ApiCreatedResponse()
@@ -55,13 +76,23 @@ export class BlogController {
   @ApiNotFoundResponse()
   @Patch(':id')
   async update(@Param('id') id: string, @Body() updateDto: UpdateBlogDto) {
-    return await this.blogService.update(id, updateDto);
+    try {
+      return await this.blogService.update(id, updateDto);
+    } catch (err) {
+      Logger.error(err);
+      return err;
+    }
   }
 
   @ApiOkResponse()
   @ApiNotFoundResponse()
   @Delete(':id')
   async remove(@Param('id') id: string) {
-    return await this.blogService.delete(id);
+    try {
+      return await this.blogService.delete(id);
+    } catch (err) {
+      Logger.error(err);
+      return err;
+    }
   }
 }

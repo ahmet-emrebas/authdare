@@ -1,5 +1,6 @@
+import { QueryOptions } from './../../core/src/controller/query-options';
 import { CategoryService } from './category.service';
-import { CreateCategoryDto, UpdateCategoryDto } from '@authdare/models';
+import { CreateCategoryDto, UpdateCategoryDto, Category } from '@authdare/models';
 import {
   Post,
   Body,
@@ -9,8 +10,8 @@ import {
   Param,
   Query,
   Controller,
+  Logger,
 } from '@nestjs/common';
-import { FindManyOptions } from 'typeorm';
 import {
   ApiCreatedResponse,
   ApiNotFoundResponse,
@@ -20,7 +21,7 @@ import {
 } from '@nestjs/swagger';
 
 @ApiTags('CategoryController')
-@Controller('categories')
+@Controller('categorys')
 export class CategoryController {
   constructor(private categoryService: CategoryService) { }
 
@@ -28,26 +29,46 @@ export class CategoryController {
   @ApiUnprocessableEntityResponse()
   @Post()
   async create(@Body() creaetDto: CreateCategoryDto) {
-    return await this.categoryService.save(creaetDto);
+    try {
+      return await this.categoryService.save(creaetDto);
+    } catch (err) {
+      Logger.error(err, CategoryController.name);
+      return err;
+    }
   }
 
   @ApiOkResponse()
   @Get()
-  async findAll(@Query() query: FindManyOptions) {
-    return await this.categoryService.find(query);
+  async findAll(@Query() query: QueryOptions<Category>) {
+    try {
+      return await this.categoryService.find(query);
+    } catch (err) {
+      Logger.error(err);
+      return err;
+    }
   }
 
   @ApiOkResponse()
   @Post('query')
-  async findAllQuery(@Body() query: FindManyOptions) {
-    return await this.categoryService.find(query);
+  async findAllQuery(@Body() query: QueryOptions<Category>) {
+    try {
+      return await this.categoryService.find(query);
+    } catch (err) {
+      Logger.error(err);
+      return err;
+    }
   }
 
   @ApiOkResponse()
   @ApiNotFoundResponse()
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    return await this.categoryService.find({ where: { id } });
+    try {
+      return await this.categoryService.find({ where: { id } });
+    } catch (err) {
+      Logger.error(err);
+      return err;
+    }
   }
 
   @ApiCreatedResponse()
@@ -55,13 +76,23 @@ export class CategoryController {
   @ApiNotFoundResponse()
   @Patch(':id')
   async update(@Param('id') id: string, @Body() updateDto: UpdateCategoryDto) {
-    return await this.categoryService.update(id, updateDto);
+    try {
+      return await this.categoryService.update(id, updateDto);
+    } catch (err) {
+      Logger.error(err);
+      return err;
+    }
   }
 
   @ApiOkResponse()
   @ApiNotFoundResponse()
   @Delete(':id')
   async remove(@Param('id') id: string) {
-    return await this.categoryService.delete(id);
+    try {
+      return await this.categoryService.delete(id);
+    } catch (err) {
+      Logger.error(err);
+      return err;
+    }
   }
 }

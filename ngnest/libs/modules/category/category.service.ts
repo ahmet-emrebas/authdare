@@ -1,9 +1,5 @@
 import { Repository } from 'typeorm';
-import {
-  CreateCategoryDto,
-  Category,
-  UpdateCategoryDto,
-} from '@authdare/models';
+import { CreateCategoryDto, Category, UpdateCategoryDto } from '@authdare/models';
 import { BaseResourceService } from '@authdare/core';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';

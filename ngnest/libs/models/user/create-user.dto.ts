@@ -1,3 +1,5 @@
+import { CreateRoleDto } from './../role/create-role.dto';
+import { CreateProfileDto } from '@authdare/models';
 import { BaseDto, RelationID } from '@authdare/core';
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude, Expose } from 'class-transformer';
@@ -76,15 +78,10 @@ export class CreateUserDto extends BaseDto<CreateUserDto> {
 
   @Expose()
   @ApiProperty({
-    nullable: true,
-    default: { id: 100 },
+    nullable: false,
+    required: true,
+    default: [{ id: 1 }, { id: 2 }],
   })
-  profile?: RelationID;
+  roles: RelationID[];
 
-  @Expose()
-  @ApiProperty({
-    nullable: true,
-    default: [{ id: 3 }],
-  })
-  roles?: RelationID[];
 }

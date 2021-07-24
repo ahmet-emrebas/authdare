@@ -1,5 +1,6 @@
+import { QueryOptions } from './../../core/src/controller/query-options';
 import { ProjectService } from './project.service';
-import { CreateProjectDto, UpdateProjectDto } from '@authdare/models';
+import { CreateProjectDto, UpdateProjectDto, Project } from '@authdare/models';
 import {
   Post,
   Body,
@@ -9,8 +10,8 @@ import {
   Param,
   Query,
   Controller,
+  Logger,
 } from '@nestjs/common';
-import { FindManyOptions } from 'typeorm';
 import {
   ApiCreatedResponse,
   ApiNotFoundResponse,
@@ -22,32 +23,52 @@ import {
 @ApiTags('ProjectController')
 @Controller('projects')
 export class ProjectController {
-  constructor(private projectService: ProjectService) {}
+  constructor(private projectService: ProjectService) { }
 
   @ApiCreatedResponse()
   @ApiUnprocessableEntityResponse()
   @Post()
   async create(@Body() creaetDto: CreateProjectDto) {
-    return await this.projectService.save(creaetDto);
+    try {
+      return await this.projectService.save(creaetDto);
+    } catch (err) {
+      Logger.error(err, ProjectController.name);
+      return err;
+    }
   }
 
   @ApiOkResponse()
   @Get()
-  async findAll(@Query() query: FindManyOptions) {
-    return await this.projectService.find(query);
+  async findAll(@Query() query: QueryOptions<Project>) {
+    try {
+      return await this.projectService.find(query);
+    } catch (err) {
+      Logger.error(err);
+      return err;
+    }
   }
 
   @ApiOkResponse()
   @Post('query')
-  async findAllQuery(@Body() query: FindManyOptions) {
-    return await this.projectService.find(query);
+  async findAllQuery(@Body() query: QueryOptions<Project>) {
+    try {
+      return await this.projectService.find(query);
+    } catch (err) {
+      Logger.error(err);
+      return err;
+    }
   }
 
   @ApiOkResponse()
   @ApiNotFoundResponse()
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    return await this.projectService.find({ where: { id } });
+    try {
+      return await this.projectService.find({ where: { id } });
+    } catch (err) {
+      Logger.error(err);
+      return err;
+    }
   }
 
   @ApiCreatedResponse()
@@ -55,13 +76,23 @@ export class ProjectController {
   @ApiNotFoundResponse()
   @Patch(':id')
   async update(@Param('id') id: string, @Body() updateDto: UpdateProjectDto) {
-    return await this.projectService.update(id, updateDto);
+    try {
+      return await this.projectService.update(id, updateDto);
+    } catch (err) {
+      Logger.error(err);
+      return err;
+    }
   }
 
   @ApiOkResponse()
   @ApiNotFoundResponse()
   @Delete(':id')
   async remove(@Param('id') id: string) {
-    return await this.projectService.delete(id);
+    try {
+      return await this.projectService.delete(id);
+    } catch (err) {
+      Logger.error(err);
+      return err;
+    }
   }
 }

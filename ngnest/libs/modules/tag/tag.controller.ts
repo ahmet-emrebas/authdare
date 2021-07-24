@@ -1,5 +1,6 @@
+import { QueryOptions } from './../../core/src/controller/query-options';
 import { TagService } from './tag.service';
-import { CreateTagDto, UpdateTagDto } from '@authdare/models';
+import { CreateTagDto, UpdateTagDto, Tag } from '@authdare/models';
 import {
   Post,
   Body,
@@ -9,8 +10,8 @@ import {
   Param,
   Query,
   Controller,
+  Logger,
 } from '@nestjs/common';
-import { FindManyOptions } from 'typeorm';
 import {
   ApiCreatedResponse,
   ApiNotFoundResponse,
@@ -22,32 +23,52 @@ import {
 @ApiTags('TagController')
 @Controller('tags')
 export class TagController {
-  constructor(private tagService: TagService) {}
+  constructor(private tagService: TagService) { }
 
   @ApiCreatedResponse()
   @ApiUnprocessableEntityResponse()
   @Post()
   async create(@Body() creaetDto: CreateTagDto) {
-    return await this.tagService.save(creaetDto);
+    try {
+      return await this.tagService.save(creaetDto);
+    } catch (err) {
+      Logger.error(err, TagController.name);
+      return err;
+    }
   }
 
   @ApiOkResponse()
   @Get()
-  async findAll(@Query() query: FindManyOptions) {
-    return await this.tagService.find(query);
+  async findAll(@Query() query: QueryOptions<Tag>) {
+    try {
+      return await this.tagService.find(query);
+    } catch (err) {
+      Logger.error(err);
+      return err;
+    }
   }
 
   @ApiOkResponse()
   @Post('query')
-  async findAllQuery(@Body() query: FindManyOptions) {
-    return await this.tagService.find(query);
+  async findAllQuery(@Body() query: QueryOptions<Tag>) {
+    try {
+      return await this.tagService.find(query);
+    } catch (err) {
+      Logger.error(err);
+      return err;
+    }
   }
 
   @ApiOkResponse()
   @ApiNotFoundResponse()
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    return await this.tagService.find({ where: { id } });
+    try {
+      return await this.tagService.find({ where: { id } });
+    } catch (err) {
+      Logger.error(err);
+      return err;
+    }
   }
 
   @ApiCreatedResponse()
@@ -55,13 +76,23 @@ export class TagController {
   @ApiNotFoundResponse()
   @Patch(':id')
   async update(@Param('id') id: string, @Body() updateDto: UpdateTagDto) {
-    return await this.tagService.update(id, updateDto);
+    try {
+      return await this.tagService.update(id, updateDto);
+    } catch (err) {
+      Logger.error(err);
+      return err;
+    }
   }
 
   @ApiOkResponse()
   @ApiNotFoundResponse()
   @Delete(':id')
   async remove(@Param('id') id: string) {
-    return await this.tagService.delete(id);
+    try {
+      return await this.tagService.delete(id);
+    } catch (err) {
+      Logger.error(err);
+      return err;
+    }
   }
 }

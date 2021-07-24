@@ -1,5 +1,6 @@
+import { QueryOptions } from './../../core/src/controller/query-options';
 import { SprintService } from './sprint.service';
-import { CreateSprintDto, UpdateSprintDto } from '@authdare/models';
+import { CreateSprintDto, UpdateSprintDto, Sprint } from '@authdare/models';
 import {
   Post,
   Body,
@@ -9,8 +10,8 @@ import {
   Param,
   Query,
   Controller,
+  Logger,
 } from '@nestjs/common';
-import { FindManyOptions } from 'typeorm';
 import {
   ApiCreatedResponse,
   ApiNotFoundResponse,
@@ -22,32 +23,52 @@ import {
 @ApiTags('SprintController')
 @Controller('sprints')
 export class SprintController {
-  constructor(private sprintService: SprintService) {}
+  constructor(private sprintService: SprintService) { }
 
   @ApiCreatedResponse()
   @ApiUnprocessableEntityResponse()
   @Post()
   async create(@Body() creaetDto: CreateSprintDto) {
-    return await this.sprintService.save(creaetDto);
+    try {
+      return await this.sprintService.save(creaetDto);
+    } catch (err) {
+      Logger.error(err, SprintController.name);
+      return err;
+    }
   }
 
   @ApiOkResponse()
   @Get()
-  async findAll(@Query() query: FindManyOptions) {
-    return await this.sprintService.find(query);
+  async findAll(@Query() query: QueryOptions<Sprint>) {
+    try {
+      return await this.sprintService.find(query);
+    } catch (err) {
+      Logger.error(err);
+      return err;
+    }
   }
 
   @ApiOkResponse()
   @Post('query')
-  async findAllQuery(@Body() query: FindManyOptions) {
-    return await this.sprintService.find(query);
+  async findAllQuery(@Body() query: QueryOptions<Sprint>) {
+    try {
+      return await this.sprintService.find(query);
+    } catch (err) {
+      Logger.error(err);
+      return err;
+    }
   }
 
   @ApiOkResponse()
   @ApiNotFoundResponse()
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    return await this.sprintService.find({ where: { id } });
+    try {
+      return await this.sprintService.find({ where: { id } });
+    } catch (err) {
+      Logger.error(err);
+      return err;
+    }
   }
 
   @ApiCreatedResponse()
@@ -55,13 +76,23 @@ export class SprintController {
   @ApiNotFoundResponse()
   @Patch(':id')
   async update(@Param('id') id: string, @Body() updateDto: UpdateSprintDto) {
-    return await this.sprintService.update(id, updateDto);
+    try {
+      return await this.sprintService.update(id, updateDto);
+    } catch (err) {
+      Logger.error(err);
+      return err;
+    }
   }
 
   @ApiOkResponse()
   @ApiNotFoundResponse()
   @Delete(':id')
   async remove(@Param('id') id: string) {
-    return await this.sprintService.delete(id);
+    try {
+      return await this.sprintService.delete(id);
+    } catch (err) {
+      Logger.error(err);
+      return err;
+    }
   }
 }

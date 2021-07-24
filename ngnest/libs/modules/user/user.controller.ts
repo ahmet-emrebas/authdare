@@ -1,5 +1,6 @@
+import { QueryOptions } from './../../core/src/controller/query-options';
 import { UserService } from './user.service';
-import { CreateUserDto, UpdateUserDto } from '@authdare/models';
+import { CreateUserDto, UpdateUserDto, User } from '@authdare/models';
 import {
   Post,
   Body,
@@ -9,10 +10,8 @@ import {
   Param,
   Query,
   Controller,
-  UnprocessableEntityException,
   Logger,
 } from '@nestjs/common';
-import { FindManyOptions } from 'typeorm';
 import {
   ApiCreatedResponse,
   ApiNotFoundResponse,
@@ -31,31 +30,45 @@ export class UserController {
   @Post()
   async create(@Body() creaetDto: CreateUserDto) {
     try {
-
       return await this.userService.save(creaetDto);
     } catch (err) {
       Logger.error(err, UserController.name);
-      throw new UnprocessableEntityException('Organization is not found!')
+      return err;
     }
   }
 
   @ApiOkResponse()
   @Get()
-  async findAll(@Query() query: FindManyOptions) {
-    return await this.userService.find(query);
+  async findAll(@Query() query: QueryOptions<User>) {
+    try {
+      return await this.userService.find(query);
+    } catch (err) {
+      Logger.error(err);
+      return err;
+    }
   }
 
   @ApiOkResponse()
   @Post('query')
-  async findAllQuery(@Body() query: FindManyOptions) {
-    return await this.userService.find(query);
+  async findAllQuery(@Body() query: QueryOptions<User>) {
+    try {
+      return await this.userService.find(query);
+    } catch (err) {
+      Logger.error(err);
+      return err;
+    }
   }
 
   @ApiOkResponse()
   @ApiNotFoundResponse()
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    return await this.userService.find({ where: { id } });
+    try {
+      return await this.userService.find({ where: { id } });
+    } catch (err) {
+      Logger.error(err);
+      return err;
+    }
   }
 
   @ApiCreatedResponse()
@@ -63,13 +76,23 @@ export class UserController {
   @ApiNotFoundResponse()
   @Patch(':id')
   async update(@Param('id') id: string, @Body() updateDto: UpdateUserDto) {
-    return await this.userService.update(id, updateDto);
+    try {
+      return await this.userService.update(id, updateDto);
+    } catch (err) {
+      Logger.error(err);
+      return err;
+    }
   }
 
   @ApiOkResponse()
   @ApiNotFoundResponse()
   @Delete(':id')
   async remove(@Param('id') id: string) {
-    return await this.userService.delete(id);
+    try {
+      return await this.userService.delete(id);
+    } catch (err) {
+      Logger.error(err);
+      return err;
+    }
   }
 }

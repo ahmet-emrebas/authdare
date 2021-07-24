@@ -1,7 +1,8 @@
+import { CreatePhotoDto } from '@authdare/models';
 import { ApiProperty } from '@nestjs/swagger';
 import { BaseDto, RelationID } from '@authdare/core';
 import { Exclude, Expose } from 'class-transformer';
-import { MaxLength } from 'class-validator';
+import { IsNotEmptyObject, MaxLength } from 'class-validator';
 
 @Exclude()
 export class CreateProfileDto extends BaseDto<CreateProfileDto> {
@@ -11,10 +12,7 @@ export class CreateProfileDto extends BaseDto<CreateProfileDto> {
   nickname: string;
 
   @Expose()
-  @ApiProperty({
-    maxItems: 100,
-    nullable: true,
-    default: [{ id: 1 }, { id: 2 }],
-  })
-  photos: RelationID[];
+  @ApiProperty({ nullable: false, default: { id: 1 } })
+  @IsNotEmptyObject()
+  user: RelationID;
 }

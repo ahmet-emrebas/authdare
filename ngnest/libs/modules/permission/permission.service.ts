@@ -1,9 +1,5 @@
 import { Repository } from 'typeorm';
-import {
-  CreatePermissionDto,
-  Permission,
-  UpdatePermissionDto,
-} from '@authdare/models';
+import { CreatePermissionDto, Permission, UpdatePermissionDto } from '@authdare/models';
 import { BaseResourceService } from '@authdare/core';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -14,9 +10,7 @@ export class PermissionService extends BaseResourceService<
   CreatePermissionDto,
   UpdatePermissionDto
 > {
-  constructor(
-    @InjectRepository(Permission) permissionRepo: Repository<Permission>
-  ) {
+  constructor(@InjectRepository(Permission) permissionRepo: Repository<Permission>) {
     super(permissionRepo, CreatePermissionDto, UpdatePermissionDto);
   }
 }

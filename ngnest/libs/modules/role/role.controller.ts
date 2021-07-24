@@ -1,5 +1,6 @@
+import { QueryOptions } from './../../core/src/controller/query-options';
 import { RoleService } from './role.service';
-import { CreateRoleDto, UpdateRoleDto } from '@authdare/models';
+import { CreateRoleDto, UpdateRoleDto, Role } from '@authdare/models';
 import {
   Post,
   Body,
@@ -9,8 +10,8 @@ import {
   Param,
   Query,
   Controller,
+  Logger,
 } from '@nestjs/common';
-import { FindManyOptions } from 'typeorm';
 import {
   ApiCreatedResponse,
   ApiNotFoundResponse,
@@ -22,32 +23,52 @@ import {
 @ApiTags('RoleController')
 @Controller('roles')
 export class RoleController {
-  constructor(private roleService: RoleService) {}
+  constructor(private roleService: RoleService) { }
 
   @ApiCreatedResponse()
   @ApiUnprocessableEntityResponse()
   @Post()
   async create(@Body() creaetDto: CreateRoleDto) {
-    return await this.roleService.save(creaetDto);
+    try {
+      return await this.roleService.save(creaetDto);
+    } catch (err) {
+      Logger.error(err, RoleController.name);
+      return err;
+    }
   }
 
   @ApiOkResponse()
   @Get()
-  async findAll(@Query() query: FindManyOptions) {
-    return await this.roleService.find(query);
+  async findAll(@Query() query: QueryOptions<Role>) {
+    try {
+      return await this.roleService.find(query);
+    } catch (err) {
+      Logger.error(err);
+      return err;
+    }
   }
 
   @ApiOkResponse()
   @Post('query')
-  async findAllQuery(@Body() query: FindManyOptions) {
-    return await this.roleService.find(query);
+  async findAllQuery(@Body() query: QueryOptions<Role>) {
+    try {
+      return await this.roleService.find(query);
+    } catch (err) {
+      Logger.error(err);
+      return err;
+    }
   }
 
   @ApiOkResponse()
   @ApiNotFoundResponse()
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    return await this.roleService.find({ where: { id } });
+    try {
+      return await this.roleService.find({ where: { id } });
+    } catch (err) {
+      Logger.error(err);
+      return err;
+    }
   }
 
   @ApiCreatedResponse()
@@ -55,13 +76,23 @@ export class RoleController {
   @ApiNotFoundResponse()
   @Patch(':id')
   async update(@Param('id') id: string, @Body() updateDto: UpdateRoleDto) {
-    return await this.roleService.update(id, updateDto);
+    try {
+      return await this.roleService.update(id, updateDto);
+    } catch (err) {
+      Logger.error(err);
+      return err;
+    }
   }
 
   @ApiOkResponse()
   @ApiNotFoundResponse()
   @Delete(':id')
   async remove(@Param('id') id: string) {
-    return await this.roleService.delete(id);
+    try {
+      return await this.roleService.delete(id);
+    } catch (err) {
+      Logger.error(err);
+      return err;
+    }
   }
 }

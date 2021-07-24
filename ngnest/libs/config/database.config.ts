@@ -14,18 +14,18 @@ import { ConnectionOptions } from 'typeorm';
 //   dropSchema: true,
 // };
 
-// export const DatabaseConfig: ConnectionOptions = {
-//   type: 'postgres',
-//   database: 'postgres',
-//   username: 'postgres',
-//   password: 'password',
-//   synchronize: true,
-//   dropSchema: true,
-// }
-
 export const DatabaseConfig: ConnectionOptions = {
-  type: 'sqlite',
-  database: 'database/authdare_db.sqlite',
+  type: 'postgres',
+  database: 'postgres',
+  username: 'postgres',
+  password: 'password',
   synchronize: true,
   dropSchema: true,
 }
+
+// export const DatabaseConfig: ConnectionOptions = {
+//   type: 'sqlite',
+//   database: 'database/authdare_db.sqlite',
+//   synchronize: true,
+//   dropSchema: true,
+// }
