@@ -417,7 +417,7 @@
     .observe(Breakpoints.Handset)
     .pipe(
       map((result) &#x3D;&gt; result.matches),
-      shareReplay(),
+      shareReplay()
     )</code>
                     </td>
                 </tr>
@@ -463,7 +463,7 @@ export class SidenavComponent {
     .observe(Breakpoints.Handset)
     .pipe(
       map((result) &#x3D;&gt; result.matches),
-      shareReplay(),
+      shareReplay()
     );
 
   constructor(private breakpointObserver: BreakpointObserver) {}

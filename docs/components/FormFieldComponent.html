@@ -417,7 +417,7 @@ export class FormFieldComponent implements OnInit {
   @Input() attributes!: FieldOptions;
   loading &#x3D; false;
 
-  @Input() fieldType: string &#x3D; &#x27;text&#x27;;
+  @Input() fieldType &#x3D; &#x27;text&#x27;;
 
   ngOnInit(): void {
     const fieldType &#x3D; this.attributes.type;
