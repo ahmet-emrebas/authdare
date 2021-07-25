@@ -30,6 +30,8 @@ import { AppService } from './app.service';
     }),
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'client'),
+      renderPath: '/',
+      exclude: ['api', 'api/**'],
     }),
   ],
   controllers: [AppController],
