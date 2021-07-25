@@ -1,7 +1,9 @@
 import { Controller, Get, UploadedFiles, UseInterceptors } from '@nestjs/common';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
+import { ApiTags } from '@nestjs/swagger';
 import { AppService } from './app.service';
 
+@ApiTags("AppController")
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) { }
