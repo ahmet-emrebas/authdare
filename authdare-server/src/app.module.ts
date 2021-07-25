@@ -1,4 +1,4 @@
-import { LoginService } from './modules/login/login.service';
+import { LoginService } from './core/login/login.service';
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { MulterModule } from '@nestjs/platform-express';
@@ -9,8 +9,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { LoginModule } from './modules/login/login.module';
-import { SignupModule } from './signup/signup.module';
+import { LoginModule } from './core/login/login.module';
 
 interface UserCredential {
   username: string,
@@ -50,8 +49,8 @@ class LoginServiceImp implements LoginService {
       renderPath: '/',
       exclude: ['api', 'api/**'],
     }),
-    LoginModule.register(LoginServiceImp),
-    SignupModule,
+    LoginModule.register({}),
+
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -1,1 +1,2 @@
-export * from "./resource-service";
+export * from "./interfaces";
+export * from "./utils";

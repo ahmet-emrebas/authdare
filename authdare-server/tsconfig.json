@@ -11,6 +11,20 @@
     "outDir": "./dist",
     "baseUrl": "./",
     "incremental": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "paths": {
+      "@authdare/common": [
+        "src/common"
+      ],
+      "@authdare/common/*": [
+        "src/common/*"
+      ],
+      "@authdare/core": [
+        "src/core"
+      ],
+      "@authdare/core/*": [
+        "src/core/*"
+      ],
+    }
   }
 }
