@@ -1,3 +1,4 @@
+import { LoginService } from './modules/login/login.service';
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { MulterModule } from '@nestjs/platform-express';
@@ -8,6 +9,22 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { LoginModule } from './modules/login/login.module';
+import { SignupModule } from './signup/signup.module';
+
+interface UserCredential {
+  username: string,
+  password: string
+}
+
+class LoginServiceImp implements LoginService {
+  login<U = UserCredential>(UserCredentials: U): Promise<string> {
+    return new Promise((res, rej) => {
+      res('token');
+    })
+  }
+}
+
 
 @Module({
   imports: [
@@ -33,6 +50,8 @@ import { AppService } from './app.service';
       renderPath: '/',
       exclude: ['api', 'api/**'],
     }),
+    LoginModule.register(LoginServiceImp),
+    SignupModule,
   ],
   controllers: [AppController],
   providers: [AppService],
