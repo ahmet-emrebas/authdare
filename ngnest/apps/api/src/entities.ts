@@ -1,0 +1,33 @@
+import {
+    Blog,
+    BlogContent,
+    Category,
+    Organization,
+    Permission,
+    Photo,
+    Product,
+    Profile,
+    Project,
+    Role,
+    Sprint,
+    Tag,
+    Ticket,
+    User,
+} from './models';
+
+export const entities = [
+    Blog,
+    BlogContent,
+    Category,
+    Organization,
+    Permission,
+    Photo,
+    Product,
+    Profile,
+    Project,
+    Role,
+    Sprint,
+    Tag,
+    Ticket,
+    User,
+]
