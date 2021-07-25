@@ -1,4 +1,4 @@
-import { LoginService } from './core/login/login.service';
+import { LoginService } from '@authdare/core';
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { MulterModule } from '@nestjs/platform-express';
@@ -23,7 +23,6 @@ class LoginServiceImp implements LoginService {
     })
   }
 }
-
 
 @Module({
   imports: [
