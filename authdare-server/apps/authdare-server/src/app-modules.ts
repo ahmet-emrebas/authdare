@@ -1,6 +1,5 @@
 import { Profiles } from './profile/app-profiles';
 import { getArg } from '@authdare/common';
-import { LoginModule } from '@authdare/core';
 import { JwtModule } from '@nestjs/jwt';
 import { MulterModule } from '@nestjs/platform-express';
 import { ScheduleModule } from '@nestjs/schedule';
@@ -8,8 +7,12 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
+import { AuthModule } from '@authdare/auth';
 
-const AdminModules = [
+const profile = getArg('profile');
+
+
+const CommonModules = [
     JwtModule.register({
         secret: 'secret',
     }),
@@ -32,18 +35,24 @@ const AdminModules = [
         renderPath: '/',
         exclude: ['api', 'api/**'],
     }),
-    LoginModule.register({})
+    AuthModule
 ]
 
+
+/**
+ * Modules under development
+ */
 const DevelopmentModules = [
-    ...AdminModules
+    ...CommonModules,
+    AuthModule,
 ]
 
 export const ModuelsByProfile: Profiles = {
-    development: DevelopmentModules,
-    admin: AdminModules,
-    public: [],
-    subscriber: []
+    development: [...DevelopmentModules],
+    admin: [...CommonModules,],
+    public: [...CommonModules],
+    subscriber: [...CommonModules,]
 }
 
-export const CommonModules = () => ModuelsByProfile[getArg('profile')]
+
+export const AppModules = () => ModuelsByProfile[profile || 'development']

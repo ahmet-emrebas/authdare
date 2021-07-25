@@ -1,6 +1,6 @@
 import { LoginService, LOGIN_SERVICE_TOKEN } from './login.service';
 import { Body, Controller, Inject, Post } from "@nestjs/common";
-import { LoginCredentials } from './log-credentials';
+import { LoginCredentials } from './login-credentials';
 import { ApiTags } from '@nestjs/swagger';
 
 

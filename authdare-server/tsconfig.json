@@ -30,6 +30,12 @@
       ],
       "@authdare/core/*": [
         "libs/core/src/*"
+      ],
+      "@authdare/auth": [
+        "libs/auth/src"
+      ],
+      "@authdare/auth/*": [
+        "libs/auth/src/*"
       ]
     }
   }

@@ -7,6 +7,10 @@ export type LoginModuleOptions = {
     controller: typeof LoginController
 }
 
+
+/**
+ * @path /login
+ */
 @Module({})
 export class LoginModule {
     /**
