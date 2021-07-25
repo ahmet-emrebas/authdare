@@ -1,21 +1,21 @@
-import { ResourceService, RESOURCE_SERVICE_TOKEN } from './resource.service';
+import { ResourceService } from './resource.service';
 import { QueryOptions } from "@authdare/common";
-import { Get, NotAcceptableException, Inject, Param, ParseIntPipe, Post, UnprocessableEntityException, Patch, Delete } from "@nestjs/common";
+import { Get, NotAcceptableException, Param, ParseIntPipe, Post, UnprocessableEntityException, Patch, Delete } from "@nestjs/common";
 import { ApiNotAcceptableResponse, ApiUnprocessableEntityResponse } from '@nestjs/swagger';
+import { GetResourceService } from './get-resource-service.decorator';
 
 
 /**
- * You can either extend or implement this class for your Resouce controllers. RESOURCE_SERVICE_TOKEN must be provided in the module.
+ * You can either extend or implement this class for your Resouce controllers.
  */
 export class ResourceController<Entity, CreateDTO, UpdateDTO> {
 
-    constructor(@Inject(RESOURCE_SERVICE_TOKEN) private readonly resourceServie: ResourceService<Entity, CreateDTO, UpdateDTO>) { }
 
     @Get()
     @ApiNotAcceptableResponse()
-    async find(queryOptions: QueryOptions<Entity>) {
+    async find(queryOptions: QueryOptions<Entity>, @GetResourceService() resourceService: ResourceService) {
         try {
-            return await this.resourceServie.find(queryOptions);
+            return await resourceService.find(queryOptions);
         } catch (err) {
             throw new NotAcceptableException(err);
         }
@@ -23,9 +23,9 @@ export class ResourceController<Entity, CreateDTO, UpdateDTO> {
 
     @Get(":id")
     @ApiNotAcceptableResponse()
-    async findOneById(@Param(ParseIntPipe) id: number) {
+    async findOneById(@Param(ParseIntPipe) id: number, @GetResourceService() resourceService: ResourceService) {
         try {
-            return await this.resourceServie.findOneById(id)
+            return await resourceService.findOneById(id)
         } catch (err) {
             throw new NotAcceptableException(err);
         }
@@ -33,9 +33,9 @@ export class ResourceController<Entity, CreateDTO, UpdateDTO> {
 
     @Post('query')
     @ApiNotAcceptableResponse()
-    async query(queryOptions: QueryOptions<Entity>) {
+    async query(queryOptions: QueryOptions<Entity>, @GetResourceService() resourceService: ResourceService) {
         try {
-            return await this.resourceServie.find(queryOptions);
+            return await resourceService.find(queryOptions);
         } catch (err) {
             throw new NotAcceptableException(err);
         }
@@ -43,27 +43,27 @@ export class ResourceController<Entity, CreateDTO, UpdateDTO> {
 
     @Post()
     @ApiUnprocessableEntityResponse()
-    async save(value: CreateDTO) {
+    async save(value: CreateDTO, @GetResourceService() resourceService: ResourceService) {
         try {
-            return await this.resourceServie.save(value);
+            return await resourceService.save(value);
         } catch (err) {
             throw new UnprocessableEntityException(err);
         }
     }
 
     @Patch(":id")
-    async update(id: number, value: UpdateDTO) {
+    async update(@Param('id') id: number, value: UpdateDTO, @GetResourceService() resourceService: ResourceService) {
         try {
-            return await this.resourceServie.update(id, value);
+            return await resourceService.update(id, value);
         } catch (err) {
             throw new UnprocessableEntityException(err);
         }
     }
 
     @Delete(":id")
-    async delete(id: number, hard?: boolean) {
+    async delete(@Param('id') id: number, @GetResourceService() resourceService: ResourceService, hard?: boolean,) {
         try {
-            return await this.resourceServie.delete(id, hard)
+            return await resourceService.delete(id, hard)
         } catch (err) {
             throw new NotAcceptableException(err)
         }

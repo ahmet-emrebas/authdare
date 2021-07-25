@@ -13,7 +13,13 @@ export type ResourceModuleOptions = {
 
 @Module({})
 export class ResourceModule {
-    register({ isGlobal, service, controller }: Partial<ResourceModuleOptions>): DynamicModule {
+
+    /**
+     * ResouceController has an implementation so you can either extend the ResourceService or implement a new one. ResourceService does not have an implementation so you must implement ResouceService
+     * @param param0 
+     * @returns 
+     */
+    register({ isGlobal, service, controller }: ResourceModuleOptions): DynamicModule {
 
         const serviceProvider: Provider = {
             provide: RESOURCE_SERVICE_TOKEN,

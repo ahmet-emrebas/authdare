@@ -36,6 +36,12 @@
       ],
       "@authdare/auth/*": [
         "libs/auth/src/*"
+      ],
+      "@authdare/middleware": [
+        "libs/middleware/src"
+      ],
+      "@authdare/middleware/*": [
+        "libs/middleware/src/*"
       ]
     }
   }

@@ -5,6 +5,6 @@ import { Injectable } from "@nestjs/common";
 export class AuthSignupService implements SignupService {
 
     signup<U = any>(signupDto: U): Promise<string> {
-        throw new Error("Method not implemented.");
+        throw new Error("AuthSignupService did not implemented the method signup.");
     }
 }
