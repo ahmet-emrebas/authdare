@@ -1,5 +1,6 @@
 import { genToken } from '@authdare/common';
 
+
 export const LOGIN_SERVICE_TOKEN = genToken()
 
 export class LoginService {

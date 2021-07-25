@@ -14,17 +14,17 @@
     "skipLibCheck": true,
     "paths": {
       "@authdare/common": [
-        "src/common"
+        "libs/common/src"
       ],
       "@authdare/common/*": [
-        "src/common/*"
+        "libs/common/src/*"
       ],
       "@authdare/core": [
-        "src/core"
+        "libs/core/src"
       ],
       "@authdare/core/*": [
-        "src/core/*"
-      ],
+        "libs/core/src/*"
+      ]
     }
   }
 }

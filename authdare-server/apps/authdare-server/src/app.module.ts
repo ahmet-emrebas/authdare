@@ -1,4 +1,5 @@
-import { LoginService } from '@authdare/core';
+import { APP_NAME } from './app-name';
+import { LoginService, LoginModule } from '@authdare/core';
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { MulterModule } from '@nestjs/platform-express';
@@ -9,7 +10,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { LoginModule } from './core/login/login.module';
 
 interface UserCredential {
   username: string,
@@ -44,7 +44,7 @@ class LoginServiceImp implements LoginService {
       limit: 10,
     }),
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'client'),
+      rootPath: join(__dirname, '..', '..', '..', 'client', APP_NAME),
       renderPath: '/',
       exclude: ['api', 'api/**'],
     }),
