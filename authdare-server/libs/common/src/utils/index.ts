@@ -1,2 +1,3 @@
 export * from './gen-token';
-export * from './getArg';
+export * from './get-arg';
+export * from './hash-any';

@@ -3,5 +3,5 @@ import { Column, Entity } from 'typeorm';
 
 @Entity()
 export class Org extends BaseEntity<Org> {
-  @Column() name: string;
+  @Column({ unique: true }) name: string;
 }

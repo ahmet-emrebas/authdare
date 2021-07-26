@@ -10,6 +10,7 @@ import {
 } from './auth-signup.service';
 import { Response } from 'express';
 import { ApiTags } from '@nestjs/swagger';
+import { CreateUserDto } from '@authdare/models';
 
 export const COOKIE_LOGIN_TOKEN = 'login_token';
 
@@ -33,11 +34,19 @@ export class AuthController {
   }
 
   @Post('signup')
-  async signup(@Body() body: any, @Res() res: Response) {
+  async signup(@Body() body: CreateUserDto, @Res() res: Response) {
     const token = await this.signupService.signup(body);
     res.cookie(COOKIE_LOGIN_TOKEN, token);
     res.send({
       message: 'Welcome!',
+    });
+  }
+
+  @Post('logout')
+  logout(@Res() res: Response) {
+    res.clearCookie(COOKIE_LOGIN_TOKEN);
+    res.send({
+      message: 'See you!',
     });
   }
 }

@@ -2,7 +2,8 @@ import { CreateOrgDto } from './../org';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateUserDto {
-  @ApiProperty() email: string;
-  @ApiProperty() password: string;
-  @ApiProperty() org: CreateOrgDto;
+  @ApiProperty({ default: 'aemrebas.dev@gmail.com' }) email: string;
+  @ApiProperty({ default: 'aemrebas.dev@gmail.com' }) password: string;
+  @ApiProperty({ default: { name: 'aemrebas.dev@gmail.com' } })
+  org: CreateOrgDto;
 }

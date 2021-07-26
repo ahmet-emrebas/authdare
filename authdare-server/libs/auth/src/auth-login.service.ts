@@ -1,3 +1,4 @@
+import { pick } from 'lodash';
 import {
   AuthUserResourceService,
   AUTH_USER_RESOURCE_SERVICE_TOKEN,
@@ -21,7 +22,7 @@ export class AuthLoginService implements LoginService<LoginCredentials> {
     const foundUser = await this.userService.findOne({
       where: { email: credentials.email },
     });
-    if (!foundUser || foundUser.password) {
+    if (!foundUser?.password) {
       throw new UnauthorizedException('Account not found!');
     }
 
@@ -31,7 +32,8 @@ export class AuthLoginService implements LoginService<LoginCredentials> {
     );
 
     if (isPasswordMatch) {
-      return this.jwt.sign(foundUser);
+      const payload = pick(foundUser, ['email', 'org.name']);
+      return this.jwt.sign(payload);
     }
 
     throw new UnauthorizedException('Password does not match!');
