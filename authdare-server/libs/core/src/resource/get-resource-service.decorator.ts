@@ -14,6 +14,5 @@ export function GetResourceService<Entity = any, CreateDTO = any, UpdateDTO = an
     return createParamDecorator((value, context: ExecutionContext): ResourceService<Entity, CreateDTO, UpdateDTO> => {
         const request = context.switchToHttp().getRequest();
         return request[RESOURCE_SERVICE_KEY]
-
     })
 }

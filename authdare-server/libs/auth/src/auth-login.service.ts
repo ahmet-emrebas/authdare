@@ -17,7 +17,7 @@ export class AuthLoginService implements LoginService<LoginCredentials> {
 
     }
     async login(credentials: LoginCredentials): Promise<string> {
-        const foundUser = await this.userService.find({ where: { email: credentials.email } })
+        const foundUser = await this.userService.findOne({ where: { email: credentials.email } })
         if (!foundUser || foundUser.password) {
             throw new UnauthorizedException('Account not found!')
         }

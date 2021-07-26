@@ -1,5 +1,3 @@
-import { AuthUserResourceService } from './../../../../libs/auth/src/auth-user-resource.service';
-import { AuthModule } from "@authdare/auth";
 import { Module } from "@nestjs/common";
 import { CommonModules } from "./app-common.module";
 

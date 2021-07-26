@@ -5,12 +5,14 @@ import { ThrottlerModule } from '@nestjs/throttler';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { AuthModule } from '@authdare/auth';
+import { Org, User } from '@authdare/models';
+import { UserService } from '../user';
 
 export const CommonModules = [
-
     TypeOrmModule.forRoot({
         type: 'sqlite',
         database: 'database/authdare.sqlite',
+        entities: [User, Org],
         synchronize: true,
         dropSchema: true,
     }),
@@ -26,5 +28,12 @@ export const CommonModules = [
         rootPath: join(__dirname, 'client'),
         renderPath: '/',
         exclude: ['api', 'api/**'],
+    }),
+
+    AuthModule.register({
+        userResouceService: UserService,
+        imports: [
+            TypeOrmModule.forFeature([User]),
+        ]
     })
 ]
