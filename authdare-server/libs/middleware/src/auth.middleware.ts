@@ -1,4 +1,3 @@
-
 import { Role } from '@authdare/auth';
 import { RESOURCE_SERVICE_KEY } from '@authdare/core';
 import { Inject, Injectable, NestMiddleware } from '@nestjs/common';
@@ -18,29 +17,27 @@ export interface AuthUserDetails {
 /**
  * The resouce service map {users:UserService, orgs:OrgService}
  */
-export const RESOUCE_SERVICE_MAP_TOKEN = 'alskdfj90231j2n3'
+export const RESOUCE_SERVICE_MAP_TOKEN = 'alskdfj90231j2n3';
 
 /**
- * Only responsible for setting context variables. 
+ * Only responsible for setting context variables.
  */
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {
   constructor(
     private jwt: JwtService,
     @Inject(RESOUCE_SERVICE_MAP_TOKEN)
-    private readonly resourceServiceMap: { [key: string]: any }
-
-  ) { }
+    private readonly resourceServiceMap: { [key: string]: any },
+  ) {}
 
   async use(req: Request, res: Response, next: () => void) {
-
     if (!this.resourceServiceMap) {
-      throw new Error('RESOUCE_SERVICE_MAP_TOKEN is not provided!')
+      throw new Error('RESOUCE_SERVICE_MAP_TOKEN is not provided!');
     }
 
-    const authToken = req.cookies[AUTH_COOKIE]
+    const authToken = req.cookies[AUTH_COOKIE];
     try {
-      const verifiedUser = await this.jwt.verify(authToken)
+      const verifiedUser = await this.jwt.verify(authToken);
       req['user'] = verifiedUser;
     } catch (err) {
       // TODO: I will take care of the authentication in AuthGuard

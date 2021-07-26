@@ -1,1 +1,1 @@
-export * from "./user-resouce.service";
+export * from './user-resouce.service';

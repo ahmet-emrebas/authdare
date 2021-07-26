@@ -1,8 +1,9 @@
-
 export class Permission {
-    constructor(public readonly permission: string) { }
+  constructor(public readonly permission: string) {}
 }
 export class Role {
-    constructor(public readonly role: string, public readonly permmissions: Permission[]) { }
-
+  constructor(
+    public readonly role: string,
+    public readonly permmissions: Permission[],
+  ) {}
 }

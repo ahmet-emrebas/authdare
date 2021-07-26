@@ -9,31 +9,29 @@ import { Org, User } from '@authdare/models';
 import { UserService } from '../user';
 
 export const CommonModules = [
-    TypeOrmModule.forRoot({
-        type: 'sqlite',
-        database: 'database/authdare.sqlite',
-        entities: [User, Org],
-        synchronize: true,
-        dropSchema: true,
-    }),
-    ScheduleModule.forRoot(),
-    MulterModule.register({
-        dest: './upload',
-    }),
-    ThrottlerModule.forRoot({
-        ttl: 60,
-        limit: 10,
-    }),
-    ServeStaticModule.forRoot({
-        rootPath: join(__dirname, 'client'),
-        renderPath: '/',
-        exclude: ['api', 'api/**'],
-    }),
+  TypeOrmModule.forRoot({
+    type: 'sqlite',
+    database: 'database/authdare.sqlite',
+    entities: [User, Org],
+    synchronize: true,
+    dropSchema: true,
+  }),
+  ScheduleModule.forRoot(),
+  MulterModule.register({
+    dest: './upload',
+  }),
+  ThrottlerModule.forRoot({
+    ttl: 60,
+    limit: 10,
+  }),
+  ServeStaticModule.forRoot({
+    rootPath: join(__dirname, 'client'),
+    renderPath: '/',
+    exclude: ['api', 'api/**'],
+  }),
 
-    AuthModule.register({
-        userResouceService: UserService,
-        imports: [
-            TypeOrmModule.forFeature([User]),
-        ]
-    })
-]
+  AuthModule.register({
+    userResouceService: UserService,
+    imports: [TypeOrmModule.forFeature([User])],
+  }),
+];

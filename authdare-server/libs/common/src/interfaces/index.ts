@@ -1,2 +1,2 @@
-export * from "./query-options";
-export * from "./resource-service";
+export * from './query-options';
+export * from './resource-service';

@@ -1,4 +1,4 @@
-import { Logger } from "@nestjs/common"
+import { Logger } from '@nestjs/common';
 
 /**
  * Get the passed node argument by key.
@@ -6,16 +6,13 @@ import { Logger } from "@nestjs/common"
  * @returns {string}
  */
 export function getArg(key: string): string {
+  if (process.argv.length <= 2) {
+    return null;
+  }
 
-    if (process.argv.length <= 2) {
-        return null;
-    }
-
-    return process.argv
-        .map(e => e.split('=')) // [ [a b] , [c d]]
-        .filter(e => e.length == 2) //[[a b], [c d]]
-        .map(e => ({ [e[0]]: e[1] })) // [{a:b}, {c:d}]
-        .reduce((p, c) => ({ ...p, ...c }))[key]
+  return process.argv
+    .map((e) => e.split('=')) // [ [a b] , [c d]]
+    .filter((e) => e.length == 2) //[[a b], [c d]]
+    .map((e) => ({ [e[0]]: e[1] })) // [{a:b}, {c:d}]
+    .reduce((p, c) => ({ ...p, ...c }))[key];
 }
-
-

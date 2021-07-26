@@ -1,9 +1,9 @@
-import { genSalt, genSaltSync, hash, hashSync } from 'bcrypt'
+import { genSalt, genSaltSync, hash, hashSync } from 'bcrypt';
 
 /**
  * Generate a secret hash
- * @returns 
+ * @returns
  */
 export async function genSecret() {
-    return hash(process.env.toString(), await genSalt(10));
+  return hash(process.env.toString(), await genSalt(10));
 }
