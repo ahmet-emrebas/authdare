@@ -6,11 +6,11 @@ export class QueryOptions<Entity> {
     /**
      * offset
      */
-    skip: number;
+    skip?: number;
     /**
      * limit
      */
-    take: number;
+    take?: number;
     /**
     * Specifies what columns should be retrieved.
     */

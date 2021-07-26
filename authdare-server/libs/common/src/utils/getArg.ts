@@ -8,7 +8,6 @@ import { Logger } from "@nestjs/common"
 export function getArg(key: string): string {
 
     if (process.argv.length <= 2) {
-        Logger.log('No argument passed!', 'GetArguments')
         return null;
     }
 

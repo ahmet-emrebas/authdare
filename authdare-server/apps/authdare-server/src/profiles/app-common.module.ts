@@ -1,4 +1,3 @@
-import { JwtModule } from '@nestjs/jwt';
 import { MulterModule } from '@nestjs/platform-express';
 import { ScheduleModule } from '@nestjs/schedule';
 import { ServeStaticModule } from '@nestjs/serve-static';
@@ -8,9 +7,7 @@ import { join } from 'path';
 import { AuthModule } from '@authdare/auth';
 
 export const CommonModules = [
-    JwtModule.register({
-        secret: 'secret',
-    }),
+
     TypeOrmModule.forRoot({
         type: 'sqlite',
         database: 'database/authdare.sqlite',
@@ -29,6 +26,5 @@ export const CommonModules = [
         rootPath: join(__dirname, 'client'),
         renderPath: '/',
         exclude: ['api', 'api/**'],
-    }),
-    AuthModule
+    })
 ]

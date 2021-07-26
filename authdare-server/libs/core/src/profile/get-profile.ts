@@ -1,5 +1,6 @@
 import { getArg } from "@authdare/common";
 
+
 /**
  * Node argv or env key
  */
@@ -10,6 +11,7 @@ export const PROFILE_ARGUMENT_KEY = 'profile';
  * Second Environment Variables
  * @returns {string}
  */
-export function getProfile(): string {
-    return getArg(PROFILE_ARGUMENT_KEY) || process.env.profile;
+export function getProfile(fallbackProfile?: string): string {
+
+    return getArg(PROFILE_ARGUMENT_KEY) || process.env.profile || fallbackProfile;
 }

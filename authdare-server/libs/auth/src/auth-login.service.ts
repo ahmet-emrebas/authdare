@@ -1,14 +1,33 @@
-import { LoginService } from "@authdare/core";
-import { Injectable } from "@nestjs/common";
+import { AuthUserResourceService, AUTH_USER_RESOURCE_SERVICE_TOKEN } from './auth-user-resource.service';
+import { LoginCredentials, LoginService } from "@authdare/core";
+import { Inject, Injectable, UnauthorizedException } from "@nestjs/common";
+import { compare } from 'bcrypt';
+import { genToken } from '@authdare/common';
+import { JwtService } from '@nestjs/jwt';
 
+export const AUTH_LOGIN_SERVICE_TOKEN = genToken();
 
-/**
- * First Implementation of LoginService
- */
 @Injectable()
-export class AuthLoginService implements LoginService {
+export class AuthLoginService implements LoginService<LoginCredentials> {
 
-    login<U = any>(credentials: U): Promise<string> {
-        return new Promise((res, rej) => res('Generated Token'))
+    constructor(
+        @Inject(AUTH_USER_RESOURCE_SERVICE_TOKEN) private readonly userService: AuthUserResourceService,
+        private jwt: JwtService,
+    ) {
+
+    }
+    async login(credentials: LoginCredentials): Promise<string> {
+        const foundUser = await this.userService.find({ where: { email: credentials.email } })
+        if (!foundUser || foundUser.password) {
+            throw new UnauthorizedException('Account not found!')
+        }
+
+        const isPasswordMatch = await compare(credentials.password, foundUser.password)
+
+        if (isPasswordMatch) {
+            return this.jwt.sign(foundUser);
+        }
+
+        throw new UnauthorizedException('Password does not match!');
     }
 }
