@@ -1,20 +1,24 @@
 import { ResourceService } from './resource.service';
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
+import { genToken } from '@authdare/common';
+
+
 
 /**
  * This is the key of the ResourceService that is stored in the request. You can access it like req[RESOURCE_SERVICE_KEY].
  */
-export const RESOURCE_SERVICE_KEY = 'mjoiujkjsdfa';
+export const RESOURCE_SERVICE_KEY = genToken();
+
 
 /**
- * Get the resouce service of the resouce and organization
+ * Get the resouce service of the resource of organization.
  * @returns {ResouceService}
  */
 export function GetResourceService<
   Entity = any,
   CreateDTO = any,
   UpdateDTO = any,
->(): ParameterDecorator {
+  >(): ParameterDecorator {
   return createParamDecorator(
     (
       value,

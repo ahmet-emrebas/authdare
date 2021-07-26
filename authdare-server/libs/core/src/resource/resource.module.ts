@@ -4,11 +4,11 @@ import { ResourceController } from './resource.controller';
 
 export type ResourceModuleOptions = {
   service: typeof ResourceService;
-  controller: typeof ResourceController;
+  controllers: (typeof ResourceController)[];
   /**
    * Determine the service will be accessable across the modules
    */
-  isGlobal: boolean;
+  isGlobal?: boolean;
 };
 
 @Module({})
@@ -21,7 +21,7 @@ export class ResourceModule {
   register({
     isGlobal,
     service,
-    controller,
+    controllers,
   }: ResourceModuleOptions): DynamicModule {
     const serviceProvider: Provider = {
       provide: RESOURCE_SERVICE_TOKEN,
@@ -32,7 +32,7 @@ export class ResourceModule {
 
     return {
       module: ResourceModule,
-      controllers: [controller || ResourceController],
+      controllers,
       providers: [serviceProvider],
       exports,
     };

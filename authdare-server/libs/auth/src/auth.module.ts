@@ -16,7 +16,7 @@ import {
 } from './auth-user-resource.service';
 
 export interface AuthModuleOptions {
-  userResouceService: Type<AuthUserResourceService>;
+  userResourceService: Type<AuthUserResourceService>;
   signupService?: Type<AuthSignupService>;
   loginService?: Type<AuthLoginService>;
 
@@ -52,7 +52,7 @@ export class AuthModule {
       providers: [
         {
           provide: AUTH_USER_RESOURCE_SERVICE_TOKEN,
-          useClass: options.userResouceService,
+          useClass: options.userResourceService,
         },
         {
           provide: AUTH_LOGIN_SERVICE_TOKEN,

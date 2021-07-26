@@ -6,9 +6,11 @@ import {
   Param,
   ParseIntPipe,
   Post,
-  UnprocessableEntityException,
   Patch,
   Delete,
+  ParseBoolPipe,
+  Body,
+  Query,
 } from '@nestjs/common';
 import {
   ApiNotAcceptableResponse,
@@ -23,7 +25,7 @@ export class ResourceController<Entity, CreateDTO, UpdateDTO> {
   @Get()
   @ApiNotAcceptableResponse()
   async find(
-    queryOptions: QueryOptions<Entity>,
+    @Query() queryOptions: QueryOptions<Entity>,
     @GetResourceService() resourceService: ResourceService,
   ) {
     try {
@@ -39,24 +41,18 @@ export class ResourceController<Entity, CreateDTO, UpdateDTO> {
     @Param(ParseIntPipe) id: number,
     @GetResourceService() resourceService: ResourceService,
   ) {
-    try {
-      return await resourceService.findOneById(id);
-    } catch (err) {
-      throw new NotAcceptableException(err);
-    }
+
+    return await resourceService.findOneById(id);
+
   }
 
   @Post('query')
   @ApiNotAcceptableResponse()
   async query(
-    queryOptions: QueryOptions<Entity>,
+    @Body() queryOptions: QueryOptions<Entity>,
     @GetResourceService() resourceService: ResourceService,
   ) {
-    try {
-      return await resourceService.find(queryOptions);
-    } catch (err) {
-      throw new NotAcceptableException(err);
-    }
+    return await resourceService.find(queryOptions);
   }
 
   @Post()
@@ -65,36 +61,24 @@ export class ResourceController<Entity, CreateDTO, UpdateDTO> {
     value: CreateDTO,
     @GetResourceService() resourceService: ResourceService,
   ) {
-    try {
-      return await resourceService.save(value);
-    } catch (err) {
-      throw new UnprocessableEntityException(err);
-    }
+    return await resourceService.save(value);
   }
 
   @Patch(':id')
   async update(
     @Param('id') id: number,
-    value: UpdateDTO,
+    @Body() value: UpdateDTO,
     @GetResourceService() resourceService: ResourceService,
   ) {
-    try {
-      return await resourceService.update(id, value);
-    } catch (err) {
-      throw new UnprocessableEntityException(err);
-    }
+    return await resourceService.update(id, value);
   }
 
-  @Delete(':id')
+  @Delete(':id/:hard')
   async delete(
     @Param('id') id: number,
     @GetResourceService() resourceService: ResourceService,
-    hard?: boolean,
+    @Param('hard', ParseBoolPipe) hard?: boolean,
   ) {
-    try {
-      return await resourceService.delete(id, hard);
-    } catch (err) {
-      throw new NotAcceptableException(err);
-    }
+    return await resourceService.delete(id, hard);
   }
 }

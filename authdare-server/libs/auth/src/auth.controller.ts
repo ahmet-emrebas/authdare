@@ -11,6 +11,7 @@ import {
 import { Response } from 'express';
 import { ApiTags } from '@nestjs/swagger';
 import { CreateUserDto } from '@authdare/models';
+import { Public } from './public.decorator';
 
 export const COOKIE_LOGIN_TOKEN = 'login_token';
 
@@ -22,8 +23,9 @@ export class AuthController {
     private readonly loginService: AuthLoginService,
     @Inject(AUTH_SIGNUP_SERVICE_TOKEN)
     private readonly signupService: AuthSignupService,
-  ) {}
+  ) { }
 
+  @Public()
   @Post('login')
   async login(@Body() body: LoginCredentials, @Res() res: Response) {
     const token = await this.loginService.login(body);
@@ -33,6 +35,7 @@ export class AuthController {
     });
   }
 
+  @Public()
   @Post('signup')
   async signup(@Body() body: CreateUserDto, @Res() res: Response) {
     const token = await this.signupService.signup(body);

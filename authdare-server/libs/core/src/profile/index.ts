@@ -1,2 +1,2 @@
-export * from './profile.module';
-export * from './get-profile';
+export * from "./get-profile";
+export * from "./profile.module";
