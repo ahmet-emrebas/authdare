@@ -1,11 +1,10 @@
 import { Module } from '@nestjs/common';
-import { CommonModules } from './app-common.module';
 
 export const FREE_PROFILE = 'free';
 
 @Module({
-  imports: [...CommonModules],
+  imports: [],
   controllers: [],
   providers: [],
 })
-export class FreeProfileModule {}
+export class FreeProfileModule { }

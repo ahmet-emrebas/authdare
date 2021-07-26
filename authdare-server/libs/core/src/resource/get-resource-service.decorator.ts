@@ -25,7 +25,8 @@ export function GetResourceService<
       context: ExecutionContext,
     ): ResourceService<Entity, CreateDTO, UpdateDTO> => {
       const request = context.switchToHttp().getRequest();
-      return request[RESOURCE_SERVICE_KEY];
+      const service = request[RESOURCE_SERVICE_KEY];
+      return service;
     },
-  );
+  )();
 }

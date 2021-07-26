@@ -1,11 +1,10 @@
 import { Module } from '@nestjs/common';
-import { CommonModules } from './app-common.module';
 
 export const COMMUNITY_PROFILE = 'community';
 
 @Module({
-  imports: [...CommonModules],
+  imports: [],
   controllers: [],
   providers: [],
 })
-export class CommunityProfileModule {}
+export class CommunityProfileModule { }

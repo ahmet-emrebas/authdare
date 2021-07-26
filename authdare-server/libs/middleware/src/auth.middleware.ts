@@ -1,15 +1,11 @@
+import { Logger } from '@nestjs/common';
 import { User } from '@authdare/models';
-import { Role } from '@authdare/auth';
+import { COOKIE_LOGIN_KEY, Role } from '@authdare/auth';
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Request, Response } from 'express';
 import { genToken } from '@authdare/common';
-import { DBResourceManagerService } from '@authdare/core';
-
-/**
- * Name of the cookie saved to the client browser.
- */
-export const AUTH_COOKIE = 'auth_cookie';
+import { DBResourceManagerService, RESOURCE_SERVICE_KEY } from '@authdare/core';
 
 export interface AuthUserDetails {
   roles: Role[];
@@ -32,25 +28,28 @@ export class AuthMiddleware implements NestMiddleware {
 
   async use(req: Request, res: Response, next: () => void) {
 
-    const authToken = req.cookies[AUTH_COOKIE];
+    const authToken = req.cookies[COOKIE_LOGIN_KEY];
     let verifiedUser: User;
+
     try {
-      verifiedUser = await this.jwt.verify<User>(authToken);
-      req[USER_RESOURCE_KEY] = verifiedUser;
+      if (authToken) {
+        verifiedUser = await this.jwt.verify<User>(authToken);
+        req[USER_RESOURCE_KEY] = verifiedUser;
+      }
     } catch (err) {
-      next();
+      Logger.error(err);
     }
 
-    /**
-     * Extracting the resourcename from req.params like /api/users --> users with which the ResourceService is stored in the resourceServiceMap
-     */
-    const params = req.params[0].split('/');
-    const resourceName = params && params[1];
+    const resourceName = req.params[0].split('/')[0];
     const orgName = verifiedUser?.org?.name;
-    console.log('ResouceName:', resourceName, __dirname);
-    console.log('Organization:', orgName)
 
-    this.dbManager.resourceService(orgName, resourceName);
+    try {
+
+      const service = await this.dbManager.resourceService(orgName, resourceName);
+      req[RESOURCE_SERVICE_KEY] = service;
+    } catch (err) {
+      Logger.error(err);
+    }
     next();
   }
 }

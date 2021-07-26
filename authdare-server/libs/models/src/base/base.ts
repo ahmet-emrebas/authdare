@@ -14,3 +14,9 @@ export class BaseEntity<T> {
     Object.assign(this, obj);
   }
 }
+
+export class BaseDto<T>{
+  constructor(obj: T) {
+    Object.assign(this, obj);
+  }
+}

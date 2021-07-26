@@ -2,7 +2,6 @@ import { ResourceService } from './resource.service';
 import { QueryOptions } from '@authdare/common';
 import {
   Get,
-  NotAcceptableException,
   Param,
   ParseIntPipe,
   Post,
@@ -18,6 +17,8 @@ import {
 } from '@nestjs/swagger';
 import { GetResourceService } from './get-resource-service.decorator';
 
+
+
 /**
  * You can either extend or implement this class for your Resouce controllers.
  */
@@ -28,11 +29,7 @@ export class ResourceController<Entity, CreateDTO, UpdateDTO> {
     @Query() queryOptions: QueryOptions<Entity>,
     @GetResourceService() resourceService: ResourceService,
   ) {
-    try {
-      return await resourceService.find(queryOptions);
-    } catch (err) {
-      throw new NotAcceptableException(err);
-    }
+    return await resourceService.find(queryOptions);
   }
 
   @Get(':id')
@@ -58,7 +55,7 @@ export class ResourceController<Entity, CreateDTO, UpdateDTO> {
   @Post()
   @ApiUnprocessableEntityResponse()
   async save(
-    value: CreateDTO,
+    @Body() value: CreateDTO,
     @GetResourceService() resourceService: ResourceService,
   ) {
     return await resourceService.save(value);

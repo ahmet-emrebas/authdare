@@ -10,9 +10,10 @@ export class ResourceService<
   CreateDTO = any,
   UpdateDTO = any,
   > {
+
   constructor(private repo: Repository<any>) { }
 
-  async find(queryOptions: QueryOptions<Entity>): Promise<Entity[]> {
+  async find(queryOptions?: QueryOptions<Entity>): Promise<Entity[]> {
     try {
       return await this.repo.find(queryOptions);
     } catch (err) {
@@ -20,7 +21,7 @@ export class ResourceService<
     }
   }
 
-  async findOne(queryOption: QueryOptions<Entity>): Promise<Entity> {
+  async findOne(queryOption?: QueryOptions<Entity>): Promise<Entity> {
     try {
       return await this.repo.findOne(queryOption);
     } catch (err) {

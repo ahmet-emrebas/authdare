@@ -31,14 +31,15 @@ export class DBResourceManagerService {
             try {
                 con = await createConnection({ ...this.connectionOptions, type: 'sqlite', name: orgname, database: 'database/' + orgname + '.sqlite' });
             } catch (err) {
+                Logger.error(err);
                 throw new NotFoundException('Could not find the organization database!')
             }
 
 
-        const entity = this.entities[resourceName];
+        const entity = this.entities.find(e => (e.name as string).toLowerCase() + 's' == resourceName);
+
         const repo = con.getRepository<E>(entity as any);
         const service = new ResourceService(repo);
-
         return service;
     }
 

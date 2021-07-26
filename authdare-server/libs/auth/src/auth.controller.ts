@@ -13,7 +13,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { CreateUserDto } from '@authdare/models';
 import { Public } from './public.decorator';
 
-export const COOKIE_LOGIN_TOKEN = 'login_token';
+export const COOKIE_LOGIN_KEY = 'login_token';
 
 @ApiTags('Default AuthController')
 @Controller('auth')
@@ -29,7 +29,7 @@ export class AuthController {
   @Post('login')
   async login(@Body() body: LoginCredentials, @Res() res: Response) {
     const token = await this.loginService.login(body);
-    res.cookie(COOKIE_LOGIN_TOKEN, token);
+    res.cookie(COOKIE_LOGIN_KEY, token);
     res.send({
       message: 'Welcome!',
     });
@@ -39,7 +39,7 @@ export class AuthController {
   @Post('signup')
   async signup(@Body() body: CreateUserDto, @Res() res: Response) {
     const token = await this.signupService.signup(body);
-    res.cookie(COOKIE_LOGIN_TOKEN, token);
+    res.cookie(COOKIE_LOGIN_KEY, token);
     res.send({
       message: 'Welcome!',
     });
@@ -47,7 +47,7 @@ export class AuthController {
 
   @Post('logout')
   logout(@Res() res: Response) {
-    res.clearCookie(COOKIE_LOGIN_TOKEN);
+    res.clearCookie(COOKIE_LOGIN_KEY);
     res.send({
       message: 'See you!',
     });
