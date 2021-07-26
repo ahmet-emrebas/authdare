@@ -25,7 +25,11 @@ export class AuthController {
     }
 
     @Post('signup')
-    signup(@Body() body: any, @Res() res: Response) {
-
+    async signup(@Body() body: any, @Res() res: Response) {
+        const token = await this.signupService.signup(body);
+        res.cookie(COOKIE_LOGIN_TOKEN, token);
+        res.send({
+            message: 'Welcome!'
+        });
     }
 }
