@@ -1,5 +1,3 @@
-import { Profiles } from './profile/app-profiles';
-import { getArg } from '@authdare/common';
 import { JwtModule } from '@nestjs/jwt';
 import { MulterModule } from '@nestjs/platform-express';
 import { ScheduleModule } from '@nestjs/schedule';
@@ -9,10 +7,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { AuthModule } from '@authdare/auth';
 
-const profile = getArg('profile');
-
-
-const CommonModules = [
+export const CommonModules = [
     JwtModule.register({
         secret: 'secret',
     }),
@@ -37,22 +32,3 @@ const CommonModules = [
     }),
     AuthModule
 ]
-
-
-/**
- * Modules under development
- */
-const DevelopmentModules = [
-    ...CommonModules,
-    AuthModule,
-]
-
-export const ModuelsByProfile: Profiles = {
-    development: [...DevelopmentModules],
-    admin: [...CommonModules,],
-    public: [...CommonModules],
-    subscriber: [...CommonModules,]
-}
-
-
-export const AppModules = () => ModuelsByProfile[profile || 'development']
