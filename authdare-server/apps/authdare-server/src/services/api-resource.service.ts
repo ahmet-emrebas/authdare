@@ -6,12 +6,12 @@ import { BasicQueryOptions, AdvanceQueryOptions } from "../common";
 
 export class ApiResourceService<T, CreateDTO, UpdateDTO> {
     constructor(private readonly repo: Repository<T>, createDTO: ClassConstructor<CreateDTO>, updateDTO: ClassConstructor<UpdateDTO>) { }
-    private async validateDTO(dto: ClassConstructor<CreateDTO | UpdateDTO>, value: CreateDTO | UpdateDTO) {
-        const errors = await validate(new dto(value) as any);
-        if (errors && errors.length > 0) {
-            throw new UnprocessableEntityException(errors);
-        }
-    }
+    // private async validateDTO(dto: ClassConstructor<CreateDTO | UpdateDTO>, value: CreateDTO | UpdateDTO) {
+    //     const errors = await validate(new dto(value) as any);
+    //     if (errors && errors.length > 0) {
+    //         throw new UnprocessableEntityException(errors);
+    //     }
+    // }
     async find(queryOptions: BasicQueryOptions<T>) {
         return await this.repo.find(queryOptions)
     }

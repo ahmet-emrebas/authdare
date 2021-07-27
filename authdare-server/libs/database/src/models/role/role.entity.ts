@@ -10,4 +10,5 @@ export class RoleEntity extends EntityBase<RoleEntity>{
     @ManyToMany(() => PermissionEntity, permission => permission.id, { eager: true, cascade: true, createForeignKeyConstraints: true })
     @JoinTable({ name: 'role_permissions' })
     permmissions: PermissionEntity[];
+
 }

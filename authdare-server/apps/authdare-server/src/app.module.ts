@@ -8,16 +8,25 @@ import { ThrottlerModule } from '@nestjs/throttler';
 import { MulterModule } from '@nestjs/platform-express';
 import { ScheduleModule } from '@nestjs/schedule';
 import { Module } from '@nestjs/common';
-import { DatabaseEntity, OrgEntity, PermissionEntity, RoleEntity, UserEntity } from '@authdare/database';
+import { getModelsMap } from './models';
+import { map } from 'lodash';
+import { AuthController } from './controllers';
 
 @Module({
-  controllers: [ApiController],
+  controllers: [ApiController, AuthController],
   providers: [ApiGuard],
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'sqlite',
-      database: 'database/authdare/main.sqlite',
-      entities: [DatabaseEntity, OrgEntity, PermissionEntity, RoleEntity, UserEntity]
+    TypeOrmModule.forRootAsync({
+      useFactory: async () => {
+        return {
+          type: 'sqlite',
+          database: 'database/authdare/main.sqlite',
+          entities: map((await getModelsMap()), e => e.entity),
+          synchronize: true,
+          dropSchema: true,
+        }
+      }
+
     }),
     ScheduleModule.forRoot(),
     MulterModule.register({ dest: './upload', }),

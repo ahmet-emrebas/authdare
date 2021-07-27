@@ -1,1 +1,2 @@
-export * from './models';
+export * from "./get-resource-service";
+export * from "./models";

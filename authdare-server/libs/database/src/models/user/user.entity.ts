@@ -1,6 +1,6 @@
 import { OrgEntity } from './../org';
 import { EntityBase } from './../base/';
-import { Column, Entity, JoinColumn, JoinTable, ManyToOne, OneToMany } from 'typeorm';
+import { Column, Entity, JoinColumn, JoinTable, ManyToOne, OneToMany, ManyToMany } from 'typeorm';
 import { genSaltSync, hashSync } from 'bcrypt';
 import { RoleEntity } from '../role';
 
@@ -17,16 +17,12 @@ export class UserEntity extends EntityBase<UserEntity> {
   })
   password: string;
 
-  @OneToMany(() => RoleEntity, role => role.id, { eager: true, cascade: true })
-  @JoinTable({ name: 'user_role' })
+  @ManyToMany(() => RoleEntity, role => role.id, { eager: true, cascade: true })
+  @JoinTable({ name: 'user_roles' })
   roles: RoleEntity[];
 
 
-  @ManyToOne(() => OrgEntity, (org) => org.id, {
-    eager: true,
-    createForeignKeyConstraints: true,
-    cascade: true,
-  })
-  @JoinColumn()
+  @ManyToOne(() => OrgEntity, (org) => org.id, {})
+  @JoinTable({ name: "org_users" })
   org: OrgEntity;
 }

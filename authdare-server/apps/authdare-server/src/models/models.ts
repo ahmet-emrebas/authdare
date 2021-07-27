@@ -1,4 +1,5 @@
-import { snakeCase } from 'lodash'
+import { snakeCase, last, first, nth } from 'lodash'
+
 export type Model<Entity = any, CreateDTO = any, UpdateDTO = any> = {
     path: string;
     entity: Entity,
@@ -6,23 +7,20 @@ export type Model<Entity = any, CreateDTO = any, UpdateDTO = any> = {
     update: UpdateDTO
 };
 
-
-export async function getModelsMap(): Promise<Map<string, Model>> {
-    const modelMap = new Map<string, Model>();
+export async function getModelsMap(): Promise<{ [key: string]: Partial<Model> }> {
+    const modelMap: { [key: string]: Partial<Model> } = {};
     const items = await import('@authdare/database')
-    const entities = Object.values(items).map(e => {
-        const c = e as any;
+    for (let i of Object.values(items)) {
+        let c = i as any;
+        if (!c.className) continue;
 
+        const mappedName = snakeCase(c.className).split("_");
+        const resourceName = nth(mappedName, -2) + 's';
+        let classType = last(mappedName) == 'dto' ? first(mappedName) : last(mappedName);
+        if (!modelMap[resourceName]) modelMap[resourceName] = {};
 
-        if (!c.className) return;
+        modelMap[resourceName][classType] = c;
 
-        // [create, org, dto]
-        let mappedName = snakeCase(c.className).split("_");
-
-
-
-
-    })
-
+    }
     return modelMap
 }

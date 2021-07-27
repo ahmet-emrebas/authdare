@@ -1,3 +1,4 @@
+import { ResourceServiceInterceptor } from './../interceptors/resource-service.interceptor';
 import { Body, Controller, Delete, Get, Param, Patch, Post, Query, UnauthorizedException, UseGuards, UseInterceptors } from "@nestjs/common";
 import { ApiNotAcceptableResponse, ApiTags, ApiUnprocessableEntityResponse } from "@nestjs/swagger";
 import { ApiInterceptor } from '../interceptors';
@@ -9,7 +10,7 @@ export const RESOURCE = 'resource';
 
 @ApiTags(ApiController.name)
 @UseGuards(ApiGuard)
-@UseInterceptors(ApiInterceptor)
+@UseInterceptors(ResourceServiceInterceptor)
 @Controller(`api/:${RESOURCE}`)
 export class ApiController<Entity, CreateDTO, UpdateDTO> {
     @Get()
@@ -20,7 +21,7 @@ export class ApiController<Entity, CreateDTO, UpdateDTO> {
     @ApiNotAcceptableResponse()
     findOneById(@Param("id") id: number, @Param(RESOURCE) resource: string) { throw new UnauthorizedException(); }
 
-    @Post('query')
+    @Post(':query')
     @ApiNotAcceptableResponse()
     query(@Body() queryOptions: AdvanceQueryOptions<any>, @Param(RESOURCE) resource: string) { throw new UnauthorizedException(); }
 

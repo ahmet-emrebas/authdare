@@ -7,11 +7,6 @@ export class ApiInterceptor implements NestInterceptor {
     const http = context.switchToHttp()
     const req = http.getRequest<Request>()
     const res = http.getResponse<Response>()
-
-    console.table({
-      resource: req.params.resource,
-      method: req.method,
-    })
-    return { message: "Hello from itnerceptor!" }
+    return next.handle();
   }
 }

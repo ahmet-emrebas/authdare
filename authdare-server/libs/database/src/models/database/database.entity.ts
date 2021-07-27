@@ -1,4 +1,4 @@
-import { JoinColumn } from 'typeorm';
+import { JoinColumn, JoinTable } from 'typeorm';
 import { EntityBase } from './../base/base';
 import { Entity, OneToOne } from 'typeorm';
 import { Column } from 'typeorm';
@@ -16,8 +16,5 @@ export class DatabaseEntity extends EntityBase<DatabaseEntity>  {
     @Column({ nullable: true }) username: string;
     @Column({ nullable: true }) password: string;
 
-    @OneToOne(() => OrgEntity, org => org.database)
-    @JoinColumn()
-    org: OrgEntity;
 }
 

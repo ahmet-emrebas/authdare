@@ -10,13 +10,16 @@ export class ApiGuard implements CanActivate {
   async canActivate(
     context: ExecutionContext,
   ): Promise<boolean> {
-    const req = context.switchToHttp().getRequest<Request>()
-
+    const req = context.switchToHttp().getRequest<Request & { user: any, func: string }>()
     const authCookie = req.cookies[AUTH_COOKIE]
-    const verifiedAuthCookie = await this.jwt.verify(authCookie)
 
-    console.table({ authCookie, verifiedAuthCookie })
+    console.log(req.params)
+    try {
+      const verifiedAuthCookie = await this.jwt.verify(authCookie)
+      req.user = verifiedAuthCookie;
+    } catch (err) {
 
+    }
     return true;
   }
 }
