@@ -26,7 +26,7 @@ export class UserController {
     @Get(':id')
     @ApiNotAcceptableResponse()
     async findOneById(
-        @Param(ParseIntPipe) id: number,
+        @Param("id", ParseIntPipe) id: number,
         @GetResourceService() resourceService: ResourceService,
     ) {
         return await resourceService.findOneById(id);
@@ -52,7 +52,7 @@ export class UserController {
 
     @Patch(':id')
     async update(
-        @Param('id') id: number,
+        @Param('id', ParseIntPipe) id: number,
         @Body() value: UpdateUserDto,
         @GetResourceService() resourceService: ResourceService,
     ) {
@@ -61,7 +61,7 @@ export class UserController {
 
     @Delete(':id/:hard')
     async delete(
-        @Param('id') id: number,
+        @Param('id', ParseIntPipe) id: number,
         @GetResourceService() resourceService: ResourceService,
         @Param('hard', ParseBoolPipe) hard?: boolean,
     ) {

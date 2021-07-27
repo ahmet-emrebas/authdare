@@ -35,7 +35,7 @@ export class ResourceController<Entity, CreateDTO, UpdateDTO> {
   @Get(':id')
   @ApiNotAcceptableResponse()
   async findOneById(
-    @Param(ParseIntPipe) id: number,
+    @Param("id", ParseIntPipe) id: number,
     @GetResourceService() resourceService: ResourceService,
   ) {
 
@@ -63,7 +63,7 @@ export class ResourceController<Entity, CreateDTO, UpdateDTO> {
 
   @Patch(':id')
   async update(
-    @Param('id') id: number,
+    @Param('id', ParseIntPipe) id: number,
     @Body() value: UpdateDTO,
     @GetResourceService() resourceService: ResourceService,
   ) {
@@ -72,7 +72,7 @@ export class ResourceController<Entity, CreateDTO, UpdateDTO> {
 
   @Delete(':id/:hard')
   async delete(
-    @Param('id') id: number,
+    @Param('id', ParseIntPipe) id: number,
     @GetResourceService() resourceService: ResourceService,
     @Param('hard', ParseBoolPipe) hard?: boolean,
   ) {

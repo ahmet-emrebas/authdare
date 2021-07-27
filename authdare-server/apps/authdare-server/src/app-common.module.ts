@@ -37,7 +37,7 @@ export const CommonModules = [
   ScheduleModule.forRoot(),
   MulterModule.register({ dest: './upload', }),
   ThrottlerModule.forRoot({ ttl: 60, limit: 10, }),
-  ServeStaticModule.forRoot({ rootPath: join(__dirname, 'client'), renderPath: '/', exclude: ['api', 'api/**'], }),
+  ServeStaticModule.forRoot({ rootPath: join(__dirname, '..', '..', '..', 'client'), renderPath: '/', exclude: ['api', 'api/**'], }),
   DefaultJWTModule,
   AuthModule.register({
     userResourceService: AuthUserResourceService,

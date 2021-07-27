@@ -1,3 +1,4 @@
+import { join } from 'path';
 import { genToken } from '@authdare/common';
 import { getConnection } from 'typeorm';
 import { NestFactory } from '@nestjs/core';
@@ -5,13 +6,14 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import * as cookieParser from 'cookie-parser'
 import { User } from '@authdare/models';
-
+import * as favicon from 'serve-favicon';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.setGlobalPrefix('api');
   app.enableCors();
   app.use(cookieParser());
+  app.use(favicon(join(__dirname, '..', '..', '..', 'client', 'favicon.ico')))
 
 
   const config = new DocumentBuilder()
