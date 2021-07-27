@@ -1,13 +1,13 @@
-import { Permission } from './../permission/permission.entity';
+import { PermissionEntity } from './../permission/permission.entity';
 import { Column, Entity, JoinTable, ManyToMany } from 'typeorm';
-import { BaseEntity } from './../base/base';
+import { EntityBase } from './../base/base';
 
-@Entity()
-export class Role extends BaseEntity<Role>{
-
+@Entity({ name: "roles" })
+export class RoleEntity extends EntityBase<RoleEntity>{
+    static readonly className = "RoleEntity";
     @Column({ unique: true }) role: string;
 
-    @ManyToMany(() => Permission, permission => permission.id, { eager: true, cascade: true, createForeignKeyConstraints: true })
+    @ManyToMany(() => PermissionEntity, permission => permission.id, { eager: true, cascade: true, createForeignKeyConstraints: true })
     @JoinTable({ name: 'role_permissions' })
-    permmissions: Permission[];
+    permmissions: PermissionEntity[];
 }

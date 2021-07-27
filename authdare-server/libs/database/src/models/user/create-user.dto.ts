@@ -1,10 +1,11 @@
-import { BaseDto } from './../base/base';
+import { DtoBase } from './../base/base';
 import { CreateOrgDto } from './../org';
 import { ApiProperty, PartialType } from '@nestjs/swagger';
 import { IsEmail, Length, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
 
-export class CreateUserDto extends BaseDto<CreateUserDto> {
+export class CreateUserDto extends DtoBase<CreateUserDto> {
+  static readonly className = "CreateUserDto";
   @ApiProperty({ default: 'aemrebas.dev@gmail.com' }) @IsEmail() email: string;
   @ApiProperty({ default: 'aemrebas.dev@gmail.com' }) @Length(6, 100) password: string;
   @ApiProperty({
@@ -29,5 +30,7 @@ export class CreateUserDto extends BaseDto<CreateUserDto> {
   roles: { id: number }[]
 }
 
-export class UpdateUserDto extends PartialType(CreateUserDto) { }
+export class UpdateUserDto extends PartialType(CreateUserDto) {
+  static readonly className = "UpdateUserDto";
+}
 

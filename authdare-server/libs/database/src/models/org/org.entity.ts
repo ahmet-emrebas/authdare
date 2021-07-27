@@ -1,16 +1,16 @@
 import { ConnectionOptions } from 'typeorm';
-import { Database } from './../database';
+import { DatabaseEntity } from './../database';
 import { OneToOne } from 'typeorm';
-import { BaseEntity } from '../base/base';
+import { EntityBase } from '../base/base';
 import { Column, Entity } from 'typeorm';
 
 
-@Entity()
-export class Org extends BaseEntity<Org> {
-
+@Entity({ name: 'orgs' })
+export class OrgEntity extends EntityBase<OrgEntity> {
+  static readonly className = "OrgEntity";
   @Column({ unique: true }) name: string;
 
-  @OneToOne(() => Database, config => config.org, { eager: true, cascade: true })
+  @OneToOne(() => DatabaseEntity, config => config.org, { eager: true, cascade: true })
   database: ConnectionOptions
 
 }

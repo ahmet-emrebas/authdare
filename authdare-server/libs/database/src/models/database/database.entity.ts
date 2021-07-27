@@ -1,12 +1,13 @@
 import { JoinColumn } from 'typeorm';
-import { BaseEntity } from './../base/base';
+import { EntityBase } from './../base/base';
 import { Entity, OneToOne } from 'typeorm';
 import { Column } from 'typeorm';
-import { Org } from '../org';
+import { OrgEntity } from '../org';
 
 
-@Entity()
-export class Database extends BaseEntity<Database>  {
+@Entity({ name: 'databases' })
+export class DatabaseEntity extends EntityBase<DatabaseEntity>  {
+    static readonly className = "DatabaseEntity";
     @Column() name: string;
     @Column() type: string;
     @Column({ default: `authdare_db_${Date.now()}.sqlite` }) database: string;
@@ -15,7 +16,8 @@ export class Database extends BaseEntity<Database>  {
     @Column({ nullable: true }) username: string;
     @Column({ nullable: true }) password: string;
 
-    @OneToOne(() => Org, org => org.database)
+    @OneToOne(() => OrgEntity, org => org.database)
     @JoinColumn()
-    org: Org;
+    org: OrgEntity;
 }
+

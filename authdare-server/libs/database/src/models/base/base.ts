@@ -5,7 +5,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-export class BaseEntity<T> {
+export class EntityBase<T> {
   @PrimaryGeneratedColumn() id: number;
   @CreateDateColumn() created_at: Date;
   @UpdateDateColumn() updated_at: Date;
@@ -15,7 +15,7 @@ export class BaseEntity<T> {
   }
 }
 
-export class BaseDto<T>{
+export class DtoBase<T>{
   constructor(obj: T) {
     Object.assign(this, obj);
   }

@@ -1,8 +1,9 @@
 import { Column, Entity } from 'typeorm';
-import { BaseEntity } from './../base/base';
+import { EntityBase } from './../base/base';
 
-@Entity()
-export class Permission extends BaseEntity<Permission>{
+@Entity({ name: 'permissions' })
+export class PermissionEntity extends EntityBase<PermissionEntity>{
+    static readonly className = "PermissionEntity";
     @Column({ nullable: false }) resource: string;
     @Column({ nullable: false }) method: string;
     @Column({

@@ -1,12 +1,12 @@
-import { Org } from './../org';
-import { BaseEntity } from './../base/';
+import { OrgEntity } from './../org';
+import { EntityBase } from './../base/';
 import { Column, Entity, JoinColumn, JoinTable, ManyToOne, OneToMany } from 'typeorm';
 import { genSaltSync, hashSync } from 'bcrypt';
-import { Role } from '../role';
+import { RoleEntity } from '../role';
 
-@Entity()
-export class User extends BaseEntity<User> {
-
+@Entity({ name: "users" })
+export class UserEntity extends EntityBase<UserEntity> {
+  static readonly className = "UserEntity";
 
   @Column({ unique: true }) email: string;
   @Column({
@@ -17,16 +17,16 @@ export class User extends BaseEntity<User> {
   })
   password: string;
 
-  @OneToMany(() => Role, role => role.id, { eager: true, cascade: true })
+  @OneToMany(() => RoleEntity, role => role.id, { eager: true, cascade: true })
   @JoinTable({ name: 'user_role' })
-  roles: Role[];
+  roles: RoleEntity[];
 
 
-  @ManyToOne(() => Org, (org) => org.id, {
+  @ManyToOne(() => OrgEntity, (org) => org.id, {
     eager: true,
     createForeignKeyConstraints: true,
     cascade: true,
   })
   @JoinColumn()
-  org: Org;
+  org: OrgEntity;
 }

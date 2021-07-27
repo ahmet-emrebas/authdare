@@ -4,6 +4,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import * as cookieParser from 'cookie-parser'
 import * as favicon from 'serve-favicon';
+import { getModelsMap } from './models';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -14,8 +15,8 @@ async function bootstrap() {
 
 
   const config = new DocumentBuilder()
-    .setTitle('Cats example')
-    .setDescription('The cats API description')
+    .setTitle('Authdare API')
+    .setDescription('Authdare api service')
     .setVersion('1.0')
     .build();
 
@@ -23,7 +24,10 @@ async function bootstrap() {
 
   SwaggerModule.setup('api', app, document);
 
+  await getModelsMap()
+
   await app.listen(process.env['PORT'] || 3000);
 }
+
 
 bootstrap();

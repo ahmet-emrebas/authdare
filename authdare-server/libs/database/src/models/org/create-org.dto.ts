@@ -1,10 +1,11 @@
 import { IsAlpha, Length } from 'class-validator';
-import { BaseDto } from './../base/base';
+import { DtoBase } from './../base/base';
 import { ApiProperty, PartialType } from '@nestjs/swagger';
 import { CreateDatabaseDto } from '../database';
 
 
-export class CreateOrgDto extends BaseDto<CreateOrgDto>{
+export class CreateOrgDto extends DtoBase<CreateOrgDto>{
+  static readonly className = "CreateOrgDto";
   @ApiProperty({ default: 'aemrebas.dev@gmail.com' })
   @Length(3, 20)
   @IsAlpha()
@@ -15,4 +16,6 @@ export class CreateOrgDto extends BaseDto<CreateOrgDto>{
 }
 
 
-export class UpdateOrgDto extends PartialType(CreateOrgDto) { }
+export class UpdateOrgDto extends PartialType(CreateOrgDto) {
+  static readonly className = "UpdateOrgDto";
+}

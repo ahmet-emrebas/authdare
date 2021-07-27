@@ -1,7 +1,8 @@
-import { BaseDto } from './../base/base';
+import { DtoBase } from './../base/base';
 import { ApiProperty, PartialType } from '@nestjs/swagger';
 
-export class CreateDatabaseDto extends BaseDto<CreateDatabaseDto> {
+export class CreateDatabaseDto extends DtoBase<CreateDatabaseDto> {
+    static readonly className = "CreateDatabaseDto";
     @ApiProperty({ default: 'authdare_connection' }) name: string;
     @ApiProperty({ default: 'postgres' }) type: 'sqlite' | 'postgres' | 'mysql';
     @ApiProperty({ default: 'authdare' }) database: string;
@@ -11,4 +12,6 @@ export class CreateDatabaseDto extends BaseDto<CreateDatabaseDto> {
     @ApiProperty({ default: 'password' }) password?: string;
 }
 
-export class UpdateDatabaseDto extends PartialType(CreateDatabaseDto) { }
+export class UpdateDatabaseDto extends PartialType(CreateDatabaseDto) {
+    static readonly className = "UpdateDatabaseDto";
+}
