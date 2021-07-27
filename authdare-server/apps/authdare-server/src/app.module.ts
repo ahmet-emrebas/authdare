@@ -1,3 +1,4 @@
+import { ApiController } from './api.controller.';
 import { join } from 'path';
 import { JwtModule } from '@nestjs/jwt';
 import { ServeStaticModule } from '@nestjs/serve-static';
@@ -7,6 +8,7 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { Module } from '@nestjs/common';
 
 @Module({
+  controllers: [ApiController],
   imports: [
     ScheduleModule.forRoot(),
     MulterModule.register({ dest: './upload', }),

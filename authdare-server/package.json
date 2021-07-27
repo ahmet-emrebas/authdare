@@ -108,7 +108,9 @@
       "^@authdare/auth(|/.*)$": "<rootDir>/libs/auth/src/$1",
       "^@authdare/middleware(|/.*)$": "<rootDir>/libs/middleware/src/$1",
       "^@authdare/models(|/.*)$": "<rootDir>/libs/models/src/$1",
-      "^@authdare/guard(|/.*)$": "<rootDir>/libs/guard/src/$1"
+      "^@authdare/guard(|/.*)$": "<rootDir>/libs/guard/src/$1",
+      "^@authdare/database(|/.*)$": "<rootDir>/libs/database/src/$1",
+      "^@authdare/decorators(|/.*)$": "<rootDir>/libs/decorators/src/$1"
     }
   }
 }

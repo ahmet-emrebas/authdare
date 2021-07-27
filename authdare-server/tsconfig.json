@@ -13,47 +13,11 @@
     "incremental": true,
     "skipLibCheck": true,
     "paths": {
-      "@authdare/profile": [
-        "src/profile"
+      "@authdare/database": [
+        "libs/database/src"
       ],
-      "@authdare/profile/*": [
-        "src/profile/*"
-      ],
-      "@authdare/common": [
-        "libs/common/src"
-      ],
-      "@authdare/common/*": [
-        "libs/common/src/*"
-      ],
-      "@authdare/core": [
-        "libs/core/src"
-      ],
-      "@authdare/core/*": [
-        "libs/core/src/*"
-      ],
-      "@authdare/auth": [
-        "libs/auth/src"
-      ],
-      "@authdare/auth/*": [
-        "libs/auth/src/*"
-      ],
-      "@authdare/middleware": [
-        "libs/middleware/src"
-      ],
-      "@authdare/middleware/*": [
-        "libs/middleware/src/*"
-      ],
-      "@authdare/models": [
-        "libs/models/src"
-      ],
-      "@authdare/models/*": [
-        "libs/models/src/*"
-      ],
-      "@authdare/guard": [
-        "libs/guard/src"
-      ],
-      "@authdare/guard/*": [
-        "libs/guard/src/*"
+      "@authdare/database/*": [
+        "libs/database/src/*"
       ]
     }
   }
