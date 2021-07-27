@@ -1,10 +1,13 @@
 {
   "name": "authdare-server",
   "version": "0.0.1",
-  "description": "",
+  "description": "Authdare Api",
   "author": "Ahmet Emrebas",
   "private": true,
   "license": "UNLICENSED",
+  "engines": {
+    "node": "14.x"
+  },
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
