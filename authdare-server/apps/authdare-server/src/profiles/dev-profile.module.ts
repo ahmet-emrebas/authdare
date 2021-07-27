@@ -1,9 +1,13 @@
-import { UserModule } from './../user/user.module';
 import { Module } from '@nestjs/common';
+import { CommonModules } from '../app-common.module';
+import { UserController } from '../user';
 
 export const DEV_PROFILE = 'dev';
 
 @Module({
-  imports: [UserModule],
+  imports: [
+    ...CommonModules,
+  ],
+  controllers: [UserController]
 })
 export class DevProfileModule { }

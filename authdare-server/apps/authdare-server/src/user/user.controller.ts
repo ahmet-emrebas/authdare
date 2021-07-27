@@ -1,4 +1,4 @@
-import { Delete, ParseBoolPipe } from '@nestjs/common';
+import { Delete, ParseBoolPipe, UseGuards } from '@nestjs/common';
 import { Patch } from '@nestjs/common';
 import { Body } from '@nestjs/common';
 import { ParseIntPipe, Post } from '@nestjs/common';
@@ -8,8 +8,10 @@ import { GetResourceService, ResourceService } from '@authdare/core';
 import { Controller, Get, Query } from '@nestjs/common';
 import { ApiTags, ApiNotAcceptableResponse, ApiUnprocessableEntityResponse } from '@nestjs/swagger';
 import { CreateUserDto, UpdateUserDto, User } from '@authdare/models';
+import { AuthGuard } from '@authdare/guard';
 
 @ApiTags(UserController.name)
+@UseGuards(AuthGuard)
 @Controller('users')
 export class UserController {
     @Get()

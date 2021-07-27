@@ -7,11 +7,12 @@ import {
   AUTH_SIGNUP_SERVICE_TOKEN,
   AuthSignupService,
 } from './auth-signup.service';
-import { Module, DynamicModule, Type } from '@nestjs/common';
+import { Module, DynamicModule, Type, } from '@nestjs/common';
 import {
   AuthUserResourceService,
   AUTH_USER_RESOURCE_SERVICE_TOKEN,
 } from './auth-user-resource.service';
+import { ENTITIES_TOKEN } from '@authdare/core';
 
 export interface AuthModuleOptions {
   userResourceService: Type<AuthUserResourceService>;
@@ -20,6 +21,7 @@ export interface AuthModuleOptions {
   authController?: Type<AuthController>;
   jwtModule: DynamicModule;
   imports?: DynamicModule[];
+  entities: any[]
 }
 
 /**
@@ -28,14 +30,18 @@ export interface AuthModuleOptions {
 @Module({})
 export class AuthModule {
   static register(options: AuthModuleOptions): DynamicModule {
-
     return {
       module: AuthModule,
       controllers: [options.authController || AuthController],
       imports: [
-        options.jwtModule,
-        ...options.imports],
+        ...options.imports,
+        options.jwtModule
+      ],
       providers: [
+        {
+          provide: ENTITIES_TOKEN,
+          useValue: options.entities,
+        },
         {
           provide: AUTH_USER_RESOURCE_SERVICE_TOKEN,
           useClass: options.userResourceService,

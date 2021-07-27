@@ -11,13 +11,14 @@ import { JwtService } from '@nestjs/jwt';
 
 export const AUTH_LOGIN_SERVICE_TOKEN = genToken();
 
+
 @Injectable()
 export class AuthLoginService implements LoginService<LoginCredentials> {
   constructor(
     @Inject(AUTH_USER_RESOURCE_SERVICE_TOKEN)
     private readonly userService: AuthUserResourceService,
     private jwt: JwtService,
-  ) {}
+  ) { }
   async login(credentials: LoginCredentials): Promise<string> {
     const foundUser = await this.userService.findOne({
       where: { email: credentials.email },
@@ -32,8 +33,7 @@ export class AuthLoginService implements LoginService<LoginCredentials> {
     );
 
     if (isPasswordMatch) {
-      const payload = pick(foundUser, ['email', 'org.name']);
-      return this.jwt.sign(payload);
+      return this.jwt.sign(pick(foundUser, ['email', 'org.name', 'org.database']));
     }
 
     throw new UnauthorizedException('Password does not match!');

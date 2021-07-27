@@ -7,16 +7,17 @@ import { ThrottlerModule } from '@nestjs/throttler';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { AuthModule, genSecret } from '@authdare/auth';
-import { Org, User } from '@authdare/models';
-import { DBResourceManagerModule, getProfile } from '@authdare/core';
+import { Database, Org, User } from '@authdare/models';
+import { DBManagerModule, getProfile } from '@authdare/core';
 import { AuthUserResourceService } from './auth-resources';
 import { DEV_PROFILE } from './profiles';
 
+export const entities = [User, Org, Database]
 
 export const DBConnectionOptions: ConnectionOptions = {
   type: 'sqlite',
-  database: 'database/authdare.sqlite',
-  entities: [User, Org],
+  database: `database/authdare.sqlite`,
+  entities,
   synchronize: true,
   dropSchema: true,
 }
@@ -30,11 +31,18 @@ export const DefaultJWTModule = JwtModule.registerAsync({
 });
 
 export const CommonModules = [
-  DBResourceManagerModule.register(DBConnectionOptions),
+  DBManagerModule.register({
+    connectionOptions: DBConnectionOptions
+  }),
   ScheduleModule.forRoot(),
   MulterModule.register({ dest: './upload', }),
   ThrottlerModule.forRoot({ ttl: 60, limit: 10, }),
   ServeStaticModule.forRoot({ rootPath: join(__dirname, 'client'), renderPath: '/', exclude: ['api', 'api/**'], }),
   DefaultJWTModule,
-  AuthModule.register({ userResourceService: AuthUserResourceService, jwtModule: DefaultJWTModule, imports: [TypeOrmModule.forFeature([User])], }),
+  AuthModule.register({
+    userResourceService: AuthUserResourceService,
+    jwtModule: DefaultJWTModule,
+    imports: [TypeOrmModule.forFeature([User])],
+    entities,
+  }),
 ];

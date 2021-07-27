@@ -48,6 +48,12 @@
       ],
       "@authdare/models/*": [
         "libs/models/src/*"
+      ],
+      "@authdare/guard": [
+        "libs/guard/src"
+      ],
+      "@authdare/guard/*": [
+        "libs/guard/src/*"
       ]
     }
   }

@@ -8,4 +8,5 @@ export interface SignupService<T = any> {
    * @param credentials
    */
   signup(signupDto: T): Promise<string>;
+
 }
