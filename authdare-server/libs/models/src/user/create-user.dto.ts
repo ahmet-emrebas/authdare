@@ -7,8 +7,6 @@ import { Type } from 'class-transformer';
 export class CreateUserDto extends BaseDto<CreateUserDto> {
   @ApiProperty({ default: 'aemrebas.dev@gmail.com' }) @IsEmail() email: string;
   @ApiProperty({ default: 'aemrebas.dev@gmail.com' }) @Length(6, 100) password: string;
-
-
   @ApiProperty({
     default: {
       name: "authdare",
@@ -26,6 +24,9 @@ export class CreateUserDto extends BaseDto<CreateUserDto> {
   @ValidateNested()
   @Type(() => CreateOrgDto)
   org: CreateOrgDto;
+
+  @ApiProperty({ default: [{ id: 1 }, { id: 2 }] })
+  roles: { id: number }[]
 }
 
 export class UpdateUserDto extends PartialType(CreateUserDto) { }

@@ -9,11 +9,17 @@ import { Controller, Get, Query } from '@nestjs/common';
 import { ApiTags, ApiNotAcceptableResponse, ApiUnprocessableEntityResponse } from '@nestjs/swagger';
 import { CreateUserDto, UpdateUserDto, User } from '@authdare/models';
 import { AuthGuard } from '@authdare/guard';
+import { Permission, Permissions } from '@authdare/auth';
+
+
+const USER_RESOURCE_PATH = 'users';
 
 @ApiTags(UserController.name)
 @UseGuards(AuthGuard)
-@Controller('users')
+@Controller(USER_RESOURCE_PATH)
 export class UserController {
+
+    @Permissions(new Permission(USER_RESOURCE_PATH, 'READ'))
     @Get()
     @ApiNotAcceptableResponse()
     async find(
@@ -23,6 +29,7 @@ export class UserController {
         return await resourceService.find(queryOptions);
     }
 
+    @Permissions(new Permission(USER_RESOURCE_PATH, 'READ'))
     @Get(':id')
     @ApiNotAcceptableResponse()
     async findOneById(
@@ -32,6 +39,7 @@ export class UserController {
         return await resourceService.findOneById(id);
     }
 
+    @Permissions(new Permission(USER_RESOURCE_PATH, 'READ'))
     @Post('query')
     @ApiNotAcceptableResponse()
     async query(
@@ -41,6 +49,7 @@ export class UserController {
         return await resourceService.find(queryOptions);
     }
 
+    @Permissions(new Permission(USER_RESOURCE_PATH, 'WRITE'))
     @Post()
     @ApiUnprocessableEntityResponse()
     async save(
@@ -50,6 +59,8 @@ export class UserController {
         return await resourceService.save(value);
     }
 
+
+    @Permissions(new Permission<User>(USER_RESOURCE_PATH, 'UPDATE', ['all']))
     @Patch(':id')
     async update(
         @Param('id', ParseIntPipe) id: number,
@@ -59,6 +70,7 @@ export class UserController {
         return await resourceService.update(id, value);
     }
 
+    @Permissions(new Permission<User>(USER_RESOURCE_PATH, 'DELETE'))
     @Delete(':id/:hard')
     async delete(
         @Param('id', ParseIntPipe) id: number,

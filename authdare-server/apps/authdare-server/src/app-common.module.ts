@@ -7,13 +7,14 @@ import { ThrottlerModule } from '@nestjs/throttler';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { AuthModule, genSecret } from '@authdare/auth';
-import { Database, Org, User } from '@authdare/models';
+import { ModelsMap, Org, Permission, Role, User } from '@authdare/models';
 import { DBManagerModule, getProfile } from '@authdare/core';
 import { AuthUserResourceService } from './auth-resources';
 import { DEV_PROFILE } from './profiles';
+import { map } from 'lodash';
 
-export const entities = [User, Org, Database]
-
+export const entities = map(ModelsMap, (v) => v.entity)
+console.log(entities);
 export const DBConnectionOptions: ConnectionOptions = {
   type: 'sqlite',
   database: `database/authdare.sqlite`,
@@ -42,7 +43,7 @@ export const CommonModules = [
   AuthModule.register({
     userResourceService: AuthUserResourceService,
     jwtModule: DefaultJWTModule,
-    imports: [TypeOrmModule.forFeature([User])],
+    imports: [TypeOrmModule.forFeature([User, Role, Permission, Org])],
     entities,
   }),
 ];
