@@ -12,31 +12,6 @@
     "baseUrl": "./",
     "incremental": true,
     "skipLibCheck": true,
-    "paths": {
-      "@authdare/base": [
-        "libs/base/src"
-      ],
-      "@authdare/base/*": [
-        "libs/base/src/*"
-      ],
-      "@authdare/models": [
-        "libs/models/src"
-      ],
-      "@authdare/models/*": [
-        "libs/models/src/*"
-      ],
-      "@authdare/resources": [
-        "libs/resources/src"
-      ],
-      "@authdare/resources/*": [
-        "libs/resources/src/*"
-      ],
-      "@authdare/auth": [
-        "libs/auth/src"
-      ],
-      "@authdare/auth/*": [
-        "libs/auth/src/*"
-      ]
-    }
+    "paths": {}
   }
 }

@@ -108,7 +108,12 @@
       "^@authdare/auth(|/.*)$": "<rootDir>/libs/auth/src/$1",
       "^@authdare/models(|/.*)$": "<rootDir>/libs/models/src/$1",
       "^@authdare/base(|/.*)$": "<rootDir>/libs/base/src/$1",
-      "^@authdare/resources(|/.*)$": "<rootDir>/libs/resources/src/$1"
+      "^@authdare/resources(|/.*)$": "<rootDir>/libs/resources/src/$1",
+      "^@authdare/utils(|/.*)$": "<rootDir>/libs/utils/src/$1",
+      "^@authdare/abstracts(|/.*)$": "<rootDir>/libs/abstracts/src/$1",
+      "^@authdare/interceptors(|/.*)$": "<rootDir>/libs/interceptors/src/$1",
+      "^@authdare/decorators(|/.*)$": "<rootDir>/libs/decorators/src/$1",
+      "^@authdare/guards(|/.*)$": "<rootDir>/libs/guards/src/$1"
     }
   }
 }

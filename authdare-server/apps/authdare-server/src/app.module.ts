@@ -1,5 +1,4 @@
-import { PermissionModule } from './permission/permission.module';
-import { UserModule } from './user';
+import { AppController } from './app.controller';
 import { Module } from '@nestjs/common';
 import { ScheduleModule } from '@nestjs/schedule';
 import { MulterModule } from '@nestjs/platform-express';
@@ -7,25 +6,16 @@ import { ThrottlerModule } from '@nestjs/throttler';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { getModelMap } from '@authdare/base';
-import { values } from 'lodash';
-import { AppResourceModule } from './app-resource.module';
-import { AuthModule } from '@authdare/auth';
-import { RoleModule } from './role';
 
 @Module({
+  controllers: [AppController],
   imports: [
-    AuthModule,
-    UserModule,
-    RoleModule,
-    PermissionModule,
-    AppResourceModule.register(),
     TypeOrmModule.forRootAsync({
       useFactory: async () => {
         return {
           type: 'sqlite',
           database: 'database/authdare/main.sqlite',
-          entities: values(await getModelMap()).map((e) => e.entity),
+          entities: [],
           synchronize: true,
           dropSchema: true,
         };
@@ -41,4 +31,4 @@ import { RoleModule } from './role';
     }),
   ],
 })
-export class AppModule {}
+export class AppModule { }
