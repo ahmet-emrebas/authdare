@@ -1,27 +1,25 @@
-import {
-  AdminProfileModule,
-  PublicProfileModule,
-  FreeProfileModule,
-  CommunityProfileModule,
-  ADMIN_PROFILE,
-  PUBLIC_PROFILE,
-  FREE_PROFILE,
-  COMMUNITY_PROFILE,
-  DEV_PROFILE,
-  DevProfileModule,
-} from './profiles';
 import { Module } from '@nestjs/common';
-import { ProfilesModule } from '@authdare/core';
+import { ScheduleModule } from '@nestjs/schedule';
+import { MulterModule } from '@nestjs/platform-express';
+import { ThrottlerModule } from '@nestjs/throttler';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { JwtModule } from '@nestjs/jwt';
+import { join } from 'path';
+
 
 @Module({
   imports: [
-    ProfilesModule.profiles(DEV_PROFILE, [
-      { profile: ADMIN_PROFILE, module: AdminProfileModule },
-      { profile: PUBLIC_PROFILE, module: PublicProfileModule },
-      { profile: FREE_PROFILE, module: FreeProfileModule },
-      { profile: COMMUNITY_PROFILE, module: CommunityProfileModule },
-      { profile: DEV_PROFILE, module: DevProfileModule },
-    ]),
+    ScheduleModule.forRoot(),
+    MulterModule.register({ dest: './upload', }),
+    ThrottlerModule.forRoot({ ttl: 60, limit: 10, }),
+    ServeStaticModule.forRoot({ rootPath: join(__dirname, '..', '..', '..', 'client'), renderPath: '/', exclude: ['api', 'api/**'], }),
+    JwtModule.registerAsync({
+      useFactory: async () => {
+        return {
+          secret: process.env['SECRET'] || 'secret'
+        };
+      },
+    })
   ],
 })
 export class AppModule { }
