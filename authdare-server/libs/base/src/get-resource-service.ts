@@ -24,5 +24,4 @@ export async function getResourceService(resourcePath: string, orgname: string) 
     const entityMeta = modelMap[resourcePath];
     const repository = con.getRepository(entityMeta.entity);
     return new BaseResourceService(repository, entityMeta.create, entityMeta.update)
-
 }
