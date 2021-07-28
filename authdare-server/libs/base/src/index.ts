@@ -9,3 +9,4 @@ export * from "./query-options";
 export * from "./resource-map";
 export * from "./to-query-options.pipe";
 export * from "./transformers";
+export * from './inject-resource.interceptor'

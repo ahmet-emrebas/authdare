@@ -4,7 +4,11 @@ import { Body, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
 import { GetResourceService } from './get-resource-service.decorator';
 import { ToQueryOptionsPipe } from './to-query-options.pipe';
 
-export class BaseController<Entity, CreateDTO, UpdateDTO> {
+
+/**
+ * For client
+ */
+export class BaseResourceController<Entity, CreateDTO, UpdateDTO> {
     @Get()
     async find(
         @Query(ToQueryOptionsPipe) query: QueryOptions<Entity>,

@@ -9,7 +9,7 @@ export class BaseResourceService<Entity, CreateDTO, UpdateDTO>{
 
     constructor(readonly repo: Repository<Entity>, readonly createDto: ClassConstructor<CreateDTO>, readonly updateDTO: ClassConstructor<UpdateDTO>) { }
 
-    private async validate(dto: ClassConstructor<CreateDTO | UpdateDTO>, value: CreateDTO | UpdateDTO): Promise<boolean> | never {
+    protected async validate(dto: ClassConstructor<CreateDTO | UpdateDTO>, value: CreateDTO | UpdateDTO): Promise<boolean> | never {
         const errors = await validate(new dto(value) as any);
         if (errors && errors.length) {
             throw new UnprocessableEntityException(errors);

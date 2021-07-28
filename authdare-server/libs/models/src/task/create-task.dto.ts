@@ -5,7 +5,7 @@ import { IsIn, MaxLength } from 'class-validator';
 
 @Exclude()
 export class CreateTaskDTO extends BaseDTO<CreateTaskDTO> {
-    static className = "CreateTaskDTO";
+    static readonly className = "CreateTaskDTO";
 
     @Expose()
     @ApiProperty({ default: 'name', required: true, })

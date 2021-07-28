@@ -7,7 +7,7 @@ import { OrgEntity } from "../org";
 
 @Entity({ name: 'users' })
 export class UserEntity extends BaseEntity<UserEntity> {
-    static className = "UserEntity";
+    static readonly className = "UserEntity";
 
     @Column({ unique: true }) email: string;
     @Column({

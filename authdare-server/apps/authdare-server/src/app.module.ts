@@ -1,16 +1,21 @@
+import { UserModule } from './user';
 import { Module } from '@nestjs/common';
 import { ScheduleModule } from '@nestjs/schedule';
 import { MulterModule } from '@nestjs/platform-express';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { ServeStaticModule } from '@nestjs/serve-static';
-import { JwtModule } from '@nestjs/jwt';
 import { join } from 'path';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { getModelMap } from '@authdare/base';
 import { values } from 'lodash';
+import { AppResourceModule } from './app-resource.module';
+import { AuthModule } from '@authdare/auth';
 
 @Module({
   imports: [
+    AuthModule,
+    UserModule,
+    AppResourceModule.register(),
     TypeOrmModule.forRootAsync({
       useFactory: async () => {
         return {
@@ -26,13 +31,7 @@ import { values } from 'lodash';
     MulterModule.register({ dest: './upload', }),
     ThrottlerModule.forRoot({ ttl: 60, limit: 10, }),
     ServeStaticModule.forRoot({ rootPath: join(__dirname, '..', '..', '..', 'client'), renderPath: '/', exclude: ['api', 'api/**'], }),
-    JwtModule.registerAsync({
-      useFactory: async () => {
-        return {
-          secret: process.env['SECRET'] || 'secret'
-        };
-      },
-    })
+
   ],
 })
 export class AppModule { }

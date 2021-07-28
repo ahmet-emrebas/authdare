@@ -8,12 +8,13 @@ export enum ROLE {
     'DEV' = 'DEV',
     'QA' = 'QA',
     'PM' = 'PM',
-    'SM' = 'SM'
+    'SM' = 'SM',
+    'ADMIN' = 'ADMIN',
 }
 
 @Exclude()
 export class CreateUserDTO extends BaseDTO<CreateUserDTO> {
-    static className = "CreateUserDTO";
+    static readonly className = "CreateUserDTO";
 
     @Expose()
     @ApiProperty({ default: internet.email(), required: true, })
@@ -27,7 +28,6 @@ export class CreateUserDTO extends BaseDTO<CreateUserDTO> {
 
     @Expose()
     @ApiProperty({ default: ROLE.PM, required: true, })
-    @IsIn([ROLE.DEV, ROLE.QA, ROLE.PM, ROLE.SM])
+    @IsIn([ROLE.ADMIN, ROLE.DEV, ROLE.QA, ROLE.PM, ROLE.SM])
     role: string;
-
 }
