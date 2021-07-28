@@ -1,3 +1,4 @@
+import { PermissionModule } from './permission/permission.module';
 import { UserModule } from './user';
 import { Module } from '@nestjs/common';
 import { ScheduleModule } from '@nestjs/schedule';
@@ -10,11 +11,14 @@ import { getModelMap } from '@authdare/base';
 import { values } from 'lodash';
 import { AppResourceModule } from './app-resource.module';
 import { AuthModule } from '@authdare/auth';
+import { RoleModule } from './role';
 
 @Module({
   imports: [
     AuthModule,
     UserModule,
+    RoleModule,
+    PermissionModule,
     AppResourceModule.register(),
     TypeOrmModule.forRootAsync({
       useFactory: async () => {
