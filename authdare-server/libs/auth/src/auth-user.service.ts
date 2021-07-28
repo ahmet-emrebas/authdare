@@ -37,9 +37,15 @@ UpdateUserDTO
 
   async signup(signupDTO: SignupDTO): Promise<string> | never {
     await this.validate(SignupDTO, signupDTO);
-    const asClient = { ...signupDTO };
-    const createdClientUSer = await this.create(toPlainObject(asClient));
-    const createdAdminUser = await this.initClientDatabase(createdClientUSer);
+
+    const asClient = {
+      email: signupDTO.email,
+      password: signupDTO.password,
+      org: { name: signupDTO.orgName },
+    } as CreateUserDTO;
+
+    const createdClientUser = await this.create(toPlainObject(asClient));
+    const createdAdminUser = await this.initClientDatabase(createdClientUser);
     return this.jwt.sign(userToCookie(createdAdminUser));
   }
 

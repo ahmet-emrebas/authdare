@@ -23,7 +23,7 @@ export class CreateUserDTO extends BaseDTO<CreateUserDTO> {
   @Expose()
   @ApiProperty({ default: internet.password(), required: true })
   @IsNotEmpty()
-  @MaxLength(300)
+  @MaxLength(100)
   password?: string;
 
 

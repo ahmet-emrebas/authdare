@@ -2,6 +2,8 @@ import { internet } from 'faker';
 import { BaseDTO } from '@authdare/base';
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude, Expose } from 'class-transformer';
+import { IsNotBlank } from '@authdare/base/is-not-blank.validator';
+import { Length } from 'class-validator';
 
 @Exclude()
 export class CreateOrgDTO extends BaseDTO<CreateOrgDTO> {
@@ -9,5 +11,7 @@ export class CreateOrgDTO extends BaseDTO<CreateOrgDTO> {
 
   @Expose()
   @ApiProperty({ default: internet.email(), required: true })
+  @Length(3, 100)
+  @IsNotBlank()
   name: string;
 }

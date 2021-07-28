@@ -1,4 +1,4 @@
-import { BaseDTO } from '@authdare/base';
+import { BaseDTO, IsNotBlank } from '@authdare/base';
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude, Expose } from 'class-transformer';
 
@@ -11,5 +11,6 @@ export class CreatePermissionDTO extends BaseDTO<CreatePermissionDTO> {
 
   @Expose()
   @ApiProperty({ default: 'users', required: true })
+  @IsNotBlank()
   resource: string;
 }
