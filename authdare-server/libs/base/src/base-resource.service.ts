@@ -9,7 +9,7 @@ export class BaseResourceService<Entity, CreateDTO, UpdateDTO> {
     readonly repo: Repository<Entity>,
     readonly createDto: ClassConstructor<CreateDTO>,
     readonly updateDTO: ClassConstructor<UpdateDTO>,
-  ) {}
+  ) { }
 
   protected async validate(
     dto: ClassConstructor<CreateDTO | UpdateDTO>,
@@ -30,7 +30,7 @@ export class BaseResourceService<Entity, CreateDTO, UpdateDTO> {
     }
   }
 
-  async findOne(options: QueryOptions<Entity>) {
+  async findOne(options: QueryOptions<Entity> | number) {
     try {
       return await this.repo.findOne(options);
     } catch (err) {

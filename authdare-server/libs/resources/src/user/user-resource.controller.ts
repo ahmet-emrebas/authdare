@@ -18,12 +18,13 @@ import {
   QueryOptions,
   ToQueryOptionsPipe,
 } from '@authdare/base';
-import { AuthGuard } from '@authdare/auth';
+import { AuthGuard, UserActiveStatusInterceptor } from '@authdare/auth';
 import { CreateUserDTO, UpdateUserDTO, UserEntity } from '@authdare/models';
+
 
 @ApiTags('Client' + UserResourceController.name)
 @UseGuards(AuthGuard)
-@UseInterceptors(InjectResourceInterceptor)
+@UseInterceptors(InjectResourceInterceptor, UserActiveStatusInterceptor)
 @Controller('users')
 export class UserResourceController {
   static readonly className = 'UserResourceController';

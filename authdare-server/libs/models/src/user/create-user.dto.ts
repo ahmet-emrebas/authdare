@@ -15,11 +15,17 @@ export class CreateUserDTO extends BaseDTO<CreateUserDTO> {
   @IsEmail()
   email?: string;
 
+
+  @Expose()
+  @ApiProperty({ default: false, nullable: true })
+  active?: boolean;
+
   @Expose()
   @ApiProperty({ default: internet.password(), required: true })
   @IsNotEmpty()
   @MaxLength(300)
   password?: string;
+
 
   @Expose()
   @ApiProperty({ default: { id: 1 } })

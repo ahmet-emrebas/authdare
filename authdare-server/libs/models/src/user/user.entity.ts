@@ -24,6 +24,9 @@ export class UserEntity extends BaseEntity<UserEntity> {
   })
   password: string;
 
+  @Column({ default: false })
+  active: boolean;
+
   @ManyToOne(() => OrgEntity, (org) => org.id, {
     eager: true,
     cascade: true,

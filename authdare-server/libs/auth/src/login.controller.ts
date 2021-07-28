@@ -5,10 +5,13 @@ import { AuthUserService } from './auth-user.service';
 import { LoginDTO } from './dto';
 import { ApiTags } from '@nestjs/swagger';
 
+/**
+ * This login controller is for our own useage. Client will use the client-login-controller. 
+ */
 @ApiTags('Auth')
-@Controller('auth')
+@Controller('authdare/auth')
 export class LoginController {
-  constructor(private authService: AuthUserService) {}
+  constructor(private authService: AuthUserService) { }
 
   @Post('login')
   async login(@Body() loginDTO: LoginDTO, @Res() res: Response) {

@@ -24,6 +24,7 @@ async function initDatabase() {
     const createdAdminUser = await userService.create(new CreateUserDTO({
       email: "aemrebas.dev@gmail.com",
       password: 'password',
+      active: true,
       org: { id: createdOrg.id },
       roles: [{ id: adminRole.id }]
     }));
