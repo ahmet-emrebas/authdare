@@ -83,6 +83,7 @@ UpdateUserDTO
 
 
     try {
+
       return await this.jwt.sign(userToCookie(foundUser));
     } catch (err) {
       Logger.error(err);
@@ -90,6 +91,5 @@ UpdateUserDTO
     }
 
   }
-
 
 }
