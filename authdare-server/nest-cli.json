@@ -25,6 +25,15 @@
       "compilerOptions": {
         "tsConfigPath": "libs/base/tsconfig.lib.json"
       }
+    },
+    "models": {
+      "type": "library",
+      "root": "libs/models",
+      "entryFile": "index",
+      "sourceRoot": "libs/models/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/models/tsconfig.lib.json"
+      }
     }
   }
 }

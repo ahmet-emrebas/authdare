@@ -5,3 +5,4 @@ export * from "./base.entity";
 export * from "./query-options";
 export * from "./to-query-options.pipe";
 export * from "./transformers";
+export * from './model-map';

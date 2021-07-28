@@ -4,6 +4,8 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import * as cookieParser from 'cookie-parser'
 import * as favicon from 'serve-favicon';
+import { getModelMap } from '@authdare/base';
+
 
 async function bootstrap() {
 
@@ -28,3 +30,11 @@ async function bootstrap() {
 }
 
 bootstrap();
+
+
+getModelMap()
+  .then(modelMap => {
+    console.log(modelMap);
+  }).catch(err => {
+    console.log(err);
+  })

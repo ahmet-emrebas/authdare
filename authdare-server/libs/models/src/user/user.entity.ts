@@ -1,12 +1,14 @@
 import { BaseEntity } from "@authdare/base";
+import { OrgEntity } from "apps/authdare-server/src/org";
 import { genSaltSync, hashSync } from "bcrypt";
 import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
-import { OrgEntity } from "../../org";
+
 
 
 @Entity({ name: 'users' })
 export class UserEntity extends BaseEntity<UserEntity> {
     static className = "UserEntity";
+
     @Column({ unique: true }) email: string;
     @Column({
         transformer: {
@@ -18,6 +20,6 @@ export class UserEntity extends BaseEntity<UserEntity> {
     @Column() role: string;
 
     @ManyToOne(() => OrgEntity, org => org.id, { eager: true, createForeignKeyConstraints: true, })
-    @JoinColumn({ name: "orgId" })
+    @JoinColumn()
     org: OrgEntity
 }

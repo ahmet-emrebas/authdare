@@ -13,7 +13,6 @@ export class UserController {
   constructor(private readonly userService: UserService) { }
   @Get()
   async find(@Query(ToQueryOptionsPipe) query: QueryOptions<UserEntity>) {
-    console.log(query);
     return await this.userService.find(query)
   }
 

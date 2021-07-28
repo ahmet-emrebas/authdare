@@ -18,6 +18,12 @@
       ],
       "@authdare/base/*": [
         "libs/base/src/*"
+      ],
+      "@authdare/models": [
+        "libs/models/src"
+      ],
+      "@authdare/models/*": [
+        "libs/models/src/*"
       ]
     }
   }
