@@ -1,11 +1,11 @@
-import { ToQueryOptionsPipe } from './../../../../libs/base/src/to-query-options.pipe';
 import { UpdateTaskDTO } from './dto/update-task.dto';
 import { CreateTaskDTO } from './dto/create-task.dto';
-import { QueryOptions } from '@authdare/base';
+import { QueryOptions, ToQueryOptionsPipe } from '@authdare/base';
 import { Controller, Get, Query, Param, Body, Post, Patch, Delete } from '@nestjs/common';
 import { TaskEntity } from './entity/task.entity';
 import { TaskService } from './task.service';
 import { ApiTags } from '@nestjs/swagger';
+
 
 @ApiTags(TaskController.name)
 @Controller('task')
@@ -13,7 +13,8 @@ export class TaskController {
   constructor(private readonly taskService: TaskService) { }
   @Get()
   async find(@Query(ToQueryOptionsPipe) query: QueryOptions<TaskEntity>) {
-    return await this.taskService.find(query);
+    console.log(query);
+    return await this.taskService.find(query)
   }
 
   @Get(":id")

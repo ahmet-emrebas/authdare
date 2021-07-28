@@ -17,7 +17,7 @@ export class BaseResourceService<Entity, CreateDTO, UpdateDTO>{
         return true;
     }
 
-    async find(options: QueryOptions<Entity>) {
+    async find(options?: QueryOptions<Entity>) {
         try {
             return await this.repo.find(options);
         } catch (err) {

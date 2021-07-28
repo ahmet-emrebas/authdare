@@ -1,9 +1,29 @@
 import { BaseDTO } from '@authdare/base';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, MaxLength } from 'class-validator';
+import { Exclude, Expose } from 'class-transformer';
+import { IsIn, MaxLength } from 'class-validator';
 
+@Exclude()
 export class CreateTaskDTO extends BaseDTO<CreateTaskDTO> {
-    @ApiProperty({ default: 'name' }) @IsString() @MaxLength(50) name: string;
-    @ApiProperty({ default: 'description' }) @IsString() @MaxLength(300) description: string;
-    @ApiProperty({ default: new Date().toUTCString() }) due: string;
+    static className = "CreateTaskDTO";
+
+    @Expose()
+    @ApiProperty({ default: 'name', required: true, })
+    @MaxLength(50)
+    name: string;
+
+    @Expose()
+    @ApiProperty({ default: 'description', required: true, })
+    @MaxLength(300)
+    description: string;
+
+    @Expose()
+    @ApiProperty({ default: new Date().toUTCString(), required: true, })
+    due: string;
+
+    @Expose()
+    @ApiProperty({ default: 'inprogress', required: true, enum: ['closed', 'inprogress', 'opened'] })
+    @IsIn(['closed', 'inprogress', 'opened'])
+    status: string;
+
 }
