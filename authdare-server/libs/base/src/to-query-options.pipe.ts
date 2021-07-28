@@ -6,6 +6,6 @@ import { QueryOptions } from './query-options';
 @Injectable()
 export class ToQueryOptionsPipe implements PipeTransform {
   transform(value: QueryOptions, metadata: ArgumentMetadata) {
-    return pickBy(plainToClass(QueryOptions, value), (e) => e)
+    return pickBy(plainToClass(QueryOptions, value), (e) => e);
   }
 }

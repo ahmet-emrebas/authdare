@@ -1,7 +1,6 @@
-
 import { PartialType } from '@nestjs/swagger';
 import { CreateRoleDTO } from './create-role.dto';
 
 export class UpdateRoleDTO extends PartialType(CreateRoleDTO) {
-    static readonly className = "UpdateRoleDTO";
+  static readonly className = 'UpdateRoleDTO';
 }

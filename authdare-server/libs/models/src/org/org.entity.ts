@@ -1,8 +1,8 @@
 import { BaseEntity } from '@authdare/base';
-import { Column, Entity } from "typeorm";
+import { Column, Entity } from 'typeorm';
 
 @Entity({ name: 'orgs' })
 export class OrgEntity extends BaseEntity<OrgEntity> {
-    static readonly className = "OrgEntity";
-    @Column({ unique: true }) name: string;
+  static readonly className = 'OrgEntity';
+  @Column({ unique: true }) name: string;
 }

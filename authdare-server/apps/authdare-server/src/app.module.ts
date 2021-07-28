@@ -25,17 +25,20 @@ import { RoleModule } from './role';
         return {
           type: 'sqlite',
           database: 'database/authdare/main.sqlite',
-          entities: values((await getModelMap())).map(e => e.entity),
+          entities: values(await getModelMap()).map((e) => e.entity),
           synchronize: true,
-          dropSchema: true
-        }
-      }
+          dropSchema: true,
+        };
+      },
     }),
     ScheduleModule.forRoot(),
-    MulterModule.register({ dest: './upload', }),
-    ThrottlerModule.forRoot({ ttl: 60, limit: 10, }),
-    ServeStaticModule.forRoot({ rootPath: join(__dirname, '..', '..', '..', 'client'), renderPath: '/', exclude: ['api', 'api/**'], }),
-
+    MulterModule.register({ dest: './upload' }),
+    ThrottlerModule.forRoot({ ttl: 60, limit: 10 }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', '..', '..', 'client'),
+      renderPath: '/',
+      exclude: ['api', 'api/**'],
+    }),
   ],
 })
-export class AppModule { }
+export class AppModule {}

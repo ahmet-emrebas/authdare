@@ -4,13 +4,12 @@ import { Exclude, Expose } from 'class-transformer';
 
 @Exclude()
 export class CreatePermissionDTO extends BaseDTO<CreatePermissionDTO> {
-    static readonly className = "CreatePermissionDTO";
-    @Expose()
-    @ApiProperty({ default: 'GET', required: true, })
-    method: string;
+  static readonly className = 'CreatePermissionDTO';
+  @Expose()
+  @ApiProperty({ default: 'GET', required: true })
+  method: string;
 
-    @Expose()
-    @ApiProperty({ default: "users", required: true })
-    resource: string;
-
+  @Expose()
+  @ApiProperty({ default: 'users', required: true })
+  resource: string;
 }

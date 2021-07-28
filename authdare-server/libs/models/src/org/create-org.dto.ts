@@ -5,12 +5,9 @@ import { Exclude, Expose } from 'class-transformer';
 
 @Exclude()
 export class CreateOrgDTO extends BaseDTO<CreateOrgDTO> {
-    static readonly className = "CreateOrgDTO";
+  static readonly className = 'CreateOrgDTO';
 
-    @Expose()
-    @ApiProperty({ default: internet.email(), required: true, })
-    name: string;
-
-
-
+  @Expose()
+  @ApiProperty({ default: internet.email(), required: true })
+  name: string;
 }

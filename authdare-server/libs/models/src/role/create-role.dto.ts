@@ -5,12 +5,12 @@ import { Exclude, Expose } from 'class-transformer';
 
 @Exclude()
 export class CreateRoleDTO extends BaseDTO<CreateRoleDTO> {
-    static readonly className = "CreateRoleDTO";
-    @Expose()
-    @ApiProperty({ default: internet.email(), required: true, })
-    name: string;
+  static readonly className = 'CreateRoleDTO';
+  @Expose()
+  @ApiProperty({ default: internet.email(), required: true })
+  name: string;
 
-    @Expose()
-    @ApiProperty({ default: [] })
-    permissions: { id: number }[]
+  @Expose()
+  @ApiProperty({ default: [] })
+  permissions: { id: number }[];
 }

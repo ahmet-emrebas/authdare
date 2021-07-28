@@ -1,3 +1,6 @@
-export class BaseDTO<T>{
-    constructor(value?: T) { Object.assign(this, value) }
+export class BaseDTO<T> {
+  id?: number;
+  constructor(value?: T) {
+    Object.assign(this, value);
+  }
 }
