@@ -7,7 +7,6 @@ import * as cookieParser from 'cookie-parser';
 import * as favicon from 'serve-favicon';
 
 async function bootstrap() {
-
   const app = await NestFactory.create(AppModule);
 
   app.enableCors();
@@ -24,14 +23,13 @@ async function bootstrap() {
 
   SwaggerModule.setup('api', app, document);
 
-
-
   await app.listen(process.env['PORT'] || 3000);
 }
 
-
-bootstrap().then(() => {
-  Logger.log('Initializing....')
-}).catch(err => {
-  Logger.error(err);
-})
+bootstrap()
+  .then(() => {
+    Logger.log('Initializing....');
+  })
+  .catch((err) => {
+    Logger.error(err);
+  });
