@@ -1,4 +1,5 @@
-import { AUTH_COOKIE } from './auth-cookie';
+import { COOKIE_KEYS, setCookie } from './cookies';
+
 import { Body, Controller, Post, Res } from '@nestjs/common';
 import { Response } from 'express';
 import { AuthUserService } from './auth-user.service';
@@ -16,13 +17,13 @@ export class LoginController {
   @Post('login')
   async login(@Body() loginDTO: LoginDTO, @Res() res: Response) {
     const token = await this.authService.login(loginDTO);
-    res.cookie(AUTH_COOKIE, token);
+    setCookie(res, COOKIE_KEYS.AUTH_COOKIE, token);
     res.send({ message: 'Welcome Back!' });
   }
 
   @Post('logout')
   async logout(@Res() res: Response) {
-    res.clearCookie(AUTH_COOKIE);
+    res.clearCookie(COOKIE_KEYS.AUTH_COOKIE);
     res.send({ message: 'See you!' });
   }
 }

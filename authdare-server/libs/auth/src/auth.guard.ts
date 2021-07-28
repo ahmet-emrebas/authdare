@@ -1,4 +1,4 @@
-import { AUTH_COOKIE } from './auth-cookie';
+import { COOKIE_KEYS, getCookie } from './cookies';
 import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
@@ -7,12 +7,10 @@ export class AuthGuard implements CanActivate {
   constructor(private jwt: JwtService) { }
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const req = context.switchToHttp().getRequest();
-    const token = req.cookies[AUTH_COOKIE];
+    const authCookie = getCookie(req, COOKIE_KEYS.AUTH_COOKIE);
     try {
-      const verifiedUser = await this.jwt.verify(token);
-      if (verifiedUser && verifiedUser.org.name) {
-        req.user = verifiedUser;
-      }
+      const userAuthDetails = await this.jwt.verify(authCookie);
+      req.user = userAuthDetails
     } catch (err) {
       throw new UnauthorizedException("You must login to access the resources!");
     }

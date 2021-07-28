@@ -24,8 +24,12 @@ export class InjectResourceInterceptor implements NestInterceptor {
         'We could not determine your organization!',
       );
     }
-    context.switchToHttp().getRequest()[RESOURCE_SERVICE_KEY] =
-      await getResourceService(resourcePath, user.org.name);
+
+    /**
+     * Injecting the resource service
+     */
+    context.switchToHttp().getRequest()[RESOURCE_SERVICE_KEY] = await getResourceService(resourcePath, user.org.name);
+
     return next.handle();
   }
 }

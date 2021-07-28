@@ -1,4 +1,4 @@
-import { AUTH_COOKIE } from './auth-cookie';
+import { COOKIE_KEYS, setCookie } from './cookies';
 import { SignupDTO } from './dto';
 import { Body, Controller, Post, Res } from '@nestjs/common';
 import { AuthUserService } from './auth-user.service';
@@ -16,7 +16,7 @@ export class SignupController {
   @Post('signup')
   async signup(@Body() signupDTO: SignupDTO, @Res() res: Response) {
     const token = await this.authService.signup(signupDTO);
-    res.cookie(AUTH_COOKIE, token);
+    setCookie(res, COOKIE_KEYS.AUTH_COOKIE, token);
     res.send({ message: 'Welcome' });
   }
 }

@@ -1,4 +1,3 @@
-export * from "./auth-cookie";
 export * from "./auth-user.service";
 export * from "./auth.guard";
 export * from "./auth.module";

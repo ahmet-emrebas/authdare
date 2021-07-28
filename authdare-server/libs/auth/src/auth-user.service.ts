@@ -3,17 +3,21 @@ import { BaseResourceService, getResourceService } from '@authdare/base';
 import { CreateUserDTO, UpdateUserDTO, UserEntity } from '@authdare/models';
 import {
   Injectable,
+  InternalServerErrorException,
+  Logger,
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
-import { omit, toPlainObject } from 'lodash';
+import { toPlainObject, } from 'lodash';
 import { Repository } from 'typeorm';
 import { SignupDTO } from './dto';
 import { compare } from 'bcrypt';
 import { getDBConnection } from '@authdare/base/get-db-connection';
 import { createRoleAndPermissions } from './create-role-permissions';
+import { userToCookie } from './cookies';
+
 
 @Injectable()
 export class AuthUserService extends BaseResourceService<
@@ -36,8 +40,7 @@ UpdateUserDTO
     const asClient = { ...signupDTO };
     const createdClientUSer = await this.create(toPlainObject(asClient));
     const createdAdminUser = await this.initClientDatabase(createdClientUSer);
-    const tokenPaylaod = toPlainObject(createdAdminUser);
-    return this.jwt.sign(tokenPaylaod);
+    return this.jwt.sign(userToCookie(createdAdminUser));
   }
 
   /**
@@ -59,19 +62,34 @@ UpdateUserDTO
     return await clientUserResouceService.create(new CreateUserDTO(asAdmin));
   }
 
+  /**
+   * This login is mine, NOT for client.
+   * @param param0 
+   * @returns 
+   */
   async login({ email, password }: LoginDTO): Promise<string> | never {
     await this.validate(LoginDTO, { email, password });
 
     const foundUser = await this.findOne({ where: { email } });
 
-    if (!foundUser?.password) throw new NotFoundException('Acount not found!');
+    if (!foundUser?.password)
+      throw new NotFoundException('Acount not found!');
+
 
     const isPasswordMatch = await compare(password, foundUser.password);
 
-    if (!isPasswordMatch) throw new UnauthorizedException('Wrong Password!');
+    if (!isPasswordMatch)
+      throw new UnauthorizedException('Wrong Password!');
 
-    const tokenPayload = toPlainObject(foundUser);
 
-    return this.jwt.sign(tokenPayload);
+    try {
+      return await this.jwt.sign(userToCookie(foundUser));
+    } catch (err) {
+      Logger.error(err);
+      throw new InternalServerErrorException("Sorry!")
+    }
+
   }
+
+
 }

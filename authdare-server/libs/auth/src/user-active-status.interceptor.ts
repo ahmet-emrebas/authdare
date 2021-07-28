@@ -1,4 +1,4 @@
-import { AUTH_COOKIE } from './auth-cookie';
+import { clearCookie, COOKIE_KEYS, setCookie, userToCookie } from './cookies';
 import { getResourceService } from '@authdare/base';
 import { UserEntity } from '@authdare/models';
 import { CallHandler, ExecutionContext, Injectable, NestInterceptor, UnauthorizedException } from '@nestjs/common';
@@ -27,9 +27,9 @@ export class UserActiveStatusInterceptor implements NestInterceptor {
     const foundUser = await userService.findOne(user.id);
 
     if (foundUser?.active) {
-      const token = await this.jwt.sign(foundUser);
-      res.clearCookie(AUTH_COOKIE);
-      res.cookie(AUTH_COOKIE, token);
+      const token = await this.jwt.sign(userToCookie(foundUser));
+      clearCookie(res, COOKIE_KEYS.AUTH_COOKIE);
+      setCookie(res, COOKIE_KEYS.AUTH_COOKIE, token)
     } else {
       throw new UnauthorizedException('Your account is NOT active yet!')
     }
