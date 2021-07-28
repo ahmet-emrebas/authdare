@@ -1,6 +1,8 @@
 import { Controller, Get, UseGuards, UseInterceptors, Query, Param, Post, Body, Patch, Delete } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { GetResourceService, InjectResourceInterceptor, BaseResourceService, QueryOptions, ToQueryOptionsPipe } from '@authdare/base';
+import {
+    GetResourceService, InjectResourceInterceptor, BaseResourceService, QueryOptions, ToQueryOptionsPipe
+} from '@authdare/base';
 import { AuthGuard } from '@authdare/auth';
 import { CreateUserDTO, UpdateUserDTO, UserEntity } from '@authdare/models';
 
@@ -11,8 +13,6 @@ import { CreateUserDTO, UpdateUserDTO, UserEntity } from '@authdare/models';
 export class UserResourceController {
     static readonly className = 'UserResourceController'
     static readonly path = 'users';
-
-
     @Get()
     async find(
         @Query(ToQueryOptionsPipe) query: QueryOptions<UserEntity>,

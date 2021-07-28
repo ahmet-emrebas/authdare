@@ -2,6 +2,8 @@ export * from "./auth-cookie";
 export * from "./auth-user.service";
 export * from "./auth.guard";
 export * from "./auth.module";
+export * from "./create-role-permissions";
 export * from "./dto";
+export * from "./forgot-password.controller";
 export * from "./login.controller";
 export * from "./signup.controller";

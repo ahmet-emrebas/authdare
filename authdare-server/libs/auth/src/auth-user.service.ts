@@ -25,7 +25,7 @@ export class AuthUserService extends BaseResourceService<UserEntity, CreateUserD
 
     async signup(signupDTO: SignupDTO): Promise<string> | never {
         await this.validate(SignupDTO, signupDTO);
-        const asClient = { ...signupDTO, } /// TODO PERMISSION 
+        const asClient = { ...signupDTO, }
         const createdClientUSer = await this.create(toPlainObject(asClient))
         const createdAdminUser = await this.initClientDatabase(createdClientUSer);
         const tokenPaylaod = toPlainObject(createdAdminUser);

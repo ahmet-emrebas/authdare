@@ -17,7 +17,6 @@ export class LoginController {
         res.send({ message: 'Welcome Back!' })
     }
 
-
     @Post("logout")
     async logout(@Res() res: Response) {
         res.clearCookie(AUTH_COOKIE)
