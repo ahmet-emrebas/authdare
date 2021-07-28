@@ -1,11 +1,12 @@
+import { BaseDTO } from './base.dto';
 import { EntityFieldsNames } from 'typeorm/common/EntityFieldsNames';
 import { FindConditions, ObjectLiteral, JoinOptions } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class QueryOptions<Entity> {
+export class QueryOptions<Entity = any> extends BaseDTO<QueryOptions<Entity>> {
     /**
-     * limit
-     */
+    * limit
+    */
     @ApiProperty()
     take?: number;
 
@@ -20,16 +21,41 @@ export class QueryOptions<Entity> {
     */
     @ApiProperty()
     select?: (keyof Entity)[];
-    /**
-     * Simple condition that should be applied to match entities.
-     */
-    @ApiProperty()
-    where?: FindConditions<Entity>[] | FindConditions<Entity> | ObjectLiteral | string;
+
     /**
      * Indicates what relations of entity should be loaded (simplified left join form).
      */
     @ApiProperty()
     relations?: string[];
+
+    /**
+     * Indicates if soft-deleted rows should be included in entity result.
+     */
+    @ApiProperty()
+    withDeleted?: boolean;
+
+    /**
+     * Enables or disables query result caching.
+     */
+    @ApiProperty()
+    cache?: boolean | number | {
+        id: any;
+        milliseconds: number;
+    };
+
+    /**
+     * Indicates if eager relations should be loaded or not.
+     * By default they are loaded when find methods are used.
+     */
+    @ApiProperty()
+    loadEagerRelations?: boolean;
+
+    /**
+     * Simple condition that should be applied to match entities.
+     */
+    @ApiProperty()
+    where?: FindConditions<Entity>[] | FindConditions<Entity> | ObjectLiteral | string;
+
 
     /**
      * Specifies what relations should be loaded.
@@ -43,14 +69,7 @@ export class QueryOptions<Entity> {
     order?: {
         [P in EntityFieldsNames<Entity>]?: "ASC" | "DESC" | 1 | -1;
     };
-    /**
-     * Enables or disables query result caching.
-     */
-    @ApiProperty()
-    cache?: boolean | number | {
-        id: any;
-        milliseconds: number;
-    };
+
     /**
      * Indicates what locking mode should be used.
      *
@@ -65,11 +84,6 @@ export class QueryOptions<Entity> {
         tables?: string[];
     };
 
-    /**
-     * Indicates if soft-deleted rows should be included in entity result.
-     */
-    @ApiProperty()
-    withDeleted?: boolean;
 
     /**
      * If sets to true then loads all relation ids of the entity and maps them into relation values (not relation objects).
@@ -80,12 +94,7 @@ export class QueryOptions<Entity> {
         relations?: string[];
         disableMixedMap?: boolean;
     };
-    /**
-     * Indicates if eager relations should be loaded or not.
-     * By default they are loaded when find methods are used.
-     */
-    @ApiProperty()
-    loadEagerRelations?: boolean;
+
 
     /**
      * If this is set to true, SELECT query in a `find` method will be executed in a transaction.

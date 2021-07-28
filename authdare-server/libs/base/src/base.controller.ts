@@ -1,28 +1,43 @@
-import { Get } from '@nestjs/common';
-import { Repository } from 'typeorm';
-export class BaseController {
-    constructor(private repo: Repository<any>) { }
+import { QueryOptions } from './query-options';
+import { BaseResourceService } from './base-resource.service';
+import { Body, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
+
+export class BaseController<Entity, CreateDTO, UpdateDTO> {
+    constructor(private resourceService: BaseResourceService<Entity, CreateDTO, UpdateDTO>) { }
 
     @Get()
-    find() {
-        this.repo.find()
+    async find(@Query() query: QueryOptions<Entity>) {
+        return await this.resourceService.find(query);
     }
 
-    findAndCount()
-
-    findOne() { }
-
-    findByIds() {
-
+    @Get(":id")
+    async fingById(@Param("id") id: number) {
+        return await this.resourceService.findByIds(id);
     }
 
-    save() {
-
-
+    @Post('query')
+    async query(@Body() queryOptions: QueryOptions<Entity>) {
+        return await this.resourceService.find(queryOptions);
     }
 
-    update() { }
-    delete() { }
+    @Post()
+    async create(@Body() body: CreateDTO) {
+        return await this.resourceService.create(body);
+    }
 
-    deleteHard()
+
+    @Patch(":id")
+    async update(@Param("id") id: number, @Body() body: UpdateDTO,) {
+        return await this.resourceService.update(id, body);
+    }
+
+
+    @Delete(":id/:hard")
+    async delete(@Param("id") id: number, @Param("hard") hard: boolean) {
+        if (hard == true)
+            return await this.resourceService.delete(id);
+
+        return await this.resourceService.softDelete(id);
+    }
+
 }
