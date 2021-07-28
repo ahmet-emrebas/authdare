@@ -6,6 +6,7 @@ import * as cookieParser from 'cookie-parser'
 import * as favicon from 'serve-favicon';
 
 async function bootstrap() {
+
   const app = await NestFactory.create(AppModule);
 
   app.setGlobalPrefix('api');

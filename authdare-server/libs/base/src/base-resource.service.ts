@@ -7,7 +7,7 @@ import { QueryOptions } from './query-options';
 
 export class BaseResourceService<Entity, CreateDTO, UpdateDTO>{
 
-    constructor(private readonly repo: Repository<Entity>, private readonly createDto: ClassConstructor<CreateDTO>, private readonly updateDTO: ClassConstructor<UpdateDTO>) { }
+    constructor(readonly repo: Repository<Entity>, readonly createDto: ClassConstructor<CreateDTO>, readonly updateDTO: ClassConstructor<UpdateDTO>) { }
 
     private async validate(dto: ClassConstructor<CreateDTO | UpdateDTO>, value: CreateDTO | UpdateDTO): Promise<boolean> | never {
         const errors = await validate(new dto(value) as any);
