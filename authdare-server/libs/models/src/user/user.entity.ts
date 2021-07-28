@@ -1,7 +1,7 @@
 import { BaseEntity } from "@authdare/base";
-import { OrgEntity } from "apps/authdare-server/src/org";
 import { genSaltSync, hashSync } from "bcrypt";
 import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
+import { OrgEntity } from "../org";
 
 
 

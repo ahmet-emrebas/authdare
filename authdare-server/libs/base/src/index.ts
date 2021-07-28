@@ -6,5 +6,6 @@ export * from "./get-resource-service.decorator";
 export * from "./get-resource-service";
 export * from "./model-map";
 export * from "./query-options";
+export * from "./resource-map";
 export * from "./to-query-options.pipe";
 export * from "./transformers";

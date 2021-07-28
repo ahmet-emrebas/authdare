@@ -1,4 +1,3 @@
-import { OrgModule } from './org/org.module'
 import { Module } from '@nestjs/common';
 import { ScheduleModule } from '@nestjs/schedule';
 import { MulterModule } from '@nestjs/platform-express';
@@ -7,20 +6,21 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { JwtModule } from '@nestjs/jwt';
 import { join } from 'path';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserEntity, UserModule } from './user';
-import { TaskEntity, TaskModule } from './task';
-import { OrgEntity } from './org';
-
-
+import { getModelMap } from '@authdare/base';
+import { values } from 'lodash';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'sqlite',
-      database: 'database/authdare/main.sqlite',
-      entities: [UserEntity, TaskEntity, OrgEntity],
-      synchronize: true,
-      dropSchema: true
+    TypeOrmModule.forRootAsync({
+      useFactory: async () => {
+        return {
+          type: 'sqlite',
+          database: 'database/authdare/main.sqlite',
+          entities: values((await getModelMap())).map(e => e.entity),
+          synchronize: true,
+          dropSchema: true
+        }
+      }
     }),
     ScheduleModule.forRoot(),
     MulterModule.register({ dest: './upload', }),
@@ -32,10 +32,7 @@ import { OrgEntity } from './org';
           secret: process.env['SECRET'] || 'secret'
         };
       },
-    }),
-    UserModule,
-    TaskModule,
-    OrgModule
+    })
   ],
 })
 export class AppModule { }

@@ -24,6 +24,12 @@
       ],
       "@authdare/models/*": [
         "libs/models/src/*"
+      ],
+      "@authdare/resources": [
+        "libs/resources/src"
+      ],
+      "@authdare/resources/*": [
+        "libs/resources/src/*"
       ]
     }
   }
