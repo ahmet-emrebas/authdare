@@ -6,12 +6,12 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class RoleService extends BaseResourceService<
-  RoleEntity,
-  CreateRoleDTO,
-  UpdateRoleDTO
+RoleEntity,
+CreateRoleDTO,
+UpdateRoleDTO
 > {
   static readonly className = 'RoleService';
   constructor(@InjectRepository(RoleEntity) repo: Repository<RoleEntity>) {
-    super(repo, CreateRoleDTO, UpdateRoleDTO);
+    super(repo);
   }
 }

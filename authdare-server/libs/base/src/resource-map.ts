@@ -1,4 +1,4 @@
-import { values, snakeCase, split, nth, last, first } from 'lodash';
+import { values, snakeCase, split, last, first } from 'lodash';
 
 export interface Resource<Module = any, Controller = any> {
   path: string;

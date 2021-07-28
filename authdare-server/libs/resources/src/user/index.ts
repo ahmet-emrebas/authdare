@@ -1,2 +1,2 @@
-export * from './user-resource.controller';
-export * from './user-resource.module';
+export * from "./user-resource.controller";
+export * from "./user-resource.module";

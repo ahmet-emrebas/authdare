@@ -16,9 +16,5 @@ export async function getResourceService<T = any, C = any, U = any>(
   const modelMap = await getModelMap();
   const entityMeta = modelMap[resourcePath];
   const repository = con.getRepository<T>(entityMeta.entity);
-  return new BaseResourceService<T, C, U>(
-    repository,
-    entityMeta.create,
-    entityMeta.update,
-  );
+  return new BaseResourceService<T, C, U>(repository);
 }

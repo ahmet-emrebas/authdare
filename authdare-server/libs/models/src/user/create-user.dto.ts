@@ -4,7 +4,7 @@ import { BaseDTO } from '@authdare/base';
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude, Expose } from 'class-transformer';
 import { IsEmail, IsNotEmpty, MaxLength } from 'class-validator';
-import { CreateOrgDTO } from '../org';
+
 
 @Exclude()
 export class CreateUserDTO extends BaseDTO<CreateUserDTO> {
@@ -25,12 +25,6 @@ export class CreateUserDTO extends BaseDTO<CreateUserDTO> {
   @IsNotEmpty()
   @MaxLength(100)
   password?: string;
-
-
-  @Expose()
-  @ApiProperty({ default: { id: 1 } })
-  org?: Partial<CreateOrgDTO>;
-
 
   @Expose()
   @ApiProperty({ default: [], required: true })

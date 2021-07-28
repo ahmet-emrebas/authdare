@@ -1,3 +1,4 @@
+import { classToClass, Exclude, Expose, classToPlain } from 'class-transformer';
 import { Logger } from '@nestjs/common';
 import { ORG_NAME } from './org-name';
 import { getResourceService } from '@authdare/base';
@@ -8,7 +9,7 @@ import { AppModule } from './app.module';
 import * as cookieParser from 'cookie-parser';
 import * as favicon from 'serve-favicon';
 import { createRoleAndPermissions } from '@authdare/auth/create-role-permissions';
-import { CreateOrgDTO, CreateUserDTO } from '@authdare/models';
+import { CreateOrgDTO } from '@authdare/models';
 
 
 
@@ -20,14 +21,16 @@ async function initDatabase() {
 
     const createdOrg = await orgService.create(new CreateOrgDTO({ name: ORG_NAME }))
 
-
-    const createdAdminUser = await userService.create(new CreateUserDTO({
-      email: "aemrebas.dev@gmail.com",
-      password: 'password',
-      active: true,
-      org: { id: createdOrg.id },
-      roles: [{ id: adminRole.id }]
-    }));
+    // Creating Admin user in authdare org.
+    if (createdOrg && createdOrg.id) {
+      await userService.create({
+        email: "aemrebas.dev@gmail.com",
+        password: 'password',
+        active: true,
+        org: { id: createdOrg.id },
+        roles: [{ id: adminRole.id }]
+      });
+    }
 
 
   } catch (err) {
@@ -67,9 +70,3 @@ bootstrap().then(() => {
 }).catch(err => {
   Logger.error(err);
 })
-
-
-
-
-
-

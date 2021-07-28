@@ -18,7 +18,6 @@ import { getDBConnection } from '@authdare/base/get-db-connection';
 import { createRoleAndPermissions } from './create-role-permissions';
 import { userToCookie } from './cookies';
 
-
 @Injectable()
 export class AuthUserService extends BaseResourceService<
 UserEntity,
@@ -32,11 +31,10 @@ UpdateUserDTO
     @InjectRepository(UserEntity)
     protected readonly userRepo: Repository<UserEntity>,
   ) {
-    super(userRepo, CreateUserDTO, UpdateUserDTO);
+    super(userRepo);
   }
 
   async signup(signupDTO: SignupDTO): Promise<string> | never {
-    await this.validate(SignupDTO, signupDTO);
 
     const asClient = {
       email: signupDTO.email,
@@ -65,7 +63,8 @@ UpdateUserDTO
       CreateUserDTO,
       UpdateUserDTO
     >('users', orgname);
-    return await clientUserResouceService.create(new CreateUserDTO(asAdmin));
+
+    return await clientUserResouceService.create(asAdmin as any);
   }
 
   /**
@@ -74,7 +73,6 @@ UpdateUserDTO
    * @returns 
    */
   async login({ email, password }: LoginDTO): Promise<string> | never {
-    await this.validate(LoginDTO, { email, password });
 
     const foundUser = await this.findOne({ where: { email } });
 

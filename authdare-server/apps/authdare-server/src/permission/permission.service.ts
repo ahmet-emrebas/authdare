@@ -10,14 +10,14 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class PermissionService extends BaseResourceService<
-  PermissionEntity,
-  CreatePermissionDTO,
-  UpdatePermissionDTO
+PermissionEntity,
+CreatePermissionDTO,
+UpdatePermissionDTO
 > {
   static readonly className = 'PermissionService';
   constructor(
     @InjectRepository(PermissionEntity) repo: Repository<PermissionEntity>,
   ) {
-    super(repo, CreatePermissionDTO, UpdatePermissionDTO);
+    super(repo);
   }
 }

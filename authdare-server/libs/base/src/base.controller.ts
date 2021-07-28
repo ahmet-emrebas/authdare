@@ -4,7 +4,7 @@ import { ToQueryOptionsPipe } from './to-query-options.pipe';
 import { BaseResourceService } from './base-resource.service';
 
 /**
- * For Service provider like us
+ * This class is just a sample, It will NOT in use!
  */
 export class BaseController<Entity, CreateDTO, UpdateDTO> {
   constructor(
@@ -13,7 +13,7 @@ export class BaseController<Entity, CreateDTO, UpdateDTO> {
       CreateDTO,
       UpdateDTO
     >,
-  ) {}
+  ) { }
   @Get()
   async find(@Query(ToQueryOptionsPipe) query: QueryOptions<Entity>) {
     return await this.resourceService.find(query);

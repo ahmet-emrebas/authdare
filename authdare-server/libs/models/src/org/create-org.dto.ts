@@ -9,7 +9,8 @@ import { Length } from 'class-validator';
 export class CreateOrgDTO extends BaseDTO<CreateOrgDTO> {
   static readonly className = 'CreateOrgDTO';
 
-  @Expose()
+
+  @Expose({})
   @ApiProperty({ default: internet.email(), required: true })
   @Length(3, 100)
   @IsNotBlank()

@@ -13,10 +13,10 @@ export enum COOKIE_KEYS {
      * Interests of the client 
      */
     INTERESTS_COOKIE = '__What_Do_you_Like__',
-
 }
 
 export type AuthCookieType = {
+
     id: number;
     email: string;
     active: boolean;
