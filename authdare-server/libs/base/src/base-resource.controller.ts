@@ -35,7 +35,7 @@ export class BaseController<Entity, CreateDTO, UpdateDTO> {
     @Delete(":id/:hard")
     async delete(@Param("id") id: number, @Param("hard") hard: boolean) {
         if (hard == true)
-            return await this.resourceService.delete(id);
+            return await this.resourceService.deleteHard(id);
 
         return await this.resourceService.softDelete(id);
     }

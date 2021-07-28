@@ -1,3 +1,4 @@
+import { OrgModule } from './org/org.module'
 import { Module } from '@nestjs/common';
 import { ScheduleModule } from '@nestjs/schedule';
 import { MulterModule } from '@nestjs/platform-express';
@@ -5,9 +6,11 @@ import { ThrottlerModule } from '@nestjs/throttler';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { JwtModule } from '@nestjs/jwt';
 import { join } from 'path';
-import { TaskModule } from './task/task.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { TaskEntity } from './task/entity/task.entity';
+import { UserEntity, UserModule } from './user';
+import { TaskEntity, TaskModule } from './task';
+import { OrgEntity } from './org';
+
 
 
 @Module({
@@ -15,7 +18,7 @@ import { TaskEntity } from './task/entity/task.entity';
     TypeOrmModule.forRoot({
       type: 'sqlite',
       database: 'database/authdare/main.sqlite',
-      entities: [TaskEntity],
+      entities: [UserEntity, TaskEntity, OrgEntity],
       synchronize: true,
       dropSchema: true
     }),
@@ -30,7 +33,9 @@ import { TaskEntity } from './task/entity/task.entity';
         };
       },
     }),
-    TaskModule
+    UserModule,
+    TaskModule,
+    OrgModule
   ],
 })
 export class AppModule { }

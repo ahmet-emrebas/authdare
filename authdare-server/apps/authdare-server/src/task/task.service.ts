@@ -2,9 +2,8 @@ import { BaseResourceService } from '@authdare/base';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CreateTaskDTO } from './dto/create-task.dto';
-import { UpdateTaskDTO } from './dto/update-task.dto';
-import { TaskEntity } from './entity/task.entity';
+import { CreateTaskDTO, UpdateTaskDTO } from './dto';
+import { TaskEntity } from './entity';
 
 @Injectable()
 export class TaskService extends BaseResourceService<TaskEntity, CreateTaskDTO, UpdateTaskDTO>{

@@ -82,7 +82,7 @@ export class BaseResourceService<Entity, CreateDTO, UpdateDTO>{
     }
 
 
-    async delete(id: number) {
+    async deleteHard(id: number) {
         try {
             return await this.repo.delete(id);
         } catch (err) {

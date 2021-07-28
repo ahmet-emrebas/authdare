@@ -32,4 +32,4 @@ export const ToWhereLike = () => Transform(({ value }) => {
  * Convert the value to boolean
  * @returns 
  */
-export const ToBoolean = () => Transform(({ value }) => !!value, { toClassOnly: true })
+export const ToBoolean = () => Transform(({ value }) => value == 'false' ? false : !!value, { toClassOnly: true })
