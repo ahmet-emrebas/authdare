@@ -16,6 +16,15 @@
       "compilerOptions": {
         "tsConfigPath": "apps/authdare-server/tsconfig.app.json"
       }
+    },
+    "base": {
+      "type": "library",
+      "root": "libs/base",
+      "entryFile": "index",
+      "sourceRoot": "libs/base/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/base/tsconfig.lib.json"
+      }
     }
   }
 }

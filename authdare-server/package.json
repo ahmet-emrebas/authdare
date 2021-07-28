@@ -108,7 +108,8 @@
       "^@authdare/auth(|/.*)$": "<rootDir>/libs/auth/src/$1",
       "^@authdare/middleware(|/.*)$": "<rootDir>/libs/middleware/src/$1",
       "^@authdare/models(|/.*)$": "<rootDir>/libs/models/src/$1",
-      "^@authdare/guard(|/.*)$": "<rootDir>/libs/guard/src/$1"
+      "^@authdare/guard(|/.*)$": "<rootDir>/libs/guard/src/$1",
+      "^@authdare/base(|/.*)$": "<rootDir>/libs/base/src/$1"
     }
   }
 }

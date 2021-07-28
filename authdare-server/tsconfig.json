@@ -12,6 +12,13 @@
     "baseUrl": "./",
     "incremental": true,
     "skipLibCheck": true,
-    "paths": {}
+    "paths": {
+      "@authdare/base": [
+        "libs/base/src"
+      ],
+      "@authdare/base/*": [
+        "libs/base/src/*"
+      ]
+    }
   }
 }
