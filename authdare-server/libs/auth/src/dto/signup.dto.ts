@@ -1,12 +1,15 @@
-import { internet, company } from 'faker';
-import { BaseDTO } from "@authdare/base";
+
+import { company } from 'faker';
 import { ApiProperty } from "@nestjs/swagger";
-import { Exclude, Expose } from "class-transformer";
-import { IsEmail, Length } from "class-validator";
+import { Exclude, Expose, Type } from "class-transformer";
+import { ValidateNested } from "class-validator";
+import { CreateOrgDTO, CreateUserDTO } from '@authdare/models';
 
 @Exclude()
-export class SignupDTO extends BaseDTO<SignupDTO> {
-    @Expose() @ApiProperty({ required: true, default: internet.email() }) @IsEmail() email: string;
-    @Expose() @ApiProperty({ required: true, default: internet.password() }) @Length(6, 100) password: string;
-    @Expose() @ApiProperty({ required: true, default: company.companyName() }) @Length(3, 20) orgname: string;
+export class SignupDTO extends CreateUserDTO {
+    @Expose()
+    @ApiProperty({ required: true, default: { name: company.companyName() } })
+    @ValidateNested()
+    @Type(() => CreateOrgDTO)
+    org: CreateOrgDTO;
 }

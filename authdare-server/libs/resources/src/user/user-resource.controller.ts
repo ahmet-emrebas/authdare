@@ -12,6 +12,7 @@ export class UserResourceController {
     static readonly className = 'UserResourceController'
     static readonly path = 'users';
 
+
     @Get()
     async find(
         @Query(ToQueryOptionsPipe) query: QueryOptions<UserEntity>,

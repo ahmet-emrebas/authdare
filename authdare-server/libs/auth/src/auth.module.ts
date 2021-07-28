@@ -1,6 +1,6 @@
 import { SignupController } from './signup.controller';
 import { LoginController } from './login.controller';
-import { OrgEntity, UserEntity } from '@authdare/models';
+import { OrgEntity, PermissionEntity, RoleEntity, UserEntity } from '@authdare/models';
 import { Logger, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { JwtModule } from '@nestjs/jwt';
@@ -24,7 +24,7 @@ export const JWTModuleOptions = () => ({
   ],
   imports: [
     JwtModule.registerAsync(JWTModuleOptions()),
-    TypeOrmModule.forFeature([UserEntity, OrgEntity])
+    TypeOrmModule.forFeature([UserEntity, OrgEntity, RoleEntity, PermissionEntity])
   ],
   providers: [AuthUserService]
 })

@@ -8,10 +8,10 @@ import { getModelMap } from "./model-map";
  * @param orgname 
  * @returns 
  */
-export async function getResourceService(resourcePath: string, orgname: string) {
+export async function getResourceService<T = any, C = any, U = any>(resourcePath: string, orgname: string) {
     const con = await getDBConnection(orgname, false, false,)
     const modelMap = await getModelMap()
     const entityMeta = modelMap[resourcePath];
-    const repository = con.getRepository(entityMeta.entity);
-    return new BaseResourceService(repository, entityMeta.create, entityMeta.update)
+    const repository = con.getRepository<T>(entityMeta.entity);
+    return new BaseResourceService<T, C, U>(repository, entityMeta.create, entityMeta.update)
 }

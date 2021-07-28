@@ -1,16 +1,12 @@
+import { CreateRoleDTO } from './../role/create-role.dto';
 import { internet } from 'faker';
 import { BaseDTO } from '@authdare/base';
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude, Expose } from 'class-transformer';
-import { IsEmail, IsIn, MaxLength } from 'class-validator';
+import { IsEmail, MaxLength } from 'class-validator';
 
-export enum ROLE {
-    'DEV' = 'DEV',
-    'QA' = 'QA',
-    'PM' = 'PM',
-    'SM' = 'SM',
-    'ADMIN' = 'ADMIN',
-}
+
+
 
 @Exclude()
 export class CreateUserDTO extends BaseDTO<CreateUserDTO> {
@@ -27,7 +23,6 @@ export class CreateUserDTO extends BaseDTO<CreateUserDTO> {
     password: string;
 
     @Expose()
-    @ApiProperty({ default: ROLE.PM, required: true, })
-    @IsIn([ROLE.ADMIN, ROLE.DEV, ROLE.QA, ROLE.PM, ROLE.SM])
-    role: string;
+    @ApiProperty({ default: [], required: true, })
+    roles: { id: number }[];
 }
