@@ -6,7 +6,7 @@ import { LoginDTO } from './dto';
 import { ApiTags } from '@nestjs/swagger';
 
 /**
- * This login controller is for our own useage. Client will use the client-login-controller. 
+ * This login controller is for our own usage. Client will use the client-login-controller. 
  */
 @ApiTags('Auth')
 @Controller('authdare/auth')

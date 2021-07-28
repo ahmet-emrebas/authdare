@@ -50,7 +50,7 @@ UpdateUserDTO
     const _syncronize_client_db = await getDBConnection(orgname, true, true);
 
     const adminRole = await createRoleAndPermissions(orgname);
-    const asAdmin = { ...user, roles: [{ id: adminRole.id }] };
+    const asAdmin = { ...user, active: true, roles: [{ id: adminRole.id }] };
     const clientUserResouceService = await getResourceService<
       UserEntity,
       CreateUserDTO,
