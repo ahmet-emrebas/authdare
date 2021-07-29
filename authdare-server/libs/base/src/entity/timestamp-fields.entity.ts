@@ -1,17 +1,26 @@
+import { Expose } from "class-transformer";
+import { IsOptional } from "class-validator";
 import { CreateDateColumn, DeleteDateColumn, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 /**
- * Timestamp fields adn id field.
+ * Timestamp fields will be used both EntityClass and DtoClass.
  */
 export class TimestampFields {
-    @PrimaryGeneratedColumn() id: number;
+
+    @PrimaryGeneratedColumn()
+    @Expose()
+    @IsOptional()
+    id?: number
+
     @CreateDateColumn({
         transformer: {
             from: (value) => value && new Date(value).toLocaleString(),
             to: (value) => value
         }
     })
-    created_at: string;
+    @Expose()
+    @IsOptional()
+    created_at?: string;
 
     @UpdateDateColumn({
         transformer: {
@@ -19,7 +28,9 @@ export class TimestampFields {
             to: (value) => value
         }
     })
-    updated_at: string;
+    @Expose()
+    @IsOptional()
+    updated_at?: string;
 
     @DeleteDateColumn({
         transformer: {
@@ -27,6 +38,8 @@ export class TimestampFields {
             to: (value) => value
         }
     })
-    deleted_at: string;
+    @Expose()
+    @IsOptional()
+    deleted_at?: string;
 
 }

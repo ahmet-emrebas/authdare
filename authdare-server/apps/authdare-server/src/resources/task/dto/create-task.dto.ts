@@ -1,10 +1,11 @@
+import { TimestampFields } from "@authdare/base";
 import { IsNotBlank } from "@authdare/utils";
 import { ApiProperty } from "@nestjs/swagger";
 import { Exclude, Expose } from "class-transformer";
 import { Length } from "class-validator";
 
 @Exclude()
-export class CreateTaskDTO {
+export class CreateTaskDTO extends TimestampFields {
 
     @ApiProperty()
     @Expose()
@@ -19,6 +20,7 @@ export class CreateTaskDTO {
     description: string;
 
     constructor(obj: Partial<CreateTaskDTO>) {
+        super();
         Object.assign(this, obj);
     }
 

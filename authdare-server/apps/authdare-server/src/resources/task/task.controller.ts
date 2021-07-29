@@ -18,8 +18,8 @@ export class TaskController {
 
 
   @Get(':id')
-  findOne(@Param('id', ParseIntPipe) id: string) {
-    return this.taskService.findOne(+id);
+  async findOne(@Param('id', ParseIntPipe) id: number, @Query(TransformAndValidateQueryTaskDTO) query: QueryTaskDTO) {
+    return await this.taskService.findOne(id);
   }
 
   @Patch(':id')
