@@ -30,9 +30,10 @@ export class TaskModule implements NestModule {
 
   private async seedDatabase() {
     if (!this.seeded) {
-      for (let _ of range(1, 40)) {
-        await this.taskService.create(TaskModule.fakeTask())
-      }
+      for (let _ of range(1, 11)) await this.taskService.create(TaskModule.fakeTask())
+      setTimeout(async () => {
+        for (let _ of range(1, 11)) await this.taskService.create(TaskModule.fakeTask())
+      }, 3000)
       this.seeded = true;
     }
   }

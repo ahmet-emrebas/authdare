@@ -1,8 +1,5 @@
-import { plainToClass } from 'class-transformer';
-import { pickBy } from 'lodash';
 import { Controller, Get, Post, Body, Patch, Param, Delete, ValidationPipe, Query, ParseIntPipe } from '@nestjs/common';
-import { isNotEmpty, validate } from 'class-validator';
-import { CreateTaskDTO, QueryTaskDTO, UpdateTaskDto } from './dto';
+import { CreateTaskDTO, QueryTaskDTO, TransformAndValidateQueryTaskDTO, UpdateTaskDto } from './dto';
 import { TaskService } from './task.service';
 
 @Controller('api/tasks')
@@ -15,21 +12,8 @@ export class TaskController {
   }
 
   @Get()
-  async findAll(@Query() query: QueryTaskDTO) {
-    const wholeQuery = pickBy(plainToClass(QueryTaskDTO, query, { groups: ['query', 'field'], excludeExtraneousValues: true, exposeUnsetFields: false }), e => isNotEmpty(e));
-    const errors = await validate(wholeQuery);
-
-
-    const queryOptions = pickBy(plainToClass(QueryTaskDTO, query, { groups: ['query'], excludeExtraneousValues: true, exposeUnsetFields: false }), e => isNotEmpty(e));
-    const whereOptions = pickBy(plainToClass(QueryTaskDTO, query, { groups: ['field'], excludeExtraneousValues: true, exposeUnsetFields: false }), e => isNotEmpty(e));
-
-    console.log(queryOptions);
-    console.log(whereOptions);
-
-    if (errors && errors.length > 0) {
-      return errors;
-    }
-    return await this.taskService.find({ ...queryOptions, where: whereOptions })
+  async findAll(@Query(TransformAndValidateQueryTaskDTO) query: QueryTaskDTO) {
+    return await this.taskService.find(query)
   }
 
 
