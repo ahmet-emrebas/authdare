@@ -28,8 +28,9 @@ async function bootstrap() {
 
 bootstrap()
   .then(() => {
-    Logger.log('Initializing....');
+    Logger.log('Initializing....', 'Bootstrap');
   })
   .catch((err) => {
     Logger.error(err);
   });
+
