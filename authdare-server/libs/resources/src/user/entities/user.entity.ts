@@ -19,7 +19,7 @@ export class UserEntity extends TimestampFields {
             from: (value) => value
         }
     }) password: string = undefined;
-    @Column() org: string = undefined;
+    @Column() orgname: string = undefined;
     @Column({ nullable: true }) status: UserStatusType = undefined;
 }
 

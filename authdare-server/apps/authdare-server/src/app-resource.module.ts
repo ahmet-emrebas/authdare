@@ -1,3 +1,6 @@
+
+import { AuthModule } from '@authdare/auth/auth.module';
+import { AuthEntity } from '@authdare/auth/entities';
 import { importResourceModules } from '@authdare/utils/module';
 import { DynamicModule } from '@nestjs/common';
 import { Module } from '@nestjs/common';
@@ -13,22 +16,23 @@ export class ResouceModules {
         return {
             module: ResouceModules,
             imports: [
+                AuthModule,
                 ...imports,
                 TypeOrmModule.forRootAsync({
                     useFactory: async () => {
                         return {
                             type: 'postgres',
                             host: 'localhost',
-                            database: 'authdare',
+                            database: 'authdare_client',
                             username: 'postgres',
                             password: 'password',
-                            entities: entities,
+                            entities: [...entities, AuthEntity],
                             synchronize: true,
                             dropSchema: true,
                         };
                     },
                 }),
-                TypeOrmModule.forFeature(entities)
+                TypeOrmModule.forFeature([...entities, AuthEntity])
             ],
             providers: [...services],
             exports: [...services]

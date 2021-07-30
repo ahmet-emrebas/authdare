@@ -1,15 +1,15 @@
 import { company, internet } from 'faker';
-import { UserStatusType, UserStatuses } from './../entities';
+import { AuthStatusType, AuthStatuses } from './../entities';
 import { ArgumentMetadata, PipeTransform, BadRequestException } from '@nestjs/common';
 import { TimestampFields } from "@authdare/base/entity";
 import { IsNotBlank } from "@authdare/utils/validate";
 import { ApiProperty } from "@nestjs/swagger";
 import { Exclude, Expose, plainToClass, Transform } from "class-transformer";
-import { IsEmail, IsIn, IsOptional, Length, validate } from "class-validator";
+import { IsEmail, IsIn, IsOptional, IsString, Length, validate } from "class-validator";
 import { upperCase } from "lodash";
 
 @Exclude()
-export class CreateUserDTO extends TimestampFields {
+export class CreateAuthDTO extends TimestampFields {
     // email
     // password
     // org
@@ -32,15 +32,21 @@ export class CreateUserDTO extends TimestampFields {
     @Length(3, 50)
     orgname?: string;
 
+    @ApiProperty({ default: company.companyName() })
+    @Expose()
+    @IsNotBlank({ each: true })
+    @IsString({ each: true })
+    permissions?: string[] | string
+
     @ApiProperty({ default: 'PASSIVE' })
     @Expose()
     @Transform(({ value }) => value && typeof value == 'string' && upperCase(value))
     @IsOptional()
     @IsNotBlank()
-    @IsIn(UserStatuses())
-    status?: UserStatusType = 'PASSIVE';
+    @IsIn(AuthStatuses())
+    status?: AuthStatusType = 'PASSIVE';
 
-    constructor(obj: Partial<CreateUserDTO>) {
+    constructor(obj: Partial<CreateAuthDTO>) {
         super();
         Object.assign(this, obj);
     }
@@ -48,13 +54,13 @@ export class CreateUserDTO extends TimestampFields {
 }
 
 
-export class TransformAndValidateCreateUserPipe implements PipeTransform {
-    async transform(value: CreateUserDTO, metadata: ArgumentMetadata) {
-        const transformedUserDTO = plainToClass(CreateUserDTO, value, { exposeDefaultValues: true });
-        const errors = await validate(transformedUserDTO);
+export class TransformAndValidateCreateAuthPipe implements PipeTransform {
+    async transform(value: CreateAuthDTO, metadata: ArgumentMetadata) {
+        const transformedAuthDTO = plainToClass(CreateAuthDTO, value, { exposeDefaultValues: true });
+        const errors = await validate(transformedAuthDTO);
         if (errors && errors.length > 0) {
             throw new BadRequestException(errors);
         }
-        return transformedUserDTO;
+        return transformedAuthDTO;
     }
 }

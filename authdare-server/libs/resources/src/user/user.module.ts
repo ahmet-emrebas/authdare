@@ -24,7 +24,7 @@ export class UserModule implements NestModule {
     return {
       email: internet.email(),
       password: internet.password(),
-      org: company.companyName()
+      orgname: company.companyName()
     }
   }
 
