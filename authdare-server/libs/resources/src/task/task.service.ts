@@ -36,7 +36,7 @@ export class TaskService {
     return this.taskRepo.update(id, updateTaskDto);
   }
 
-  async delete(id: number) {
-    return this.taskRepo.delete(id);
+  async softDelete(id: number) {
+    return this.taskRepo.softDelete(id);
   }
 }

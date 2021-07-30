@@ -8,7 +8,6 @@ import * as favicon from 'serve-favicon';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-
   app.enableCors();
   app.use(cookieParser());
   app.use(favicon(join(__dirname, '..', '..', '..', 'client', 'favicon.ico')));
@@ -33,4 +32,3 @@ bootstrap()
   .catch((err) => {
     Logger.error(err);
   });
-

@@ -3,10 +3,8 @@ import { entityTableName } from "@authdare/utils/naming";
 import { Column, Entity } from "typeorm";
 
 
-export type TaskStatus = 'DONE' | 'IN PROGRESS' | 'TODO'
-
-
-export const ResourceName = 'Task';
+export type TaskStatusType = 'DONE' | 'IN PROGRESS' | 'TODO'
+export const TaskStatuses = (): ['DONE', 'IN PROGRESS', 'TODO'] => ['DONE', 'IN PROGRESS', 'TODO']
 
 /**
  * This is only for defination of the table. Do not create any instance of this class, use CreateTaskDTO AnyTaskDTO
@@ -15,7 +13,7 @@ export const ResourceName = 'Task';
 export class TaskEntity extends TimestampFields {
     @Column() title: string = undefined;
     @Column() description: string = undefined;
-    @Column({ nullable: true }) status: TaskStatus = undefined;
+    @Column({ nullable: true }) status: TaskStatusType = undefined;
 }
 
 

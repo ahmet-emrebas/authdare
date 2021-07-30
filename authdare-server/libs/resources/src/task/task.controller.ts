@@ -1,5 +1,5 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, ValidationPipe, Query, ParseIntPipe } from '@nestjs/common';
-import { CreateTaskDTO, QueryTaskDTO, TransformAndValidateQueryTaskDTO, UpdateTaskDto, TransformAndValidateCrateTaskDTO } from './dto';
+import { CreateTaskDTO, QueryTaskDTO, TransformAndValidateQueryTaskPipe, UpdateTaskDto, TransformAndValidateCreateTaskPipe } from './dto';
 import { TaskService } from './task.service';
 
 @Controller('api/tasks')
@@ -7,12 +7,12 @@ export class TaskController {
   constructor(private readonly taskService: TaskService) { }
 
   @Post()
-  create(@Body(TransformAndValidateCrateTaskDTO) createTaskDto: CreateTaskDTO) {
+  create(@Body(TransformAndValidateCreateTaskPipe) createTaskDto: CreateTaskDTO) {
     return this.taskService.create(createTaskDto);
   }
 
   @Get()
-  async findAll(@Query(TransformAndValidateQueryTaskDTO) query: QueryTaskDTO) {
+  async findAll(@Query(TransformAndValidateQueryTaskPipe) query: QueryTaskDTO) {
     return await this.taskService.find(query)
   }
 
@@ -28,6 +28,8 @@ export class TaskController {
 
   @Delete(':id')
   remove(@Param('id', ParseIntPipe) id: number) {
-    return this.taskService.delete(id);
+    return this.taskService.softDelete(id);
   }
+
+
 }

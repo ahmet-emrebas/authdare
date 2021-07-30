@@ -1,4 +1,4 @@
-import { TaskStatus } from './../entities';
+import { TaskStatusType, TaskStatuses } from './../entities';
 import { ArgumentMetadata, PipeTransform, BadRequestException } from '@nestjs/common';
 import { TimestampFields } from "@authdare/base/entity";
 import { IsNotBlank } from "@authdare/utils/validate";
@@ -27,8 +27,8 @@ export class CreateTaskDTO extends TimestampFields {
     @Transform(({ value }) => value && typeof value == 'string' && upperCase(value))
     @IsOptional()
     @IsNotBlank()
-    @IsIn(['DONE', 'IN PROGRESS', 'TODO'])
-    status?: TaskStatus = 'TODO';
+    @IsIn(TaskStatuses())
+    status?: TaskStatusType = 'TODO';
 
     constructor(obj: Partial<CreateTaskDTO>) {
         super();
@@ -38,7 +38,7 @@ export class CreateTaskDTO extends TimestampFields {
 }
 
 
-export class TransformAndValidateCrateTaskDTO implements PipeTransform {
+export class TransformAndValidateCreateTaskPipe implements PipeTransform {
     async transform(value: CreateTaskDTO, metadata: ArgumentMetadata) {
         const transformedTaskDTO = plainToClass(CreateTaskDTO, value, { exposeDefaultValues: true });
         const errors = await validate(transformedTaskDTO);

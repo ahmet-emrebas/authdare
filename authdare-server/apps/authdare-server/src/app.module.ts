@@ -4,26 +4,11 @@ import { MulterModule } from '@nestjs/platform-express';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { TaskEntity, TaskModule } from './resources/task';
-
+import { ResouceModules } from './app-resource.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forRootAsync({
-      useFactory: async () => {
-        return {
-          type: 'postgres',
-          host: 'localhost',
-          database: 'authdare',
-          username: 'postgres',
-          password: 'password',
-          entities: [TaskEntity],
-          synchronize: true,
-          dropSchema: true,
-        };
-      },
-    }),
+    ResouceModules.register(),
     ScheduleModule.forRoot(),
     MulterModule.register({ dest: './upload' }),
     ThrottlerModule.forRoot({ ttl: 60, limit: 10 }),
@@ -32,7 +17,7 @@ import { TaskEntity, TaskModule } from './resources/task';
       renderPath: '/',
       exclude: ['api', 'api/**'],
     }),
-    TaskModule,
+
   ],
 })
 export class AppModule { }
