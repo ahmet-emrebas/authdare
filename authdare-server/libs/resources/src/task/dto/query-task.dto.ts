@@ -160,7 +160,7 @@ export class TransformAndValidateQueryTaskPipe implements PipeTransform {
         const timeQueryFields = plainToTaskTransformer(query, [GroupTaskEnum.TIME]);
 
         const created_at = Between(timeQueryFields.after || new Date("100"), timeQueryFields.before || new Date("90000"));
-
+        console.log(created_at);
         return { ...baseQueryFields, where: { ...taskDTOQUeryFields, created_at } }
     }
 }

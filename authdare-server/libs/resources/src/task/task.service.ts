@@ -11,6 +11,7 @@ import { CreateTaskDTO, ReadTaskDTO, UpdateTaskDto } from './dto';
 export class TaskService {
 
   constructor(@InjectRepository(TaskEntity) private readonly taskRepo: Repository<TaskEntity>) { }
+
   async create(createTaskDTO: CreateTaskDTO) {
     return await this.taskRepo.save(this.taskRepo.create(createTaskDTO));
   }

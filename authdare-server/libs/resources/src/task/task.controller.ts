@@ -7,6 +7,7 @@ import { TaskService } from './task.service';
 
 const RESOURCE_PATH = 'tasks';
 
+
 @ApiTags(TaskController.name)
 @Controller(resourcePath(RESOURCE_PATH))
 export class TaskController {
@@ -14,13 +15,14 @@ export class TaskController {
 
   @SetPermission(permissionString('post', RESOURCE_PATH))
   @Post()
-  create(@Body(TransformAndValidateCreateTaskPipe) createTaskDto: CreateTaskDTO) {
-    return this.taskService.create(createTaskDto);
+  async create(@Body(TransformAndValidateCreateTaskPipe) createTaskDto: CreateTaskDTO) {
+    return await this.taskService.create(createTaskDto);
   }
 
   @SetPermission(permissionString('get', RESOURCE_PATH))
   @Get()
   async findAll(@Query(TransformAndValidateQueryTaskPipe) query: QueryTaskDTO) {
+    console.log(query);
     return await this.taskService.find(query)
   }
 

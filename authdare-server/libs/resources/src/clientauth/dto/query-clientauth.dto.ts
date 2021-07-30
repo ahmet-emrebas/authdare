@@ -3,71 +3,71 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Exclude, Expose, plainToClass, Transform } from 'class-transformer';
 import { IsBoolean, IsDate, IsIn, isNotEmpty, IsOptional, Max, MaxLength, Min, validate, ValidationArguments } from 'class-validator';
 import { pickBy, keys } from 'lodash';
-import { AuthEntity, AuthStatusType, AuthStatuses } from '../entities';
+import { ClientauthEntity, ClientauthStatusType, ClientauthStatuses } from '../entities';
 import { ArgumentMetadata, BadRequestException, PipeTransform } from '@nestjs/common'
-import { Between } from 'typeorm';
+import { Between, LessThan, MoreThan } from 'typeorm';
 
 /**
- * Type of keys of AuthEntity class. 
+ * Type of keys of ClientauthEntity class. 
  */
-export type AuthEntityKey = keyof AuthEntity
+export type ClientauthEntityKey = keyof ClientauthEntity
 
 /**
  * Define which fields will be included in database query.
  * @returns list of fields that the client can query the database with them.
  */
-export const SelectableAuthColumns = (): AuthEntityKey[] => keys(new AuthEntity()) as AuthEntityKey[];
+export const SelectableClientauthColumns = (): ClientauthEntityKey[] => keys(new ClientauthEntity()) as ClientauthEntityKey[];
 
 
 /**
  * Define which relations will be included in database query
  * @returns list of relational tables
  */
-export const RelationAuthColumns = (): AuthEntityKey[] => [];
+export const RelationClientauthColumns = (): ClientauthEntityKey[] => [];
 
 /**
- * Field type of QueryAuth to determine which field is included or excluded during class transformation.
+ * Field type of QueryClientauth to determine which field is included or excluded during class transformation.
  */
-export enum GroupAuthEnum {
+export enum GroupClientauthEnum {
     QUERY = 'query',
     FIELD = 'field',
     TIME = 'time',
 }
 
 @Exclude()
-export class QueryAuthDTO {
+export class QueryClientauthDTO {
 
     @ApiProperty({ required: false, default: 0 })
-    @Expose({ groups: [GroupAuthEnum.QUERY] })
+    @Expose({ groups: [GroupClientauthEnum.QUERY] })
     @Transform(({ value }) => parseInt(value) || 0)
     @Min(0)
     @IsOptional()
     take?: number;
 
     @ApiProperty({ required: false, default: 0 })
-    @Expose({ groups: [GroupAuthEnum.QUERY] })
+    @Expose({ groups: [GroupClientauthEnum.QUERY] })
     @Transform(({ value }) => parseInt(value) || 0)
     @IsOptional()
     @Min(0)
     skip?: number;
 
     @ApiProperty({ required: false })
-    @Expose({ groups: [GroupAuthEnum.QUERY] })
+    @Expose({ groups: [GroupClientauthEnum.QUERY] })
     @TransformSplitBy(',')
-    @IsIn(SelectableAuthColumns(), { each: true })
+    @IsIn(SelectableClientauthColumns(), { each: true })
     @IsOptional()
-    select?: (keyof AuthEntity)[];
+    select?: (keyof ClientauthEntity)[];
 
 
     @ApiProperty({ required: false })
-    @Expose({ groups: [GroupAuthEnum.QUERY] })
+    @Expose({ groups: [GroupClientauthEnum.QUERY] })
     @TransformSplitBy(',')
-    @IsIn(RelationAuthColumns(), { each: true, message: (args: ValidationArguments) => `The value '${args.value}' is not a relation of Auth` })
+    @IsIn(RelationClientauthColumns(), { each: true, message: (args: ValidationArguments) => `The value '${args.value}' is not a relation of Clientauth` })
     @IsOptional()
-    relations?: (keyof AuthEntity)[];
+    relations?: (keyof ClientauthEntity)[];
 
     @ApiProperty({ required: false })
-    @Expose({ groups: [GroupAuthEnum.QUERY] })
+    @Expose({ groups: [GroupClientauthEnum.QUERY] })
     @TransformParseBoolean()
     @IsBoolean()
     @IsOptional()
@@ -78,7 +78,7 @@ export class QueryAuthDTO {
     // Time Fields to get items before and after time query.
 
     @ApiProperty({ required: false })
-    @Expose({ groups: [GroupAuthEnum.TIME] })
+    @Expose({ groups: [GroupClientauthEnum.TIME] })
     @IsOptional()
     @IsDate()
     @Transform(({ value }) => {
@@ -90,7 +90,7 @@ export class QueryAuthDTO {
 
 
     @ApiProperty({ required: false })
-    @Expose({ groups: [GroupAuthEnum.TIME] })
+    @Expose({ groups: [GroupClientauthEnum.TIME] })
     @IsOptional()
     @IsDate()
     @Transform(({ value }) => {
@@ -101,38 +101,38 @@ export class QueryAuthDTO {
     after?: string;
 
 
-    // Add the fields of AuthEntity that will be included in database query.
+    // Add the fields of ClientauthEntity that will be included in database query.
 
     @ApiProperty({ required: false })
-    @Expose({ groups: [GroupAuthEnum.FIELD] })
+    @Expose({ groups: [GroupClientauthEnum.FIELD] })
     @IsOptional()
     @TransformContainsQuery()
     @Max(50)
     email?: string;
 
     @ApiProperty({ required: false })
-    @Expose({ groups: [GroupAuthEnum.FIELD] })
+    @Expose({ groups: [GroupClientauthEnum.FIELD] })
     @IsOptional()
     @TransformContainsQuery()
     @Max(400)
-    org?: string;
+    orgname?: string;
 
     @ApiProperty({ required: false })
-    @Expose({ groups: [GroupAuthEnum.FIELD] })
+    @Expose({ groups: [GroupClientauthEnum.FIELD] })
     @IsOptional()
     @TransformContainsQuery()
-    @IsIn(AuthStatuses())
-    status?: AuthStatusType;
+    @IsIn(ClientauthStatuses())
+    status?: ClientauthStatusType;
 
-    constructor(obj: QueryAuthDTO) {
+    constructor(obj: QueryClientauthDTO) {
         Object.assign(this, obj);
     }
 }
 
 
-export function plainToAuthTransformer(value: QueryAuthDTO, groups: string[]) {
+export function plainToClientauthTransformer(value: QueryClientauthDTO, groups: string[]) {
     return pickBy(
-        plainToClass(QueryAuthDTO, value, {
+        plainToClass(QueryClientauthDTO, value, {
             groups,
             excludeExtraneousValues: true,
             exposeUnsetFields: false
@@ -141,27 +141,34 @@ export function plainToAuthTransformer(value: QueryAuthDTO, groups: string[]) {
 }
 
 /**
- * Transform and validate the AuthQueryDTO
- * @throws {BadRequestException} when the AuthQueryDTO or its fields does not meet the validation requirements.
+ * Transform and validate the ClientauthQueryDTO
+ * @throws {BadRequestException} when the ClientauthQueryDTO or its fields does not meet the validation requirements.
  */
-export class TransformAndValidateQueryAuthPipe implements PipeTransform {
+export class TransformAndValidateQueryClientauthPipe implements PipeTransform {
 
-    async transform(query: QueryAuthDTO, metadata: ArgumentMetadata) {
+    async transform(query: QueryClientauthDTO, metadata: ArgumentMetadata) {
 
-        const allFields = plainToAuthTransformer(query, [GroupAuthEnum.QUERY, GroupAuthEnum.FIELD, GroupAuthEnum.TIME]);
+        const allFields = plainToClientauthTransformer(query, [GroupClientauthEnum.QUERY, GroupClientauthEnum.FIELD, GroupClientauthEnum.TIME]);
 
         const errors = await validate(allFields);
         if (errors && errors.length > 0)
             throw new BadRequestException(errors);
 
 
-        const baseQueryFields = plainToAuthTransformer(query, [GroupAuthEnum.QUERY]);
-        const authDTOQUeryFields = plainToAuthTransformer(query, [GroupAuthEnum.FIELD]);
-        const timeQueryFields = plainToAuthTransformer(query, [GroupAuthEnum.TIME]);
+        const baseQueryFields = plainToClientauthTransformer(query, [GroupClientauthEnum.QUERY]);
+        const clientauthDTOQUeryFields = plainToClientauthTransformer(query, [GroupClientauthEnum.FIELD]);
+        const timeQueryFields = plainToClientauthTransformer(query, [GroupClientauthEnum.TIME]);
 
         const created_at = Between(timeQueryFields.after || new Date("100"), timeQueryFields.before || new Date("90000"));
 
-        return { ...baseQueryFields, where: { ...authDTOQUeryFields, created_at } }
+
+
+        if (created_at) {
+            return { ...baseQueryFields, where: { ...clientauthDTOQUeryFields, created_at } }
+        } else {
+            return { ...baseQueryFields, where: { ...clientauthDTOQUeryFields } }
+
+        }
     }
 }
 

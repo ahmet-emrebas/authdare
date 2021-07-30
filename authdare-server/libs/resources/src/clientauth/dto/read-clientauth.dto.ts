@@ -1,10 +1,10 @@
 import { Exclude, Expose } from 'class-transformer';
 import { pick } from 'lodash';
-import { CreateUserDTO } from './create-user.dto';
+import { CreateClientauthDTO } from './create-clientauth.dto';
 
-// Create read profiles to determine which fiels will be exluded to users. 
+// Create read profiles to determine which fiels will be exluded to clientauths. 
 
-export class ReadUserDTO extends CreateUserDTO {
+export class ReadClientauthDTO extends CreateClientauthDTO {
 
     @Exclude() created_at;
     @Exclude() updated_at;
@@ -12,7 +12,7 @@ export class ReadUserDTO extends CreateUserDTO {
 
     @Expose() timestamp: any;
 
-    constructor(obj?: CreateUserDTO) {
+    constructor(obj?: CreateClientauthDTO) {
         super(obj);
         this.timestamp = pick(obj, 'created_at', 'updated_at', 'deleted_at');
     }
