@@ -22,7 +22,6 @@ export class TaskController {
   @SetPermission(permissionString('get', RESOURCE_PATH))
   @Get()
   async findAll(@Query(TransformAndValidateQueryTaskPipe) query: QueryTaskDTO) {
-    console.log(query);
     return await this.taskService.find(query)
   }
 

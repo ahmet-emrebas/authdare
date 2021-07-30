@@ -1,11 +1,10 @@
 import { TransformParseBoolean, TransformSplitBy, TransformContainsQuery } from '@authdare/utils/transform';
 import { ApiProperty } from '@nestjs/swagger';
-import { Exclude, Expose, plainToClass, Transform } from 'class-transformer';
-import { IsBoolean, IsDate, IsIn, isNotEmpty, IsOptional, Max, MaxLength, Min, validate, ValidationArguments } from 'class-validator';
+import { Exclude, Expose, plainToClass, Transform, classToPlain } from 'class-transformer';
+import { IsBoolean, IsIn, isNotEmpty, IsOptional, Max, Min, validate, ValidationArguments } from 'class-validator';
 import { pickBy, keys } from 'lodash';
 import { TaskEntity, TaskStatusType, TaskStatuses } from '../entities';
 import { ArgumentMetadata, BadRequestException, PipeTransform } from '@nestjs/common'
-import { Between } from 'typeorm';
 
 /**
  * Type of keys of TaskEntity class. 
@@ -34,6 +33,42 @@ export enum GroupTaskEnum {
     TIME = 'time',
 }
 
+
+/**
+ * 
+ * 
+ * 
+ * @Notes
+ *
+ *   // Time Fields to get items before and after time query.
+ *
+ *   // Some how not compatiple with 
+ *   // @ApiProperty({ required: false })
+ *   // @Expose({ groups: [GroupTaskEnum.TIME] })
+ *   // @IsOptional()
+ *   // @IsDate()
+ *   // @Transform(({ value }) => {
+ *   //     const v = value && typeof value === 'string' && new Date(value);
+ *   //     return v;
+ *   // }, { toClassOnly: true })
+ *   // @MaxLength(50)
+ *   // before?: string;
+ *
+ *
+ *   // @ApiProperty({ required: false })
+ *   // @Expose({ groups: [GroupTaskEnum.TIME] })
+ *   // @IsOptional()
+ *   // @IsDate()
+ *   // @Transform(({ value }) => {
+ *   //     const v = value && typeof value === 'string' && new Date(value);
+ *   //     return v;
+ *   // }, { toClassOnly: true })
+ *   // @MaxLength(50)
+ *   // after?: string;
+ *
+ *
+ *   // Add the fields of TaskEntity that will be included in database query.
+ */
 @Exclude()
 export class QueryTaskDTO {
 
@@ -54,16 +89,16 @@ export class QueryTaskDTO {
     @ApiProperty({ required: false, enum: SelectableTaskColumns() })
     @Expose({ groups: [GroupTaskEnum.QUERY] })
     @TransformSplitBy(',')
-    @IsIn(SelectableTaskColumns(), { each: true })
     @IsOptional()
+    @IsIn(SelectableTaskColumns(), { each: true })
     select?: (keyof TaskEntity)[];
 
 
-    @ApiProperty({ required: false })
+    @ApiProperty({ required: false, enum: RelationTaskColumns() })
     @Expose({ groups: [GroupTaskEnum.QUERY] })
     @TransformSplitBy(',')
-    @IsIn(RelationTaskColumns(), { each: true, message: (args: ValidationArguments) => `The value '${args.value}' is not a relation of Task` })
     @IsOptional()
+    @IsIn(RelationTaskColumns(), { each: true, message: (args: ValidationArguments) => `The value '${args.value}' is not a relation of Task` })
     relations?: (keyof TaskEntity)[];
 
     @ApiProperty({ required: false, default: false })
@@ -71,38 +106,9 @@ export class QueryTaskDTO {
     @TransformParseBoolean()
     @IsBoolean()
     @IsOptional()
-    withDeleted: boolean
+    withDeleted?: boolean
 
 
-
-    // Time Fields to get items before and after time query.
-
-    // Some how not compatiple with 
-    // @ApiProperty({ required: false })
-    // @Expose({ groups: [GroupTaskEnum.TIME] })
-    // @IsOptional()
-    // @IsDate()
-    // @Transform(({ value }) => {
-    //     const v = value && typeof value === 'string' && new Date(value);
-    //     return v;
-    // }, { toClassOnly: true })
-    // @MaxLength(50)
-    // before?: string;
-
-
-    // @ApiProperty({ required: false })
-    // @Expose({ groups: [GroupTaskEnum.TIME] })
-    // @IsOptional()
-    // @IsDate()
-    // @Transform(({ value }) => {
-    //     const v = value && typeof value === 'string' && new Date(value);
-    //     return v;
-    // }, { toClassOnly: true })
-    // @MaxLength(50)
-    // after?: string;
-
-
-    // Add the fields of TaskEntity that will be included in database query.
 
     @ApiProperty({ required: false })
     @Expose({ groups: [GroupTaskEnum.FIELD] })
@@ -130,40 +136,75 @@ export class QueryTaskDTO {
     }
 }
 
+/**
+ * Convert plain QueryTask object to class by including the fields with corresponding groups.
+ * The options, "excludeExtraneousValues: true, exposeUnsetFields: false", is applied.
+ * @param value 
+ * @param groups 
+ * @returns 
+ */
+function plainToQueryTaskByGroups(value: QueryTaskDTO, groups: GroupTaskEnum[]) {
+    return plainToClass(QueryTaskDTO, value, {
+        groups,
+        excludeExtraneousValues: true,
+        exposeUnsetFields: false
+    })
+}
 
-export function plainToTaskTransformer(value: QueryTaskDTO, groups: string[]) {
-    return pickBy(
-        plainToClass(QueryTaskDTO, value, {
-            groups,
-            excludeExtraneousValues: true,
-            exposeUnsetFields: false
-        }),
-        e => isNotEmpty(e));  // Ignore null/undifiend/empty fields.
+
+/**
+ * Validate the all fields of QueryTaskDTO, and return the class instance.
+ * @param query 
+ */
+async function validateQueryAndToQueryTaskClass(query: QueryTaskDTO): Promise<QueryTaskDTO> {
+    const queryTaskDTO = plainToQueryTaskByGroups(query, [GroupTaskEnum.QUERY, GroupTaskEnum.FIELD, GroupTaskEnum.TIME]);
+    const errors = await validate(queryTaskDTO);
+    if (errors && errors.length > 0) throw new BadRequestException(errors);
+    return queryTaskDTO
 }
 
 /**
- * Transform and validate the TaskQueryDTO
+ * Extract none empty fields of the Query Group and return the partial plain object,containing only the group members of Query, of the QueryTask 
+ * @param classQueryTask 
+ * @returns 
+ */
+function toPlainQueryGroup(classQueryTask: QueryTaskDTO) {
+    return pickBy(classToPlain(classQueryTask, { groups: [GroupTaskEnum.QUERY] }), (e) => isNotEmpty(e));
+}
+
+/**
+ * Extract none empty fields of the Field Group and return the partial plain object,containing only the group members of Query, of the QueryTask 
+ * @param classQueryTask 
+ * @returns 
+ */
+function toPlainFieldGroup(classQueryTask: QueryTaskDTO) {
+    return pickBy(classToPlain(classQueryTask, { groups: [GroupTaskEnum.FIELD] }), (e) => isNotEmpty(e))
+}
+
+
+/**
+ * Transform and validate the TaskQueryDTO and return the PLAIN Object
+ * 
+ * @Notes
+ * 
+ *   // Sqlite Does not work with this for some reason.
+ *   // const created_at = Between(timeQueryFields.after || new Date("100"), timeQueryFields.before || new Date("90000"));
+ *   // const timeQueryFields = plainToQueryTaskByGroups(query, [GroupTaskEnum.TIME]);
+ * 
+ * 
+ * 
+ * 
  * @throws {BadRequestException} when the TaskQueryDTO or its fields does not meet the validation requirements.
  */
 export class TransformAndValidateQueryTaskPipe implements PipeTransform {
-
     async transform(query: QueryTaskDTO, metadata: ArgumentMetadata) {
-
-        const allFields = plainToTaskTransformer(query, [GroupTaskEnum.QUERY, GroupTaskEnum.FIELD, GroupTaskEnum.TIME]);
-
-        const errors = await validate(allFields);
-        if (errors && errors.length > 0)
-            throw new BadRequestException(errors);
-
-        const baseQueryFields = plainToTaskTransformer(query, [GroupTaskEnum.QUERY]);
-        const taskDTOQUeryFields = plainToTaskTransformer(query, [GroupTaskEnum.FIELD]);
-
-        // Sqlite Does not work with this for some reason.
-        // const created_at = Between(timeQueryFields.after || new Date("100"), timeQueryFields.before || new Date("90000"));
-        // const timeQueryFields = plainToTaskTransformer(query, [GroupTaskEnum.TIME]);
-
-
-        return { ...baseQueryFields, where: { ...taskDTOQUeryFields } }
+        const classQueryTask = await validateQueryAndToQueryTaskClass(query);
+        return {
+            // Common Query options 
+            ...toPlainQueryGroup(classQueryTask),
+            // Query of Entity Fields
+            where: toPlainFieldGroup(classQueryTask),
+        }
     }
 }
 

@@ -20,7 +20,7 @@ export class TaskService implements ResourceService<QueryTaskDTO, ReadTaskDTO, C
   }
 
   async find(query: FindManyOptions<TaskEntity>): Promise<FindManyResponse<ReadTaskDTO>> {
-    const data = (await this.taskRepo.find(query)).map(e => classToPlain(new ReadTaskDTO(e))) as ReadTaskDTO[];
+    const data = (await this.taskRepo.find(query)).map(e => classToPlain(new ReadTaskDTO(e), { exposeUnsetFields: true })) as ReadTaskDTO[];
     return {
       name: resourceName(TaskEntity),
       profile: "Undefined",
@@ -31,7 +31,7 @@ export class TaskService implements ResourceService<QueryTaskDTO, ReadTaskDTO, C
 
   async findOne(id: number) {
     const found = await this.taskRepo.findOne(id);
-    return plainToClass(CreateTaskDTO, found);
+    return classToPlain(new CreateTaskDTO(found));
   }
 
   async update(id: number, updateTaskDto: UpdateTaskDto) {
