@@ -1,12 +1,12 @@
-import { TransformContainsQuery } from '@authdare/utils/transform/contains-query.transform';
-import { TransformSplitBy } from '@authdare/utils/transform/split-by.transform';
+import { TransformSplitBy } from '@authdare/utils/transform';
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude, Expose, plainToClass, Transform } from 'class-transformer';
 import { IsDate, IsIn, isNotEmpty, IsOptional, Max, MaxLength, Min, validate, ValidationArguments } from 'class-validator';
-import { pickBy } from 'lodash';
+import { pickBy, keys } from 'lodash';
 import { TaskEntity } from '../entities';
 import { ArgumentMetadata, BadRequestException, PipeTransform } from '@nestjs/common'
 import { Between } from 'typeorm';
+import { TransformContainsQuery } from '@authdare/utils/transform/contains-query.transform';
 
 /**
  * Type of keys of TaskEntity class. 
@@ -17,7 +17,8 @@ export type TaskEntityKey = keyof TaskEntity
  * Define which fields will be included in database query.
  * @returns list of fields that the client can query the database with them.
  */
-export const SelectableTaskColumns = (): TaskEntityKey[] => ['id', 'title', 'description', 'created_at', 'updated_at', 'deleted_at']
+export const SelectableTaskColumns = (): TaskEntityKey[] => keys(new TaskEntity()) as TaskEntityKey[];
+
 
 /**
  * Define which relations will be included in database query
@@ -42,21 +43,21 @@ export class QueryTaskDTO {
     @Transform(({ value }) => parseInt(value) || 0)
     @Min(0)
     @IsOptional()
-    take: number;
+    take?: number;
 
     @ApiProperty({ required: false, default: 0 })
     @Expose({ groups: [TaskFieldType.QUERY] })
     @Transform(({ value }) => parseInt(value) || 0)
     @IsOptional()
     @Min(0)
-    skip: number;
+    skip?: number;
 
     @ApiProperty({ required: false })
     @Expose({ groups: [TaskFieldType.QUERY] })
     @TransformSplitBy(',')
     @IsIn(SelectableTaskColumns(), { each: true })
     @IsOptional()
-    select: (keyof TaskEntity)[];
+    select?: (keyof TaskEntity)[];
 
 
     @ApiProperty({ required: false })
@@ -64,7 +65,7 @@ export class QueryTaskDTO {
     @TransformSplitBy(',')
     @IsIn(RelationTaskColumns(), { each: true, message: (args: ValidationArguments) => `The value '${args.value}' is not a relation of Task` })
     @IsOptional()
-    relations: (keyof TaskEntity)[];
+    relations?: (keyof TaskEntity)[];
 
 
     // Time Fields to get items before and after time query.
@@ -78,7 +79,7 @@ export class QueryTaskDTO {
         return v;
     }, { toClassOnly: true })
     @MaxLength(50)
-    before: string;
+    before?: string;
 
 
     @ApiProperty({ required: false })
@@ -90,7 +91,7 @@ export class QueryTaskDTO {
         return v;
     }, { toClassOnly: true })
     @MaxLength(50)
-    after: string;
+    after?: string;
 
 
     // Add the fields of TaskEntity that will be included in database query.
@@ -100,14 +101,14 @@ export class QueryTaskDTO {
     @IsOptional()
     @TransformContainsQuery()
     @Max(50)
-    title: string;
+    title?: string;
 
     @ApiProperty({ required: false })
     @Expose({ groups: [TaskFieldType.FIELD] })
     @IsOptional()
     @TransformContainsQuery()
     @Max(400)
-    description: string;
+    description?: string;
 
     constructor(obj: QueryTaskDTO) {
         Object.assign(this, obj);
@@ -136,17 +137,17 @@ export class TransformAndValidateQueryTaskDTO implements PipeTransform {
         const allFields = plainTaskToClass(query, [TaskFieldType.QUERY, TaskFieldType.FIELD, TaskFieldType.TIME]);
 
         const errors = await validate(allFields);
-        if (errors && errors.length > 0) {
+        if (errors && errors.length > 0)
             throw new BadRequestException(errors);
-        }
 
-        const queryOptions = plainTaskToClass(query, [TaskFieldType.QUERY]);
-        const whereOptions = plainTaskToClass(query, [TaskFieldType.FIELD]);
-        const timeOptions = plainTaskToClass(query, [TaskFieldType.TIME]);
 
-        const created_at = Between(timeOptions.after || new Date("100"), timeOptions.before || new Date("90000"));
+        const baseQueryFields = plainTaskToClass(query, [TaskFieldType.QUERY]);
+        const taskDTOQUeryFields = plainTaskToClass(query, [TaskFieldType.FIELD]);
+        const timeQueryFields = plainTaskToClass(query, [TaskFieldType.TIME]);
 
-        return { ...queryOptions, where: { ...whereOptions, created_at } }
+        const created_at = Between(timeQueryFields.after || new Date("100"), timeQueryFields.before || new Date("90000"));
+
+        return { ...baseQueryFields, where: { ...taskDTOQUeryFields, created_at } }
     }
 }
 

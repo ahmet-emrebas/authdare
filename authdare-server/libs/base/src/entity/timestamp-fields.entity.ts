@@ -8,9 +8,9 @@ import { CreateDateColumn, DeleteDateColumn, PrimaryGeneratedColumn, UpdateDateC
 export class TimestampFields {
 
     @PrimaryGeneratedColumn()
-    @Expose()
+    @Expose({ name: 'uid' })
     @IsOptional()
-    id?: number
+    id?: number = undefined
 
     @CreateDateColumn({
         transformer: {
@@ -20,7 +20,7 @@ export class TimestampFields {
     })
     @Expose()
     @IsOptional()
-    created_at?: string;
+    created_at?: string = undefined;
 
     @UpdateDateColumn({
         transformer: {
@@ -30,7 +30,7 @@ export class TimestampFields {
     })
     @Expose()
     @IsOptional()
-    updated_at?: string;
+    updated_at?: string = undefined;
 
     @DeleteDateColumn({
         transformer: {
@@ -40,6 +40,6 @@ export class TimestampFields {
     })
     @Expose()
     @IsOptional()
-    deleted_at?: string;
+    deleted_at?: string = undefined;
 
 }

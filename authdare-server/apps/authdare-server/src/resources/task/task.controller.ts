@@ -1,5 +1,5 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, ValidationPipe, Query, ParseIntPipe } from '@nestjs/common';
-import { CreateTaskDTO, QueryTaskDTO, TransformAndValidateQueryTaskDTO, UpdateTaskDto } from './dto';
+import { CreateTaskDTO, QueryTaskDTO, TransformAndValidateQueryTaskDTO, UpdateTaskDto, TransformAndValidateCrateTaskDTO } from './dto';
 import { TaskService } from './task.service';
 
 @Controller('api/tasks')
@@ -7,7 +7,7 @@ export class TaskController {
   constructor(private readonly taskService: TaskService) { }
 
   @Post()
-  create(@Body(ValidationPipe) createTaskDto: CreateTaskDTO) {
+  create(@Body(TransformAndValidateCrateTaskDTO) createTaskDto: CreateTaskDTO) {
     return this.taskService.create(createTaskDto);
   }
 
@@ -16,9 +16,8 @@ export class TaskController {
     return await this.taskService.find(query)
   }
 
-
   @Get(':id')
-  async findOne(@Param('id', ParseIntPipe) id: number, @Query(TransformAndValidateQueryTaskDTO) query: QueryTaskDTO) {
+  async findOne(@Param('id', ParseIntPipe) id: number) {
     return await this.taskService.findOne(id);
   }
 
