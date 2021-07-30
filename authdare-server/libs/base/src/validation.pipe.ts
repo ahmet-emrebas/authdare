@@ -3,7 +3,6 @@ import { ArgumentMetadata, BadRequestException, Injectable, PipeTransform } from
 import { ClassConstructor, plainToClass } from "class-transformer";
 
 
-
 @Injectable()
 export class ValidationPipe<T extends object = any> implements PipeTransform {
     constructor(private readonly entityDTO: ClassConstructor<T>) { }
