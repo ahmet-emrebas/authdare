@@ -6,11 +6,11 @@ import { CreateTaskDTO } from './create-task.dto';
 
 export class ReadTaskDTO extends CreateTaskDTO {
 
-    @Exclude() created_at;
-    @Exclude() updated_at;
-    @Exclude() deleted_at;
+    @Exclude() created_at?;
+    @Exclude() updated_at?;
+    @Exclude() deleted_at?;
 
-    @Expose() timestamp: any;
+    @Expose() timestamp?: any;
 
     constructor(obj?: CreateTaskDTO) {
         super(obj);

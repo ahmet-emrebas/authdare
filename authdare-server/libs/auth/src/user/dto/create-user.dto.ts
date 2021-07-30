@@ -1,5 +1,5 @@
 import { company, internet } from 'faker';
-import { ClientauthStatusType, ClientauthStatuses } from './../entities';
+import { UserStatusType, UserStatuses } from './../entities';
 import { ArgumentMetadata, PipeTransform, BadRequestException } from '@nestjs/common';
 import { TimestampFields } from "@authdare/base/entity";
 import { IsNotBlank } from "@authdare/utils/validate";
@@ -9,7 +9,7 @@ import { IsEmail, IsIn, IsOptional, IsString, Length, validate } from "class-val
 import { snakeCase, upperCase } from "lodash";
 
 @Exclude()
-export class CreateClientauthDTO extends TimestampFields {
+export class CreateUserDTO extends TimestampFields {
 
     @ApiProperty({ default: internet.email() })
     @Expose()
@@ -33,6 +33,7 @@ export class CreateClientauthDTO extends TimestampFields {
     @ApiProperty({ default: ['read:users'] })
     @Expose()
     @IsString({ each: true })
+    @IsOptional()
     permissions?: string[];
 
     @ApiProperty({ default: 'PASSIVE' })
@@ -40,10 +41,10 @@ export class CreateClientauthDTO extends TimestampFields {
     @Transform(({ value }) => value && typeof value == 'string' && upperCase(value))
     @IsOptional()
     @IsNotBlank()
-    @IsIn(ClientauthStatuses())
-    status?: ClientauthStatusType = 'PASSIVE';
+    @IsIn(UserStatuses())
+    status?: UserStatusType = 'PASSIVE';
 
-    constructor(obj: Partial<CreateClientauthDTO>) {
+    constructor(obj: Partial<CreateUserDTO>) {
         super();
         Object.assign(this, obj);
     }
@@ -51,13 +52,13 @@ export class CreateClientauthDTO extends TimestampFields {
 }
 
 
-export class TransformAndValidateCreateClientauthPipe implements PipeTransform {
-    async transform(value: CreateClientauthDTO, metadata: ArgumentMetadata) {
-        const transformedClientauthDTO = plainToClass(CreateClientauthDTO, value, { exposeDefaultValues: true });
-        const errors = await validate(transformedClientauthDTO);
+export class TransformAndValidateCreateUserPipe implements PipeTransform {
+    async transform(value: CreateUserDTO, metadata: ArgumentMetadata) {
+        const transformedUserDTO = plainToClass(CreateUserDTO, value, { exposeDefaultValues: true });
+        const errors = await validate(transformedUserDTO);
         if (errors && errors.length > 0) {
             throw new BadRequestException(errors);
         }
-        return transformedClientauthDTO;
+        return transformedUserDTO;
     }
 }

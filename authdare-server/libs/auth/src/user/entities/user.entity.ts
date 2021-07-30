@@ -4,14 +4,14 @@ import { genSaltSync, hashSync } from "bcrypt";
 import { Column, Entity } from "typeorm";
 
 
-export type ClientauthStatusType = 'ACTIVE' | 'PASSIVE';
-export const ClientauthStatuses = (): ['ACTIVE', 'PASSIVE'] => ['ACTIVE', 'PASSIVE'];
+export type UserStatusType = 'ACTIVE' | 'PASSIVE';
+export const UserStatuses = (): ['ACTIVE', 'PASSIVE'] => ['ACTIVE', 'PASSIVE'];
 
 /**
- * This is only for defination of the table. Do not create any instance of this class, use CreateClientauthDTO AnyClientauthDTO
+ * This is only for defination of the table. Do not create any instance of this class, use CreateUserDTO AnyUserDTO
  */
-@Entity(entityTableName(ClientauthEntity))
-export class ClientauthEntity extends TimestampFields {
+@Entity(entityTableName(UserEntity))
+export class UserEntity extends TimestampFields {
     @Column()
     email: string = undefined;
 
@@ -39,7 +39,7 @@ export class ClientauthEntity extends TimestampFields {
     })
     permissions: string = undefined;
 
-    @Column({ nullable: true }) status: ClientauthStatusType = undefined;
+    @Column({ nullable: true }) status: UserStatusType = undefined;
 }
 
 

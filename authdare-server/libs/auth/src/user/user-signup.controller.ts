@@ -1,8 +1,8 @@
-import { ClientauthService } from './clientauth.service';
+import { UserService } from './user.service';
 import { ApiTags } from '@nestjs/swagger';
 import { Body, Controller, Post } from "@nestjs/common";
-import { ClientauthEntity } from './entities'
-import { CreateClientauthDTO, TransformAndValidateCreateClientauthPipe } from './dto';
+import { UserEntity } from './entities'
+import { CreateUserDTO, TransformAndValidateCreateUserPipe } from './dto';
 import { BadRequestException, Logger } from '@nestjs/common';
 import { Connection, createConnection, getConnection } from 'typeorm';
 import { importResourceModules } from '@authdare/utils/module';
@@ -12,19 +12,18 @@ const RESOURCE_PATH = 'client/auth';
 
 @ApiTags('Client Signup')
 @Controller(resourcePath(RESOURCE_PATH))
-export class SignupClientauthController {
+export class SignupUserController {
 
-    constructor(private clientauthService: ClientauthService) { }
+    constructor(private userService: UserService) { }
 
-    // @Post('join')
-    // async joinTeam(@Body() joinDto: CreateJoinDTO) {
-    //     const transformed = plainToClass(CreateJoinDTO, joinDto);
-    //     console.log(transformed);
-    // }
+    @Post(':orgname/join')
+    async joinTeam(@Body() joinDto: CreateUserDTO) {
+
+    }
 
     @Post('signup')
-    async signup(@Body(TransformAndValidateCreateClientauthPipe) createSignupDTO: CreateClientauthDTO) {
-        const found = await this.clientauthService.find({ where: { orgname: createSignupDTO.orgname } })
+    async signup(@Body(TransformAndValidateCreateUserPipe) createSignupDTO: CreateUserDTO) {
+        const found = await this.userService.find({ where: { orgname: createSignupDTO.orgname } })
         if (found?.count >= 1) {
             if (found.count > 1) {
                 Logger.error(`There are dublicate orgname in database, corresponding ID: ${found.data[0]?.id}`)
@@ -33,14 +32,14 @@ export class SignupClientauthController {
         }
         createSignupDTO.status = 'ACTIVE';
         createSignupDTO.permissions = ['client'];
-        const created = await this.clientauthService.create(createSignupDTO);
+        const created = await this.userService.create(createSignupDTO);
         const userDetails = await this.createClientDatabase(created)
         return { message: `Welcome! We created your account ${created.email}`, userDetails }
     }
 
 
-    async createClientDatabase(clientauthUser: ClientauthEntity): Promise<ClientauthEntity> {
-        const orgname = clientauthUser.orgname;
+    async createClientDatabase(userUser: UserEntity): Promise<UserEntity> {
+        const orgname = userUser.orgname;
 
         let con: Connection;
         try {
@@ -60,11 +59,11 @@ export class SignupClientauthController {
             dropSchema: true,
         });
 
-        const userRepo = await con.getRepository(ClientauthEntity);
+        const userRepo = await con.getRepository(UserEntity);
 
-        const createdClientauthUser = await userRepo.create(clientauthUser)
-        const savedClientauthUser = await userRepo.save(createdClientauthUser);
-        console.log(savedClientauthUser);
-        return savedClientauthUser;
+        const createdUserUser = await userRepo.create(userUser)
+        const savedUserUser = await userRepo.save(createdUserUser);
+        console.log(savedUserUser);
+        return savedUserUser;
     }
 }

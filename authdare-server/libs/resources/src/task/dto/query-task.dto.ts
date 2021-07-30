@@ -51,7 +51,7 @@ export class QueryTaskDTO {
     @Min(0)
     skip?: number;
 
-    @ApiProperty({ required: false })
+    @ApiProperty({ required: false, enum: SelectableTaskColumns() })
     @Expose({ groups: [GroupTaskEnum.QUERY] })
     @TransformSplitBy(',')
     @IsIn(SelectableTaskColumns(), { each: true })
@@ -66,7 +66,7 @@ export class QueryTaskDTO {
     @IsOptional()
     relations?: (keyof TaskEntity)[];
 
-    @ApiProperty({ required: false })
+    @ApiProperty({ required: false, default: false })
     @Expose({ groups: [GroupTaskEnum.QUERY] })
     @TransformParseBoolean()
     @IsBoolean()
@@ -77,28 +77,29 @@ export class QueryTaskDTO {
 
     // Time Fields to get items before and after time query.
 
-    @ApiProperty({ required: false })
-    @Expose({ groups: [GroupTaskEnum.TIME] })
-    @IsOptional()
-    @IsDate()
-    @Transform(({ value }) => {
-        const v = value && typeof value === 'string' && new Date(value);
-        return v;
-    }, { toClassOnly: true })
-    @MaxLength(50)
-    before?: string;
+    // Some how not compatiple with 
+    // @ApiProperty({ required: false })
+    // @Expose({ groups: [GroupTaskEnum.TIME] })
+    // @IsOptional()
+    // @IsDate()
+    // @Transform(({ value }) => {
+    //     const v = value && typeof value === 'string' && new Date(value);
+    //     return v;
+    // }, { toClassOnly: true })
+    // @MaxLength(50)
+    // before?: string;
 
 
-    @ApiProperty({ required: false })
-    @Expose({ groups: [GroupTaskEnum.TIME] })
-    @IsOptional()
-    @IsDate()
-    @Transform(({ value }) => {
-        const v = value && typeof value === 'string' && new Date(value);
-        return v;
-    }, { toClassOnly: true })
-    @MaxLength(50)
-    after?: string;
+    // @ApiProperty({ required: false })
+    // @Expose({ groups: [GroupTaskEnum.TIME] })
+    // @IsOptional()
+    // @IsDate()
+    // @Transform(({ value }) => {
+    //     const v = value && typeof value === 'string' && new Date(value);
+    //     return v;
+    // }, { toClassOnly: true })
+    // @MaxLength(50)
+    // after?: string;
 
 
     // Add the fields of TaskEntity that will be included in database query.
@@ -154,14 +155,15 @@ export class TransformAndValidateQueryTaskPipe implements PipeTransform {
         if (errors && errors.length > 0)
             throw new BadRequestException(errors);
 
-
         const baseQueryFields = plainToTaskTransformer(query, [GroupTaskEnum.QUERY]);
         const taskDTOQUeryFields = plainToTaskTransformer(query, [GroupTaskEnum.FIELD]);
-        const timeQueryFields = plainToTaskTransformer(query, [GroupTaskEnum.TIME]);
 
-        const created_at = Between(timeQueryFields.after || new Date("100"), timeQueryFields.before || new Date("90000"));
-        console.log(created_at);
-        return { ...baseQueryFields, where: { ...taskDTOQUeryFields, created_at } }
+        // Sqlite Does not work with this for some reason.
+        // const created_at = Between(timeQueryFields.after || new Date("100"), timeQueryFields.before || new Date("90000"));
+        // const timeQueryFields = plainToTaskTransformer(query, [GroupTaskEnum.TIME]);
+
+
+        return { ...baseQueryFields, where: { ...taskDTOQUeryFields } }
     }
 }
 
