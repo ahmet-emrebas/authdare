@@ -13,6 +13,12 @@
     "incremental": true,
     "skipLibCheck": true,
     "paths": {
+      "@authdare/models": [
+        "libs/models/src"
+      ],
+      "@authdare/models/*": [
+        "libs/models/src/*"
+      ],
       "@authdare/utils": [
         "libs/utils/src"
       ],
@@ -24,18 +30,6 @@
       ],
       "@authdare/base/*": [
         "libs/base/src/*"
-      ],
-      "@authdare/resources": [
-        "libs/resources/src"
-      ],
-      "@authdare/resources/*": [
-        "libs/resources/src/*"
-      ],
-      "@authdare/auth": [
-        "libs/auth/src"
-      ],
-      "@authdare/auth/*": [
-        "libs/auth/src/*"
       ]
     }
   }
