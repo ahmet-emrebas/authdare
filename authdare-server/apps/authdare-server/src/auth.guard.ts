@@ -1,3 +1,4 @@
+import { InternalServerErrorException } from '@nestjs/common';
 import { ResourceService } from './resource.service';
 import { UserEntity } from './models/user.entity';
 import { Cookies } from './http/cookies';
@@ -38,9 +39,13 @@ export class AuthGuard implements CanActivate {
 
     // check permissions
     if (user?.permissions?.includes(requiredPermission)) {
-
+      console.log('JWT user', user, __filename);
+      console.log(`Resouce:${resource}"`);
       const repo = await getOrgRepository({ orgname: user.orgname, resource });
-
+      if (!repo) {
+        throw new InternalServerErrorException(`Repository not found! , for "${resource}" and orgname "${user.orgname}"`)
+      }
+      console.log(`REpository: ${repo}`)
       const resourceService = new ResourceService(repo);
       //  Inject the ResourceSErvice 
       req[RESOURCE_SERVICE_KEY] = resourceService;

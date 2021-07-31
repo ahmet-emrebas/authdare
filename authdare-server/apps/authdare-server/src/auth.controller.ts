@@ -1,5 +1,5 @@
 
-import { Cookies } from './http/cookies';
+import { Cookies } from './http';
 import { AuthService } from './auth.service';
 import { Body, Controller, Param, Post, Res, } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
@@ -23,29 +23,34 @@ export class AuthControler {
         res.send({ message: "Welcome!" });
     }
 
-    @Post(':orgname/signup')
-    async clientSignup(@Body() body: Login, @Res() res: Response, @Param("orgname") orgname: string) {
+    /**
+     * Users join the organiations.
+     * @param body 
+     * @param res 
+     * @param orgname 
+     */
+    @Post(':orgname/join')
+    async clientSignup(@Body() body: UserEntity, @Res() res: Response, @Param("orgname") orgname: string) {
         const clientUserRepo = await (await orgConnection(orgname)).getRepository(UserEntity);
         const clientService = new AuthService(this.jwt, clientUserRepo);
-        const token = await clientService.signup(body);
+        const token = await clientService.join(body);
         res.cookie(Cookies.AUTH, token);
-        res.send({ message: "Welcome!" });
+        res.send({ message: "Welcome, your account need an approval from the admin of your organization." });
     }
 
 
-
-
-    @Post('login')
-    async login(@Body() body: Login, @Res() res: Response) {
-        const token = await this.authService.login(body);
-        res.cookie(Cookies.AUTH, token);
-        res.send({ message: "Welcome!" });
-    }
-
+    /**
+     * This is for subscription
+     * @param body 
+     * @param res 
+     */
     @Post('signup')
     async signup(@Body() body: UserEntity, @Res() res: Response) {
         const token = await this.authService.signup(body);
         res.cookie(Cookies.AUTH, token);
         res.send({ message: "Welcome!" });
     }
+
+
+
 }

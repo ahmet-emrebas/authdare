@@ -5,4 +5,5 @@ export enum Groups {
     TIMESTAMP = 'TIMESTAMP',
     ALL = 'ALL',
     PASSWORD = 'PASSWORD',
+    AUTH_COOKIE = 'AUTH_COOKIE'
 }

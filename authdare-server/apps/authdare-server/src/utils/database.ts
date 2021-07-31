@@ -1,16 +1,12 @@
 import { RequestParams } from './request-params';
-import { flatten, keys, values, without } from "lodash";
+import { flatten, keys, values } from "lodash";
 import { Connection, createConnection, getConnection } from "typeorm";
 import { TaskEntity, UserEntity } from "../models";
 
-export const entities = () => ({
+export const entities: () => { [key: string]: any } = () => ({
     tasks: TaskEntity,
     users: UserEntity
 })
-
-
-
-
 
 export async function orgConnection(orgname: string, sync?: boolean, drop?: boolean) {
     let con: Connection;
@@ -30,9 +26,9 @@ export async function orgConnection(orgname: string, sync?: boolean, drop?: bool
 }
 
 
-export async function getOrgRepository({ orgname, resource }: RequestParams) {
+export async function getOrgRepository<E>({ orgname, resource }: RequestParams) {
     let con = await orgConnection(orgname);
-    return con.getRepository(entities[resource]);
+    return con.getRepository<E>(entities()[resource]);
 }
 
 

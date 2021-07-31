@@ -1,5 +1,5 @@
 import { classToPlain } from 'class-transformer';
-import { BaseEntity } from './models/base.entity';
+import { BaseEntity } from './models';
 import { DeepPartial, FindManyOptions, Repository } from "typeorm";
 import { Groups } from './models';
 

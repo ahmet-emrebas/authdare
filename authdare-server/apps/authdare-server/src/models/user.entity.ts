@@ -3,41 +3,39 @@ import { hashPassword, toStringArray, Trim } from './utils';
 import { BaseEntity } from './base.entity';
 import { Column, Entity } from "typeorm";
 import { ApiProperty } from '@nestjs/swagger';
-import { internet } from 'faker';
 import { IsEmail, IsOptional, IsString, Length } from 'class-validator';
 import { Exclude, Expose, } from 'class-transformer';
+import { adminPermissions } from '../utils';
 
 @Entity({ name: 'users' })
 @Exclude()
 export class UserEntity extends BaseEntity<UserEntity> {
 
-    @Expose()
-    @ApiProperty({ default: internet.email() })
+    @Expose({ groups: [Groups.READ, Groups.SIGNUP, Groups.AUTH_COOKIE] })
+    @ApiProperty({ default: "aemrebas.dev@gmail.com" })
     @IsEmail()
     @Column({ unique: true })
     email?: string;
 
-    @Expose({ groups: [Groups.PASSWORD] })
-    @ApiProperty({ default: internet.password() })
+    @Expose({ groups: [Groups.PASSWORD, Groups.SIGNUP] })
+    @ApiProperty({ default: "myPassword" })
+    @IsOptional({ groups: [Groups.AUTH_COOKIE] })
     @Trim()
     @Length(6, 50)
     @Column({ transformer: hashPassword })
     password?: string;
 
-    @Expose()
-    @ApiProperty({ default: ['orgname:method:resource'] })
+    @Expose({ groups: [Groups.READ, Groups.AUTH_COOKIE] })
+    @ApiProperty({ default: adminPermissions('ahmet') })
+    @IsOptional({ groups: [Groups.SIGNUP] })
     @Trim()
     @IsString({ each: true })
-    @IsOptional({ groups: [Groups.SIGNUP] })
     @Column({ type: 'text', transformer: toStringArray })
     permissions?: string[];
 
 
-    @Expose()
-    @ApiProperty({
-        type: 'string',
-        default: "ahmet",
-    })
+    @Expose({ groups: [Groups.READ, Groups.SIGNUP, Groups.AUTH_COOKIE] })
+    @ApiProperty({ default: "ahmet", })
     @Trim()
     @Length(3, 30,)
     @Column({ unique: true })
