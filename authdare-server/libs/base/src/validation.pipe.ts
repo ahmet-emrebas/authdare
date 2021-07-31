@@ -6,7 +6,7 @@ import { ClassConstructor, plainToClass } from "class-transformer";
 @Injectable()
 export class ValidationPipe<T extends object = any> implements PipeTransform {
     constructor(private readonly entityDTO: ClassConstructor<T>) { }
-    async transform(value: Partial<T>, metadata: ArgumentMetadata) {
+    async transform(value: Partial<T>, { metatype, data, type }: ArgumentMetadata) {
         const dtoClassInstance = plainToClass(this.entityDTO, value)
         const errors = await validate(dtoClassInstance);
         if (errors && errors.length > 0) {

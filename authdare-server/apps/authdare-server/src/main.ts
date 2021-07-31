@@ -11,7 +11,6 @@ async function bootstrap() {
   app.enableCors();
   app.use(cookieParser());
   app.use(favicon(join(__dirname, '..', '..', '..', 'client', 'favicon.ico')));
-
   const config = new DocumentBuilder()
     .setTitle('Authdare Api')
     .setDescription('Atomic role and permission assignment ... ')
