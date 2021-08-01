@@ -84,6 +84,7 @@ export class QrcodeReaderComponent implements OnInit, AfterViewInit, OnDestroy {
 
   async ngOnDestroy() {
     this.clearState();
+    this.subsink.unsubscribe();
   }
 
   clearState() {
