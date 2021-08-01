@@ -1,0 +1,48 @@
+{
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "apps/authdare-server/src",
+  "monorepo": true,
+  "root": "apps/authdare-server",
+  "compilerOptions": {
+    "webpack": true,
+    "tsConfigPath": "apps/authdare-server/tsconfig.app.json"
+  },
+  "projects": {
+    "authdare-server": {
+      "type": "application",
+      "root": "apps/authdare-server",
+      "entryFile": "main",
+      "sourceRoot": "apps/authdare-server/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/authdare-server/tsconfig.app.json"
+      }
+    },
+    "models": {
+      "type": "library",
+      "root": "libs/models",
+      "entryFile": "index",
+      "sourceRoot": "libs/models/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/models/tsconfig.lib.json"
+      }
+    },
+    "utils": {
+      "type": "library",
+      "root": "libs/utils",
+      "entryFile": "index",
+      "sourceRoot": "libs/utils/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/utils/tsconfig.lib.json"
+      }
+    },
+    "base": {
+      "type": "library",
+      "root": "libs/base",
+      "entryFile": "index",
+      "sourceRoot": "libs/base/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/base/tsconfig.lib.json"
+      }
+    }
+  }
+}

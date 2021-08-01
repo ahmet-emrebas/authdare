@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "es2017",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true,
+    "skipLibCheck": true,
+    "paths": {
+      "@authdare/models": [
+        "libs/models/src"
+      ],
+      "@authdare/models/*": [
+        "libs/models/src/*"
+      ],
+      "@authdare/utils": [
+        "libs/utils/src"
+      ],
+      "@authdare/utils/*": [
+        "libs/utils/src/*"
+      ],
+      "@authdare/base": [
+        "libs/base/src"
+      ],
+      "@authdare/base/*": [
+        "libs/base/src/*"
+      ]
+    }
+  }
+}
