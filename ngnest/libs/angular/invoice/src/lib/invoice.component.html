@@ -9,7 +9,7 @@
 
         <div class="full business-container">
             <div>
-                <img [src]="invoice.logo | asset" alt="Business logo" />
+                <img [src]="invoice.logo" alt="Business logo" />
                 <div class="qr-code">
                     <authdare-qrcode-gen [qrData]="invoiceQR"></authdare-qrcode-gen>
                 </div>
@@ -18,28 +18,28 @@
                 <div>
                     <div class="icon-line">
                         <!-- <mat-icon>business</mat-icon> -->
-                        <img [src]="'png-icons/white-business.png' | asset" width="30" />
+                        <img [src]="'/assets/png-icons/white-business.png' | asset" width="30" />
                         <span>{{invoice.businessName}}</span>
                     </div>
                     <div class="icon-line">
-                        <img [src]="'png-icons/white-phone.png' | asset" width="30" />
+                        <img [src]="'/assets/png-icons/white-phone.png' | asset" width="30" />
                         <span> {{invoice.phone}} </span>
                     </div>
                     <div class="icon-line">
-                        <img [src]="'png-icons/white-email.png' | asset" width="30" />
+                        <img [src]="'/assets/png-icons/white-email.png' | asset" width="30" />
                         <span> {{invoice.email}} </span>
                     </div>
 
                     <div class="icon-line">
-                        <img [src]="'png-icons/white-streetview.png' | asset" width="30" />
+                        <img [src]="'/assets/png-icons/white-streetview.png' | asset" width="30" />
                         <span>{{invoice.street}}</span>
                     </div>
                     <div class="icon-line">
-                        <img [src]="'png-icons/white-city.png' | asset" width="30" />
+                        <img [src]="'/assets/png-icons/white-city.png' | asset" width="30" />
                         <span>{{invoice.city + ", " + invoice.state}}</span>
                     </div>
                     <div class="icon-line">
-                        <img [src]="'png-icons/white-flag.png' | asset" width="30" />
+                        <img [src]="'/assets/png-icons/white-flag.png' | asset" width="30" />
                         <span>{{invoice.zip}}</span>
                     </div>
                 </div>
