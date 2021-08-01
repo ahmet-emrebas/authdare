@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Invoice } from '@authdare/invoice';
+import { getAsset } from '@authdare/utils/asset.pipe';
 
 @Component({
   templateUrl: './invoice-doc.component.html',
@@ -9,7 +10,7 @@ export class InvoiceDocComponent implements OnInit {
   invoice: Partial<Invoice> = {
     invoiceId: '123',
     businessName: 'Ahmet Emrebas',
-    logo: '/assets/icons/icon-72x72.png',
+    logo: getAsset('/assets/icons/icon-72x72.png'),
     city: 'Houston',
     street: '123 Street',
     state: 'Texas',

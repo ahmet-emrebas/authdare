@@ -173,7 +173,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">apps/client/src/app/material-doc/invoice-doc/invoice-doc.component.ts:42</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">apps/client/src/app/material-doc/invoice-doc/invoice-doc.component.ts:43</a></div>
                             </td>
                         </tr>
 
@@ -210,8 +210,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="45"
-                            class="link-to-prism">apps/client/src/app/material-doc/invoice-doc/invoice-doc.component.ts:45</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="46"
+                            class="link-to-prism">apps/client/src/app/material-doc/invoice-doc/invoice-doc.component.ts:46</a></div>
                 </td>
             </tr>
 
@@ -255,7 +255,7 @@
                         <i>Default value : </i><code>{
     invoiceId: &#x27;123&#x27;,
     businessName: &#x27;Ahmet Emrebas&#x27;,
-    logo: &#x27;/assets/icons/icon-72x72.png&#x27;,
+    logo: getAsset(&#x27;/assets/icons/icon-72x72.png&#x27;),
     city: &#x27;Houston&#x27;,
     street: &#x27;123 Street&#x27;,
     state: &#x27;Texas&#x27;,
@@ -288,7 +288,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">apps/client/src/app/material-doc/invoice-doc/invoice-doc.component.ts:9</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">apps/client/src/app/material-doc/invoice-doc/invoice-doc.component.ts:10</a></div>
                         </td>
                     </tr>
 
@@ -313,7 +313,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">apps/client/src/app/material-doc/invoice-doc/invoice-doc.component.ts:42</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">apps/client/src/app/material-doc/invoice-doc/invoice-doc.component.ts:43</a></div>
                         </td>
                     </tr>
 
@@ -328,6 +328,7 @@
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
 import { Invoice } from &#x27;@authdare/invoice&#x27;;
+import { getAsset } from &#x27;@authdare/utils/asset.pipe&#x27;;
 
 @Component({
   templateUrl: &#x27;./invoice-doc.component.html&#x27;,
@@ -337,7 +338,7 @@ export class InvoiceDocComponent implements OnInit {
   invoice: Partial&lt;Invoice&gt; &#x3D; {
     invoiceId: &#x27;123&#x27;,
     businessName: &#x27;Ahmet Emrebas&#x27;,
-    logo: &#x27;/assets/icons/icon-72x72.png&#x27;,
+    logo: getAsset(&#x27;/assets/icons/icon-72x72.png&#x27;),
     city: &#x27;Houston&#x27;,
     street: &#x27;123 Street&#x27;,
     state: &#x27;Texas&#x27;,
