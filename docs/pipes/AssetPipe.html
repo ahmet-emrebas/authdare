@@ -97,15 +97,15 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>transform(value: <a href="../numbers/i.html" target="_self">string</a>, args: <a href="../numbers/i.html" target="_self">string[]</a>)</code>
+<code>transform(value: <a href="../numbers/i.html" target="_self">string | undefined</a>, args: <a href="../numbers/i.html" target="_self">string[]</a>)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="8"
-                            class="link-to-prism">libs/angular/utils/src/lib/asset.pipe.ts:8</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="15"
+                            class="link-to-prism">libs/angular/utils/src/lib/asset.pipe.ts:15</a></div>
                 </td>
             </tr>
 
@@ -127,7 +127,7 @@
                                 <tr>
                                     <td>value</td>
                                     <td>
-                                                <code><a href="../miscellaneous/variables.html#i" target="_self" >string</a></code>
+                                                <code><a href="../miscellaneous/variables.html#i" target="_self" >string | undefined</a></code>
                                     </td>
 
                                     <td>
@@ -153,6 +153,13 @@
                     </div>
                     <div>
                     </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../miscellaneous/variables.html#i" target="_self" >string</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
                 </td>
             </tr>
         </tbody>
@@ -164,14 +171,21 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Pipe, PipeTransform } from &#x27;@angular/core&#x27;;
-import { asset } from &#x27;./get-asset&#x27;;
+
+
+export function getAsset(value: string | undefined) {
+  const base &#x3D; document.getElementsByTagName(&#x27;base&#x27;)[0];
+  if (value)
+    return base.href + &quot;/&quot; + value;
+  return &#x27;&#x27;;
+}
 
 @Pipe({
   name: &#x27;asset&#x27;
 })
 export class AssetPipe implements PipeTransform {
-  transform(value: string, ...args: string[]): unknown {
-    return asset(value);
+  transform(value: string | undefined, ...args: string[]): string {
+    return getAsset(value);
   }
 }
 </code></pre>
