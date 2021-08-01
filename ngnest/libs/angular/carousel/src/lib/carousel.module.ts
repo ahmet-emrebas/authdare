@@ -1,3 +1,4 @@
+import { UtilsModule } from '@authdare/utils';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
@@ -22,6 +23,7 @@ import { CarouselPersistentComponent } from './carousel-persistent/carousel-pers
   imports: [
     CommonModule,
     MatButtonModule,
+    UtilsModule,
     MatIconModule,
     StoreModule.forFeature('carousel-navigation', {}),
     EntityDataModule.forRoot(entityConfig),
@@ -34,4 +36,4 @@ import { CarouselPersistentComponent } from './carousel-persistent/carousel-pers
     CarouselPersistentComponent,
   ],
 })
-export class CarouselModule {}
+export class CarouselModule { }

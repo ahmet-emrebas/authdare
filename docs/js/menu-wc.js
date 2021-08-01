@@ -106,13 +106,13 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="modules/CarouselModule.html" data-type="entity-link" >CarouselModule</a>
                                     <li class="chapter inner">
                                         <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
-                                            'data-target="#components-links-module-CarouselModule-e7a904b7ea710f09d88ab339e45cf11f"' : 'data-target="#xs-components-links-module-CarouselModule-e7a904b7ea710f09d88ab339e45cf11f"' }>
+                                            'data-target="#components-links-module-CarouselModule-ce482434f440e737b80871899ad48b09"' : 'data-target="#xs-components-links-module-CarouselModule-ce482434f440e737b80871899ad48b09"' }>
                                             <span class="icon ion-md-cog"></span>
                                             <span>Components</span>
                                             <span class="icon ion-ios-arrow-down"></span>
                                         </div>
-                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-CarouselModule-e7a904b7ea710f09d88ab339e45cf11f"' :
-                                            'id="xs-components-links-module-CarouselModule-e7a904b7ea710f09d88ab339e45cf11f"' }>
+                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-CarouselModule-ce482434f440e737b80871899ad48b09"' :
+                                            'id="xs-components-links-module-CarouselModule-ce482434f440e737b80871899ad48b09"' }>
                                             <li class="link">
                                                 <a href="components/CarouselComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" >CarouselComponent</a>
                                             </li>
@@ -126,13 +126,13 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                     </li>
                                 <li class="chapter inner">
                                     <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
-                                        'data-target="#injectables-links-module-CarouselModule-e7a904b7ea710f09d88ab339e45cf11f"' : 'data-target="#xs-injectables-links-module-CarouselModule-e7a904b7ea710f09d88ab339e45cf11f"' }>
+                                        'data-target="#injectables-links-module-CarouselModule-ce482434f440e737b80871899ad48b09"' : 'data-target="#xs-injectables-links-module-CarouselModule-ce482434f440e737b80871899ad48b09"' }>
                                         <span class="icon ion-md-arrow-round-down"></span>
                                         <span>Injectables</span>
                                         <span class="icon ion-ios-arrow-down"></span>
                                     </div>
-                                    <ul class="links collapse" ${ isNormalMode ? 'id="injectables-links-module-CarouselModule-e7a904b7ea710f09d88ab339e45cf11f"' :
-                                        'id="xs-injectables-links-module-CarouselModule-e7a904b7ea710f09d88ab339e45cf11f"' }>
+                                    <ul class="links collapse" ${ isNormalMode ? 'id="injectables-links-module-CarouselModule-ce482434f440e737b80871899ad48b09"' :
+                                        'id="xs-injectables-links-module-CarouselModule-ce482434f440e737b80871899ad48b09"' }>
                                         <li class="link">
                                             <a href="injectables/CarouselService.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" >CarouselService</a>
                                         </li>
@@ -140,13 +140,13 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 </li>
                                     <li class="chapter inner">
                                         <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
-                                            'data-target="#pipes-links-module-CarouselModule-e7a904b7ea710f09d88ab339e45cf11f"' : 'data-target="#xs-pipes-links-module-CarouselModule-e7a904b7ea710f09d88ab339e45cf11f"' }>
+                                            'data-target="#pipes-links-module-CarouselModule-ce482434f440e737b80871899ad48b09"' : 'data-target="#xs-pipes-links-module-CarouselModule-ce482434f440e737b80871899ad48b09"' }>
                                             <span class="icon ion-md-add"></span>
                                             <span>Pipes</span>
                                             <span class="icon ion-ios-arrow-down"></span>
                                         </div>
-                                        <ul class="links collapse" ${ isNormalMode ? 'id="pipes-links-module-CarouselModule-e7a904b7ea710f09d88ab339e45cf11f"' :
-                                            'id="xs-pipes-links-module-CarouselModule-e7a904b7ea710f09d88ab339e45cf11f"' }>
+                                        <ul class="links collapse" ${ isNormalMode ? 'id="pipes-links-module-CarouselModule-ce482434f440e737b80871899ad48b09"' :
+                                            'id="xs-pipes-links-module-CarouselModule-ce482434f440e737b80871899ad48b09"' }>
                                             <li class="link">
                                                 <a href="pipes/WrapPipe.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" >WrapPipe</a>
                                             </li>

@@ -1,14 +1,9 @@
 <div #container class="carousel-container d-flex flex-column">
   <div class="position-relative d-flex flex-row">
     <div *ngFor="let cItem of carouselItems" style="min-width: 100%">
-      <img
-        class="carousel-image"
-        [style.backgroundImage]="cItem.img ? 'url(' + cItem.img + ')' : ''"
-        [style.backgroundColor]="cItem.backgroundColor"
-        [@slideInLeftOnEnter]
-        [@slideOutRightOnLeave]
-        src="assets/imgs/placeholder-1366x768.png"
-      />
+      <img class="carousel-image" [style.backgroundImage]="cItem.img ? 'url(' + cItem.img + ')' : ''"
+        [style.backgroundColor]="cItem.backgroundColor" [@slideInLeftOnEnter] [@slideOutRightOnLeave]
+        [src]="'assets/imgs/placeholder-1366x768.png' | asset" />
 
       <!-- template variable -->
       <span #helper [hidden]="true"></span>
@@ -31,10 +26,6 @@
 </div>
 
 <div class="carousel-navigation-container">
-  <authdare-carousel-navigation
-    #carouselNavigation
-    [state]="carouselNavigationState"
-    (onChange)="scrollTo($event)"
-  >
+  <authdare-carousel-navigation #carouselNavigation [state]="carouselNavigationState" (onChange)="scrollTo($event)">
   </authdare-carousel-navigation>
 </div>
