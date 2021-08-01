@@ -1,34 +1,43 @@
+import { ResourceName } from './resource-name';
+import { keys } from 'lodash';
 import { Groups } from './groups';
-import { hashPassword, toStringArray, Trim } from './transformers';
+import { hashPassword, Trim, FromStringToObject } from './transformers';
 import { BaseEntity } from './base.entity';
 import { Column, Entity } from "typeorm";
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsIn, IsOptional, Length, validate } from 'class-validator';
-import { classToClass, Exclude, Expose, } from 'class-transformer';
+import { Exclude, Expose, classToClass, Transform } from 'class-transformer';
 import { UnprocessableEntityException } from '@nestjs/common';
+import { HttpMethod } from '../http';
 
 
 export class UserPermission {
-    @IsIn(['get', 'post', 'patch', 'delete', 'update', 'put']) method: string;
-    @IsIn(['users', 'tasks']) resource: string;
+    @Expose()
+    @IsIn(keys(HttpMethod))
+    @Transform(({ value }) => {
+        return (value as string).toLowerCase();
+    })
+    public method: HttpMethod = HttpMethod.get;
 
-    constructor(permissionOrMethod: string | UserPermission, resource?: string) {
-        if (resource) {
-            this.method = permissionOrMethod as string;
-            this.resource = resource;
-        } else {
-            this.method = (permissionOrMethod as UserPermission).method;
-            this.resource = (permissionOrMethod as UserPermission).resource;
-        }
+    @Expose()
+    @IsIn(keys(ResourceName))
+    @Transform(({ value }) => {
+        return (value as string).toLowerCase();
+    })
+    public resource: string = 'unknown';
+
+    constructor(method: HttpMethod, resource?: string) {
+        this.method = method;
+        this.resource = resource;
     }
 
     async validateAndTransformToClassInstance?(): Promise<UserPermission> | never {
-        const permissionsClassInstance = classToClass(this);
-        const errors = await validate(permissionsClassInstance);
+        const transformed = classToClass(this);
+        const errors = await validate(transformed);
         if (errors && errors.length > 0) {
             throw new UnprocessableEntityException(errors);
         }
-        return permissionsClassInstance as unknown as UserPermission;
+        return transformed;
     }
 }
 
@@ -50,15 +59,15 @@ export class UserEntity extends BaseEntity<UserEntity> {
     @Column({ transformer: hashPassword })
     password?: string;
 
-    @Expose({ groups: [Groups.READ, Groups.AUTH_COOKIE] })
+    @Expose({ groups: [Groups.READ, Groups.AUTH_COOKIE, Groups.SIGNUP] })
     @ApiProperty({ default: [{ method: '', resource: '' }] })
-    @IsOptional({ groups: [Groups.SIGNUP] })
-    @Trim()
-    @Column({ type: 'text', transformer: toStringArray })
-    permissions?: {
-        method: string,
-        resource: string
-    }[];
+    @IsOptional({ groups: [Groups.SIGNUP, Groups.AUTH_COOKIE,] })
+    @Column({
+        type: 'text',
+        nullable: true,
+        transformer: FromStringToObject(['method', 'resource'])
+    })
+    permissions?: UserPermission[];
 
 
     @Expose({ groups: [Groups.READ, Groups.SIGNUP, Groups.AUTH_COOKIE] })

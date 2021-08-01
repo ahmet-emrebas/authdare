@@ -1,6 +1,6 @@
 import { classToPlain } from 'class-transformer';
 import { BaseEntity } from './models';
-import { DeepPartial, FindManyOptions, Repository } from "typeorm";
+import { DeepPartial, FindManyOptions, FindOneOptions, Repository } from "typeorm";
 import { Groups } from './models';
 
 export class ResourceService<T extends BaseEntity<any>> {
@@ -9,6 +9,10 @@ export class ResourceService<T extends BaseEntity<any>> {
 
     async find(query?: FindManyOptions) {
         return (await this.repository.find(query)).map(e => classToPlain(e, { groups: [Groups.READ] }));
+    }
+
+    async findOne(query?: FindOneOptions) {
+        return classToPlain(await this.repository.findOne(query), { groups: [Groups.READ] })
     }
 
     async findById(id: number) {

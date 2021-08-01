@@ -78,9 +78,9 @@ export class AuthService {
 
         const foundUser = await this.userRepo.findOne({ where: { email } });
         if (foundUser && foundUser.password) {
-            const isPassMatch = compare(password, foundUser.password)
+            const isPassMatch = await compare(password, foundUser.password)
             if (isPassMatch) {
-                return this.jwt.sign(classToPlain(foundUser));
+                return await this.jwt.sign(classToPlain(foundUser));
             }
         }
         throw new UnauthorizedException(`We could not foundUser) the account with the email addresss, ${email}`)
@@ -102,29 +102,29 @@ export class AuthService {
         await checkUserExistThenThrowException(this.userRepo, user);
 
         // Initialize client database
-        const clientConnection = await this.dbm.orgConnection(userInstance.orgname, true, true);
+        await this.dbm.orgConnection(userInstance.orgname, true, true);
 
-        const clientUserRepo = clientConnection.getRepository(UserEntity);
+        const clientUserRepo = await this.dbm.getUserRepositoryByOrgname<UserEntity>(userInstance.orgname);
 
-        // Create user account in our database
-        try {
-            // set permissions 
-            userInstance.permissions = this.dbm.adminPermissions();
 
-            // Save user in our database
-            const createdUser = await this.userRepo.save(userInstance);
+        // Client permissions for the user; 
+        userInstance.permissions = null;
 
-            // Save user in client database as well
-            const ___createdUserInClient = await clientUserRepo.save(userInstance);
-            const token = this.signAuthCookie(createdUser);
-            return token;
-        } catch (err) {
-            Logger.error(err, TAG);
-            throw new InternalServerErrorException();
-        }
+        // Save user in our database
+        await this.userRepo.save(this.userRepo.create(userInstance));
 
+
+        // Admin permissions for the client databse; 
+        userInstance.permissions = await this.dbm.adminPermissions();
+
+
+        await clientUserRepo.save(clientUserRepo.create(userInstance));
+
+
+        const token = await this.signAuthCookie(userInstance);
+
+        return token;
     }
-
 
     /**
      * Sign the token including only the fields of the Groups.AUTH_COOKIE in the entity.
@@ -132,14 +132,10 @@ export class AuthService {
      * @returns 
      */
     async signAuthCookie(userInstance: UserEntity) {
-        userInstance.validateAndTransformToClassInstance([Groups.AUTH_COOKIE]);
-        const plainUser = classToPlain(userInstance, { groups: [Groups.AUTH_COOKIE] });
-        const TAG = this.TAG + 'signAuthCookie';
-        if (plainUser.orgname && plainUser.email && plainUser.permissions && plainUser.permissions) {
-            return this.jwt.sign(plainUser);
-        }
-        Logger.error(`Could not sing the cookie for the payload ${plainUser}`, TAG);
-        throw new InternalServerErrorException();
+        const plainUser = await new UserEntity(userInstance).validateAndTransformToClassInstance([Groups.AUTH_COOKIE], true);
+        const token = await this.jwt.sign(plainUser);
+        return token;
+
     }
 
 }

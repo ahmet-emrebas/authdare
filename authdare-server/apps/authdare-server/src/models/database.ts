@@ -1,3 +1,4 @@
+import { classToPlain } from 'class-transformer';
 import { flatten } from 'lodash';
 import { ClassConstructor } from 'class-transformer';
 import { Injectable } from '@nestjs/common';
@@ -30,7 +31,7 @@ export class SQLiteDatabasaManager<PermissinType> implements DatabaseManager<Per
 
     constructor(
         private readonly _entities: ClassConstructor<any>[],
-        private readonly _permissionOptions?: {
+        private readonly _permissionOptions: {
             methods: string[],
             permissionClass: ClassConstructor<PermissinType>,
         }
@@ -42,9 +43,9 @@ export class SQLiteDatabasaManager<PermissinType> implements DatabaseManager<Per
     }
 
     adminPermissions(): PermissinType[] {
-        return flatten(this._permissionOptions.methods.map(m => {
+        return flatten(this._permissionOptions?.methods.map(m => {
             return this.getResouceNames().map(r => {
-                return new this._permissionOptions.permissionClass(m, r);
+                return classToPlain(new this._permissionOptions.permissionClass(m, r)) as PermissinType
             })
         }));
     }

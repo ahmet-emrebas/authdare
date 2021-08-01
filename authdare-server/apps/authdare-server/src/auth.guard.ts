@@ -1,3 +1,4 @@
+import { HttpMethod } from './http/http-method';
 import { Inject, InternalServerErrorException } from '@nestjs/common';
 import { ResourceService } from './resource.service';
 import { UserEntity, UserPermission } from './models/user.entity';
@@ -10,22 +11,29 @@ import { DatabaseManager, DATABASE_MANAGER_TOKEN } from './models/database';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-
-  constructor(private readonly jwt: JwtService, @Inject(DATABASE_MANAGER_TOKEN) private readonly dbm: DatabaseManager<UserPermission>) { }
+  constructor(
+    private readonly jwt: JwtService,
+    @Inject(DATABASE_MANAGER_TOKEN) private readonly dbm: DatabaseManager<UserPermission>
+  ) { }
 
   async canActivate(context: ExecutionContext,): Promise<boolean> {
 
-    const req = context.switchToHttp().getRequest<Request>();
+    const req = await context.switchToHttp().getRequest<Request>();
 
-    const { orgname, resource } = req.params;
+    const { resource } = req.params;
 
     const user = await this.verifyAuthToken(req);
 
     await this.checkUserHasRequiredPermissions(await this.requiredPermission(req), user);
 
-    req[RESOURCE_SERVICE_KEY] = await this.getResourceService(orgname, resource)
+    await this.setResourceService(req, user.orgname, resource);
 
     return true;
+  }
+
+
+  async setResourceService(req: Request, orgname: string, resource: string) {
+    req[RESOURCE_SERVICE_KEY] = await this.getResourceService(orgname, resource)
   }
 
   /**
@@ -33,9 +41,15 @@ export class AuthGuard implements CanActivate {
    * @param param0 
    * @returns UserPermission Object
    */
-  async requiredPermission({ method, params }: Request) {
-    const { resource } = params;
-    return await new UserPermission({ method, resource }).validateAndTransformToClassInstance();
+  async requiredPermission(req: Request) {
+    const method = req.method as HttpMethod;
+    const { resource } = req.params;
+    try {
+
+      return await new UserPermission(method, resource).validateAndTransformToClassInstance();
+    } catch (Err) {
+      console.log('here is the reere')
+    }
   }
 
   /**
@@ -46,7 +60,7 @@ export class AuthGuard implements CanActivate {
    * @throws {UnauthorizedException} if user does not have the required permission for this route.
    */
   async checkUserHasRequiredPermissions(requiredPermission: UserPermission, user: UserEntity): Promise<boolean> | never {
-    if (user?.permissions?.find(e => e.method == requiredPermission.method)) {
+    if (user?.permissions?.find(e => e?.method == requiredPermission.method)) {
       return true;
     } else {
       throw new UnauthorizedException('You do not have sufficient permission for this request!')

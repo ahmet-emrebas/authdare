@@ -1,6 +1,5 @@
-import { AuthGuard } from './auth.guard';
 import { TaskEntity } from './models/task.entity';
-import { UserEntity } from './models/user.entity';
+import { UserEntity, UserPermission } from './models/user.entity';
 import { DATABASE_MANAGER_TOKEN, SQLiteDatabasaManager } from './models/database';
 import { AuthService } from './auth.service';
 import { ResourceController } from './resource.controller';
@@ -14,9 +13,13 @@ import { join } from 'path';
 import { JwtModule } from '@nestjs/jwt';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-const sqlite = new SQLiteDatabasaManager([
-  UserEntity, TaskEntity
-])
+const sqlite = new SQLiteDatabasaManager(
+  [UserEntity, TaskEntity],
+  {
+    methods: ['get', 'post', 'put', 'delete', 'patch'],
+    permissionClass: UserPermission,
+  }
+)
 
 const sqliteProvider = {
   provide: DATABASE_MANAGER_TOKEN,

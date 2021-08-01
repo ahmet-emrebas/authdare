@@ -1,4 +1,4 @@
-import { classToClass } from 'class-transformer';
+import { classToPlain, classToClass } from 'class-transformer';
 import { Groups } from './groups';
 import { toLocalString } from './transformers';
 import { CreateDateColumn, DeleteDateColumn, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
@@ -6,19 +6,25 @@ import { IsOptional, validate } from 'class-validator';
 import { Expose } from 'class-transformer';
 import { UnprocessableEntityException } from '@nestjs/common';
 
-
 export class BaseValidator<T>{
+
     constructor(obj?: T) {
         Object.assign(this, obj);
+
     }
-    async validateAndTransformToClassInstance?(groups?: Groups[]): Promise<T> | never {
+    async validateAndTransformToClassInstance?(groups?: Groups[], plain?: boolean): Promise<T> | never {
         const classInstance = classToClass(this, { groups });
-        const errors = await validate(classInstance);
+        const errors = await validate(classInstance, { groups });
         if (errors && errors.length > 0) {
             throw new UnprocessableEntityException(errors);
         }
+        if (plain) {
+            return classToPlain(this, { groups }) as unknown as T;
+        }
         return classInstance as unknown as T;
     }
+
+
 }
 
 
