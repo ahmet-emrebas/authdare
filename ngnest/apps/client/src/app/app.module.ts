@@ -34,4 +34,4 @@ import { NavbarModule } from '@authdare/navbar';
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
