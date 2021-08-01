@@ -13,7 +13,7 @@
     "c:watch": "ng build --watch --configuration development",
     "c:test": "ng test",
     "i18n": "ng extract-i18n --output-path apps/client/src/locale --format=json",
-    "doc": "compodoc -p tsconfig.doc.json -d ../docs && ng build",
+    "doc": "compodoc -p tsconfig.doc.json -d ../docs && ng build --deploy-url https://ahmet-emrebas.github.io/authdare/materials/",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
     "s:prebuild": "rimraf dist",
