@@ -1,7 +1,7 @@
 import { ResourceName } from './resource-name';
 import { keys } from 'lodash';
 import { Groups } from './groups';
-import { hashPassword, Trim, FromStringToObject } from './transformers';
+import { hashPassword, Trim, JSONToString } from './transformers';
 import { BaseEntity } from './base.entity';
 import { Column, Entity } from "typeorm";
 import { ApiProperty } from '@nestjs/swagger';
@@ -17,14 +17,14 @@ export class UserPermission {
     @Transform(({ value }) => {
         return (value as string).toLowerCase();
     })
-    public method: HttpMethod = HttpMethod.get;
+    public method: HttpMethod;;
 
     @Expose()
     @IsIn(keys(ResourceName))
     @Transform(({ value }) => {
         return (value as string).toLowerCase();
     })
-    public resource: string = 'unknown';
+    public resource: string;
 
     constructor(method: HttpMethod, resource?: string) {
         this.method = method;
@@ -45,13 +45,13 @@ export class UserPermission {
 @Exclude()
 export class UserEntity extends BaseEntity<UserEntity> {
 
-    @Expose({ groups: [Groups.READ, Groups.SIGNUP, Groups.AUTH_COOKIE] })
+    @Expose({ groups: [Groups.CREATE, Groups.READ, Groups.SIGNUP, Groups.AUTH_COOKIE, Groups.CREDENTIALS] })
     @ApiProperty({ default: "aemrebas.dev@gmail.com" })
     @IsEmail()
     @Column({ unique: true })
     email?: string;
 
-    @Expose({ groups: [Groups.PASSWORD, Groups.SIGNUP] })
+    @Expose({ groups: [Groups.CREATE, Groups.PASSWORD, Groups.SIGNUP, Groups.CREDENTIALS] })
     @ApiProperty({ default: "myPassword" })
     @IsOptional({ groups: [Groups.AUTH_COOKIE] })
     @Trim()
@@ -59,18 +59,17 @@ export class UserEntity extends BaseEntity<UserEntity> {
     @Column({ transformer: hashPassword })
     password?: string;
 
-    @Expose({ groups: [Groups.READ, Groups.AUTH_COOKIE, Groups.SIGNUP] })
+    @Expose({ groups: [Groups.CREATE, Groups.READ, Groups.AUTH_COOKIE] })
     @ApiProperty({ default: [{ method: '', resource: '' }] })
     @IsOptional({ groups: [Groups.SIGNUP, Groups.AUTH_COOKIE,] })
     @Column({
         type: 'text',
         nullable: true,
-        transformer: FromStringToObject(['method', 'resource'])
+        transformer: JSONToString()
     })
     permissions?: UserPermission[];
 
-
-    @Expose({ groups: [Groups.READ, Groups.SIGNUP, Groups.AUTH_COOKIE] })
+    @Expose({ groups: [Groups.CREATE, Groups.READ, Groups.SIGNUP, Groups.AUTH_COOKIE] })
     @ApiProperty({ default: "ahmet", })
     @Trim()
     @Length(3, 30,)

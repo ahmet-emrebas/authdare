@@ -1,10 +1,9 @@
-import { keys } from 'lodash';
 import { genSaltSync, hashSync } from "bcrypt";
-import { ClassConstructor, Transform } from "class-transformer";
+import { Transform } from "class-transformer";
 import { ValueTransformer } from "typeorm";
 
 /**
- * Column Transformer
+ * Column Transformer, transform toLocalDateTime string.
  */
 export const toLocalString: ValueTransformer = {
     to: (value) => value,
@@ -29,10 +28,11 @@ export const toStringArray: ValueTransformer = {
 
 
 /**
- * Trim string or string array. 
+ * Trim string/string[]
+ * @param value 
  * @returns 
  */
-export const Trim = () => Transform(({ value }) => {
+export function trimStringAndArray(value: any) {
     if (value && typeof value === 'string') {
         return value.trim();
     } else if (typeof value === 'object' && value.length) {
@@ -40,35 +40,24 @@ export const Trim = () => Transform(({ value }) => {
     } else {
         return value;
     }
+}
+
+/**
+ * Trim string or string array. 
+ * @returns 
+ */
+export const Trim = () => Transform(({ value }) => {
+    return trimStringAndArray(value);
 }, { toClassOnly: true })
 
 
 
 /**
+ * Entity column transformer
  * @param c 
  * @returns 
  */
-export const FromStringToObject = (itemProperties: string[]) => ({
-    to: (listOfItems: any[]) => {
-        return listOfItems?.map(e => {
-            let stringVersion = [];
-            for (let [key, value] of Object.entries(e)) {
-                stringVersion.push(value);
-            }
-            return stringVersion.join(':');
-        }).join(',')
-    },
-    from: (value: string) => {
-        const props = value?.split(",").map(e => e.split(':'));
-        const objs = props?.map(p => {
-            let obj = {};
-            let i = 0;
-            for (let k of itemProperties) {
-                obj[k] = p[i];
-                i++
-            }
-            return obj
-        })
-        return objs;
-    }
+export const JSONToString = () => ({
+    to: (listOfItems: any[]) => JSON.stringify(listOfItems),
+    from: (value: string) => JSON.parse(value)
 })

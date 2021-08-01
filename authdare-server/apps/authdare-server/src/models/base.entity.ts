@@ -1,4 +1,4 @@
-import { classToPlain, classToClass } from 'class-transformer';
+import { classToPlain, classToClass, Exclude } from 'class-transformer';
 import { Groups } from './groups';
 import { toLocalString } from './transformers';
 import { CreateDateColumn, DeleteDateColumn, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
@@ -29,7 +29,7 @@ export class BaseValidator<T>{
 
 
 export class BaseEntity<T extends object> extends BaseValidator<T> {
-    @Expose() @IsOptional() @PrimaryGeneratedColumn() id?: number;
+    @Expose({ groups: [Groups.READ, Groups.AUTH_COOKIE] }) @IsOptional() @PrimaryGeneratedColumn() id?: number;
     @Expose({ groups: [Groups.TIMESTAMP] }) @IsOptional() @CreateDateColumn({ transformer: toLocalString }) created_at?: string;
     @Expose({ groups: [Groups.TIMESTAMP] }) @IsOptional() @UpdateDateColumn({ transformer: toLocalString }) udpated_at?: string;
     @Expose({ groups: [Groups.TIMESTAMP] }) @IsOptional() @DeleteDateColumn({ transformer: toLocalString }) deleted_at?: string;
