@@ -3,7 +3,6 @@ import { UtilsComponent } from './utils.component';
 import { AssetPipe } from './asset.pipe';
 
 
-
 @NgModule({
   declarations: [
     UtilsComponent,

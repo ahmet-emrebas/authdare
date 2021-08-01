@@ -1,11 +1,13 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { asset } from './get-asset';
 
 @Pipe({
   name: 'asset'
 })
 export class AssetPipe implements PipeTransform {
-  transform(value: string, ...args: string[]): unknown {
-    return asset(value);
+  transform(value: string | undefined, ...args: string[]): string {
+    const base = document.getElementsByTagName('base')[0];
+    if (value)
+      return base.href + "/" + value;
+    return '';
   }
 }
