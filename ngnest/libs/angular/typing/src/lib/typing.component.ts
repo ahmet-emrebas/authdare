@@ -5,6 +5,7 @@ import {
   ViewChild,
   Output,
   EventEmitter,
+  OnDestroy,
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import {
@@ -15,6 +16,7 @@ import { ChartConfiguration, ChartTypeRegistry } from 'chart.js';
 import { ChartComponent } from '@authdare/chart';
 import { BehaviorSubject } from 'rxjs';
 import { cloneDeep } from 'lodash';
+import { SubSink } from 'subsink';
 
 // Sample text
 const text = `As I tracked the history of the carbon cycle through geologic time to present day, most of the students were slumped over, dozing or looking at their phones. I ended my talk with a hopeful request for any questions.`;
@@ -93,7 +95,8 @@ export interface PerformanceStat {
   styleUrls: ['./typing.component.scss'],
   animations: [bounceInOnEnterAnimation(), bounceOutOnLeaveAnimation()],
 })
-export class TypingComponent implements OnInit {
+export class TypingComponent implements OnInit, OnDestroy {
+  subsink = new SubSink()
   @ViewChild('chartRef') chartRef!: ChartComponent;
 
   readonly control = new FormControl();
@@ -129,7 +132,8 @@ export class TypingComponent implements OnInit {
     ],
   };
 
-  constructor() {}
+  constructor() { }
+
 
   calculateStat() {
     this.stat = {
@@ -174,7 +178,7 @@ export class TypingComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const s = this.control.valueChanges.subscribe((value: string) => {
+    this.subsink.sink = this.control.valueChanges.subscribe((value: string) => {
       if (!this.timeCounter) {
         this.timeCounter = Date.now();
       }
@@ -226,11 +230,15 @@ export class TypingComponent implements OnInit {
       }
     });
 
-    this.chartTypeFieldOptions.control.valueChanges.subscribe((chartType) => {
+    this.subsink.sink = this.chartTypeFieldOptions.control.valueChanges.subscribe((chartType) => {
       this.chartConfig = updateChartType(chartType);
       this.chartRef.chartConfig = this.chartConfig!;
       this.chartRef.initChart();
     });
+  }
+
+  ngOnDestroy(): void {
+    this.subsink.unsubscribe();
   }
 
   delayValue$ = new BehaviorSubject(false);
