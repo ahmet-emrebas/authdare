@@ -369,8 +369,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="100"
-                            class="link-to-prism">libs/angular/qrcode/src/lib/qrcode-reader/qrcode-reader.component.ts:100</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="101"
+                            class="link-to-prism">libs/angular/qrcode/src/lib/qrcode-reader/qrcode-reader.component.ts:101</a></div>
                 </td>
             </tr>
 
@@ -406,8 +406,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="89"
-                            class="link-to-prism">libs/angular/qrcode/src/lib/qrcode-reader/qrcode-reader.component.ts:89</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="90"
+                            class="link-to-prism">libs/angular/qrcode/src/lib/qrcode-reader/qrcode-reader.component.ts:90</a></div>
                 </td>
             </tr>
 
@@ -445,8 +445,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="108"
-                            class="link-to-prism">libs/angular/qrcode/src/lib/qrcode-reader/qrcode-reader.component.ts:108</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="109"
+                            class="link-to-prism">libs/angular/qrcode/src/lib/qrcode-reader/qrcode-reader.component.ts:109</a></div>
                 </td>
             </tr>
 
@@ -630,8 +630,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="176"
-                            class="link-to-prism">libs/angular/qrcode/src/lib/qrcode-reader/qrcode-reader.component.ts:176</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="177"
+                            class="link-to-prism">libs/angular/qrcode/src/lib/qrcode-reader/qrcode-reader.component.ts:177</a></div>
                 </td>
             </tr>
 
@@ -702,8 +702,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="196"
-                            class="link-to-prism">libs/angular/qrcode/src/lib/qrcode-reader/qrcode-reader.component.ts:196</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="197"
+                            class="link-to-prism">libs/angular/qrcode/src/lib/qrcode-reader/qrcode-reader.component.ts:197</a></div>
                 </td>
             </tr>
 
@@ -774,8 +774,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="129"
-                            class="link-to-prism">libs/angular/qrcode/src/lib/qrcode-reader/qrcode-reader.component.ts:129</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="130"
+                            class="link-to-prism">libs/angular/qrcode/src/lib/qrcode-reader/qrcode-reader.component.ts:130</a></div>
                 </td>
             </tr>
 
@@ -815,8 +815,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="142"
-                            class="link-to-prism">libs/angular/qrcode/src/lib/qrcode-reader/qrcode-reader.component.ts:142</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="143"
+                            class="link-to-prism">libs/angular/qrcode/src/lib/qrcode-reader/qrcode-reader.component.ts:143</a></div>
                 </td>
             </tr>
 
@@ -887,8 +887,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="160"
-                            class="link-to-prism">libs/angular/qrcode/src/lib/qrcode-reader/qrcode-reader.component.ts:160</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="161"
+                            class="link-to-prism">libs/angular/qrcode/src/lib/qrcode-reader/qrcode-reader.component.ts:161</a></div>
                 </td>
             </tr>
 
@@ -1325,6 +1325,7 @@ export class QrcodeReaderComponent implements OnInit, AfterViewInit, OnDestroy {
 
   async ngOnDestroy() {
     this.clearState();
+    this.subsink.unsubscribe();
   }
 
   clearState() {
