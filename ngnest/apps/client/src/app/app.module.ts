@@ -23,7 +23,6 @@ import { NavbarModule } from '@authdare/navbar';
     NavbarModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
-      scope: '/',
       // Register the ServiceWorker as soon as the app is stable
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000',
