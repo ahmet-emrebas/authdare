@@ -339,6 +339,7 @@
   ViewChild,
   Output,
   EventEmitter,
+  OnDestroy,
 } from &#x27;@angular/core&#x27;;
 import { FormControl } from &#x27;@angular/forms&#x27;;
 import {
@@ -349,6 +350,7 @@ import { ChartConfiguration, ChartTypeRegistry } from &#x27;chart.js&#x27;;
 import { ChartComponent } from &#x27;@authdare/chart&#x27;;
 import { BehaviorSubject } from &#x27;rxjs&#x27;;
 import { cloneDeep } from &#x27;lodash&#x27;;
+import { SubSink } from &#x27;subsink&#x27;;
 
 // Sample text
 const text &#x3D; &#x60;As I tracked the history of the carbon cycle through geologic time to present day, most of the students were slumped over, dozing or looking at their phones. I ended my talk with a hopeful request for any questions.&#x60;;
@@ -427,7 +429,8 @@ export interface PerformanceStat {
   styleUrls: [&#x27;./typing.component.scss&#x27;],
   animations: [bounceInOnEnterAnimation(), bounceOutOnLeaveAnimation()],
 })
-export class TypingComponent implements OnInit {
+export class TypingComponent implements OnInit, OnDestroy {
+  subsink &#x3D; new SubSink()
   @ViewChild(&#x27;chartRef&#x27;) chartRef!: ChartComponent;
 
   readonly control &#x3D; new FormControl();
@@ -463,7 +466,8 @@ export class TypingComponent implements OnInit {
     ],
   };
 
-  constructor() {}
+  constructor() { }
+
 
   calculateStat() {
     this.stat &#x3D; {
@@ -508,7 +512,7 @@ export class TypingComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const s &#x3D; this.control.valueChanges.subscribe((value: string) &#x3D;&gt; {
+    this.subsink.sink &#x3D; this.control.valueChanges.subscribe((value: string) &#x3D;&gt; {
       if (!this.timeCounter) {
         this.timeCounter &#x3D; Date.now();
       }
@@ -560,11 +564,15 @@ export class TypingComponent implements OnInit {
       }
     });
 
-    this.chartTypeFieldOptions.control.valueChanges.subscribe((chartType) &#x3D;&gt; {
+    this.subsink.sink &#x3D; this.chartTypeFieldOptions.control.valueChanges.subscribe((chartType) &#x3D;&gt; {
       this.chartConfig &#x3D; updateChartType(chartType);
       this.chartRef.chartConfig &#x3D; this.chartConfig!;
       this.chartRef.initChart();
     });
+  }
+
+  ngOnDestroy(): void {
+    this.subsink.unsubscribe();
   }
 
   delayValue$ &#x3D; new BehaviorSubject(false);

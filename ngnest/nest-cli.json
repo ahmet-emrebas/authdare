@@ -18,33 +18,6 @@
       "compilerOptions": {
         "tsConfigPath": "apps/api/tsconfig.app.json"
       }
-    },
-    "samplelib": {
-      "type": "library",
-      "root": "libs/samplelib",
-      "entryFile": "index",
-      "sourceRoot": "libs/samplelib/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/samplelib/tsconfig.lib.json"
-      }
-    },
-    "anotherl": {
-      "type": "library",
-      "root": "libs/anotherl",
-      "entryFile": "index",
-      "sourceRoot": "libs/anotherl/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/anotherl/tsconfig.lib.json"
-      }
-    },
-    "nest/another2": {
-      "type": "library",
-      "root": "libs/nest/another2",
-      "entryFile": "index",
-      "sourceRoot": "libs/nest/another2/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/nest/another2/tsconfig.lib.json"
-      }
     }
   }
 }
