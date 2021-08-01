@@ -10,6 +10,12 @@ import { slideInLeftOnEnterAnimation } from 'angular-animations';
 export class MaterialDocComponent {
   sidenavItems: SidenavItem[] = [
     {
+      path: '',
+      href: 'https://ahmet-emrebas.github.io/authdare',
+      icon: 'developer_mode',
+      label: 'Code Document',
+    },
+    {
       path: '/material-doc/NavbarComponent',
       label: 'Navbar',
       icon: 'menu',

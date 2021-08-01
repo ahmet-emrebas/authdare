@@ -99,4 +99,4 @@ import { InvoiceModule } from '@authdare/invoice';
     ]),
   ],
 })
-export class MaterialDocModule {}
+export class MaterialDocModule { }

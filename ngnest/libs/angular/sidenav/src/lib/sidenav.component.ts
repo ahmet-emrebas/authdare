@@ -6,6 +6,7 @@ import { MatDrawer } from '@angular/material/sidenav';
 
 export type SidenavItem = {
   icon: string;
+  href?: string;
   path: string;
   label: string;
 };
@@ -28,7 +29,7 @@ export class SidenavComponent {
       shareReplay(),
     );
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  constructor(private breakpointObserver: BreakpointObserver) { }
 
   async toggleIfHandset() {
     if (await this.isHandset$.toPromise()) this.drawer.toggle();

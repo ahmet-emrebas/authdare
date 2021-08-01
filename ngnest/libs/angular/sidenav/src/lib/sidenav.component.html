@@ -1,12 +1,6 @@
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav
-    #drawer
-    class="sidenav"
-    fixedInViewport
-    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-    [mode]="(isHandset$ | async) ? 'over' : 'side'"
-    [opened]="(isHandset$ | async) === false"
-  >
+  <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
     <!-- Application Logo -->
     <ng-content select="[LOGO]"></ng-content>
 
@@ -15,33 +9,39 @@
       <!-- Navigation Item -->
 
       <ng-container *ngFor="let i of sidenavItems">
-        <a mat-list-item [routerLink]="[i.path]">
-          <!-- Navigation Item Logo  -->
-          <mat-icon mat-list-icon color="primary" matPrefix>
-            {{ i.icon }}
-          </mat-icon>
-          <!-- Navigation Item Label -->
+        <ng-container *ngIf="i.href">
+          <a mat-list-item [href]="i.href">
+            <!-- Navigation Item Logo  -->
+            <mat-icon mat-list-icon color="primary" matPrefix>
+              {{ i.icon }}
+            </mat-icon>
+            <!-- Navigation Item Label -->
 
-          <span
-            matLine
-            routerLinkActive="router-link-active"
-            [attr.cy-data]="'sidenavItem' + i.label"
-          >
-            {{ i.label }}
-          </span>
-        </a>
+            <span matLine routerLinkActive="router-link-active" [attr.cy-data]="'sidenavItem' + i.label">
+              {{ i.label }}
+            </span>
+          </a>
+        </ng-container>
+        <ng-container *ngIf="!i.href">
+          <a mat-list-item [routerLink]="[i.path]">
+            <!-- Navigation Item Logo  -->
+            <mat-icon mat-list-icon color="primary" matPrefix>
+              {{ i.icon }}
+            </mat-icon>
+            <!-- Navigation Item Label -->
+
+            <span matLine routerLinkActive="router-link-active" [attr.cy-data]="'sidenavItem' + i.label">
+              {{ i.label }}
+            </span>
+          </a>
+        </ng-container>
       </ng-container>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
     <div class="sidenav-content">
       <mat-toolbar color="primary">
-        <button
-          type="button"
-          aria-label="Toggle sidenav"
-          mat-icon-button
-          (click)="drawer.toggle()"
-        >
+        <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
           <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
         </button>
         <span cy-data="sidenavTitle">{{ sidenavTitle }}</span>

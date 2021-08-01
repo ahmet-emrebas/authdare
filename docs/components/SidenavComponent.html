@@ -192,7 +192,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">libs/angular/sidenav/src/lib/sidenav.component.ts:29</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">libs/angular/sidenav/src/lib/sidenav.component.ts:30</a></div>
                             </td>
                         </tr>
 
@@ -253,7 +253,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">libs/angular/sidenav/src/lib/sidenav.component.ts:19</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">libs/angular/sidenav/src/lib/sidenav.component.ts:20</a></div>
                             </td>
                         </tr>
             </tbody>
@@ -274,7 +274,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">libs/angular/sidenav/src/lib/sidenav.component.ts:21</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">libs/angular/sidenav/src/lib/sidenav.component.ts:22</a></div>
                             </td>
                         </tr>
             </tbody>
@@ -300,7 +300,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">libs/angular/sidenav/src/lib/sidenav.component.ts:22</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">libs/angular/sidenav/src/lib/sidenav.component.ts:23</a></div>
                             </td>
                         </tr>
             </tbody>
@@ -336,8 +336,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="33"
-                            class="link-to-prism">libs/angular/sidenav/src/lib/sidenav.component.ts:33</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="34"
+                            class="link-to-prism">libs/angular/sidenav/src/lib/sidenav.component.ts:34</a></div>
                 </td>
             </tr>
 
@@ -387,7 +387,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">libs/angular/sidenav/src/lib/sidenav.component.ts:20</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">libs/angular/sidenav/src/lib/sidenav.component.ts:21</a></div>
                         </td>
                     </tr>
 
@@ -423,7 +423,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">libs/angular/sidenav/src/lib/sidenav.component.ts:24</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">libs/angular/sidenav/src/lib/sidenav.component.ts:25</a></div>
                         </td>
                     </tr>
 
@@ -444,6 +444,7 @@ import { MatDrawer } from &#x27;@angular/material/sidenav&#x27;;
 
 export type SidenavItem &#x3D; {
   icon: string;
+  href?: string;
   path: string;
   label: string;
 };
@@ -466,7 +467,7 @@ export class SidenavComponent {
       shareReplay(),
     );
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  constructor(private breakpointObserver: BreakpointObserver) { }
 
   async toggleIfHandset() {
     if (await this.isHandset$.toPromise()) this.drawer.toggle();
@@ -478,14 +479,8 @@ export class SidenavComponent {
 
     <div class="tab-pane fade " id="c-templateData">
         <pre class="line-numbers"><code class="language-html">&lt;mat-sidenav-container class&#x3D;&quot;sidenav-container&quot;&gt;
-  &lt;mat-sidenav
-    #drawer
-    class&#x3D;&quot;sidenav&quot;
-    fixedInViewport
-    [attr.role]&#x3D;&quot;(isHandset$ | async) ? &#x27;dialog&#x27; : &#x27;navigation&#x27;&quot;
-    [mode]&#x3D;&quot;(isHandset$ | async) ? &#x27;over&#x27; : &#x27;side&#x27;&quot;
-    [opened]&#x3D;&quot;(isHandset$ | async) &#x3D;&#x3D;&#x3D; false&quot;
-  &gt;
+  &lt;mat-sidenav #drawer class&#x3D;&quot;sidenav&quot; fixedInViewport [attr.role]&#x3D;&quot;(isHandset$ | async) ? &#x27;dialog&#x27; : &#x27;navigation&#x27;&quot;
+    [mode]&#x3D;&quot;(isHandset$ | async) ? &#x27;over&#x27; : &#x27;side&#x27;&quot; [opened]&#x3D;&quot;(isHandset$ | async) &#x3D;&#x3D;&#x3D; false&quot;&gt;
     &lt;!-- Application Logo --&gt;
     &lt;ng-content select&#x3D;&quot;[LOGO]&quot;&gt;&lt;/ng-content&gt;
 
@@ -494,33 +489,39 @@ export class SidenavComponent {
       &lt;!-- Navigation Item --&gt;
 
       &lt;ng-container *ngFor&#x3D;&quot;let i of sidenavItems&quot;&gt;
-        &lt;a mat-list-item [routerLink]&#x3D;&quot;[i.path]&quot;&gt;
-          &lt;!-- Navigation Item Logo  --&gt;
-          &lt;mat-icon mat-list-icon color&#x3D;&quot;primary&quot; matPrefix&gt;
-            {{ i.icon }}
-          &lt;/mat-icon&gt;
-          &lt;!-- Navigation Item Label --&gt;
+        &lt;ng-container *ngIf&#x3D;&quot;i.href&quot;&gt;
+          &lt;a mat-list-item [href]&#x3D;&quot;i.href&quot;&gt;
+            &lt;!-- Navigation Item Logo  --&gt;
+            &lt;mat-icon mat-list-icon color&#x3D;&quot;primary&quot; matPrefix&gt;
+              {{ i.icon }}
+            &lt;/mat-icon&gt;
+            &lt;!-- Navigation Item Label --&gt;
 
-          &lt;span
-            matLine
-            routerLinkActive&#x3D;&quot;router-link-active&quot;
-            [attr.cy-data]&#x3D;&quot;&#x27;sidenavItem&#x27; + i.label&quot;
-          &gt;
-            {{ i.label }}
-          &lt;/span&gt;
-        &lt;/a&gt;
+            &lt;span matLine routerLinkActive&#x3D;&quot;router-link-active&quot; [attr.cy-data]&#x3D;&quot;&#x27;sidenavItem&#x27; + i.label&quot;&gt;
+              {{ i.label }}
+            &lt;/span&gt;
+          &lt;/a&gt;
+        &lt;/ng-container&gt;
+        &lt;ng-container *ngIf&#x3D;&quot;!i.href&quot;&gt;
+          &lt;a mat-list-item [routerLink]&#x3D;&quot;[i.path]&quot;&gt;
+            &lt;!-- Navigation Item Logo  --&gt;
+            &lt;mat-icon mat-list-icon color&#x3D;&quot;primary&quot; matPrefix&gt;
+              {{ i.icon }}
+            &lt;/mat-icon&gt;
+            &lt;!-- Navigation Item Label --&gt;
+
+            &lt;span matLine routerLinkActive&#x3D;&quot;router-link-active&quot; [attr.cy-data]&#x3D;&quot;&#x27;sidenavItem&#x27; + i.label&quot;&gt;
+              {{ i.label }}
+            &lt;/span&gt;
+          &lt;/a&gt;
+        &lt;/ng-container&gt;
       &lt;/ng-container&gt;
     &lt;/mat-nav-list&gt;
   &lt;/mat-sidenav&gt;
   &lt;mat-sidenav-content&gt;
     &lt;div class&#x3D;&quot;sidenav-content&quot;&gt;
       &lt;mat-toolbar color&#x3D;&quot;primary&quot;&gt;
-        &lt;button
-          type&#x3D;&quot;button&quot;
-          aria-label&#x3D;&quot;Toggle sidenav&quot;
-          mat-icon-button
-          (click)&#x3D;&quot;drawer.toggle()&quot;
-        &gt;
+        &lt;button type&#x3D;&quot;button&quot; aria-label&#x3D;&quot;Toggle sidenav&quot; mat-icon-button (click)&#x3D;&quot;drawer.toggle()&quot;&gt;
           &lt;mat-icon aria-label&#x3D;&quot;Side nav toggle icon&quot;&gt;menu&lt;/mat-icon&gt;
         &lt;/button&gt;
         &lt;span cy-data&#x3D;&quot;sidenavTitle&quot;&gt;{{ sidenavTitle }}&lt;/span&gt;
@@ -532,8 +533,7 @@ export class SidenavComponent {
       &lt;/div&gt;
     &lt;/div&gt;
   &lt;/mat-sidenav-content&gt;
-&lt;/mat-sidenav-container&gt;
-</code></pre>
+&lt;/mat-sidenav-container&gt;</code></pre>
     </div>
 
     <div class="tab-pane fade " id="c-styleData">
@@ -637,7 +637,7 @@ export class SidenavComponent {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><mat-sidenav-container class="sidenav-container">  <mat-sidenav    #drawer    class="sidenav"    fixedInViewport    [attr.role]="(isHandset$ | async) ? \'dialog\' : \'navigation\'"    [mode]="(isHandset$ | async) ? \'over\' : \'side\'"    [opened]="(isHandset$ | async) === false"  >    <!-- Application Logo -->    <ng-content select="[LOGO]"></ng-content>    <!-- Navigation Items -->    <mat-nav-list>      <!-- Navigation Item -->      <ng-container *ngFor="let i of sidenavItems">        <a mat-list-item [routerLink]="[i.path]">          <!-- Navigation Item Logo  -->          <mat-icon mat-list-icon color="primary" matPrefix>            {{ i.icon }}          </mat-icon>          <!-- Navigation Item Label -->          <span            matLine            routerLinkActive="router-link-active"            [attr.cy-data]="\'sidenavItem\' + i.label"          >            {{ i.label }}          </span>        </a>      </ng-container>    </mat-nav-list>  </mat-sidenav>  <mat-sidenav-content>    <div class="sidenav-content">      <mat-toolbar color="primary">        <button          type="button"          aria-label="Toggle sidenav"          mat-icon-button          (click)="drawer.toggle()"        >          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>        </button>        <span cy-data="sidenavTitle">{{ sidenavTitle }}</span>      </mat-toolbar>      <!-- Main Content  -->      <div class="realtive-container">        <ng-content select="[MAIN]"></ng-content>      </div>    </div>  </mat-sidenav-content></mat-sidenav-container></div>'
+        var COMPONENT_TEMPLATE = '<div><mat-sidenav-container class="sidenav-container">  <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? \'dialog\' : \'navigation\'"    [mode]="(isHandset$ | async) ? \'over\' : \'side\'" [opened]="(isHandset$ | async) === false">    <!-- Application Logo -->    <ng-content select="[LOGO]"></ng-content>    <!-- Navigation Items -->    <mat-nav-list>      <!-- Navigation Item -->      <ng-container *ngFor="let i of sidenavItems">        <ng-container *ngIf="i.href">          <a mat-list-item [href]="i.href">            <!-- Navigation Item Logo  -->            <mat-icon mat-list-icon color="primary" matPrefix>              {{ i.icon }}            </mat-icon>            <!-- Navigation Item Label -->            <span matLine routerLinkActive="router-link-active" [attr.cy-data]="\'sidenavItem\' + i.label">              {{ i.label }}            </span>          </a>        </ng-container>        <ng-container *ngIf="!i.href">          <a mat-list-item [routerLink]="[i.path]">            <!-- Navigation Item Logo  -->            <mat-icon mat-list-icon color="primary" matPrefix>              {{ i.icon }}            </mat-icon>            <!-- Navigation Item Label -->            <span matLine routerLinkActive="router-link-active" [attr.cy-data]="\'sidenavItem\' + i.label">              {{ i.label }}            </span>          </a>        </ng-container>      </ng-container>    </mat-nav-list>  </mat-sidenav>  <mat-sidenav-content>    <div class="sidenav-content">      <mat-toolbar color="primary">        <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>        </button>        <span cy-data="sidenavTitle">{{ sidenavTitle }}</span>      </mat-toolbar>      <!-- Main Content  -->      <div class="realtive-container">        <ng-content select="[MAIN]"></ng-content>      </div>    </div>  </mat-sidenav-content></mat-sidenav-container></div>'
     var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CarouselComponent', 'selector': 'authdare-carousel'},{'name': 'CarouselDocComponent', 'selector': 'app-carousel-doc'},{'name': 'CarouselNavigationComponent', 'selector': 'authdare-carousel-navigation'},{'name': 'CarouselPersistentComponent', 'selector': 'authdare-carousel-persistent'},{'name': 'ChartComponent', 'selector': 'authdare-chart'},{'name': 'ChartDocComponent', 'selector': 'app-chart-doc'},{'name': 'DateFieldComponent', 'selector': 'authdare-date-field'},{'name': 'FieldStatusComponent', 'selector': 'authdare-field-status'},{'name': 'FormComponent', 'selector': 'authdare-form'},{'name': 'FormDocComponent', 'selector': 'app-form-doc'},{'name': 'FormFieldComponent', 'selector': 'authdare-form-field'},{'name': 'GreetingComponent', 'selector': 'authdare-greeting'},{'name': 'InvoiceComponent', 'selector': 'authdare-invoice'},{'name': 'InvoiceDocComponent', 'selector': ''},{'name': 'MaterialDocComponent', 'selector': ''},{'name': 'MenuComponent', 'selector': 'authdare-menu'},{'name': 'NavbarComponent', 'selector': 'authdare-navbar'},{'name': 'NavbarDocComponent', 'selector': 'app-navbar-doc'},{'name': 'NavbarItemComponent', 'selector': 'authdare-navbar-item'},{'name': 'QrcodeDocComponent', 'selector': 'app-qrcode-doc'},{'name': 'QrcodeGenComponent', 'selector': 'authdare-qrcode-gen'},{'name': 'QrcodeReaderComponent', 'selector': 'authdare-qrcode-reader'},{'name': 'SelectFieldComponent', 'selector': 'authdare-select-field'},{'name': 'SidenavComponent', 'selector': 'authdare-sidenav'},{'name': 'TableComponent', 'selector': 'authdare-table'},{'name': 'TableDocComponent', 'selector': 'app-table-doc'},{'name': 'TextFieldComponent', 'selector': 'authdare-text-field'},{'name': 'TypingComponent', 'selector': 'authdare-typing'},{'name': 'TypingDocComponent', 'selector': 'app-typing-doc'},{'name': 'UtilsComponent', 'selector': 'lib-utils'}];
     var DIRECTIVES = [{'name': 'SetAttributeDirective', 'selector': '[authdareSetAttribute]'}];
     var ACTUAL_COMPONENT = {'name': 'SidenavComponent'};
