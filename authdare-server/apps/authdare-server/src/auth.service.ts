@@ -1,22 +1,21 @@
-import { UnauthorizedException } from "@nestjs/common";
-import { BadRequestException, Injectable, InternalServerErrorException, Logger, UnprocessableEntityException } from "@nestjs/common";
+import { DatabaseManager, DATABASE_MANAGER_TOKEN } from './models/database';
+import { Inject, UnauthorizedException } from "@nestjs/common";
+import { BadRequestException, Injectable, InternalServerErrorException, Logger } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { InjectRepository } from "@nestjs/typeorm";
 import { compare } from "bcrypt";
 import { classToPlain } from "class-transformer";
 import { Repository } from "typeorm";
-import { Login, UserEntity } from "./models";
+import { Login, UserEntity, UserPermission } from "./models";
 import { Groups } from "./models/groups";
-import { adminPermissions, getOrgRepository, orgConnection } from "./utils";
 
-
-
-export async function getUserRepository(orgname: string) {
-    return await getOrgRepository<UserEntity>({ orgname, resource: 'users' });
-}
-
-export async function checkUserExistThenThrowException(repo: Repository<UserEntity>, userInstance: UserEntity) {
-    const TAG = AuthService.name + '.checkUserExistThenThrowException';
+/**
+ * Check the user allready exists in the database or not, throw BadRequestException if exits or continue.
+ * @param repo UserRepository
+ * @param userInstance User details
+ */
+export async function checkUserExistThenThrowException(repo: Repository<UserEntity>, userInstance: UserEntity): Promise<void> {
+    const TAG = 'checkUserExistThenThrowException';
 
     const foundUser = await repo.findOne({
         where: [
@@ -36,8 +35,6 @@ export async function checkUserExistThenThrowException(repo: Repository<UserEnti
         Logger.error(`Dublicate user. body: ${userInstance}, database:${foundUser}.`, TAG)
         throw new BadRequestException('Something went wrong please try again later!')
     }
-
-    return;
 }
 
 
@@ -46,6 +43,7 @@ export class AuthService {
     private readonly TAG = AuthService.name
     constructor(
         private readonly jwt: JwtService,
+        @Inject(DATABASE_MANAGER_TOKEN) private readonly dbm: DatabaseManager<UserPermission>,
         @InjectRepository(UserEntity) private readonly userRepo: Repository<UserEntity>
     ) { }
 
@@ -56,7 +54,7 @@ export class AuthService {
         const userInstance = await new UserEntity(user)
             .validateAndTransformToClassInstance([Groups.SIGNUP]);
 
-        const userRepository = await getUserRepository(user.orgname);
+        const userRepository = await this.dbm.getUserRepositoryByOrgname(user.orgname);
 
         await checkUserExistThenThrowException(userRepository, user);
 
@@ -104,14 +102,14 @@ export class AuthService {
         await checkUserExistThenThrowException(this.userRepo, user);
 
         // Initialize client database
-        const clientConnection = await orgConnection(userInstance.orgname, true, true);
+        const clientConnection = await this.dbm.orgConnection(userInstance.orgname, true, true);
 
         const clientUserRepo = clientConnection.getRepository(UserEntity);
 
         // Create user account in our database
         try {
             // set permissions 
-            userInstance.permissions = adminPermissions(userInstance.orgname);
+            userInstance.permissions = this.dbm.adminPermissions();
 
             // Save user in our database
             const createdUser = await this.userRepo.save(userInstance);
@@ -128,6 +126,11 @@ export class AuthService {
     }
 
 
+    /**
+     * Sign the token including only the fields of the Groups.AUTH_COOKIE in the entity.
+     * @param userInstance User details
+     * @returns 
+     */
     async signAuthCookie(userInstance: UserEntity) {
         userInstance.validateAndTransformToClassInstance([Groups.AUTH_COOKIE]);
         const plainUser = classToPlain(userInstance, { groups: [Groups.AUTH_COOKIE] });
@@ -138,9 +141,5 @@ export class AuthService {
         Logger.error(`Could not sing the cookie for the payload ${plainUser}`, TAG);
         throw new InternalServerErrorException();
     }
-
-
-
-
 
 }

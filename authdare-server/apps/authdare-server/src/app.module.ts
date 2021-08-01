@@ -1,5 +1,8 @@
+import { AuthGuard } from './auth.guard';
+import { TaskEntity } from './models/task.entity';
+import { UserEntity } from './models/user.entity';
+import { DATABASE_MANAGER_TOKEN, SQLiteDatabasaManager } from './models/database';
 import { AuthService } from './auth.service';
-
 import { ResourceController } from './resource.controller';
 import { AuthControler } from './auth.controller';
 import { Module } from '@nestjs/common';
@@ -10,8 +13,15 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { JwtModule } from '@nestjs/jwt';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { values } from 'lodash';
-import { entities } from './utils';
+
+const sqlite = new SQLiteDatabasaManager([
+  UserEntity, TaskEntity
+])
+
+const sqliteProvider = {
+  provide: DATABASE_MANAGER_TOKEN,
+  useValue: sqlite,
+}
 
 @Module({
   controllers: [ResourceController, AuthControler],
@@ -21,9 +31,9 @@ import { entities } from './utils';
       database: 'database/authdare/main.sqlite',
       synchronize: true,
       dropSchema: true,
-      entities: values(entities())
+      entities: sqlite.getEntities()
     }),
-    TypeOrmModule.forFeature(values(entities())),
+    TypeOrmModule.forFeature(sqlite.getEntities()),
     JwtModule.register({ secret: 'secret', }),
     ScheduleModule.forRoot(),
     MulterModule.register({ dest: './upload' }),
@@ -35,7 +45,10 @@ import { entities } from './utils';
     }),
 
   ],
-  providers: [AuthService],
+  providers: [
+    sqliteProvider,
+    AuthService,
+  ],
 })
 export class AppModule {
 

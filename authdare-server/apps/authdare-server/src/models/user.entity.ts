@@ -1,11 +1,36 @@
 import { Groups } from './groups';
-import { hashPassword, toStringArray, Trim } from './utils';
+import { hashPassword, toStringArray, Trim } from './transformers';
 import { BaseEntity } from './base.entity';
 import { Column, Entity } from "typeorm";
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsOptional, IsString, Length } from 'class-validator';
-import { Exclude, Expose, } from 'class-transformer';
-import { adminPermissions } from '../utils';
+import { IsEmail, IsIn, IsOptional, Length, validate } from 'class-validator';
+import { classToClass, Exclude, Expose, } from 'class-transformer';
+import { UnprocessableEntityException } from '@nestjs/common';
+
+
+export class UserPermission {
+    @IsIn(['get', 'post', 'patch', 'delete', 'update', 'put']) method: string;
+    @IsIn(['users', 'tasks']) resource: string;
+
+    constructor(permissionOrMethod: string | UserPermission, resource?: string) {
+        if (resource) {
+            this.method = permissionOrMethod as string;
+            this.resource = resource;
+        } else {
+            this.method = (permissionOrMethod as UserPermission).method;
+            this.resource = (permissionOrMethod as UserPermission).resource;
+        }
+    }
+
+    async validateAndTransformToClassInstance?(): Promise<UserPermission> | never {
+        const permissionsClassInstance = classToClass(this);
+        const errors = await validate(permissionsClassInstance);
+        if (errors && errors.length > 0) {
+            throw new UnprocessableEntityException(errors);
+        }
+        return permissionsClassInstance as unknown as UserPermission;
+    }
+}
 
 @Entity({ name: 'users' })
 @Exclude()
@@ -26,12 +51,14 @@ export class UserEntity extends BaseEntity<UserEntity> {
     password?: string;
 
     @Expose({ groups: [Groups.READ, Groups.AUTH_COOKIE] })
-    @ApiProperty({ default: adminPermissions('ahmet') })
+    @ApiProperty({ default: [{ method: '', resource: '' }] })
     @IsOptional({ groups: [Groups.SIGNUP] })
     @Trim()
-    @IsString({ each: true })
     @Column({ type: 'text', transformer: toStringArray })
-    permissions?: string[];
+    permissions?: {
+        method: string,
+        resource: string
+    }[];
 
 
     @Expose({ groups: [Groups.READ, Groups.SIGNUP, Groups.AUTH_COOKIE] })

@@ -1,6 +1,6 @@
 import { classToClass } from 'class-transformer';
 import { Groups } from './groups';
-import { toLocalString } from './utils';
+import { toLocalString } from './transformers';
 import { CreateDateColumn, DeleteDateColumn, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { IsOptional, validate } from 'class-validator';
 import { Expose } from 'class-transformer';
@@ -12,12 +12,12 @@ export class BaseValidator<T>{
         Object.assign(this, obj);
     }
     async validateAndTransformToClassInstance?(groups?: Groups[]): Promise<T> | never {
-        const orgClassInstance = classToClass(this, { groups });
-        const errors = await validate(orgClassInstance);
+        const classInstance = classToClass(this, { groups });
+        const errors = await validate(classInstance);
         if (errors && errors.length > 0) {
             throw new UnprocessableEntityException(errors);
         }
-        return orgClassInstance as unknown as T;
+        return classInstance as unknown as T;
     }
 }
 
