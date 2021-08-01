@@ -1,1 +1,1 @@
-export * from "./get-resource-service.decorator";
+export * from './get-resource-service.decorator';

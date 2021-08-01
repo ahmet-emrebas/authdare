@@ -1,4 +1,4 @@
 export enum ResourceName {
-    users = 'users',
-    tasks = 'tasks'
+  users = 'users',
+  tasks = 'tasks',
 }

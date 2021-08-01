@@ -1,3 +1,3 @@
 export enum Cookies {
-    AUTH = 'AUTH',
+  AUTH = 'AUTH',
 }

@@ -1,6 +1,9 @@
 import { TaskEntity } from './models/task.entity';
 import { UserEntity, UserPermission } from './models/user.entity';
-import { DATABASE_MANAGER_TOKEN, SQLiteDatabasaManager } from './models/database';
+import {
+  DATABASE_MANAGER_TOKEN,
+  SQLiteDatabasaManager,
+} from './models/database';
 import { AuthService } from './auth.service';
 import { ResourceController } from './resource.controller';
 import { AuthControler } from './auth.controller';
@@ -13,18 +16,15 @@ import { join } from 'path';
 import { JwtModule } from '@nestjs/jwt';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-const sqlite = new SQLiteDatabasaManager(
-  [UserEntity, TaskEntity],
-  {
-    methods: ['get', 'post', 'put', 'delete', 'patch'],
-    permissionClass: UserPermission,
-  }
-)
+const sqlite = new SQLiteDatabasaManager([UserEntity, TaskEntity], {
+  methods: ['get', 'post', 'put', 'delete', 'patch'],
+  permissionClass: UserPermission,
+});
 
 const sqliteProvider = {
   provide: DATABASE_MANAGER_TOKEN,
   useValue: sqlite,
-}
+};
 
 @Module({
   controllers: [ResourceController, AuthControler],
@@ -34,10 +34,10 @@ const sqliteProvider = {
       database: 'database/authdare/main.sqlite',
       synchronize: true,
       dropSchema: true,
-      entities: sqlite.getEntities()
+      entities: sqlite.getEntities(),
     }),
     TypeOrmModule.forFeature(sqlite.getEntities()),
-    JwtModule.register({ secret: 'secret', }),
+    JwtModule.register({ secret: 'secret' }),
     ScheduleModule.forRoot(),
     MulterModule.register({ dest: './upload' }),
     ThrottlerModule.forRoot({ ttl: 60, limit: 10 }),
@@ -46,13 +46,7 @@ const sqliteProvider = {
       renderPath: '/',
       exclude: ['api', 'api/**'],
     }),
-
   ],
-  providers: [
-    sqliteProvider,
-    AuthService,
-  ],
+  providers: [sqliteProvider, AuthService],
 })
-export class AppModule {
-
-}
+export class AppModule {}

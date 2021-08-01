@@ -3,7 +3,13 @@ import { Inject, InternalServerErrorException } from '@nestjs/common';
 import { ResourceService } from './resource.service';
 import { UserEntity, UserPermission } from './models/user.entity';
 import { Cookies } from './http/cookies';
-import { CanActivate, ExecutionContext, Injectable, Logger, UnauthorizedException } from '@nestjs/common';
+import {
+  CanActivate,
+  ExecutionContext,
+  Injectable,
+  Logger,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
 import { RESOURCE_SERVICE_KEY } from './decorators';
@@ -13,80 +19,94 @@ import { DatabaseManager, DATABASE_MANAGER_TOKEN } from './models/database';
 export class AuthGuard implements CanActivate {
   constructor(
     private readonly jwt: JwtService,
-    @Inject(DATABASE_MANAGER_TOKEN) private readonly dbm: DatabaseManager<UserPermission>
-  ) { }
+    @Inject(DATABASE_MANAGER_TOKEN)
+    private readonly dbm: DatabaseManager<UserPermission>,
+  ) {}
 
-  async canActivate(context: ExecutionContext,): Promise<boolean> {
-
+  async canActivate(context: ExecutionContext): Promise<boolean> {
     const req = await context.switchToHttp().getRequest<Request>();
 
     const { resource } = req.params;
 
     const user = await this.verifyAuthToken(req);
 
-    await this.checkUserHasRequiredPermissions(await this.requiredPermission(req), user);
+    await this.checkUserHasRequiredPermissions(
+      await this.requiredPermission(req),
+      user,
+    );
 
     await this.setResourceService(req, user.orgname, resource);
 
     return true;
   }
 
-
   async setResourceService(req: Request, orgname: string, resource: string) {
-    req[RESOURCE_SERVICE_KEY] = await this.getResourceService(orgname, resource)
+    req[RESOURCE_SERVICE_KEY] = await this.getResourceService(
+      orgname,
+      resource,
+    );
   }
 
   /**
    * Determine the Required permission for the current request and create the instance of UserPermission class and return it.
-   * @param param0 
+   * @param param0
    * @returns UserPermission Object
    */
   async requiredPermission(req: Request) {
     const method = req.method as HttpMethod;
     const { resource } = req.params;
     try {
-
-      return await new UserPermission(method, resource).validateAndTransformToClassInstance();
+      return await new UserPermission(
+        method,
+        resource,
+      ).validateAndTransformToClassInstance();
     } catch (Err) {
-      console.log('here is the reere')
+      console.log('here is the reere');
     }
   }
 
   /**
    * Check the user has the required permission or not
-   * @param {UserPermission} requiredPermission  
-   * @param user 
+   * @param {UserPermission} requiredPermission
+   * @param user
    * @returns {Promise<boolean> | never}
    * @throws {UnauthorizedException} if user does not have the required permission for this route.
    */
-  async checkUserHasRequiredPermissions(requiredPermission: UserPermission, user: UserEntity): Promise<boolean> | never {
-    if (user?.permissions?.find(e => e?.method == requiredPermission.method)) {
+  async checkUserHasRequiredPermissions(
+    requiredPermission: UserPermission,
+    user: UserEntity,
+  ): Promise<boolean> | never {
+    if (
+      user?.permissions?.find((e) => e?.method == requiredPermission.method)
+    ) {
       return true;
     } else {
-      throw new UnauthorizedException('You do not have sufficient permission for this request!')
+      throw new UnauthorizedException(
+        'You do not have sufficient permission for this request!',
+      );
     }
   }
 
   async getResourceService(orgname: string, resource: string) {
-    const repo = await this.dbm.getRepositoryByOrgname({ orgname, resource })
+    const repo = await this.dbm.getRepositoryByOrgname({ orgname, resource });
     if (!repo) {
-      throw new InternalServerErrorException(`Repository not found! , for "${resource}" and orgname "${orgname}"`)
+      throw new InternalServerErrorException(
+        `Repository not found! , for "${resource}" and orgname "${orgname}"`,
+      );
     }
     return new ResourceService(repo);
   }
-
-
 
   async verifyAuthToken(req: Request) {
     return await this.verifyToken(req, Cookies.AUTH);
   }
 
   /**
-   * 
-   * @param token 
+   *
+   * @param token
    */
   async verifyToken(req: Request, tokenKey: Cookies): Promise<UserEntity> {
-    const token = req.cookies[tokenKey]
+    const token = req.cookies[tokenKey];
     // Check auth cookie
     let user: UserEntity;
     try {
@@ -94,10 +114,7 @@ export class AuthGuard implements CanActivate {
     } catch (err) {
       Logger.error(err);
       throw new UnauthorizedException();
-
     }
     return user;
   }
-
-
 }
