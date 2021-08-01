@@ -3,9 +3,12 @@ import { classToPlain, classToClass } from 'class-transformer';
 import { HttpMethod } from './../http/http-method';
 import { company, internet } from 'faker';
 import { UserEntity, UserPermission } from './user.entity';
-import { validate } from 'class-validator';
+import { isNotEmpty, validate } from 'class-validator';
+import { yellow } from 'chalk';
 
 const NUMBER_OF_RAW_FIELD_COUNT = 3;
+
+const emptyString = ''.trim();
 
 function fakeUser() {
   return new UserEntity({
@@ -37,53 +40,39 @@ describe('UserEntity', () => {
     expect(user.permissions).not.toBeNull();
   });
 
-  it('Groups.READ should not expose password', () => {
-    const user = fakeUser();
-    const plainUser = classToPlain(user, { groups: [Groups.READ] });
-    expect(user.password).not.toBeNull();
-    expect(plainUser).not.toHaveProperty('password');
-  });
+  it.each`
+    groups                  | exposed                                      | fieldCount     | notExposed
+    ${[Groups.AUTH_COOKIE]} | ${['id', 'orgname', 'email', 'permissions']} | ${4}           | ${emptyString}
+    ${[Groups.READ]}        | ${emptyString}                               | ${emptyString} | ${['password']}
+    ${[Groups.CREDENTIALS]} | ${['email', 'password']}                     | ${2}           | ${emptyString}
+    ${[Groups.SIGNUP]}      | ${['email', 'orgname', 'password']}          | ${3}           | ${emptyString}
+  `(
+    `$groups groups should expose only any ${yellow('$fieldCount')} number of  properties ${yellow('$exposed')}, NOT expose the others ${(yellow('$notExposed'))}`,
+    ({ groups, exposed, notExposed, fieldCount }: any) => {
+      const user = fakeUser();
+      const plainUser = classToPlain(user, { groups });
 
-  it('Groups.AUTH_COOKIE should Have id, permissions, email, orgname properties', () => {
-    const user = fakeUser();
-    const plainUser = classToPlain(user, { groups: [Groups.AUTH_COOKIE] });
-    expect(plainUser).toHaveProperty('id');
-    expect(plainUser).toHaveProperty('orgname');
-    expect(plainUser).toHaveProperty('email');
-    expect(plainUser).toHaveProperty('permissions');
-  });
+      if (isNotEmpty(fieldCount)) {
+        expect(Object.keys(plainUser).length).toBe(fieldCount);
+      }
+      if (isNotEmpty(exposed))
+        exposed?.forEach((field) => {
+          expect(plainUser).toHaveProperty(field);
+        });
 
-  it('Groups.AUTH_COOKIE should NOT Have password, id, created_at, updated_at, deleted_at property', () => {
-    const user = fakeUser();
-    const plainUser = classToPlain(user, { groups: [Groups.AUTH_COOKIE] });
-    expect(plainUser).not.toHaveProperty('created_at');
-    expect(plainUser).not.toHaveProperty('updated_at');
-    expect(plainUser).not.toHaveProperty('deleted_at');
-  });
-
-  it('Groups.CREDENTIALS should expose only email and password', () => {
-    const user = fakeUser();
-    const plainUser = classToPlain(user, { groups: [Groups.CREDENTIALS] });
-    expect(plainUser).toHaveProperty('email');
-    expect(plainUser).toHaveProperty('password');
-    expect(Object.keys(plainUser).length).toBe(2);
-  });
-
-  it('Groups.SIGNUP should expose only email, password, orgname', () => {
-    const user = fakeUser();
-    const plainUser = classToPlain(user, { groups: [Groups.SIGNUP] });
-    expect(plainUser).toHaveProperty('email');
-    expect(plainUser).toHaveProperty('password');
-    expect(plainUser).toHaveProperty('orgname');
-    expect(Object.keys(plainUser).length).toBe(3);
-  });
+      if (isNotEmpty(notExposed))
+        notExposed?.forEach((field) => {
+          expect(plainUser).not.toHaveProperty(field);
+        });
+    },
+  );
 
   it.each`
     field         | invalidValue
     ${'email'}    | ${'invalidemail'}
     ${'password'} | ${'ip'}
     ${'orgname'}  | ${'o'}
-  `('should validate $field', async ({ field, invalidValue }: any) => {
+  `(`should validate ${yellow('$field')}`, async ({ field, invalidValue }: any) => {
     const userInstance = classToClass(invalidUser(field, invalidValue), {
       groups: [Groups.SIGNUP],
     });
@@ -92,26 +81,4 @@ describe('UserEntity', () => {
     expect(errors.length == 1);
     expect(Object.keys(userInstance).length).toBe(NUMBER_OF_RAW_FIELD_COUNT);
   });
-
-  // it('should validate email, orgname, password, ', async () => {
-
-  // let userInstance = classToClass(invalidUser('email', 'invalidemail'), { groups: [Groups.SIGNUP] });
-  // let errors = await validate(userInstance);
-  // expect(errors[0].property).toBe('email');
-  // expect(errors.length == 1);
-  // expect(Object.keys(userInstance).length).toBe(NUMBER_OF_RAW_FIELD_COUNT);
-
-  // userInstance = classToClass(invalidUser('password', '123'), { groups: [Groups.SIGNUP] });
-  // errors = await validate(userInstance);
-  // expect(errors[0].property).toBe('password');
-  // expect(errors.length == 1);
-  // expect(Object.keys(userInstance).length).toBe(NUMBER_OF_RAW_FIELD_COUNT);
-
-  // userInstance = classToClass(invalidUser('orgname', 'o'), { groups: [Groups.SIGNUP] });
-  // errors = await validate(userInstance);
-  // expect(errors[0].property).toBe('orgname');
-  // expect(errors.length == 1);
-  // expect(Object.keys(userInstance).length).toBe(NUMBER_OF_RAW_FIELD_COUNT);
-
-  // })
 });
