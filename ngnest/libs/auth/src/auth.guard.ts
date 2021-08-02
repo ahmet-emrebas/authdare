@@ -8,11 +8,12 @@ import {
 import { Inject, InternalServerErrorException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
-
 import { DatabaseManager, DATABASE_MANAGER_TOKEN, UserEntity, UserPermission } from '@authdare/models';
 import { RESOURCE_SERVICE_KEY } from '@authdare/decorators';
 import { HttpMethod, Cookies } from '@authdare/http';
 import { ResourceService } from '@authdare/resources';
+
+
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -23,19 +24,11 @@ export class AuthGuard implements CanActivate {
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const req = await context.switchToHttp().getRequest<Request>();
-
     const { resource } = req.params;
-
     const user = await this.verifyAuthToken(req);
-
-    await this.checkUserHasRequiredPermissions(
-      await this.requiredPermission(req),
-      user,
-    );
-
-    if (user.orgname)
-      await this.setResourceService(req, user.orgname, resource);
-
+    const orgname = user.orgname!;
+    await this.checkUserHasRequiredPermissions(await this.requiredPermission(req), user);
+    await this.setResourceService(req, orgname, resource);
     return true;
   }
 
@@ -69,15 +62,18 @@ export class AuthGuard implements CanActivate {
    * @returns {Promise<boolean> | never}
    * @throws {UnauthorizedException} if user does not have the required permission for this route.
    */
-  async checkUserHasRequiredPermissions({ method, resource }: UserPermission, user: UserEntity,): Promise<boolean> | never {
+  async checkUserHasRequiredPermissions({ method, resource }: UserPermission, user: UserEntity,): Promise<void> | never {
     const foundPermission = user.permissions?.find(p => p.method == method && p.resource == resource);
-    if (foundPermission) {
-      return true;
-    } else {
+
+    if (!foundPermission)
       throw new UnauthorizedException('You do not have sufficient permission for this request!');
-    }
   }
 
+  /**
+   * @param orgname 
+   * @param resource 
+   * @returns the resource service for the requested resource of the organization.
+   */
   async getResourceService(orgname: string, resource: string) {
     const repo = await this.dbm.getRepositoryByOrgname({ orgname, resource });
     if (!repo) {
@@ -98,7 +94,6 @@ export class AuthGuard implements CanActivate {
    */
   async verifyToken(req: Request, tokenKey: Cookies): Promise<UserEntity> {
     const token = req.cookies[tokenKey];
-    // Check auth cookie
     let user: UserEntity;
     try {
       user = await this.jwt.verify(token);

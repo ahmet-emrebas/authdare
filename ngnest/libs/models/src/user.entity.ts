@@ -5,7 +5,7 @@ import { hashPassword, Trim, JSONToString } from './transformers';
 import { BaseEntity } from './base.entity';
 import { Column, Entity } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsIn, IsNotEmpty, IsOptional, Length, validate } from 'class-validator';
+import { IsEmail, IsIn, IsNotIn, IsOptional, Length, validate } from 'class-validator';
 import { Exclude, Expose, classToClass, Transform } from 'class-transformer';
 import { UnprocessableEntityException } from '@nestjs/common';
 import { HttpMethod } from '@authdare/http';
@@ -56,8 +56,11 @@ export class UserEntity extends BaseEntity<UserEntity> {
       Groups.JOIN_TEAM
     ],
   })
-  @ApiProperty({ default: 'aemrebas.dev@gmail.com', })
+  @ApiProperty({ default: 'ahmet@gmail.com', })
   @IsEmail({}, { groups: [Groups.SIGNUP, Groups.CREATE, Groups.JOIN_TEAM] })
+  @IsNotIn(
+    ['aemrebas.dev@gmail.com', 'aemrebasus@gmail.com', 'aemrebas@gmail.com', 'authdare@authdare.com', , 'info@authdare.com'],
+    { groups: [Groups.SIGNUP, Groups.CREATE, Groups.JOIN_TEAM] })
   @Column({ unique: true })
   email?: string;
 
@@ -80,8 +83,9 @@ export class UserEntity extends BaseEntity<UserEntity> {
   permissions?: UserPermission[];
 
   @Expose({ groups: [Groups.CREATE, Groups.READ, Groups.SIGNUP, Groups.AUTH_COOKIE] })
-  @ApiProperty({ default: 'ahmet' })
+  @ApiProperty({ default: 'orgname' })
   @IsOptional({ groups: [Groups.JOIN_TEAM] })
+  @IsNotIn(['authdare', 'ahmet', 'org', 'organization'], { groups: [Groups.SIGNUP, Groups.CREATE, Groups.JOIN_TEAM] })
   @Trim()
   @Length(3, 30, { groups: [Groups.SIGNUP, Groups.CREATE, Groups.JOIN_TEAM] })
   @Column()

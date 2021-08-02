@@ -1,17 +1,14 @@
 import { AppResourceController } from './app-resource.controller';
-import { Module } from '@nestjs/common';
+import { Inject, Module, Logger } from '@nestjs/common';
 import { ScheduleModule } from '@nestjs/schedule';
 import { MulterModule } from '@nestjs/platform-express';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { JwtModule } from '@nestjs/jwt';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { InjectRepository, TypeOrmModule } from '@nestjs/typeorm';
 import { AuthService, AuthControler } from '@authdare/auth';
-import { DATABASE_MANAGER_TOKEN, SQLiteDatabasaManager, TaskEntity, UserEntity, UserPermission } from '@authdare/models';
+import { DatabaseManager, DATABASE_MANAGER_TOKEN, SQLiteDatabasaManager, TaskEntity, UserEntity, UserPermission } from '@authdare/models';
+import { Repository } from 'typeorm';
 
-
-/**
- * Add new entities here. 
- */
 const sqlite = new SQLiteDatabasaManager(
   [UserEntity, TaskEntity],
   { permissionClass: UserPermission }
@@ -40,4 +37,15 @@ const sqliteProvider = {
   ],
   providers: [sqliteProvider, AuthService]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(
+    @Inject(DATABASE_MANAGER_TOKEN) dbm: DatabaseManager,
+    @InjectRepository(UserEntity) userRepo: Repository<UserEntity>) {
+
+    userRepo.save(new UserEntity({ email: 'aemrebas.dev@gmail.com', orgname: 'authdare', password: 'mypassword', permissions: dbm.adminPermissions() }))
+      .then(saved => {
+        Logger.log(`Created admin user ${saved}. `,)
+      })
+
+  }
+}
