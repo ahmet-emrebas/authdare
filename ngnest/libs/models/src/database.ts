@@ -9,6 +9,7 @@ import {
   getConnection,
   Repository,
 } from 'typeorm';
+import { HttpMethod } from '@authdare/http';
 
 type DatabaseParameters = {
   orgname: string;
@@ -20,7 +21,7 @@ export function resolveResouceName(clazzConstactor: ClassConstructor<any>) {
 
 export const DATABASE_MANAGER_TOKEN = 'DATABASE_MANAGER_TOKEN';
 
-export interface DatabaseManager<P> {
+export interface DatabaseManager<PermissionType = any> {
   orgConnection(
     orgname: string,
     synchronize?: boolean,
@@ -32,8 +33,8 @@ export interface DatabaseManager<P> {
   getRepositoryByOrgname<E = any>(
     params: DatabaseParameters,
   ): Promise<Repository<E>>;
-  getUserRepositoryByOrgname<E = any>(orgname?: string): Promise<Repository<E>>;
-  adminPermissions(): P[];
+  getUserRepositoryByOrgname<E = any>(orgname: string): Promise<Repository<E>>;
+  adminPermissions(): PermissionType[];
 }
 
 @Injectable()
@@ -44,10 +45,7 @@ export class SQLiteDatabasaManager<PermissinType>
 
   constructor(
     private readonly _entities: ClassConstructor<any>[],
-    private readonly _permissionOptions: {
-      methods: string[];
-      permissionClass: ClassConstructor<PermissinType>;
-    },
+    private readonly _permissionOptions: { permissionClass: ClassConstructor<PermissinType>; },
   ) {
     this._entities.forEach((e) => {
       const resourceName = resolveResouceName(e);
@@ -57,7 +55,7 @@ export class SQLiteDatabasaManager<PermissinType>
 
   adminPermissions(): PermissinType[] {
     return flatten(
-      this._permissionOptions?.methods.map((m) => {
+      keys(HttpMethod).map((m) => {
         return this.getResouceNames().map((r) => {
           return classToPlain(
             new this._permissionOptions.permissionClass(m, r),

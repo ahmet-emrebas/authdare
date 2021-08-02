@@ -9,12 +9,21 @@ import {
 } from 'typeorm';
 import { IsOptional, validate } from 'class-validator';
 import { Expose } from 'class-transformer';
-import { UnprocessableEntityException } from '@nestjs/common';
+import { BadRequestException, UnprocessableEntityException } from '@nestjs/common';
 
 export class BaseValidator<T> {
   constructor(obj?: Omit<T, 'validateAndTransformToClassInstance'>) {
     Object.assign(this, obj);
   }
+
+  /**
+   * Validate and transform the data return the instance or object of the data. 
+   * If data is not valid, thow BadRequestException
+   * @param {Groups} groups 
+   * @param {boolean} plain if true, plain object will be returned, class instance otherwise
+   * @returns Object or Class instance by Group
+   * @throws BadRequestException
+   */
   async validateAndTransformToClassInstance(
     groups?: Groups[],
     plain?: boolean,
@@ -22,7 +31,7 @@ export class BaseValidator<T> {
     const classInstance = classToClass(this, { groups });
     const errors = await validate(classInstance, { groups });
     if (errors && errors.length > 0) {
-      throw new UnprocessableEntityException(errors);
+      throw new BadRequestException(errors);
     }
     if (plain) {
       return classToPlain(this, { groups }) as unknown as T;

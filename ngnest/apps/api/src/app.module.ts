@@ -1,3 +1,4 @@
+import { AppResourceController } from './app-resource.controller';
 import { Module } from '@nestjs/common';
 import { ScheduleModule } from '@nestjs/schedule';
 import { MulterModule } from '@nestjs/platform-express';
@@ -5,11 +6,9 @@ import { ThrottlerModule } from '@nestjs/throttler';
 import { JwtModule } from '@nestjs/jwt';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthService, AuthControler } from '@authdare/auth';
-import { ResourceController } from '@authdare/resources';
 import { DATABASE_MANAGER_TOKEN, SQLiteDatabasaManager, TaskEntity, UserEntity, UserPermission } from '@authdare/models';
 
 const sqlite = new SQLiteDatabasaManager([UserEntity, TaskEntity], {
-  methods: ['get', 'post', 'put', 'delete', 'patch'],
   permissionClass: UserPermission,
 });
 
@@ -19,7 +18,7 @@ const sqliteProvider = {
 };
 
 @Module({
-  controllers: [ResourceController, AuthControler],
+  controllers: [AppResourceController, AuthControler],
   imports: [
     TypeOrmModule.forRoot({
       type: 'sqlite',
@@ -34,6 +33,6 @@ const sqliteProvider = {
     MulterModule.register({ dest: './upload' }),
     ThrottlerModule.forRoot({ ttl: 60, limit: 10 }),
   ],
-  providers: [sqliteProvider, AuthService],
+  providers: [sqliteProvider, AuthService]
 })
 export class AppModule { }

@@ -14,13 +14,11 @@ import { RESOURCE_SERVICE_KEY } from '@authdare/decorators';
 import { HttpMethod, Cookies } from '@authdare/http';
 import { ResourceService } from '@authdare/resources';
 
-
 @Injectable()
 export class AuthGuard implements CanActivate {
   constructor(
     private readonly jwt: JwtService,
-    @Inject(DATABASE_MANAGER_TOKEN)
-    private readonly dbm: DatabaseManager<UserPermission>,
+    @Inject(DATABASE_MANAGER_TOKEN) private readonly dbm: DatabaseManager<UserPermission>,
   ) { }
 
   async canActivate(context: ExecutionContext): Promise<boolean> {

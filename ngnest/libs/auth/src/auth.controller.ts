@@ -1,20 +1,15 @@
 import { AuthService } from './auth.service';
-import { Body, Controller, Inject, Param, Post, Res } from '@nestjs/common';
+import { Body, Controller, Param, Post, Res } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 import { JwtService } from '@nestjs/jwt';
-import { DatabaseManager, DATABASE_MANAGER_TOKEN, Login, UserEntity, UserPermission } from '@authdare/models';
+import { Login, UserEntity } from '@authdare/models';
 import { Cookies } from '@authdare/http';
 
 @ApiTags('Auth')
 @Controller('auth')
 export class AuthControler {
-  constructor(
-    private readonly jwt: JwtService,
-    @Inject(DATABASE_MANAGER_TOKEN)
-    private readonly dbm: DatabaseManager<UserPermission>,
-    private readonly authService: AuthService,
-  ) { }
+  constructor(private readonly jwt: JwtService, private readonly authService: AuthService) { }
 
   @Post(':orgname/login')
   async clientLogin(
@@ -22,12 +17,11 @@ export class AuthControler {
     @Res() res: Response,
     @Param('orgname') orgname: string,
   ) {
-    const clientUserRepo = await this.dbm.getUserRepositoryByOrgname(orgname);
-    const clientService = new AuthService(this.jwt, this.dbm, clientUserRepo);
-    const token = await clientService.login(body);
+    const token = this.authService.login(body);
     res.cookie(Cookies.AUTH, token);
     res.send({ message: 'Welcome!' });
   }
+
 
   /**
    * Users join the organiations.
@@ -36,20 +30,18 @@ export class AuthControler {
    * @param orgname
    */
   @Post(':orgname/join')
-  async clientSignup(
+  async joinTeam(
     @Body() body: UserEntity,
     @Res() res: Response,
     @Param('orgname') orgname: string,
   ) {
-    const clientUserRepo = await this.dbm.getUserRepositoryByOrgname(orgname);
-    const clientService = new AuthService(this.jwt, this.dbm, clientUserRepo);
-    const token = await clientService.join(body);
+    const token = await this.authService.join(body);
     res.cookie(Cookies.AUTH, token);
     res.send({
-      message:
-        'Welcome, your account need an approval from the admin of your organization.',
+      message: 'Welcome, you are not given any permission yet!',
     });
   }
+
 
   /**
    * This is for subscription

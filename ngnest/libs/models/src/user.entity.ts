@@ -86,6 +86,6 @@ export class UserEntity extends BaseEntity<UserEntity> {
   @ApiProperty({ default: 'ahmet' })
   @Trim()
   @Length(3, 30)
-  @Column({ unique: true })
+  @Column()
   orgname?: string;
 }

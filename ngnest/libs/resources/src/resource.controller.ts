@@ -1,15 +1,13 @@
 import { ResourceService } from './resource.service';
-import { AuthGuard } from '@authdare/auth';
+
 import {
   Body,
-  Controller,
   Delete,
   Get,
   Param,
   Patch,
   Post,
-  Query,
-  UseGuards,
+  Query
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { DeepPartial } from 'typeorm';
@@ -17,9 +15,8 @@ import { BaseEntity } from '@authdare/models';
 import { GetResourceService } from '@authdare/decorators';
 
 @ApiTags('Resource')
-@UseGuards(AuthGuard)
-@Controller('api/:resource')
 export class ResourceController<T extends BaseEntity<any>> {
+
   @Get()
   async get(
     @Query() query: any,
