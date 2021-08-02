@@ -13,7 +13,7 @@ async function bootstrap() {
   app.enableCors();
   app.use(cors());
   app.use(cookieParser());
-  app.use(favicon(join(__dirname, '..', '..', 'public', 'favicon.ico')));
+  app.use(favicon(join(__dirname, 'favicon.ico')));
   const config = new DocumentBuilder()
     .setTitle('Authdare Api')
     .setDescription('Atomic role and permission assignment ... ')

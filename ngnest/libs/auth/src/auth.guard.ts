@@ -7,23 +7,23 @@ import {
 } from '@nestjs/common';
 import { Inject, InternalServerErrorException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { Request } from 'express';
+import { Request, Response } from 'express';
 import { DatabaseManager, DATABASE_MANAGER_TOKEN, UserEntity, UserPermission } from '@authdare/models';
 import { RESOURCE_SERVICE_KEY } from '@authdare/decorators';
 import { HttpMethod, Cookies } from '@authdare/http';
 import { ResourceService } from '@authdare/resources';
 
 
-
 @Injectable()
 export class AuthGuard implements CanActivate {
-  constructor(
-    private readonly jwt: JwtService,
-    @Inject(DATABASE_MANAGER_TOKEN) private readonly dbm: DatabaseManager<UserPermission>,
-  ) { }
+
+  constructor(private readonly jwt: JwtService, @Inject(DATABASE_MANAGER_TOKEN) private readonly dbm: DatabaseManager<UserPermission>) { }
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
-    const req = await context.switchToHttp().getRequest<Request>();
+    const http = await context.switchToHttp();
+    const req = http.getRequest<Request>();
+    const res = http.getRequest<Response>()
+
     const { resource } = req.params;
     const user = await this.verifyAuthToken(req);
     const orgname = user.orgname!;

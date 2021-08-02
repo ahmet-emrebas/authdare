@@ -1,10 +1,20 @@
-import { AuthControler, AuthService } from '@authdare/auth';
-import { Module } from "@nestjs/common";
+import { AuthControler } from '@authdare/auth';
+import { DynamicModule, Module, ModuleMetadata } from "@nestjs/common";
+import { AuthService } from './auth.service';
 
-@Module({
-    controllers: [AuthControler],
-    providers: [AuthService]
-})
+export const PUBLIC_RESOURCES_KEY = 'PUBLIC_RESOURCES_KEY'
+
+@Module({})
 export class AuthModule {
-
+    static register(options: ModuleMetadata): DynamicModule {
+        return {
+            module: AuthModule,
+            imports: options.imports,
+            controllers: [AuthControler],
+            providers: [
+                ...options.providers!,
+                AuthService
+            ],
+        }
+    }
 }

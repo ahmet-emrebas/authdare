@@ -20,9 +20,9 @@ class BodyClass {
   @ApiProperty() none?: string;
   [key: string]: any;
 }
+
 @ApiTags('Resource')
 export class ResourceController<T extends BaseEntity<any>> {
-
   @Get()
   async get(
     @Query() query: any,
@@ -70,3 +70,36 @@ export class ResourceController<T extends BaseEntity<any>> {
     return await service.delete(id);
   }
 }
+
+
+
+@ApiTags('Resource')
+export class CustomResourceController<T extends BaseEntity<any>> {
+  constructor(private service: ResourceService<T>) { }
+
+  @Get()
+  async get(@Query() query: any) {
+    return await this.service.find(query);
+  }
+
+  @Get(':id')
+  async getByID(@Param('id') id: number, @Query() query: any) {
+    return await this.service.find();
+  }
+
+  @Post()
+  async post(@Body() body: BodyClass) {
+    return await this.service.create(body as any);
+  }
+
+  @Patch(':id')
+  async patch(@Param('id') id: number, @Body() body: BodyClass) {
+    return await this.service.update(id, body as any);
+  }
+
+  @Delete(':id')
+  async delete(@Param('id') id: number) {
+    return await this.service.delete(id);
+  }
+}
+
