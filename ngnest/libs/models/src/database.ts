@@ -1,7 +1,6 @@
 import { classToPlain } from 'class-transformer';
 import { flatten } from 'lodash';
 import { ClassConstructor } from 'class-transformer';
-import { Injectable } from '@nestjs/common';
 import { snakeCase, values, keys } from 'lodash';
 import {
   Connection,
@@ -15,12 +14,16 @@ type DatabaseParameters = {
   orgname: string;
   resource: string;
 };
+
 export function resolveResouceName(clazzConstactor: ClassConstructor<any>) {
   return snakeCase(clazzConstactor.name).split('_')[0] + 's';
 }
 
 export const DATABASE_MANAGER_TOKEN = 'DATABASE_MANAGER_TOKEN';
 
+/**
+ * Database manager interface is used across the application by providing it with DATABASE_MANAGER_TOKEN
+ */
 export interface DatabaseManager<PermissionType = any> {
   orgConnection(
     orgname: string,
@@ -37,7 +40,10 @@ export interface DatabaseManager<PermissionType = any> {
   adminPermissions(): PermissionType[];
 }
 
-@Injectable()
+
+/**
+ * SQL database manager implementing the database manager.
+ */
 export class SQLiteDatabasaManager<PermissinType>
   implements DatabaseManager<PermissinType>
 {

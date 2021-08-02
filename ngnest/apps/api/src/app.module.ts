@@ -8,9 +8,14 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthService, AuthControler } from '@authdare/auth';
 import { DATABASE_MANAGER_TOKEN, SQLiteDatabasaManager, TaskEntity, UserEntity, UserPermission } from '@authdare/models';
 
-const sqlite = new SQLiteDatabasaManager([UserEntity, TaskEntity], {
-  permissionClass: UserPermission,
-});
+
+/**
+ * Add new entities here. 
+ */
+const sqlite = new SQLiteDatabasaManager(
+  [UserEntity, TaskEntity],
+  { permissionClass: UserPermission }
+);
 
 const sqliteProvider = {
   provide: DATABASE_MANAGER_TOKEN,
