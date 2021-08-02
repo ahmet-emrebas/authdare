@@ -39,11 +39,15 @@ export class AuthGuard implements CanActivate {
     return true;
   }
 
+
+  /**
+   * Set resource service as property of Request.
+   * @param req 
+   * @param orgname 
+   * @param resource 
+   */
   async setResourceService(req: Request, orgname: string, resource: string) {
-    (req as any)[RESOURCE_SERVICE_KEY] = await this.getResourceService(
-      orgname,
-      resource,
-    );
+    (req as any)[RESOURCE_SERVICE_KEY] = await this.getResourceService(orgname, resource,);
   }
 
   /**
@@ -65,18 +69,12 @@ export class AuthGuard implements CanActivate {
    * @returns {Promise<boolean> | never}
    * @throws {UnauthorizedException} if user does not have the required permission for this route.
    */
-  async checkUserHasRequiredPermissions(
-    requiredPermission: UserPermission,
-    user: UserEntity,
-  ): Promise<boolean> | never {
-    if (
-      user?.permissions?.find((e) => e?.method == requiredPermission.method)
-    ) {
+  async checkUserHasRequiredPermissions({ method, resource }: UserPermission, user: UserEntity,): Promise<boolean> | never {
+    const foundPermission = user.permissions?.find(p => p.method == method && p.resource == resource);
+    if (foundPermission) {
       return true;
     } else {
-      throw new UnauthorizedException(
-        'You do not have sufficient permission for this request!',
-      );
+      throw new UnauthorizedException('You do not have sufficient permission for this request!');
     }
   }
 

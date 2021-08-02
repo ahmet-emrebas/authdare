@@ -9,11 +9,17 @@ import {
   Post,
   Query
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
-import { DeepPartial } from 'typeorm';
+import { ApiProperty, ApiTags } from '@nestjs/swagger';
 import { BaseEntity } from '@authdare/models';
 import { GetResourceService } from '@authdare/decorators';
 
+/**
+ * Just for making swagger happy
+ */
+class BodyClass {
+  @ApiProperty() none?: string;
+  [key: string]: any;
+}
 @ApiTags('Resource')
 export class ResourceController<T extends BaseEntity<any>> {
 
@@ -38,21 +44,21 @@ export class ResourceController<T extends BaseEntity<any>> {
 
   @Post()
   async post(
-    @Body() body: DeepPartial<T>,
+    @Body() body: BodyClass,
     @GetResourceService() service: ResourceService<T>,
     @Param('resource') resource?: string,
   ) {
-    return await service.create(body);
+    return await service.create(body as any);
   }
 
   @Patch(':id')
   async patch(
     @Param('id') id: number,
-    @Body() body: DeepPartial<T>,
+    @Body() body: BodyClass,
     @GetResourceService() service: ResourceService<T>,
     @Param('resource') resource?: string,
   ) {
-    return await service.update(id, body);
+    return await service.update(id, body as any);
   }
 
   @Delete(':id')

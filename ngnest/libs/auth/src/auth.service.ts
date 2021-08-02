@@ -20,8 +20,8 @@ export class AuthService extends AuthCommonService {
 
 
 
-  async login(credential: Login): Promise<string> | never {
-    const { orgname, email, password } = await new Login(credential).validateAndTransformToClassInstance();
+  async login(orgname: string, credential: Login): Promise<string> | never {
+    const { email, password } = await new Login(credential).validateAndTransformToClassInstance();
     const foundUser = await this.isUserExist(orgname!, email!);
     if (!foundUser) {
       throw new BadRequestException(`There is no account associated with the email ${email}`);
@@ -33,16 +33,13 @@ export class AuthService extends AuthCommonService {
     throw new BadRequestException('Password does not match!');
   }
 
-
-
-  async join(user: UserEntity): Promise<void> | never {
-    await this.createTeamMember(await this.prepareUserForJoinTeam(user) as UserEntity);
+  async join(orgname: string, credentials: Login): Promise<string> | never {
+    return await this.createTeamMember(await this.prepareUserForJoinTeam(orgname, credentials) as UserEntity);
   }
 
 
 
   async signup(user: UserEntity) {
     return await this.finishSubscription(await this.prepareUserForSignup(user) as UserEntity);
-
   }
 }

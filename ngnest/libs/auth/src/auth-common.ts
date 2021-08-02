@@ -1,5 +1,5 @@
 import { JwtService } from '@nestjs/jwt';
-import { DatabaseManager, Groups, UserEntity } from '@authdare/models';
+import { DatabaseManager, Groups, UserEntity, Login } from '@authdare/models';
 import { BadRequestException } from "@nestjs/common";
 import { Repository } from 'typeorm';
 
@@ -28,8 +28,8 @@ export class AuthCommonService {
      * @returns UserEntity instance
      * @throws BadRequestException
      */
-    async prepareUserForJoinTeam(user: UserEntity) {
-        const userInstance = await this.validateAndTransformUserDataForJoin(user);
+    async prepareUserForJoinTeam(orgname: string, credentials: Login) {
+        const userInstance = await this.validateAndTransformUserDataForJoin(orgname, credentials);
 
         if (!(await this.isOrganizaitonExist(userInstance.orgname!))) {
             throw new BadRequestException('Organization does not exist!')
@@ -50,14 +50,13 @@ export class AuthCommonService {
      * @param orgname 
      */
     async createClientDatabase(orgname: string) {
-        if (!(await this.isOrganizaitonExist(orgname))) {
-            await this.dbm.orgConnection(orgname, true, true);
-        }
+        await this.dbm.orgConnection(orgname, true, true);
     }
 
 
-    private async validateAndTransformUserData(user: UserEntity, _permissions: any[], groups: Groups[]) {
-        const userInstance = await new UserEntity(user).validateAndTransformToClassInstance(groups);
+    private async validateAndTransformUserData(user: any, _permissions: any[], groups: Groups[]) {
+        const userInstance = new UserEntity(user);
+        await userInstance.validateAndTransformToClassInstance(groups);
         userInstance.permissions = _permissions;
         return userInstance;
     }
@@ -76,8 +75,8 @@ export class AuthCommonService {
      * @param user UserEntity object
      * @returns  UserEntity instance 
      */
-    private async validateAndTransformUserDataForJoin(user: UserEntity) {
-        return await this.validateAndTransformUserData(user, [], [Groups.SIGNUP]);
+    private async validateAndTransformUserDataForJoin(orgname: string, { email, password }: Login) {
+        return await this.validateAndTransformUserData({ orgname, email, password }, [], [Groups.JOIN_TEAM]);
     }
 
 
@@ -126,6 +125,7 @@ export class AuthCommonService {
         return await this.createTeamMember(userInstance);
     }
 
+
     /**
      * Run this method after 
      * - all validation is done 
@@ -141,7 +141,7 @@ export class AuthCommonService {
     }
 
     async signToken(userInstance: UserEntity) {
-        const authTokenPayload = await userInstance.validateAndTransformToClassInstance([Groups.AUTH_COOKIE])
+        const authTokenPayload = await userInstance.validateAndTransformToClassInstance([Groups.AUTH_COOKIE], true)
         return await this.jwt.sign(authTokenPayload);
     }
 

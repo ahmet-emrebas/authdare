@@ -14,10 +14,5 @@ export class Login extends BaseValidator<Login> {
   @Length(6, 50)
   password?: string;
 
-  @ApiProperty({ default: 'ahmet' })
-  @Trim()
-  @Length(6, 50)
-  orgname?: string;
-
   constructor(obj?: Login) { super(obj); }
 }

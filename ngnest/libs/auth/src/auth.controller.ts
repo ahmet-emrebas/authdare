@@ -17,7 +17,7 @@ export class AuthControler {
     @Res() res: Response,
     @Param('orgname') orgname: string,
   ) {
-    const token = this.authService.login(body);
+    const token = await this.authService.login(orgname, body);
     res.cookie(Cookies.AUTH, token);
     res.send({ message: 'Welcome!' });
   }
@@ -31,11 +31,11 @@ export class AuthControler {
    */
   @Post(':orgname/join')
   async joinTeam(
-    @Body() body: UserEntity,
+    @Body() body: Login,
     @Res() res: Response,
     @Param('orgname') orgname: string,
   ) {
-    const token = await this.authService.join(body);
+    const token = await this.authService.join(orgname, body);
     res.cookie(Cookies.AUTH, token);
     res.send({
       message: 'Welcome, you are not given any permission yet!',

@@ -5,7 +5,7 @@ import { hashPassword, Trim, JSONToString } from './transformers';
 import { BaseEntity } from './base.entity';
 import { Column, Entity } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsIn, IsOptional, Length, validate } from 'class-validator';
+import { IsEmail, IsIn, IsNotEmpty, IsOptional, Length, validate } from 'class-validator';
 import { Exclude, Expose, classToClass, Transform } from 'class-transformer';
 import { UnprocessableEntityException } from '@nestjs/common';
 import { HttpMethod } from '@authdare/http';
@@ -53,26 +53,25 @@ export class UserEntity extends BaseEntity<UserEntity> {
       Groups.SIGNUP,
       Groups.AUTH_COOKIE,
       Groups.CREDENTIALS,
+      Groups.JOIN_TEAM
     ],
   })
   @ApiProperty({ default: 'aemrebas.dev@gmail.com', })
-  @IsEmail()
+  @IsEmail({}, { groups: [Groups.SIGNUP, Groups.CREATE, Groups.JOIN_TEAM] })
   @Column({ unique: true })
   email?: string;
 
-  @Expose({
-    groups: [Groups.CREATE, Groups.PASSWORD, Groups.SIGNUP, Groups.CREDENTIALS],
-  })
+  @Expose({ groups: [Groups.CREATE, Groups.PASSWORD, Groups.SIGNUP, Groups.CREDENTIALS, Groups.JOIN_TEAM], })
   @ApiProperty({ default: 'myPassword' })
   @IsOptional({ groups: [Groups.AUTH_COOKIE] })
   @Trim()
-  @Length(6, 50)
+  @Length(6, 50, { groups: [Groups.SIGNUP, Groups.CREATE, Groups.JOIN_TEAM] })
   @Column({ transformer: hashPassword })
   password?: string;
 
   @Expose({ groups: [Groups.CREATE, Groups.READ, Groups.AUTH_COOKIE] })
   @ApiProperty({ default: [{ method: '', resource: '' }] })
-  @IsOptional({ groups: [Groups.SIGNUP, Groups.AUTH_COOKIE] })
+  @IsOptional({ groups: [Groups.SIGNUP, Groups.AUTH_COOKIE, Groups.JOIN_TEAM] })
   @Column({
     type: 'text',
     nullable: true,
@@ -80,12 +79,11 @@ export class UserEntity extends BaseEntity<UserEntity> {
   })
   permissions?: UserPermission[];
 
-  @Expose({
-    groups: [Groups.CREATE, Groups.READ, Groups.SIGNUP, Groups.AUTH_COOKIE],
-  })
+  @Expose({ groups: [Groups.CREATE, Groups.READ, Groups.SIGNUP, Groups.AUTH_COOKIE] })
   @ApiProperty({ default: 'ahmet' })
+  @IsOptional({ groups: [Groups.JOIN_TEAM] })
   @Trim()
-  @Length(3, 30)
+  @Length(3, 30, { groups: [Groups.SIGNUP, Groups.CREATE, Groups.JOIN_TEAM] })
   @Column()
   orgname?: string;
 }
