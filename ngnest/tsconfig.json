@@ -82,6 +82,12 @@
       "@authdare/utils/*": [
         "libs/angular/utils/src/lib/*"
       ],
+      "@authdare/models": [
+        "libs/models/src"
+      ],
+      "@authdare/models/*": [
+        "libs/models/src/*"
+      ]
     },
     "lib": [
       "es2018",
