@@ -7,9 +7,10 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { IsOptional, validate } from 'class-validator';
+import { IsOptional, validate, isNotEmpty } from 'class-validator';
 import { Expose } from 'class-transformer';
 import { BadRequestException } from '@nestjs/common';
+import { pickBy } from 'lodash';
 
 export class BaseValidator<T> {
   constructor(obj?: Omit<T, 'validateAndTransformToClassInstance'>) {
@@ -31,7 +32,7 @@ export class BaseValidator<T> {
       throw new BadRequestException(errors);
     }
     if (plain) {
-      return classToPlain(this, { groups }) as unknown as T;
+      return pickBy(classToPlain(this, { groups }), (v) => isNotEmpty(v)) as unknown as T;  // Ignore the null/undefined/'' values
     }
     return classInstance as unknown as T;
   }
