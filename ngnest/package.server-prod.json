@@ -1,7 +1,7 @@
 {
-    "name": "authdare-api",
-    "version": "0.0.1",
-    "description": "API",
+    "name": "authdare-dbs",
+    "version": "1",
+    "description": "Database as a service provided by Authdare",
     "author": "Ahmet Emrebas",
     "private": true,
     "scripts": {

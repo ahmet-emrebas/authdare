@@ -1,5 +1,4 @@
 import { ResourceService } from './resource.service';
-
 import {
   Body,
   Delete,
@@ -9,63 +8,73 @@ import {
   Post,
   Query
 } from '@nestjs/common';
-import { ApiProperty, ApiTags } from '@nestjs/swagger';
+import { ApiInternalServerErrorResponse, ApiOkResponse, ApiTags, ApiUnauthorizedResponse } from '@nestjs/swagger';
 import { BaseEntity } from '@authdare/models';
 import { GetResourceService } from '@authdare/decorators';
 
-/**
- * Just for making swagger happy
- */
-class BodyClass {
-  @ApiProperty() none?: string;
-  [key: string]: any;
-}
+export const RESOURCE = 'resource';
+export const ID_PARAM = 'id';
+const ID_PATH = ':id';
 
-@ApiTags('Resource')
+
+@ApiTags('Resources')
 export class ResourceController<T extends BaseEntity<any>> {
+
   @Get()
-  async get(
-    @Query() query: any,
-    @GetResourceService() service: ResourceService<T>,
-    @Param('resource') resource?: string,
-  ) {
+  @ApiOkResponse()
+  @ApiUnauthorizedResponse()
+  @ApiInternalServerErrorResponse()
+  async get(@Query() query: any, @GetResourceService() service: ResourceService<T>,
+    @Param(RESOURCE) resource?: string,) {
     return await service.find(query);
   }
 
-  @Get(':id')
+  @Get(ID_PATH)
+  @ApiOkResponse()
+  @ApiUnauthorizedResponse()
+  @ApiInternalServerErrorResponse()
   async getByID(
-    @Param('id') id: number,
+    @Param(ID_PARAM) id: number,
     @Query() query: any,
     @GetResourceService() service: ResourceService<T>,
-    @Param('resource') resource?: string,
+    @Param(RESOURCE) resource?: string,
   ) {
     return await service.find();
   }
 
   @Post()
+  @ApiOkResponse()
+  @ApiUnauthorizedResponse()
+  @ApiInternalServerErrorResponse()
   async post(
-    @Body() body: BodyClass,
+    @Body() body: any,
     @GetResourceService() service: ResourceService<T>,
-    @Param('resource') resource?: string,
+    @Param(RESOURCE) resource?: string,
   ) {
     return await service.create(body as any);
   }
 
-  @Patch(':id')
+  @Patch(ID_PATH)
+  @ApiOkResponse()
+  @ApiUnauthorizedResponse()
+  @ApiInternalServerErrorResponse()
   async patch(
-    @Param('id') id: number,
-    @Body() body: BodyClass,
+    @Param(ID_PARAM) id: number,
+    @Body() body: any,
     @GetResourceService() service: ResourceService<T>,
-    @Param('resource') resource?: string,
+    @Param(RESOURCE) resource?: string,
   ) {
     return await service.update(id, body as any);
   }
 
-  @Delete(':id')
+  @Delete(ID_PATH)
+  @ApiOkResponse()
+  @ApiUnauthorizedResponse()
+  @ApiInternalServerErrorResponse()
   async delete(
-    @Param('id') id: number,
+    @Param(ID_PARAM) id: number,
     @GetResourceService() service: ResourceService<T>,
-    @Param('resource') resource?: string,
+    @Param(RESOURCE) resource?: string,
   ) {
     return await service.delete(id);
   }
@@ -78,27 +87,42 @@ export class CustomResourceController<T extends BaseEntity<any>> {
   constructor(private service: ResourceService<T>) { }
 
   @Get()
+  @ApiOkResponse()
+  @ApiUnauthorizedResponse()
+  @ApiInternalServerErrorResponse()
   async get(@Query() query: any) {
     return await this.service.find(query);
   }
 
-  @Get(':id')
-  async getByID(@Param('id') id: number, @Query() query: any) {
+  @Get(ID_PATH)
+  @ApiOkResponse()
+  @ApiUnauthorizedResponse()
+  @ApiInternalServerErrorResponse()
+  async getByID(@Param(ID_PARAM) id: number, @Query() query: any) {
     return await this.service.find();
   }
 
   @Post()
-  async post(@Body() body: BodyClass) {
+  @ApiOkResponse()
+  @ApiUnauthorizedResponse()
+  @ApiInternalServerErrorResponse()
+  async post(@Body() body: any) {
     return await this.service.create(body as any);
   }
 
-  @Patch(':id')
-  async patch(@Param('id') id: number, @Body() body: BodyClass) {
+  @Patch(ID_PATH)
+  @ApiOkResponse()
+  @ApiUnauthorizedResponse()
+  @ApiInternalServerErrorResponse()
+  async patch(@Param(ID_PARAM) id: number, @Body() body: any) {
     return await this.service.update(id, body as any);
   }
 
-  @Delete(':id')
-  async delete(@Param('id') id: number) {
+  @Delete(ID_PATH)
+  @ApiOkResponse()
+  @ApiUnauthorizedResponse()
+  @ApiInternalServerErrorResponse()
+  async delete(@Param(ID_PARAM) id: number) {
     return await this.service.delete(id);
   }
 }

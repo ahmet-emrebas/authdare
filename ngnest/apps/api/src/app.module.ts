@@ -9,6 +9,7 @@ import { AuthService } from '@authdare/auth';
 import { DatabaseManager, DATABASE_MANAGER_TOKEN, SQLiteDatabasaManager, TaskEntity, UserEntity, UserPermission } from '@authdare/models';
 import { Repository } from 'typeorm';
 import { AuthModule, PUBLIC_RESOURCES_KEY } from '@authdare/auth/auth.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
 
 const ENVIRONMENT: string | undefined = process.argv?.
   map(e => e.split("="))?.
@@ -60,6 +61,7 @@ const GlobalProviders = [
     ScheduleModule.forRoot(),
     MulterModule.register({ dest: './upload' }),
     ThrottlerModule.forRoot({ ttl: 60, limit: 10 }),
+    ServeStaticModule.forRoot({ rootPath: '', exclude: ['api', 'api-doc'] })
   ],
   providers: [DatabaseManagerProvider, PublicResourcePathsProvider, AuthService],
 })

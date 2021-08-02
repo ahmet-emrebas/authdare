@@ -14,7 +14,7 @@
     "doc": "compodoc -p tsconfig.doc.json -d ../docs && ng build --prod --base-href=/authdare/materials/ --deploy-url https://ahmet-emrebas.github.io/authdare/materials/",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
-    "server:build": "nest build && cp package.server-prod.json dist/api/package.json && cp public/favicon.ico dist/api/favicon.ico",
+    "server:build": "nest build",
     "server:deploy": "cd dist/api && git commit -am'update' && git push heroku master",
     "server:start": "nest start --watch",
     "server:start:debug": "nest start --debug --watch",
