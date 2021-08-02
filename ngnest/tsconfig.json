@@ -87,6 +87,30 @@
       ],
       "@authdare/models/*": [
         "libs/models/src/*"
+      ],
+      "@authdare/decorators": [
+        "libs/decorators/src"
+      ],
+      "@authdare/decorators/*": [
+        "libs/decorators/src/*"
+      ],
+      "@authdare/http": [
+        "libs/http/src"
+      ],
+      "@authdare/http/*": [
+        "libs/http/src/*"
+      ],
+      "@authdare/auth": [
+        "libs/auth/src"
+      ],
+      "@authdare/auth/*": [
+        "libs/auth/src/*"
+      ],
+      "@authdare/resources": [
+        "libs/resources/src"
+      ],
+      "@authdare/resources/*": [
+        "libs/resources/src/*"
       ]
     },
     "lib": [

@@ -1,5 +1,5 @@
 import { ResourceService } from './resource.service';
-import { AuthGuard } from './auth.guard';
+import { AuthGuard } from '@authdare/auth';
 import {
   Body,
   Controller,

@@ -26,6 +26,42 @@
       "compilerOptions": {
         "tsConfigPath": "libs/models/tsconfig.lib.json"
       }
+    },
+    "decorators": {
+      "type": "library",
+      "root": "libs/decorators",
+      "entryFile": "index",
+      "sourceRoot": "libs/decorators/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/decorators/tsconfig.lib.json"
+      }
+    },
+    "http": {
+      "type": "library",
+      "root": "libs/http",
+      "entryFile": "index",
+      "sourceRoot": "libs/http/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/http/tsconfig.lib.json"
+      }
+    },
+    "auth": {
+      "type": "library",
+      "root": "libs/auth",
+      "entryFile": "index",
+      "sourceRoot": "libs/auth/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/auth/tsconfig.lib.json"
+      }
+    },
+    "resources": {
+      "type": "library",
+      "root": "libs/resources",
+      "entryFile": "index",
+      "sourceRoot": "libs/resources/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/resources/tsconfig.lib.json"
+      }
     }
   }
 }

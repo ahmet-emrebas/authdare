@@ -12,7 +12,7 @@ import { Expose } from 'class-transformer';
 import { UnprocessableEntityException } from '@nestjs/common';
 
 export class BaseValidator<T> {
-  constructor(obj?: T) {
+  constructor(obj?: Omit<T, 'validateAndTransformToClassInstance'>) {
     Object.assign(this, obj);
   }
   async validateAndTransformToClassInstance(

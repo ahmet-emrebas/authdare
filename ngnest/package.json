@@ -6,23 +6,18 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
-    "client:ng": "ng",
     "client:start": "ng serve",
     "client:build": "ng build",
-    "client:watch": "ng build --watch --configuration development",
+    "client:build:watch": "ng build --watch --configuration development",
     "client:test": "ng test",
     "i18n": "ng extract-i18n --output-path apps/client/src/locale --format=json",
     "doc": "compodoc -p tsconfig.doc.json -d ../docs && ng build --prod --base-href=/authdare/materials/ --deploy-url https://ahmet-emrebas.github.io/authdare/materials/",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
-    "server:prebuild": "rimraf dist",
+    "preserver:build": "rimraf dist",
     "server:build": "nest build",
-    "server:format": "prettier --write \"apps/**/*.ts\" \"libs/**/*.ts\"",
-    "server:start": "nest start",
-    "server:start:dev": "nest start --watch",
+    "server:start": "nest start --watch",
     "server:start:debug": "nest start --debug --watch",
-    "server:start:prod": "node dist/main",
     "server:test": "jest",
     "server:test:watch": "jest --watch",
     "server:test:cov": "jest --coverage",
@@ -165,11 +160,15 @@
     "testEnvironment": "node",
     "roots": [
       "<rootDir>/apps/api",
-      "<rootDir>/libs/models"
+      "<rootDir>/libs/"
     ],
     "moduleNameMapper": {
       "@authdare/models/(.*)": "<rootDir>/libs/models/src/$1",
-      "@authdare/models": "<rootDir>/libs/models/src"
+      "@authdare/models": "<rootDir>/libs/models/src",
+      "^@authdare/decorators(|/.*)$": "<rootDir>/libs/decorators/src/$1",
+      "^@authdare/http(|/.*)$": "<rootDir>/libs/http/src/$1",
+      "^@authdare/auth(|/.*)$": "<rootDir>/libs/auth/src/$1",
+      "^@authdare/resources(|/.*)$": "<rootDir>/libs/resources/src/$1"
     }
   }
 }

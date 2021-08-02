@@ -1,3 +1,4 @@
+import { basePathProvider } from './providers/http.provider';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -31,7 +32,9 @@ import { NavbarModule } from '@authdare/navbar';
     EntityDataModule.forRoot(entityConfig),
     EffectsModule.forRoot([]),
   ],
-  providers: [],
+  providers: [
+    basePathProvider('http://localhost:3000')
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

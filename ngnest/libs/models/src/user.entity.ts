@@ -4,11 +4,11 @@ import { Groups } from './groups';
 import { hashPassword, Trim, JSONToString } from './transformers';
 import { BaseEntity } from './base.entity';
 import { Column, Entity } from 'typeorm';
-import { ApiBody, ApiProperty, ApiPropertyOptional, ApiTags } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsIn, IsOptional, Length, validate } from 'class-validator';
 import { Exclude, Expose, classToClass, Transform } from 'class-transformer';
 import { UnprocessableEntityException } from '@nestjs/common';
-import { HttpMethod } from '../http';
+import { HttpMethod } from '@authdare/http';
 
 
 export class UserPermission {
