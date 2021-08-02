@@ -1,0 +1,1396 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ngnest documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css" media="(prefers-color-scheme: dark)">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">ngnest documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content class">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li>Classes</li>
+  <li >AuthCommonService</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>libs/auth/src/auth-common.ts</code>
+        </p>
+
+
+
+
+
+
+            <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#createClientDatabase" >createClientDatabase</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#createTeamMember" >createTeamMember</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#finishSubscription" >finishSubscription</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#isOrganizaitonExist" >isOrganizaitonExist</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#isUserExist" >isUserExist</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#prepareUserForJoinTeam" >prepareUserForJoinTeam</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#prepareUserForLogin" >prepareUserForLogin</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#prepareUserForSignup" >prepareUserForSignup</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#signToken" >signToken</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#validateAndTransformUserData" >validateAndTransformUserData</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#validateAndTransformUserDataForJoin" >validateAndTransformUserDataForJoin</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#validateAndTransformUserDataForSignup" >validateAndTransformUserDataForSignup</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(dbm: <a href="../interfaces/DatabaseManager.html" target="_self">DatabaseManager</a>, authdareUserRepo: <a href="../classes/UserEntity.html" target="_self">Repository&lt;UserEntity&gt;</a>, jwt: <a href="../numbers/i.html" target="_self">JwtService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="6" class="link-to-prism">libs/auth/src/auth-common.ts:6</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>dbm</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../interfaces/DatabaseManager.html" target="_self" >DatabaseManager</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>authdareUserRepo</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../classes/UserEntity.html" target="_self" >Repository&lt;UserEntity&gt;</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>jwt</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../miscellaneous/variables.html#i" target="_self" >JwtService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+            <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createClientDatabase"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>createClientDatabase</b></span>
+                        <a href="#createClientDatabase"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>createClientDatabase(orgname: <a href="../numbers/i.html" target="_self">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="52"
+                            class="link-to-prism">libs/auth/src/auth-common.ts:52</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Before creating the user subscription, initialize the client database with orgname.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>orgname</td>
+                                    <td>
+                                                <code><a href="../miscellaneous/variables.html#i" target="_self" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createTeamMember"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>createTeamMember</b></span>
+                        <a href="#createTeamMember"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>createTeamMember(userInstance: <a href="../classes/UserEntity.html" target="_self">UserEntity</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="137"
+                            class="link-to-prism">libs/auth/src/auth-common.ts:137</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Run this method after</p>
+<ul>
+<li>all validation is done</li>
+<li>user does not exist in the organization</li>
+<li>organization exists already.</li>
+</ul>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>userInstance</td>
+                                    <td>
+                                                <code><a href="../classes/UserEntity.html" target="_self" >UserEntity</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>unknown</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="finishSubscription"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>finishSubscription</b></span>
+                        <a href="#finishSubscription"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>finishSubscription(userInstance: <a href="../classes/UserEntity.html" target="_self">UserEntity</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="122"
+                            class="link-to-prism">libs/auth/src/auth-common.ts:122</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Run this method after</p>
+<ul>
+<li>all validation is done</li>
+<li>user does not exist</li>
+<li>organization does not exist</li>
+</ul>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>userInstance</td>
+                                    <td>
+                                                <code><a href="../classes/UserEntity.html" target="_self" >UserEntity</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>unknown</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isOrganizaitonExist"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>isOrganizaitonExist</b></span>
+                        <a href="#isOrganizaitonExist"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>isOrganizaitonExist(orgname: <a href="../numbers/i.html" target="_self">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="88"
+                            class="link-to-prism">libs/auth/src/auth-common.ts:88</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Check if the organization exist or not.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>orgname</td>
+                                    <td>
+                                                <code><a href="../miscellaneous/variables.html#i" target="_self" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>Alrady validated orgname</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../miscellaneous/variables.html#i" target="_self" >Promise | never</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>Boolean</p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isUserExist"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>isUserExist</b></span>
+                        <a href="#isUserExist"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>isUserExist(orgname: <a href="../numbers/i.html" target="_self">string</a>, email: <a href="../numbers/i.html" target="_self">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="103"
+                            class="link-to-prism">libs/auth/src/auth-common.ts:103</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Check the user exists in authdare org and client organization (assuming orgnizaiton alrady exist,  check the existance of organziation first!).
+If user exists throw BadRequestException.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>orgname</td>
+                                    <td>
+                                                <code><a href="../miscellaneous/variables.html#i" target="_self" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>already validated orgname</p>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>email</td>
+                                    <td>
+                                                <code><a href="../miscellaneous/variables.html#i" target="_self" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>already validated email</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../miscellaneous/variables.html#i" target="_self" >Promise | never</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="prepareUserForJoinTeam"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>prepareUserForJoinTeam</b></span>
+                        <a href="#prepareUserForJoinTeam"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>prepareUserForJoinTeam(orgname: <a href="../numbers/i.html" target="_self">string</a>, credentials: <a href="../classes/Login.html" target="_self">Login</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="31"
+                            class="link-to-prism">libs/auth/src/auth-common.ts:31</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>If User data is valid for Joining the team  then return the user data, BadRequestException otherwise</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>orgname</td>
+                                    <td>
+                                                <code><a href="../miscellaneous/variables.html#i" target="_self" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>credentials</td>
+                                    <td>
+                                                <code><a href="../classes/Login.html" target="_self" >Login</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>unknown</code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>UserEntity instance</p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="prepareUserForLogin"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>prepareUserForLogin</b></span>
+                        <a href="#prepareUserForLogin"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>prepareUserForLogin(user: <a href="../classes/UserEntity.html" target="_self">UserEntity</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="44"
+                            class="link-to-prism">libs/auth/src/auth-common.ts:44</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>user</td>
+                                    <td>
+                                                <code><a href="../classes/UserEntity.html" target="_self" >UserEntity</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="prepareUserForSignup"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>prepareUserForSignup</b></span>
+                        <a href="#prepareUserForSignup"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>prepareUserForSignup(user: <a href="../classes/UserEntity.html" target="_self">UserEntity</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="14"
+                            class="link-to-prism">libs/auth/src/auth-common.ts:14</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>user</td>
+                                    <td>
+                                                <code><a href="../classes/UserEntity.html" target="_self" >UserEntity</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>unknown</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="signToken"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>signToken</b></span>
+                        <a href="#signToken"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>signToken(userInstance: <a href="../classes/UserEntity.html" target="_self">UserEntity</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="143"
+                            class="link-to-prism">libs/auth/src/auth-common.ts:143</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>userInstance</td>
+                                    <td>
+                                                <code><a href="../classes/UserEntity.html" target="_self" >UserEntity</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>unknown</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="validateAndTransformUserData"></a>
+                    <span class="name">
+                        <span class="modifier">Private</span>
+                        <span class="modifier">Async</span>
+                        <span ><b>validateAndTransformUserData</b></span>
+                        <a href="#validateAndTransformUserData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>validateAndTransformUserData(user: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, _permissions: any[], groups: <a href="../undefineds/Groups.html" target="_self">Groups[]</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="57"
+                            class="link-to-prism">libs/auth/src/auth-common.ts:57</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>user</td>
+                                    <td>
+                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>_permissions</td>
+                                    <td>
+                                            <code>any[]</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>groups</td>
+                                    <td>
+                                                <code><a href="../miscellaneous/enumerations.html#Groups" target="_self" >Groups[]</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>unknown</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="validateAndTransformUserDataForJoin"></a>
+                    <span class="name">
+                        <span class="modifier">Private</span>
+                        <span class="modifier">Async</span>
+                        <span ><b>validateAndTransformUserDataForJoin</b></span>
+                        <a href="#validateAndTransformUserDataForJoin"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>validateAndTransformUserDataForJoin(orgname: <a href="../numbers/i.html" target="_self">string</a>, undefined: <a href="../classes/Login.html" target="_self">Login</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="78"
+                            class="link-to-prism">libs/auth/src/auth-common.ts:78</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Validate and transform the data return the instance or object of the data. If data is not valid, thow BadRequestException</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>orgname</td>
+                                    <td>
+                                                <code><a href="../miscellaneous/variables.html#i" target="_self" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                                <code><a href="../classes/Login.html" target="_self" >Login</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>unknown</code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>UserEntity instance</p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="validateAndTransformUserDataForSignup"></a>
+                    <span class="name">
+                        <span class="modifier">Private</span>
+                        <span class="modifier">Async</span>
+                        <span ><b>validateAndTransformUserDataForSignup</b></span>
+                        <a href="#validateAndTransformUserDataForSignup"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>validateAndTransformUserDataForSignup(user: <a href="../classes/UserEntity.html" target="_self">UserEntity</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="69"
+                            class="link-to-prism">libs/auth/src/auth-common.ts:69</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Validate and transform the data return the instance or object of the data. If data is not valid, thow BadRequestException</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>user</td>
+                                    <td>
+                                                <code><a href="../classes/UserEntity.html" target="_self" >UserEntity</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>UserEntity object</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>unknown</code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>UserEntity instance</p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+
+
+
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { JwtService } from &#x27;@nestjs/jwt&#x27;;
+import { DatabaseManager, Groups, UserEntity, Login } from &#x27;@authdare/models&#x27;;
+import { BadRequestException } from &quot;@nestjs/common&quot;;
+import { Repository } from &#x27;typeorm&#x27;;
+
+export class AuthCommonService {
+
+    constructor(
+        protected readonly dbm: DatabaseManager,
+        protected readonly authdareUserRepo: Repository&lt;UserEntity&gt;,
+        protected readonly jwt: JwtService
+    ) { }
+
+    async prepareUserForSignup(user: UserEntity) {
+        const userInstance &#x3D; await this.validateAndTransformUserDataForSignup(user);
+        if (await this.isOrganizaitonExist(userInstance.orgname!)) {
+            throw new BadRequestException(&#x27;Organization already exists!&#x27;);
+        }
+        if (await this.isUserExist(userInstance.orgname!, userInstance.email!)) {
+            throw new BadRequestException(&#x27;User already exists!&#x27;);
+        }
+        return userInstance;
+    }
+
+    /**
+     * If User data is valid for Joining the team  then return the user data, BadRequestException otherwise
+     * @param user UserEntity object
+     * @returns UserEntity instance
+     * @throws BadRequestException
+     */
+    async prepareUserForJoinTeam(orgname: string, credentials: Login) {
+        const userInstance &#x3D; await this.validateAndTransformUserDataForJoin(orgname, credentials);
+
+        if (!(await this.isOrganizaitonExist(userInstance.orgname!))) {
+            throw new BadRequestException(&#x27;Organization does not exist!&#x27;)
+        }
+
+        if (await this.isUserExist(userInstance.orgname!, userInstance.email!)) {
+            throw new BadRequestException(&#x27;User already exists!&#x27;);
+        }
+        return userInstance;
+    }
+
+    async prepareUserForLogin(user: UserEntity) {
+
+    }
+
+    /**
+     * Before creating the user subscription, initialize the client database with orgname.
+     * @param orgname 
+     */
+    async createClientDatabase(orgname: string) {
+        await this.dbm.orgConnection(orgname, true, true);
+    }
+
+
+    private async validateAndTransformUserData(user: any, _permissions: any[], groups: Groups[]) {
+        const userInstance &#x3D; new UserEntity(user);
+        await userInstance.validateAndTransformToClassInstance(groups);
+        userInstance.permissions &#x3D; _permissions;
+        return userInstance;
+    }
+
+    /**
+     * Validate and transform the data return the instance or object of the data. If data is not valid, thow BadRequestException
+     * @param user UserEntity object
+     * @returns  UserEntity instance 
+     */
+    private async validateAndTransformUserDataForSignup(user: UserEntity) {
+        return await this.validateAndTransformUserData(user, this.dbm.adminPermissions(), [Groups.SIGNUP])
+    }
+
+    /**
+     * Validate and transform the data return the instance or object of the data. If data is not valid, thow BadRequestException
+     * @param user UserEntity object
+     * @returns  UserEntity instance 
+     */
+    private async validateAndTransformUserDataForJoin(orgname: string, { email, password }: Login) {
+        return await this.validateAndTransformUserData({ orgname, email, password }, [], [Groups.JOIN_TEAM]);
+    }
+
+
+    /**
+     * Check if the organization exist or not.
+     * @param orgname Alrady validated orgname
+     * @return Boolean
+     */
+    async isOrganizaitonExist(orgname: string): Promise&lt;false | UserEntity&gt; | never {
+        const foundSubscription &#x3D; await this.authdareUserRepo.findOne({ where: { orgname: orgname } });
+        if (foundSubscription) {
+            return foundSubscription;
+        }
+        return false;
+    }
+
+    /**
+     * Check the user exists in authdare org and client organization (assuming orgnizaiton alrady exist,  check the existance of organziation first!).
+     * If user exists throw BadRequestException.
+     * @param orgname already validated orgname
+     * @param email already validated email
+     * @throw BadRequestException if the user exist in the organizaiton.
+     */
+    async isUserExist(orgname: string, email: string): Promise&lt;false | UserEntity&gt; | never {
+        if (await this.isOrganizaitonExist(orgname)) {
+            const clientUserRepo &#x3D; await this.dbm.getUserRepositoryByOrgname(orgname);
+            const foundUser &#x3D; await clientUserRepo.findOne({ where: { email } });
+            if (foundUser) {
+                return new UserEntity(foundUser);
+            }
+        }
+        return false;
+    }
+
+
+    /**
+     * Run this method after
+     * - all validation is done
+     * - user does not exist 
+     * - organization does not exist 
+     * @param user UserEntity instance 
+     */
+    async finishSubscription(userInstance: UserEntity) {
+        await this.authdareUserRepo.save(this.authdareUserRepo.create(userInstance));
+        await this.createClientDatabase(userInstance.orgname!);
+        return await this.createTeamMember(userInstance);
+    }
+
+
+    /**
+     * Run this method after 
+     * - all validation is done 
+     * - user does not exist in the organization 
+     * - organization exists already. 
+     * @param orgname 
+     * @param userData UserEntity instance 
+     */
+    async createTeamMember(userInstance: UserEntity) {
+        const clientUserRepo &#x3D; await this.dbm.getUserRepositoryByOrgname(userInstance.orgname!);
+        const __createdUser &#x3D; await clientUserRepo.save(clientUserRepo.create(userInstance));
+        return await this.signToken(userInstance);
+    }
+
+    async signToken(userInstance: UserEntity) {
+        const authTokenPayload &#x3D; await userInstance.validateAndTransformToClassInstance([Groups.AUTH_COOKIE], true)
+        return await this.jwt.sign(authTokenPayload);
+    }
+
+}</code></pre>
+    </div>
+</div>
+
+
+
+                   
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'class';
+            var COMPODOC_CURRENT_PAGE_URL = 'AuthCommonService.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       
+       <script type="module" src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
