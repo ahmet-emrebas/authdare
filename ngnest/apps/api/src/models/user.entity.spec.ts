@@ -5,7 +5,7 @@ import { company, internet } from 'faker';
 import { UserEntity, UserPermission } from './user.entity';
 import { isNotEmpty, validate } from 'class-validator';
 import { yellow } from 'chalk';
-import 'jest';
+import { assert, expect } from 'chai';
 
 const NUMBER_OF_RAW_FIELD_COUNT = 3;
 
@@ -30,18 +30,18 @@ function invalidUser(field: keyof UserEntity, value: any) {
 describe('UserEntity', () => {
   it('should be created', () => {
     const emptyInstance = new UserEntity();
-    expect(emptyInstance).not.toBeNull();
+    expect(emptyInstance).not.to.be.null
   });
 
   it('should have its own properties', () => {
     const user = fakeUser();
-    expect(user.email).not.toBeNull();
-    expect(user.password).not.toBeNull();
-    expect(user.orgname).not.toBeNull();
-    expect(user.permissions).not.toBeNull();
+    assert.isNotNull(user.email);
+    assert.isNotNull(user.password);
+    assert.isNotNull(user.orgname);
+    assert.isNotNull(user.permissions);
   });
 
-  it.each`
+  test.each`
     groups                  | exposed                                      | fieldCount     | notExposed
     ${[Groups.AUTH_COOKIE]} | ${['id', 'orgname', 'email', 'permissions']} | ${4}           | ${emptyString}
     ${[Groups.READ]}        | ${emptyString}                               | ${emptyString} | ${['password']}
@@ -54,21 +54,22 @@ describe('UserEntity', () => {
       const plainUser = classToPlain(user, { groups });
 
       if (isNotEmpty(fieldCount)) {
-        expect(Object.keys(plainUser).length).toBe(fieldCount);
+        assert.equal(Object.keys(plainUser).length, fieldCount);
       }
+
       if (isNotEmpty(exposed))
-        exposed?.forEach((field) => {
-          expect(plainUser).toHaveProperty(field);
+        exposed?.forEach((field: string) => {
+          expect(plainUser).to.have.property(field);
         });
 
       if (isNotEmpty(notExposed))
-        notExposed?.forEach((field) => {
-          expect(plainUser).not.toHaveProperty(field);
+        notExposed?.forEach((field: any) => {
+          expect(plainUser).not.have.property(field);
         });
     },
   );
 
-  it.each`
+  test.each`
     field         | invalidValue
     ${'email'}    | ${'invalidemail'}
     ${'password'} | ${'ip'}
@@ -78,8 +79,8 @@ describe('UserEntity', () => {
       groups: [Groups.SIGNUP],
     });
     const errors = await validate(userInstance);
-    expect(errors[0].property).toBe(field);
-    expect(errors.length == 1);
-    expect(Object.keys(userInstance).length).toBe(NUMBER_OF_RAW_FIELD_COUNT);
+    assert.equal(errors[0].property, field);
+    assert.equal(errors.length, 1);
+    assert.equal(Object.keys(userInstance).length, NUMBER_OF_RAW_FIELD_COUNT);
   });
 });
