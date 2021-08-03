@@ -10,7 +10,6 @@ export class ResourceService<T extends BaseEntity<any>> {
   async find(query?: QueryOptions<T>) {
     const queryOptions = await new QueryOptions(query).validateAndTransformToClassInstance([Groups.QUERY], true)
     const fieldsQuery = await (this.repository.create(query as any) as unknown as T).validateAndTransformToClassInstance([Groups.QUERY])
-    console.log(fieldsQuery)
     try {
       return (await this.repository.find({ ...queryOptions, where: { ...fieldsQuery } })).map((e) => classToPlain(e, { groups: [Groups.READ] }));
     } catch (err) {
