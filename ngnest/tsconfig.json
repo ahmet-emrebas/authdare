@@ -18,8 +18,24 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "target": "es2017",
-    "paths": {},
-    "lib": ["es2018", "dom"]
+    "paths": {
+      "@authdare/auth": [
+        "libs/auth/src"
+      ],
+      "@authdare/auth/*": [
+        "libs/auth/src/*"
+      ],
+      "@authdare/utils": [
+        "libs/utils/src"
+      ],
+      "@authdare/utils/*": [
+        "libs/utils/src/*"
+      ]
+    },
+    "lib": [
+      "es2018",
+      "dom"
+    ]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
