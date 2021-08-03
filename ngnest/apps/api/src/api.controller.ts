@@ -1,12 +1,13 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Session } from '@nestjs/common';
 import { ApiService } from './api.service';
 
 @Controller()
 export class ApiController {
-  constructor(private readonly apiService: ApiService) {}
+  constructor(private readonly apiService: ApiService) { }
 
   @Get()
-  getHello(): string {
+  getHello(@Session() s: any): string {
+    s.visit = s.visit ? s.visit++ : 1;
     return this.apiService.getHello();
   }
 }
