@@ -1,6 +1,6 @@
 import { JwtService } from '@nestjs/jwt';
 import { AuthCommonService } from './auth-common';
-import { DatabaseManager, DATABASE_MANAGER_TOKEN, Groups, Login, UserEntity } from '@authdare/models';
+import { DatabaseManager, DATABASE_MANAGER_TOKEN, Login, UserEntity } from '@authdare/models';
 import { Inject, BadRequestException } from '@nestjs/common';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
