@@ -1,8 +1,9 @@
 import { ValidationPipe } from "@nestjs/common";
 import { ApiProperty } from "@nestjs/swagger";
-import { Exclude, Expose } from "class-transformer";
+import { Exclude, Expose, plainToClass } from "class-transformer";
 import { IsEmail, IsOptional, Length } from "class-validator";
-import { SubPermissionDTO } from "./permission.dto";
+import { assignIn, cloneDeep } from "lodash";
+import { SubPermissionDTO } from "./role-permission.dto";
 
 enum Groups {
     SIGNUP = 'SIGNUP',
@@ -28,24 +29,29 @@ export class CreateSubDTO {
     @ApiProperty({ type: 'string', required: true })
     @Expose()
     @IsEmail({}, { message: 'Email must be an email!' })
-    email!: string;
+    readonly email!: string;
 
     @ApiProperty({ type: 'string', required: true })
     @Expose()
     @Length(6, 100, { message: 'Password must be 6-100 characters!' })
-    password!: string
+    readonly password!: string
 
     @ApiProperty({ type: 'string', required: true })
     @Expose()
     @IsOptional({ groups: [Groups.CREATE_TEAM_MEMBER] })
     @Length(3, 50)
-    orgname!: string;
+    readonly orgname!: string;
 
     @ApiProperty({ required: false })
-    @Expose({ groups: [Groups.CREATE_TEAM_MEMBER] })
+    @Expose({ name: 'permissions', groups: [Groups.CREATE_TEAM_MEMBER] })
     @IsOptional({ groups: [Groups.SIGNUP] })
     @Length(0, 40)
-    permissions!: SubPermissionDTO[];
+    readonly permissions!: SubPermissionDTO[];
+
+    constructor(obj: CreateSubDTO) {
+        Object.assign(this, cloneDeep(obj));
+    }
 
 }
+
 

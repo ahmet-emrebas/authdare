@@ -19,8 +19,8 @@ import { EventEmitter2, OnEvent } from '@nestjs/event-emitter';
 // 0        30       11      * *     1-5	Monday to Friday at 11:30am
 
 @Injectable()
-export class AuthTasksService {
-    private readonly logger = new Logger(AuthTasksService.name);
+export class AuthCronService {
+    private readonly logger = new Logger(AuthCronService.name);
 
     constructor(private eventEmitter: EventEmitter2) { }
 

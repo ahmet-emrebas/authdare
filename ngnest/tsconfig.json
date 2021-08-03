@@ -30,6 +30,12 @@
       ],
       "@authdare/utils/*": [
         "libs/utils/src/*"
+      ],
+      "@authdare/objects": [
+        "libs/objects/src"
+      ],
+      "@authdare/objects/*": [
+        "libs/objects/src/*"
       ]
     },
     "lib": [

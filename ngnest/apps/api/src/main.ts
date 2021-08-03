@@ -8,7 +8,6 @@ import * as session from 'express-session';
 import * as cookieParser from 'cookie-parser';
 import * as helmet from 'helmet';
 import * as cors from 'cors';
-import { random } from 'lodash';
 
 
 async function bootstrap() {

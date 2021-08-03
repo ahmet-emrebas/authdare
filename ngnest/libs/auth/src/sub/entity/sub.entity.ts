@@ -1,28 +1,24 @@
+import { Timestamp } from '@authdare/objects';
 import { Stringify } from '@authdare/utils';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity } from 'typeorm'
 import { SubPermissionDTO } from '../dto';
 
 @Entity({ name: 'subs' })
-export class SubEntity {
-
-    @PrimaryGeneratedColumn() id!: number;
+export class SubEntity extends Timestamp<SubEntity> {
 
     @Column({ unique: true })
-    email!: string;
+    readonly email!: string;
 
     @Column({})
-    password!: string;
+    readonly password!: string;
 
     @Column({ unique: true, update: false })
-    orgname!: string;
+    readonly orgname!: string;
 
     @Column({
         type: 'text',
         transformer: Stringify()
     })
-    permissions!: SubPermissionDTO[];
+    readonly permissions!: SubPermissionDTO[];
 
-    constructor(user: SubEntity) {
-        Object.assign(this, user);
-    }
 }

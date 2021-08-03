@@ -8,8 +8,9 @@ import { delay } from '@authdare/utils';
 import { ConfigModule } from '@nestjs/config';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { ScheduleModule } from '@nestjs/schedule'
-import { AuthTasksService } from './auth-tasks.service';
+import { AuthCronService } from './auth-cron.service'
 import { EventEmitterModule } from '@nestjs/event-emitter';
+import { AuthEventsService } from './auth-events.service';
 
 
 @Module({
@@ -57,7 +58,8 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
   controllers: [AuthController],
   providers: [
     AuthService,
-    AuthTasksService,
+    AuthCronService,
+    AuthEventsService,
     {
       provide: APP_INTERCEPTOR,
       useClass: CacheInterceptor,

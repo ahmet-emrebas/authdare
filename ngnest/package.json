@@ -159,7 +159,9 @@
       "authdare/nest/another2/(.*)": "<rootDir>/libs/nest/another2/src/$1",
       "authdare/nest/another2": "<rootDir>/libs/nest/another2/src",
       "^@authdare/auth(|/.*)$": "<rootDir>/libs/auth/src/$1",
-      "^@authdare/utils(|/.*)$": "<rootDir>/libs/utils/src/$1"
+      "^@authdare/utils(|/.*)$": "<rootDir>/libs/utils/src/$1",
+      "@authdare/objects/(.*)": "<rootDir>/libs/objects/src/$1",
+      "@authdare/objects": "<rootDir>/libs/objects/src"
     }
   }
 }
