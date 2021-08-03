@@ -28,8 +28,7 @@ export class BaseValidator<T> {
    * @throws BadRequestException
    */
   async validateAndTransformToClassInstance(groups?: Groups[], plain?: boolean): Promise<T> | never {
-
-    const classInstance = classToClass(this, { groups, exposeUnsetFields: false });
+    const classInstance = classToClass(this, { groups, excludeExtraneousValues: true, exposeUnsetFields: false });
     const errors = await validate(classInstance, { groups });
     if (errors && errors.length > 0) {
       throw new BadRequestException(errors);
@@ -37,7 +36,6 @@ export class BaseValidator<T> {
     if (plain) {
       return pickBy(classToPlain(this, { groups }), (v) => isNotEmpty(v)) as unknown as T;  // Ignore the null/undefined/'' values
     }
-
     return classInstance as unknown as T;
   }
 }

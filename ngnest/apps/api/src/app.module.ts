@@ -72,7 +72,7 @@ export class AppModule {
 
     userRepo.save(new UserEntity({ email: 'aemrebas.dev@gmail.com', orgname: 'authdare', password: 'mypassword', permissions: dbm.adminPermissions() }))
       .then(saved => {
-        Logger.log(`Created admin user ${saved}. `,)
+        Logger.log(`Created admin user`, 'AppModule')
       })
 
   }

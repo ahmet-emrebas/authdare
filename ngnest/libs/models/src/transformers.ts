@@ -82,4 +82,4 @@ export const ParseInt = (options?: TransformOptions) => Transform(({ value }) =>
 
 
 
-export const Split = (delimeter: string, options?: TransformOptions) => Transform(({ value }) => (value && typeof value == 'string') && value.split(delimeter) || [])
+export const Split = (delimeter: string, options?: TransformOptions) => Transform(({ value }) => (value && typeof value == 'string') && value.split(delimeter) || undefined)

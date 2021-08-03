@@ -33,7 +33,7 @@ async function bootstrap() {
 
 bootstrap()
   .then(() => {
-    Logger.log('Initializing....', 'Bootstrap');
+    Logger.log('.....', 'Bootstrap');
   })
   .catch((err) => {
     Logger.error(err);
