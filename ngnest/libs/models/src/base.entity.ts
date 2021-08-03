@@ -1,9 +1,10 @@
-import { classToPlain, classToClass } from 'class-transformer';
-import { Groups } from './groups';
+
+import { classToPlain, classToClass, Transform } from 'class-transformer';
 import { toLocalString } from './transformers';
 import {
   CreateDateColumn,
   DeleteDateColumn,
+  MoreThan,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -11,6 +12,7 @@ import { IsOptional, validate, isNotEmpty } from 'class-validator';
 import { Expose } from 'class-transformer';
 import { BadRequestException } from '@nestjs/common';
 import { pickBy } from 'lodash';
+import { Groups } from './groups';
 
 export class BaseValidator<T> {
   constructor(obj?: Omit<T, 'validateAndTransformToClassInstance'>) {
@@ -39,20 +41,27 @@ export class BaseValidator<T> {
 }
 
 export class BaseEntity<T extends object> extends BaseValidator<T> {
+
   @Expose({ groups: [Groups.READ, Groups.AUTH_COOKIE] })
   @IsOptional()
   @PrimaryGeneratedColumn()
   id?: number;
+
   @Expose({ groups: [Groups.TIMESTAMP] })
   @IsOptional()
+  @Transform(({ value }) => MoreThan(new Date(value)), { groups: [Groups.QUERY] })
   @CreateDateColumn({ transformer: toLocalString })
   created_at?: string;
+
   @Expose({ groups: [Groups.TIMESTAMP] })
   @IsOptional()
+  @Transform(({ value }) => MoreThan(new Date(value)), { groups: [Groups.QUERY] })
   @UpdateDateColumn({ transformer: toLocalString })
   udpated_at?: string;
+
   @Expose({ groups: [Groups.TIMESTAMP] })
   @IsOptional()
+  @Transform(({ value }) => MoreThan(new Date(value)), { groups: [Groups.QUERY] })
   @DeleteDateColumn({ transformer: toLocalString })
   deleted_at?: string;
 }

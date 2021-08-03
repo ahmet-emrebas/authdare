@@ -1,6 +1,7 @@
 import { genSaltSync, hashSync } from 'bcrypt';
-import { Transform } from 'class-transformer';
-import { ValueTransformer } from 'typeorm';
+import { Transform, TransformOptions } from 'class-transformer';
+import { Like, ValueTransformer } from 'typeorm';
+
 
 /**
  * Column Transformer, transform toLocalDateTime string.
@@ -42,7 +43,7 @@ export function trimStringAndArray(value: any) {
 }
 
 /**
- * Trim string or string array.
+ * Trim transformer for DTO fields.
  * @returns
  */
 export const Trim = () =>
@@ -54,7 +55,7 @@ export const Trim = () =>
   );
 
 /**
- * Entity column transformer
+ * ToJSONstring transformer for entity column
  * @param c
  * @returns
  */
@@ -62,3 +63,23 @@ export const JSONToString = () => ({
   to: (listOfItems: any[]) => JSON.stringify(listOfItems),
   from: (value: string) => JSON.parse(value),
 });
+
+/**
+ * LikeQuery transformer for DTO fields.
+ * @param options 
+ * @returns 
+ */
+export const LikeQuery = (options?: TransformOptions) => Transform(({ value }) => (value && value.length > 0) && Like(`%${value}%`), options)
+
+
+/**
+ * ParseInt Tranfroemr for DTO fields.
+ * @param options 
+ * @returns 
+ */
+export const ParseInt = (options?: TransformOptions) => Transform(({ value }) => value && parseInt(value));
+
+
+
+
+export const Split = (delimeter: string, options?: TransformOptions) => Transform(({ value }) => (value && typeof value == 'string') && value.split(delimeter) || [])

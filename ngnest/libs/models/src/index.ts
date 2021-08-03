@@ -6,3 +6,4 @@ export * from "./resource-name";
 export * from "./task.entity";
 export * from "./transformers";
 export * from "./user.entity";
+export * from './query.options'

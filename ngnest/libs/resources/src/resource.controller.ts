@@ -9,12 +9,14 @@ import {
   Query
 } from '@nestjs/common';
 import { ApiInternalServerErrorResponse, ApiOkResponse, ApiTags, ApiUnauthorizedResponse } from '@nestjs/swagger';
-import { BaseEntity } from '@authdare/models';
+import { BaseEntity, QueryOptions } from '@authdare/models';
 import { GetResourceService } from '@authdare/decorators';
 
 export const RESOURCE = 'resource';
 export const ID_PARAM = 'id';
 const ID_PATH = ':id';
+
+class EmptyClass { }
 
 
 @ApiTags('Resources')
@@ -24,8 +26,11 @@ export class ResourceController<T extends BaseEntity<any>> {
   @ApiOkResponse()
   @ApiUnauthorizedResponse()
   @ApiInternalServerErrorResponse()
-  async get(@Query() query: any, @GetResourceService() service: ResourceService<T>,
-    @Param(RESOURCE) resource?: string,) {
+  async get(
+    @Query() query: QueryOptions<T>,
+    @GetResourceService() service: ResourceService<T>,
+    @Param(RESOURCE) resource?: string
+  ) {
     return await service.find(query);
   }
 
@@ -33,13 +38,12 @@ export class ResourceController<T extends BaseEntity<any>> {
   @ApiOkResponse()
   @ApiUnauthorizedResponse()
   @ApiInternalServerErrorResponse()
-  async getByID(
+  async getOne(
     @Param(ID_PARAM) id: number,
-    @Query() query: any,
     @GetResourceService() service: ResourceService<T>,
     @Param(RESOURCE) resource?: string,
   ) {
-    return await service.find();
+    return await service.findById(id);
   }
 
   @Post()
@@ -47,7 +51,7 @@ export class ResourceController<T extends BaseEntity<any>> {
   @ApiUnauthorizedResponse()
   @ApiInternalServerErrorResponse()
   async post(
-    @Body() body: any,
+    @Body() body: EmptyClass,
     @GetResourceService() service: ResourceService<T>,
     @Param(RESOURCE) resource?: string,
   ) {
@@ -58,9 +62,9 @@ export class ResourceController<T extends BaseEntity<any>> {
   @ApiOkResponse()
   @ApiUnauthorizedResponse()
   @ApiInternalServerErrorResponse()
-  async patch(
+  async patchOne(
     @Param(ID_PARAM) id: number,
-    @Body() body: any,
+    @Body() body: EmptyClass,
     @GetResourceService() service: ResourceService<T>,
     @Param(RESOURCE) resource?: string,
   ) {
@@ -71,7 +75,7 @@ export class ResourceController<T extends BaseEntity<any>> {
   @ApiOkResponse()
   @ApiUnauthorizedResponse()
   @ApiInternalServerErrorResponse()
-  async delete(
+  async deleteOne(
     @Param(ID_PARAM) id: number,
     @GetResourceService() service: ResourceService<T>,
     @Param(RESOURCE) resource?: string,
@@ -79,7 +83,6 @@ export class ResourceController<T extends BaseEntity<any>> {
     return await service.delete(id);
   }
 }
-
 
 
 @ApiTags('Resource')
@@ -90,7 +93,7 @@ export class CustomResourceController<T extends BaseEntity<any>> {
   @ApiOkResponse()
   @ApiUnauthorizedResponse()
   @ApiInternalServerErrorResponse()
-  async get(@Query() query: any) {
+  async get(@Query() query: QueryOptions<T>) {
     return await this.service.find(query);
   }
 
@@ -98,15 +101,15 @@ export class CustomResourceController<T extends BaseEntity<any>> {
   @ApiOkResponse()
   @ApiUnauthorizedResponse()
   @ApiInternalServerErrorResponse()
-  async getByID(@Param(ID_PARAM) id: number, @Query() query: any) {
-    return await this.service.find();
+  async getOne(@Param(ID_PARAM) id: number) {
+    return await this.service.findById(id);
   }
 
   @Post()
   @ApiOkResponse()
   @ApiUnauthorizedResponse()
   @ApiInternalServerErrorResponse()
-  async post(@Body() body: any) {
+  async post(@Body() body: EmptyClass) {
     return await this.service.create(body as any);
   }
 
@@ -114,15 +117,16 @@ export class CustomResourceController<T extends BaseEntity<any>> {
   @ApiOkResponse()
   @ApiUnauthorizedResponse()
   @ApiInternalServerErrorResponse()
-  async patch(@Param(ID_PARAM) id: number, @Body() body: any) {
+  async patchOne(@Param(ID_PARAM) id: number, @Body() body: EmptyClass) {
     return await this.service.update(id, body as any);
   }
+
 
   @Delete(ID_PATH)
   @ApiOkResponse()
   @ApiUnauthorizedResponse()
   @ApiInternalServerErrorResponse()
-  async delete(@Param(ID_PARAM) id: number) {
+  async deleteOne(@Param(ID_PARAM) id: number) {
     return await this.service.delete(id);
   }
 }

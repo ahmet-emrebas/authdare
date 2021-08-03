@@ -1,6 +1,7 @@
 export enum Groups {
   CREATE = 'CREATE',
   READ = 'READ',
+  QUERY = 'QUERY',
   SIGNUP = 'SIGNUP',
   JOIN_TEAM = 'JOIN_TEAM',
   TIMESTAMP = 'TIMESTAMP',

@@ -1,8 +1,8 @@
+import { BaseEntity } from '@authdare/models';
 import { ResourceName } from './resource-name';
 import { keys } from 'lodash';
 import { Groups } from './groups';
-import { hashPassword, Trim, JSONToString } from './transformers';
-import { BaseEntity } from './base.entity';
+import { hashPassword, Trim, JSONToString, LikeQuery } from './transformers';
 import { Column, Entity } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsIn, IsNotIn, IsOptional, Length, validate } from 'class-validator';
@@ -46,6 +46,10 @@ export class UserPermission {
 @Entity({ name: 'users' })
 @Exclude()
 export class UserEntity extends BaseEntity<UserEntity> {
+
+  /**
+   * Email
+   */
   @Expose({
     groups: [
       Groups.CREATE,
@@ -53,7 +57,8 @@ export class UserEntity extends BaseEntity<UserEntity> {
       Groups.SIGNUP,
       Groups.AUTH_COOKIE,
       Groups.CREDENTIALS,
-      Groups.JOIN_TEAM
+      Groups.JOIN_TEAM,
+      Groups.QUERY
     ],
   })
   @ApiProperty({ default: 'ahmet@gmail.com', })
@@ -61,10 +66,23 @@ export class UserEntity extends BaseEntity<UserEntity> {
   @IsNotIn(
     ['aemrebas.dev@gmail.com', 'aemrebasus@gmail.com', 'aemrebas@gmail.com', 'authdare@authdare.com', , 'info@authdare.com'],
     { groups: [Groups.SIGNUP, Groups.CREATE, Groups.JOIN_TEAM] })
+  @LikeQuery({ groups: [Groups.QUERY] })
   @Column({ unique: true })
   email?: string;
 
-  @Expose({ groups: [Groups.CREATE, Groups.PASSWORD, Groups.SIGNUP, Groups.CREDENTIALS, Groups.JOIN_TEAM], })
+
+  /**
+   * Password
+   */
+  @Expose({
+    groups: [
+      Groups.CREATE,
+      Groups.PASSWORD,
+      Groups.SIGNUP,
+      Groups.CREDENTIALS,
+      Groups.JOIN_TEAM
+    ],
+  })
   @ApiProperty({ default: 'myPassword' })
   @IsOptional({ groups: [Groups.AUTH_COOKIE] })
   @Trim()
@@ -72,7 +90,17 @@ export class UserEntity extends BaseEntity<UserEntity> {
   @Column({ transformer: hashPassword })
   password?: string;
 
-  @Expose({ groups: [Groups.CREATE, Groups.READ, Groups.AUTH_COOKIE] })
+
+  /**
+   * Permissions
+   */
+  @Expose({
+    groups: [
+      Groups.CREATE,
+      Groups.READ,
+      Groups.AUTH_COOKIE
+    ]
+  })
   @ApiProperty({ default: [{ method: '', resource: '' }] })
   @IsOptional({ groups: [Groups.SIGNUP, Groups.AUTH_COOKIE, Groups.JOIN_TEAM] })
   @Column({
@@ -82,12 +110,41 @@ export class UserEntity extends BaseEntity<UserEntity> {
   })
   permissions?: UserPermission[];
 
-  @Expose({ groups: [Groups.CREATE, Groups.READ, Groups.SIGNUP, Groups.AUTH_COOKIE] })
+
+  /**
+   * Orgname 
+   */
+  @Expose({
+    groups: [
+      Groups.CREATE,
+      Groups.READ,
+      Groups.SIGNUP,
+      Groups.AUTH_COOKIE,
+      Groups.QUERY
+    ]
+  })
   @ApiProperty({ default: 'orgname' })
   @IsOptional({ groups: [Groups.JOIN_TEAM] })
-  @IsNotIn(['authdare', 'ahmet', 'org', 'organization'], { groups: [Groups.SIGNUP, Groups.CREATE, Groups.JOIN_TEAM] })
+  @IsNotIn(['authdare', 'ahmet', 'org', 'organization'], {
+    groups: [
+      Groups.SIGNUP,
+      Groups.CREATE,
+      Groups.JOIN_TEAM
+    ]
+  })
   @Trim()
-  @Length(3, 30, { groups: [Groups.SIGNUP, Groups.CREATE, Groups.JOIN_TEAM] })
+  @LikeQuery({
+    groups: [
+      Groups.QUERY
+    ]
+  })
+  @Length(3, 30, {
+    groups: [
+      Groups.SIGNUP,
+      Groups.CREATE,
+      Groups.JOIN_TEAM
+    ]
+  })
   @Column()
   orgname?: string;
 }
