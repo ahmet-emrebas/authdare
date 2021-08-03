@@ -1,8 +1,8 @@
-import { BaseEntity } from './base.entity';
+import { BaseEntity } from '../base/base.entity';
 import { Column, Entity } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { Length } from 'class-validator';
-import { Trim } from './transformers';
+import { Trim } from '../transformers';
 
 @Entity({ name: 'tasks' })
 export class TaskEntity extends BaseEntity<TaskEntity> {

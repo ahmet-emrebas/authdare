@@ -1,4 +1,4 @@
-import { Groups } from './groups';
+import { Groups } from '../groups';
 import { classToPlain, classToClass } from 'class-transformer';
 import { HttpMethod } from '@authdare/http';
 import { company, internet } from 'faker';

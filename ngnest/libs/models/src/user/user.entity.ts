@@ -1,8 +1,8 @@
 import { BaseEntity } from '@authdare/models';
-import { ResourceName } from './resource-name';
+import { ResourceName } from '../resource-name';
 import { keys } from 'lodash';
-import { Groups } from './groups';
-import { hashPassword, Trim, JSONToString, LikeQuery } from './transformers';
+import { Groups } from '../groups';
+import { hashPassword, Trim, JSONToString, LikeQuery } from '../transformers';
 import { Column, Entity } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsIn, IsNotIn, IsOptional, Length, validate } from 'class-validator';

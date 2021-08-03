@@ -1,9 +1,9 @@
 import { Exclude, Expose } from 'class-transformer';
 import { IsNumber, IsOptional, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { BaseEntity } from './base.entity';
+import { BaseEntity } from './base/base.entity';
 import { Groups } from './groups';
-import { ParseInt, Split } from './transformers';
+import { ParseInt } from './transformers';
 import { values, without } from 'lodash';
 
 @Exclude()

@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, Length } from 'class-validator';
-import { BaseValidator } from './base.entity';
+import { BaseValidator } from './base/base.entity';
 import { Trim } from './transformers';
 
 export class Login extends BaseValidator<Login> {

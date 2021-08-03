@@ -11,6 +11,7 @@ import {
 import { ApiInternalServerErrorResponse, ApiOkResponse, ApiTags, ApiUnauthorizedResponse } from '@nestjs/swagger';
 import { BaseEntity, QueryOptions } from '@authdare/models';
 import { GetResourceService } from '@authdare/decorators';
+import { FindManyOptions } from 'typeorm';
 
 export const RESOURCE = 'resource';
 export const ID_PARAM = 'id';
@@ -44,6 +45,18 @@ export class ResourceController<T extends BaseEntity<any>> {
     @Param(RESOURCE) resource?: string,
   ) {
     return await service.findById(id);
+  }
+
+  @Post('query')
+  @ApiOkResponse()
+  @ApiUnauthorizedResponse()
+  @ApiInternalServerErrorResponse()
+  async query(
+    @Body() query: FindManyOptions,
+    @GetResourceService() service: ResourceService<T>,
+    @Param(RESOURCE) resource?: string
+  ) {
+    return await service.query(query);
   }
 
   @Post()
@@ -104,6 +117,18 @@ export class CustomResourceController<T extends BaseEntity<any>> {
   async getOne(@Param(ID_PARAM) id: number) {
     return await this.service.findById(id);
   }
+
+  @Post('query')
+  @ApiOkResponse()
+  @ApiUnauthorizedResponse()
+  @ApiInternalServerErrorResponse()
+  async query(
+    @Body() query: FindManyOptions,
+    @Param(RESOURCE) resource?: string
+  ) {
+    return await this.service.query(query);
+  }
+
 
   @Post()
   @ApiOkResponse()
