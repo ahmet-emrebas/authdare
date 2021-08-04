@@ -20,9 +20,8 @@ export class AuthController {
     @Get('users')
     @UseGuards(AuthGuard)
     @HasRole([RolesManager.clientAdmin()])
-    async getUsers(@Session() session: SessionType) {
-        console.log('Not cahced!')
-        return { ok: 'ok' };
+    async getUsers() {
+        return await this.subRepository.find()
     }
 
     @Post('login')

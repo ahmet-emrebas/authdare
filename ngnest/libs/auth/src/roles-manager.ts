@@ -1,4 +1,5 @@
 import { classToClass } from 'class-transformer';
+import { validate, validateOrReject } from 'class-validator';
 import { Permission, Role } from "./sub"
 
 enum AdminNames {
@@ -34,9 +35,9 @@ export class RolesManager {
         return plainRoles.map(e => classToClass(new Role(e)));
     }
     static hasRoles(requiredRoles: Role[], plainRoles: Role[]) {
-        if (!requiredRoles) {
-            return true;
-        }
+
+        if (!requiredRoles) return true;
+
         const roles = this.toClassRoles(plainRoles);
         for (const r of requiredRoles) {
             return !!roles.find(e => e.isEqual(r));
@@ -45,9 +46,9 @@ export class RolesManager {
     }
 
     static hasPermissions(requiredPermissions: Permission[], plainRoles: Role[]) {
-        if (!requiredPermissions) {
-            return true;
-        }
+
+        if (!requiredPermissions) return true;
+
         const roles = this.toClassRoles(plainRoles);
         for (let p of requiredPermissions) {
             for (let r of roles) {
@@ -59,12 +60,26 @@ export class RolesManager {
         return false;
     }
 
-    static permission(permission: Permission) {
-        return classToClass(permission);
+    /**
+     * Create permission instance 
+     * @param permission 
+     * @returns 
+     */
+    static async permission(permission: Permission) {
+        const item = classToClass(permission)
+        await validateOrReject(item);
+        return item;
     }
 
-    static role(role: Role) {
-        return classToClass(role);
+    /**
+     * Create role instance 
+     * @param role 
+     * @returns 
+     */
+    static async role(role: Role) {
+        const item = classToClass(role)
+        await validateOrReject(item);
+        return item;
     }
 
 }

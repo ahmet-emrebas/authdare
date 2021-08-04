@@ -6,8 +6,7 @@ export class ApiController {
   constructor(private readonly apiService: ApiService) { }
 
   @Get()
-  getHello(@Session() s: any): string {
-    s.visit = s.visit ? s.visit++ : 1;
+  getHello(): string {
     return this.apiService.getHello();
   }
 }

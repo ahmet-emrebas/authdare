@@ -1,11 +1,10 @@
 import { RolesManager } from '../../roles-manager';
-import { ReadonlyRecord } from '@authdare/objects';
 import { BaseClass } from "@authdare/objects";
 import { ValidationPipe } from "@nestjs/common";
 import { ApiProperty } from "@nestjs/swagger";
-import { Exclude, Expose, plainToClass, Transform } from "class-transformer";
+import { Exclude, Expose, Transform } from "class-transformer";
 import { IsEmail, IsOptional, Length } from "class-validator";
-import { Role, Permission } from "./role-permission.dto";
+import { Role } from "./role-permission.dto";
 
 enum Groups {
     SIGNUP = 'SIGNUP',
