@@ -17,6 +17,9 @@ async function bootstrap() {
   server.use(session({
     name: 'session',
     secret: 'my-secret',
+    cookie: {
+      sameSite: true
+    },
     resave: false,
     saveUninitialized: true,
   }));

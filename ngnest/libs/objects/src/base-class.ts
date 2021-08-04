@@ -1,31 +1,40 @@
 import { Exclude } from 'class-transformer';
 import { cloneDeep, isEqual } from 'lodash';
-import { ImmutableRecord } from './immutable-record';
 
-export type OmitIsEqual<T> = Omit<T, 'isEqual' | 'hazin'>
+export type OmitBaseMethods<T> = Omit<T, 'isEqual' | 'hasIn'>
 
-export class BaseClass<T>{
-    constructor(obj?: OmitIsEqual<T>) {
+
+export class BaseClass<T> {
+
+    /**
+     * Constructor saves properties by value deeply. Does not mutate the parameter object.  
+     * @param obj T
+     */
+    constructor(obj: OmitBaseMethods<T>) {
         Object.assign(this, cloneDeep(obj));
     }
 
+    /**
+     * Check the objects are equal or not deeply
+     * @param obj 
+     * @returns {boolean} true if objects are the same, false otherwise. 
+     */
     @Exclude()
-    isEqual(obj: T) {
+    isEqual(obj: T): boolean {
         return isEqual(this, obj);
     }
 
     /**
-     * For ImmutableRecord fields only.Check the ImmutableRecord has the value in.
-     * Hazin is a Turkish adjective, meaning sad , pathetic, touching etc.
-     * @param objectField property name of an ImmutableRecoard in the object. 
-     * @param value to look up in the object value.
-     * @returns {boolean} true if value found in the object, false otherwise.
+     * Check value exist the the array field.
+     * @param objectField 
+     * @param value 
+     * @returns 
      */
     @Exclude()
-    hazin<V extends BaseClass<V>>(objectField: keyof OmitIsEqual<T>, value: V): boolean {
-        const fieldRef = (this as any)[objectField];
+    hasIn<V extends BaseClass<V>>(objectField: keyof OmitBaseMethods<T>, value: V): boolean {
+        const fieldRef = (this as any)[objectField] as Array<V>;
         if (fieldRef) {
-            return !!Object.values((this as any)[objectField] as ImmutableRecord<V>)?.find(e => e.isEqual ? e.isEqual(value) : false)
+            return !!fieldRef.find(e => e.isEqual(value))
         }
         return false;
     }

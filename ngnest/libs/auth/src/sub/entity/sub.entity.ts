@@ -1,7 +1,7 @@
-import { Timestamp } from '@authdare/objects';
+import { ReadonlyRecord, Timestamp } from '@authdare/objects';
 import { Stringify } from '@authdare/utils';
 import { Column, Entity } from 'typeorm'
-import { SubPermissionDTO } from '../dto';
+import { Role } from '../dto';
 
 @Entity({ name: 'subs' })
 export class SubEntity extends Timestamp<SubEntity> {
@@ -19,6 +19,6 @@ export class SubEntity extends Timestamp<SubEntity> {
         type: 'text',
         transformer: Stringify()
     })
-    readonly permissions!: SubPermissionDTO[];
+    readonly roles!: Role[];
 
 }

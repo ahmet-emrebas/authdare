@@ -32,12 +32,9 @@ export enum AuthEvents {
 @Injectable()
 export class AuthEventsService {
     private readonly logger = new Logger(AuthEventsService.name);
-    constructor() { }
-
 
     @OnEvent(AuthEvents.SIGNUP)
     onSignup(payload: SubEntity) {
-        console.log(payload);
         this.logger.debug("Sign up event");
     }
 }

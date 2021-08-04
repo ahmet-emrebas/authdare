@@ -1,9 +1,11 @@
+import { RolesManager } from '../../roles-manager';
+import { ReadonlyRecord } from '@authdare/objects';
+import { BaseClass } from "@authdare/objects";
 import { ValidationPipe } from "@nestjs/common";
 import { ApiProperty } from "@nestjs/swagger";
-import { Exclude, Expose, plainToClass } from "class-transformer";
+import { Exclude, Expose, plainToClass, Transform } from "class-transformer";
 import { IsEmail, IsOptional, Length } from "class-validator";
-import { assignIn, cloneDeep } from "lodash";
-import { SubPermissionDTO } from "./role-permission.dto";
+import { Role, Permission } from "./role-permission.dto";
 
 enum Groups {
     SIGNUP = 'SIGNUP',
@@ -19,12 +21,12 @@ export const SubCreateTeamValidation = new ValidationPipe({
 export const SubSignupValidationPipe = new ValidationPipe({
     transform: true,
     transformOptions: { groups: [Groups.SIGNUP] },
-    groups: [Groups.SIGNUP]
+    groups: [Groups.SIGNUP],
 });
 
 
 @Exclude()
-export class CreateSubDTO {
+export class CreateSubDTO extends BaseClass<CreateSubDTO> {
 
     @ApiProperty({ type: 'string', required: true })
     @Expose()
@@ -43,14 +45,11 @@ export class CreateSubDTO {
     readonly orgname!: string;
 
     @ApiProperty({ required: false })
-    @Expose({ name: 'permissions', groups: [Groups.CREATE_TEAM_MEMBER] })
+    @Expose({ groups: [Groups.CREATE_TEAM_MEMBER, Groups.SIGNUP] })
+    @Transform(({ value }) => [RolesManager.clientAdmin()], { groups: [Groups.SIGNUP] })
     @IsOptional({ groups: [Groups.SIGNUP] })
     @Length(0, 40)
-    readonly permissions!: SubPermissionDTO[];
-
-    constructor(obj: CreateSubDTO) {
-        Object.assign(this, cloneDeep(obj));
-    }
+    readonly roles!: Role[];
 
 }
 
