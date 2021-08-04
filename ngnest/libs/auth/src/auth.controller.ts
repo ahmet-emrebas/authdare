@@ -1,15 +1,15 @@
+import { AuthGuard } from './auth.guard';
 import { RolesManager } from './roles-manager';
-import { Permission, Role } from './sub/dto/role-permission.dto';
 import { ClientSession, SessionType, setClientSession } from './session';
 import { AuthEvents } from './auth-events.service';
-import { BadRequestException, Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Session } from "@nestjs/common";
+import { BadRequestException, Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Session, UseGuards } from "@nestjs/common";
 import { ApiBadRequestResponse, ApiCreatedResponse, ApiInternalServerErrorResponse, ApiTags } from "@nestjs/swagger";
 import { InjectRepository } from "@nestjs/typeorm";
-import { CreateSubDTO, LoginDTO, LoginValidationPipe, SubEntity, SubCreateTeamValidation, SubSignupValidationPipe } from './sub';
+import { CreateSubDTO, LoginDTO, LoginValidationPipe, SubEntity, SubCreateTeamValidation, SubSignupValidationPipe, Role } from './sub';
 import { Repository } from 'typeorm';
 import { message } from "@authdare/utils";
 import { EventEmitter2 } from "@nestjs/event-emitter";
-import { classToClass } from 'class-transformer';
+import { HasRole, PublicResource } from './set-roles.decorator';
 
 @ApiTags(AuthController.name)
 @Controller('auth')
@@ -18,16 +18,11 @@ export class AuthController {
     constructor(private eventEmitter: EventEmitter2, @InjectRepository(SubEntity) public readonly subRepository: Repository<SubEntity>) { }
 
     @Get('users')
+    @UseGuards(AuthGuard)
+    @HasRole([RolesManager.clientAdmin()])
     async getUsers(@Session() session: SessionType) {
-
-        const requiredRole = RolesManager.superAdmin();
-        const hasRole = RolesManager.hasRole(requiredRole, session.auth.roles);
-
-        const requiredPermission = RolesManager.clientAdmin().permissions[0];
-        const hasPermission = RolesManager.hasPermission(requiredPermission, session.auth.roles)
-        console.log('has permissino ', hasPermission);
-        console.log('has role ', hasRole);
-        return;
+        console.log('Not cahced!')
+        return { ok: 'ok' };
     }
 
     @Post('login')

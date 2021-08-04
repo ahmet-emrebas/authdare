@@ -33,18 +33,38 @@ export class RolesManager {
     private static toClassRoles(plainRoles: Role[]) {
         return plainRoles.map(e => classToClass(new Role(e)));
     }
-    static hasRole(requiredRole: Role, plainRoles: Role[]) {
+    static hasRoles(requiredRoles: Role[], plainRoles: Role[]) {
+        if (!requiredRoles) {
+            return true;
+        }
         const roles = this.toClassRoles(plainRoles);
-        return !!roles.find(e => e.isEqual(requiredRole));
+        for (const r of requiredRoles) {
+            return !!roles.find(e => e.isEqual(r));
+        }
+        return false;
     }
 
-    static hasPermission(requiredPermission: Permission, plainRoles: Role[]) {
+    static hasPermissions(requiredPermissions: Permission[], plainRoles: Role[]) {
+        if (!requiredPermissions) {
+            return true;
+        }
         const roles = this.toClassRoles(plainRoles);
-        for (let r of roles) {
-            if (r.hasIn('permissions', requiredPermission)) {
-                return true;
+        for (let p of requiredPermissions) {
+            for (let r of roles) {
+                if (r.hasIn('permissions', p)) {
+                    return true;
+                }
             }
         }
         return false;
     }
+
+    static permission(permission: Permission) {
+        return classToClass(permission);
+    }
+
+    static role(role: Role) {
+        return classToClass(role);
+    }
+
 }

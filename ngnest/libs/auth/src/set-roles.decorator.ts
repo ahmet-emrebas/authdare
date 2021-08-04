@@ -1,11 +1,11 @@
 import { classToClass } from 'class-transformer';
-import { Permission, Role } from './dto/role-permission.dto';
+import { Permission, Role } from './sub/dto/role-permission.dto';
 import { CustomDecorator, ExecutionContext, SetMetadata } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 
 
-function getMetaData(context: ExecutionContext, reflector: Reflector, key: string) {
-    return reflector.getAllAndOverride<boolean>(key, [
+function getMetaData<T>(context: ExecutionContext, reflector: Reflector, key: string) {
+    return reflector.getAllAndOverride<T>(key, [
         context.getHandler(),
         context.getClass(),
     ]);
@@ -48,8 +48,8 @@ export function PublicResource(): CustomDecorator<string> {
  * @param reflector 
  * @returns {Role[]} required roles for the resource
  */
-export function getRequiredRoles(context: ExecutionContext, reflector: Reflector) {
-    return getMetaData(context, reflector, ROLE_META_KEY);
+export function getRequiredRoles(context: ExecutionContext, reflector: Reflector): Role[] {
+    return getMetaData<Role[]>(context, reflector, ROLE_META_KEY);
 }
 
 /**
@@ -58,8 +58,8 @@ export function getRequiredRoles(context: ExecutionContext, reflector: Reflector
  * @param reflector 
  * @returns {Permission[]} required permissions for the resource.
  */
-export function getRequiredPermissions(context: ExecutionContext, reflector: Reflector) {
-    return getMetaData(context, reflector, PERMISSION_META_KEY);
+export function getRequiredPermissions(context: ExecutionContext, reflector: Reflector): Permission[] {
+    return getMetaData<Permission[]>(context, reflector, PERMISSION_META_KEY);
 }
 
 /**
@@ -69,6 +69,19 @@ export function getRequiredPermissions(context: ExecutionContext, reflector: Ref
  * @returns {boolean}
  */
 export function isPublicResource(context: ExecutionContext, reflector: Reflector): boolean {
-    return getMetaData(context, reflector, PUBLIC_RESOURCE_META_KEY);
+    return getMetaData<boolean>(context, reflector, PUBLIC_RESOURCE_META_KEY);
 }
 
+export interface AuthContext {
+    roles: Role[],
+    permissions: Permission[],
+    isPublic: boolean
+}
+
+export function getAuthContext(context: ExecutionContext, reflector: Reflector): AuthContext {
+    return {
+        roles: getRequiredRoles(context, reflector),
+        permissions: getRequiredPermissions(context, reflector),
+        isPublic: isPublicResource(context, reflector),
+    }
+}
