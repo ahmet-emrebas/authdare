@@ -5,7 +5,7 @@ import { AuthEvents } from './auth-events.service';
 import { BadRequestException, Body, Controller, Delete, Get, NotImplementedException, Param, ParseIntPipe, Post, Session, UseGuards } from "@nestjs/common";
 import { ApiBadRequestResponse, ApiCreatedResponse, ApiInternalServerErrorResponse, ApiTags } from "@nestjs/swagger";
 import { InjectRepository } from "@nestjs/typeorm";
-import { CreateSubDTO, LoginDTO, LoginValidationPipe, SubEntity, SubCreateTeamValidation, SubSignupValidationPipe } from './sub';
+import { CreateAuthUserDTO, LoginDTO, LoginValidationPipe, AuthUserEntity, SubCreateTeamValidation, SubSignupValidationPipe } from './sub';
 import { Repository } from 'typeorm';
 import { message } from "@authdare/utils";
 import { EventEmitter2 } from "@nestjs/event-emitter";
@@ -15,7 +15,7 @@ import { HasRole } from './role/set-roles.decorator';
 @Controller('auth')
 export class AuthController {
 
-    constructor(private eventEmitter: EventEmitter2, @InjectRepository(SubEntity) public readonly subRepository: Repository<SubEntity>) { }
+    constructor(private eventEmitter: EventEmitter2, @InjectRepository(AuthUserEntity) public readonly subRepository: Repository<AuthUserEntity>) { }
 
     @Get('users')
     @UseGuards(AuthGuard)
@@ -34,7 +34,7 @@ export class AuthController {
     @ApiBadRequestResponse({ description: "When account already exist or input validation error." })
     @ApiInternalServerErrorResponse({ description: "When cound not connect database or (?)" })
     @Post('signup')
-    async signup(@Body(SubSignupValidationPipe) body: CreateSubDTO, @Session() session: SessionType) {
+    async signup(@Body(SubSignupValidationPipe) body: CreateAuthUserDTO, @Session() session: SessionType) {
 
         try {
             // Try to find the user with orgname and email. If user exists, then skip the CATCH BLOCK, and throw BadRequestException
@@ -60,7 +60,7 @@ export class AuthController {
 
     @HasRole([RolesManager.clientAdmin()])
     @Post("team")
-    createTeamMember(@Body(SubCreateTeamValidation) body: CreateSubDTO, @Session() session: SessionType) {
+    createTeamMember(@Body(SubCreateTeamValidation) body: CreateAuthUserDTO, @Session() session: SessionType) {
         throw new Error("Not implemented");
     }
 

@@ -25,7 +25,7 @@ export class BaseClass<T> {
     }
 
     /**
-     * Check value exist the the array field.
+     * Check value exist the the the objectField (assuming it is an array).
      * @param objectField 
      * @param value 
      * @returns 

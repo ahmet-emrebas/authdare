@@ -1,8 +1,7 @@
-import { CreateSubDTO } from './sub/dto/create-sub.dto';
 import { Injectable, Logger } from "@nestjs/common";
 import { OnEvent } from "@nestjs/event-emitter";
 import { Connection, getConnection, createConnection } from "typeorm";
-import { SubEntity } from "./sub";
+import { AuthUserEntity, CreateAuthUserDTO } from "./sub";
 
 export enum AuthEvents {
     /**
@@ -44,7 +43,7 @@ export class AuthEventsService {
                 name: orgname,
                 type: 'sqlite',
                 database: `database/${orgname}/main.sqlite`,
-                entities: [SubEntity],
+                entities: [AuthUserEntity],
                 synchronize: true,
                 dropSchema: true,
             })
@@ -52,13 +51,13 @@ export class AuthEventsService {
         return con;
     }
 
-    async createClientAdminUser(con: Connection, userData: CreateSubDTO) {
-        const userRepo = await con.getRepository(SubEntity);
+    async createClientAdminUser(con: Connection, userData: CreateAuthUserDTO) {
+        const userRepo = await con.getRepository(AuthUserEntity);
         return await userRepo.save(userData)
     }
 
     @OnEvent(AuthEvents.SIGNUP)
-    async onSignup(payload: SubEntity) {
+    async onSignup(payload: AuthUserEntity) {
         const con = await this.createClientDatabase(payload.orgname)
         const savedUser = await this.createClientAdminUser(con, payload);
         this.logger.log('Saved User to client db: ', savedUser);

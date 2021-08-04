@@ -4,7 +4,7 @@ import { Column, Entity } from 'typeorm'
 import { Role } from '../dto';
 
 @Entity({ name: 'subs' })
-export class SubEntity extends CommonColumns<SubEntity> {
+export class AuthUserEntity extends CommonColumns<AuthUserEntity> {
 
     @Column({ unique: true })
     readonly email!: string;

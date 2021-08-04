@@ -25,7 +25,7 @@ export const SubSignupValidationPipe = new ValidationPipe({
 
 
 @Exclude()
-export class CreateSubDTO extends BaseClass<CreateSubDTO> {
+export class CreateAuthUserDTO extends BaseClass<CreateAuthUserDTO> {
 
     @ApiProperty({ type: 'string', required: true, default: 'email@gmail.com' })
     @Expose()

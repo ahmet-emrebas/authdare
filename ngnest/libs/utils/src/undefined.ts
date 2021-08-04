@@ -6,6 +6,10 @@ export function toUndefined(value: any) {
     return value;
 }
 
+/**
+ * ClassTransformer
+ * @returns undefined if value is an empty string or null, itself otherwise.
+ */
 export function Undefined() {
     return Transform(toUndefined)
 }

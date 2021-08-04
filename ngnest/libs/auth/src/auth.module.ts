@@ -1,7 +1,7 @@
 import { AuthController } from './auth.controller';
 import { CacheInterceptor, CacheModule, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { SubEntity } from './sub';
+import { AuthUserEntity } from './sub';
 import { JwtModule } from '@nestjs/jwt';
 import { AuthService } from './auth.service';
 import { delay } from '@authdare/utils';
@@ -47,13 +47,13 @@ import { AuthEventsService } from './auth-events.service';
           name: AuthModule.name,
           type: 'sqlite',
           database: 'database/auth/main.sqlite',
-          entities: [SubEntity],
+          entities: [AuthUserEntity],
           synchronize: true,
           dropSchema: true,
         }
       }
     }),
-    TypeOrmModule.forFeature([SubEntity])
+    TypeOrmModule.forFeature([AuthUserEntity])
   ],
   controllers: [AuthController],
   providers: [
