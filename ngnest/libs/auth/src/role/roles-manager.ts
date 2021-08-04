@@ -1,6 +1,6 @@
 import { classToClass } from 'class-transformer';
 import { validate, validateOrReject } from 'class-validator';
-import { Permission, Role } from "./sub"
+import { Permission, Role } from "../sub"
 
 enum AdminNames {
     CLIENT = 'client_admin',

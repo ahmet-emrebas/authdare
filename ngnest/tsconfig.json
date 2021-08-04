@@ -36,6 +36,12 @@
       ],
       "@authdare/objects/*": [
         "libs/objects/src/*"
+      ],
+      "@authdare/resources": [
+        "libs/resources/src"
+      ],
+      "@authdare/resources/*": [
+        "libs/resources/src/*"
       ]
     },
     "lib": [

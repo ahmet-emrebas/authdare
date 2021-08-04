@@ -1,5 +1,5 @@
 import { classToClass } from 'class-transformer';
-import { Permission, Role } from './sub/dto/role-permission.dto';
+import { Permission, Role } from './role-permission.dto';
 import { CustomDecorator, ExecutionContext, SetMetadata } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 

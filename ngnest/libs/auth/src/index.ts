@@ -1,4 +1,4 @@
-export * from "./roles-manager";
+export * from "./role";
 export * from "./auth-cron.service";
 export * from "./auth-events.service";
 export * from "./auth.controller";

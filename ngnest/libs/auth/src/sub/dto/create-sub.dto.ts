@@ -1,10 +1,11 @@
-import { RolesManager } from '../../roles-manager';
+import { Trim } from '@authdare/utils';
+import { RolesManager, Role } from '../../role';
 import { BaseClass } from "@authdare/objects";
 import { ValidationPipe } from "@nestjs/common";
 import { ApiProperty } from "@nestjs/swagger";
-import { Exclude, Expose, Transform } from "class-transformer";
-import { IsEmail, IsOptional, Length } from "class-validator";
-import { Role } from "./role-permission.dto";
+import { Exclude, Expose, Transform, Type } from "class-transformer";
+import { IsEmail, Length, NotContains, ValidateNested } from "class-validator";
+import { SnakeCase } from '@authdare/utils/snake-case';
 
 enum Groups {
     SIGNUP = 'SIGNUP',
@@ -19,35 +20,37 @@ export const SubCreateTeamValidation = new ValidationPipe({
 
 export const SubSignupValidationPipe = new ValidationPipe({
     transform: true,
-    transformOptions: { groups: [Groups.SIGNUP] },
-    groups: [Groups.SIGNUP],
+    transformOptions: { groups: [Groups.SIGNUP] }
 });
 
 
 @Exclude()
 export class CreateSubDTO extends BaseClass<CreateSubDTO> {
 
-    @ApiProperty({ type: 'string', required: true })
+    @ApiProperty({ type: 'string', required: true, default: 'email@gmail.com' })
     @Expose()
+    @Trim()
     @IsEmail({}, { message: 'Email must be an email!' })
     readonly email!: string;
 
-    @ApiProperty({ type: 'string', required: true })
+    @ApiProperty({ type: 'string', required: true, default: 'password' })
     @Expose()
+    @NotContains(' ', { message: 'Password should not contain space!' })
     @Length(6, 100, { message: 'Password must be 6-100 characters!' })
     readonly password!: string
 
-    @ApiProperty({ type: 'string', required: true })
+    @ApiProperty({ type: 'string', required: true, default: 'orgname' })
     @Expose()
-    @IsOptional({ groups: [Groups.CREATE_TEAM_MEMBER] })
+    @Trim()
+    @SnakeCase()
     @Length(3, 50)
     readonly orgname!: string;
 
-    @ApiProperty({ required: false })
-    @Expose({ groups: [Groups.CREATE_TEAM_MEMBER, Groups.SIGNUP] })
-    @Transform(({ value }) => [RolesManager.clientAdmin()], { groups: [Groups.SIGNUP] })
-    @IsOptional({ groups: [Groups.SIGNUP] })
-    @Length(0, 40)
+    @ApiProperty({ required: false, default: [{ name: 'rolename', permissions: [{ method: 'get', resource: 'users' }] }] })
+    @Expose()
+    @Transform(({ value }) => [RolesManager.clientAdmin()], { groups: [Groups.SIGNUP] })   // When user signup, then give him Client Admin Roles
+    @ValidateNested({ each: true })
+    @Type(() => Role)
     readonly roles!: Role[];
 
 }

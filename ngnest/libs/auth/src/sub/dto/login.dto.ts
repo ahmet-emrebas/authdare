@@ -1,4 +1,5 @@
 import { BaseClass } from "@authdare/objects";
+import { Trim } from "@authdare/utils";
 import { ValidationPipe } from "@nestjs/common";
 import { ApiProperty } from "@nestjs/swagger";
 import { Expose } from "class-transformer";
@@ -13,12 +14,14 @@ export class LoginDTO extends BaseClass<LoginDTO> {
     @Expose()
     @ApiProperty({ type: 'string', default: 'login@gmail.com' })
     @IsEmail()
-    email!: string;
+    @Trim()
+    readonly email!: string;
 
     @Expose()
     @ApiProperty({ type: 'string', default: 'password' })
     @Length(6, 100)
-    password!: string
+    @Trim()
+    readonly password!: string
 
 
 }

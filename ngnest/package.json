@@ -161,7 +161,9 @@
       "^@authdare/auth(|/.*)$": "<rootDir>/libs/auth/src/$1",
       "^@authdare/utils(|/.*)$": "<rootDir>/libs/utils/src/$1",
       "@authdare/objects/(.*)": "<rootDir>/libs/objects/src/$1",
-      "@authdare/objects": "<rootDir>/libs/objects/src"
+      "@authdare/objects": "<rootDir>/libs/objects/src",
+      "@authdare/resources/(.*)": "<rootDir>/libs/resources/src/$1",
+      "@authdare/resources": "<rootDir>/libs/resources/src"
     }
   }
 }

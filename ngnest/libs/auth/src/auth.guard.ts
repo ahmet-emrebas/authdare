@@ -1,9 +1,9 @@
-import { RolesManager } from './roles-manager';
+import { RolesManager } from './role/roles-manager';
 import { Reflector } from '@nestjs/core';
 import { getClientSession, SessionType } from './session';
 import { CanActivate, ExecutionContext, Injectable } from "@nestjs/common";
 import { Observable } from "rxjs";
-import { getAuthContext } from './set-roles.decorator';
+import { getAuthContext } from './role/set-roles.decorator';
 
 @Injectable()
 export class AuthGuard implements CanActivate {

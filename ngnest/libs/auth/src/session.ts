@@ -2,7 +2,7 @@ import { ExecutionContext } from '@nestjs/common';
 import { BaseClass } from '@authdare/objects';
 import { Expose } from 'class-transformer';
 import { Role } from './sub';
-import { InitEach } from '@authdare/utils';
+import { InitEach, delay } from '@authdare/utils';
 import { Request } from 'express';
 
 
@@ -29,7 +29,7 @@ export type SessionType = {
     [CLIENT_SESSION_KEY]: ClientSession
 }
 
-export function setClientSession(session: SessionType, data: ClientSession) {
+export function setClientSession(session: SessionType, data: ClientSession): void {
     session[CLIENT_SESSION_KEY] = new ClientSession(data);
 }
 

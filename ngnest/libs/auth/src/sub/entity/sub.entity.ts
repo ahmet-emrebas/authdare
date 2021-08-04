@@ -1,4 +1,4 @@
-import { ReadonlyRecord, Timestamp } from '@authdare/objects';
+import { Timestamp } from '@authdare/objects';
 import { Stringify } from '@authdare/utils';
 import { Column, Entity } from 'typeorm'
 import { Role } from '../dto';
