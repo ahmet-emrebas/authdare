@@ -1,10 +1,10 @@
-import { Timestamp } from '@authdare/objects';
+import { CommonColumns } from '@authdare/objects';
 import { Stringify } from '@authdare/utils';
 import { Column, Entity } from 'typeorm'
 import { Role } from '../dto';
 
 @Entity({ name: 'subs' })
-export class SubEntity extends Timestamp<SubEntity> {
+export class SubEntity extends CommonColumns<SubEntity> {
 
     @Column({ unique: true })
     readonly email!: string;
@@ -15,10 +15,8 @@ export class SubEntity extends Timestamp<SubEntity> {
     @Column({ unique: true, update: false })
     readonly orgname!: string;
 
-    @Column({
-        type: 'text',
-        transformer: Stringify()
-    })
+    @Column({ type: 'text', transformer: Stringify() })
     readonly roles!: Role[];
+
 
 }

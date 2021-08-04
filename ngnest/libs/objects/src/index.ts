@@ -1,3 +1,3 @@
 export * from "./base-class";
-export * from "./timestamp-table";
+export * from "./common-columns";
 export * from './read-only-record';

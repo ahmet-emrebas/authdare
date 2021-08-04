@@ -30,15 +30,15 @@ async function bootstrap() {
 
   const adapter = new ExpressAdapter(server);
 
-  // Resource API
-  const apiApp = await NestFactory.create(ApiModule, adapter);
-  configureSwagger({ app: apiApp, description: 'Api doc', title: 'Api', path: 'api' });
+  // Main API
+  const mainApp = await NestFactory.create(ApiModule, adapter);
+  configureSwagger({ app: mainApp, description: 'Api doc', title: 'Api', path: 'api' });
 
   // Auth APP 
   const authApp = await NestFactory.create(AuthModule, adapter);
   configureSwagger({ app: authApp, description: 'Auth app doc', title: 'Auth', path: 'auth' });
 
-  apiApp.init();
+  mainApp.init();
   authApp.init();
 
   await adapter.listen(process.env['PORT'] || 3000);

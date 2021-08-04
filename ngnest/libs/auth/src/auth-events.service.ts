@@ -61,7 +61,7 @@ export class AuthEventsService {
     async onSignup(payload: SubEntity) {
         const con = await this.createClientDatabase(payload.orgname)
         const savedUser = await this.createClientAdminUser(con, payload);
-        console.log('Saved User to client db: ', savedUser);
+        this.logger.log('Saved User to client db: ', savedUser);
     }
 
 

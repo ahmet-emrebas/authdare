@@ -2,7 +2,7 @@ import { AuthGuard } from './auth.guard';
 import { RolesManager } from './role/roles-manager';
 import { ClientSession, SessionType, setClientSession } from './session';
 import { AuthEvents } from './auth-events.service';
-import { BadRequestException, Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Session, UseGuards } from "@nestjs/common";
+import { BadRequestException, Body, Controller, Delete, Get, NotImplementedException, Param, ParseIntPipe, Post, Session, UseGuards } from "@nestjs/common";
 import { ApiBadRequestResponse, ApiCreatedResponse, ApiInternalServerErrorResponse, ApiTags } from "@nestjs/swagger";
 import { InjectRepository } from "@nestjs/typeorm";
 import { CreateSubDTO, LoginDTO, LoginValidationPipe, SubEntity, SubCreateTeamValidation, SubSignupValidationPipe } from './sub';
@@ -61,8 +61,7 @@ export class AuthController {
     @HasRole([RolesManager.clientAdmin()])
     @Post("team")
     createTeamMember(@Body(SubCreateTeamValidation) body: CreateSubDTO, @Session() session: SessionType) {
-        const orgname = session.auth.orgname;
-        return body;
+        throw new Error("Not implemented");
     }
 
     @Delete(":id")

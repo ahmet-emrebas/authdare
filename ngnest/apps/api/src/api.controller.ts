@@ -1,4 +1,4 @@
-import { Controller, Get, Session } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import { ApiService } from './api.service';
 
 @Controller()
