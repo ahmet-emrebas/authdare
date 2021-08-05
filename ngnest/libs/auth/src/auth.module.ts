@@ -83,7 +83,7 @@ console.log(EMAIL_HOST, EMAIL_USERNAME, EMAIL_PASSWORD)
             },
           },
           defaults: {
-            from: '"Authdare Support Team" <support@authdare.com>',
+            from: '"Authdare Support" <support@authdare.com>',
           },
           template: {
             dir: join(__dirname, 'mail/templates'),

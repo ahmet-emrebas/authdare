@@ -1,15 +1,14 @@
-import { internet } from 'faker';
 import { RoleEntity } from './sub/entity/role.entity';
 import { AuthGuard } from './auth.guard';
 import { ClientSession, getClientSession, SessionType, setClientSession } from './session';
 import { AuthEvents } from './auth-database.service';
-import { BadRequestException, Body, CallHandler, Controller, Delete, ExecutionContext, Get, InternalServerErrorException, Logger, NestInterceptor, Param, ParseIntPipe, Post, Query, Session, UseGuards, UseInterceptors } from "@nestjs/common";
+import { BadRequestException, Body, CallHandler, Controller, ExecutionContext, Get, InternalServerErrorException, Logger, NestInterceptor, Post, Session, UseGuards, UseInterceptors } from "@nestjs/common";
 import { ApiBadRequestResponse, ApiCreatedResponse, ApiInternalServerErrorResponse, ApiTags } from "@nestjs/swagger";
 import { InjectRepository } from "@nestjs/typeorm";
 import {
     CreateAuthUserDTO, LoginDTO,
     LoginValidationPipe, AuthUserEntity,
-    CreateTeamMemberValidationPipe, SignupValidationPipe, SignupDTO, ForgotPasswordDTO, ResetPasswordDTO, ForgotPasswordValidationPipe
+    CreateTeamMemberValidationPipe, SignupValidationPipe, SignupDTO, ForgotPasswordDTO, ForgotPasswordValidationPipe
 } from './sub';
 import { Repository } from 'typeorm';
 import { message, ToplainInterceptor as ToPlainInterceptor } from "@authdare/utils";
@@ -186,12 +185,6 @@ export class AuthController {
         throw new BadRequestException("The member already exist in your team")
     }
 
-    @SuperAdmin()
-    @Delete(":id")
-    async deleteTeamMember(@Param("id", ParseIntPipe) id: number) {
-        await this.authUserRepository.delete(id);
-    }
-
 
     @PublicResource()
     @Post('forgotpassword')
@@ -210,9 +203,5 @@ export class AuthController {
 
         throw new BadRequestException("The acount does NOT exist!")
     }
-
-
-
-
 
 }
