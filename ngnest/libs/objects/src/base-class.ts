@@ -4,7 +4,6 @@ import { KeyValue } from './key-value';
 import { Exclude } from 'class-transformer';
 import { cloneDeep, isEqual } from 'lodash';
 import { validate, ValidationError, ValidationOptions } from 'class-validator';
-import { ValidationErrors } from '@angular/forms';
 
 export type OmitBaseMethods<T> = Omit<T, 'isEqual' | 'hasIn' | 'toString' | 'findByKey' | 'transformAndValidate'>
 

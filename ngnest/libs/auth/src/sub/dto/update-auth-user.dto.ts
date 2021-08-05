@@ -3,5 +3,5 @@ import { PartialType } from "@nestjs/swagger";
 import { Exclude } from "class-transformer";
 
 @Exclude()
-export class UpdateSubDTO extends PartialType(CreateAuthUserDTO) { }
+export class UpdateAuthUserDTO extends PartialType(CreateAuthUserDTO) { }
 

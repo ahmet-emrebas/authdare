@@ -8,10 +8,10 @@ import { Request } from 'express';
 
 const CLIENT_SESSION_KEY = 'auth';
 
+export enum Cookies { FORGOT_PASSWORD = 'forgot_password' }
 
 export class ClientSession extends BaseClass<ClientSession> {
     @Expose()
-
     readonly visits!: number;
 
     @Expose()
@@ -31,7 +31,7 @@ export type SessionType = {
 }
 
 export function setClientSession(session: SessionType, data: ClientSession): void {
-    session[CLIENT_SESSION_KEY] = new ClientSession(data);
+    session[CLIENT_SESSION_KEY] = data;
 }
 
 export function getClientSession(context: ExecutionContext): ClientSession {

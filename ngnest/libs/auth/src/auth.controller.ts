@@ -1,14 +1,15 @@
+import { internet } from 'faker';
 import { RoleEntity } from './sub/entity/role.entity';
 import { AuthGuard } from './auth.guard';
 import { ClientSession, getClientSession, SessionType, setClientSession } from './session';
-import { AuthEvents } from './auth-events.service';
-import { BadRequestException, Body, CallHandler, Controller, Delete, ExecutionContext, Get, InternalServerErrorException, Logger, NestInterceptor, Param, ParseIntPipe, Post, Session, UseGuards, UseInterceptors } from "@nestjs/common";
+import { AuthEvents } from './auth-database.service';
+import { BadRequestException, Body, CallHandler, Controller, Delete, ExecutionContext, Get, InternalServerErrorException, Logger, NestInterceptor, Param, ParseIntPipe, Post, Query, Session, UseGuards, UseInterceptors } from "@nestjs/common";
 import { ApiBadRequestResponse, ApiCreatedResponse, ApiInternalServerErrorResponse, ApiTags } from "@nestjs/swagger";
 import { InjectRepository } from "@nestjs/typeorm";
 import {
     CreateAuthUserDTO, LoginDTO,
     LoginValidationPipe, AuthUserEntity,
-    CreateTeamMemberValidationPipe, SignupValidationPipe, SignupDTO
+    CreateTeamMemberValidationPipe, SignupValidationPipe, SignupDTO, ForgotPasswordDTO, ResetPasswordDTO, ForgotPasswordValidationPipe
 } from './sub';
 import { Repository } from 'typeorm';
 import { message, ToplainInterceptor as ToPlainInterceptor } from "@authdare/utils";
@@ -19,6 +20,8 @@ import { ClassTransformOptions } from 'class-transformer';
 import { BGN } from '@authdare/objects';
 import { ClientAdmin, RolesManager, SuperAdmin } from './role';
 import { CreateTeamMemberDTO } from './sub/dto/create-team-member.dto';
+import { JwtService } from '@nestjs/jwt';
+import { compare } from 'bcrypt';
 
 const ClientUsersInterceptor = (options: ClassTransformOptions) => class TPI implements NestInterceptor {
     intercept(context: ExecutionContext, next: CallHandler<any>): Observable<any> | Promise<Observable<any>> {
@@ -31,6 +34,7 @@ const ClientUsersInterceptor = (options: ClassTransformOptions) => class TPI imp
 }
 
 
+
 @ApiTags(AuthController.name)
 @UseGuards(AuthGuard)
 @Controller('auth')
@@ -40,6 +44,7 @@ export class AuthController {
         private eventEmitter: EventEmitter2,
         @InjectRepository(AuthUserEntity) public readonly authUserRepository: Repository<AuthUserEntity>,
         @InjectRepository(RoleEntity) public readonly roleRepository: Repository<RoleEntity>,
+        private jwt: JwtService,
     ) { }
 
     @ClientAdmin()
@@ -66,10 +71,32 @@ export class AuthController {
     }
 
     @PublicResource()
-    @Post(':orgname/login')
-    async login(@Param('orgname') orgname: string, @Body(LoginValidationPipe) body: LoginDTO) {
-        this.eventEmitter.emit(AuthEvents.LOGIN)
-        return body;
+    @Post('login')
+    async login(@Body(LoginValidationPipe) body: LoginDTO, @Session() session: SessionType) {
+        try {
+            const foundUser = await this.authUserRepository.findOneOrFail({ email: body.email })
+
+            const isPasswordMatch = await compare(body.password, foundUser.password);
+
+            if (isPasswordMatch) {
+                setClientSession(session, new ClientSession({
+                    email: foundUser.email,
+                    roles: foundUser.roles,
+                    orgname: foundUser.orgname,
+                    visits: 1,
+
+                }));
+                return message('Welcome back!');
+            } else {
+                throw new BadRequestException('Password does not match!');
+            }
+
+        } catch (err) {
+            this.logger.error(err);
+            throw new BadRequestException()
+        }
+
+
     }
 
 
@@ -112,16 +139,13 @@ export class AuthController {
             // Emitting SIGNUP EVENT
             this.eventEmitter.emit(AuthEvents.SIGNUP, validatedInstance);
 
-            // Creating User Session
-            const userSession = new ClientSession({
+            // Setting User Session
+            setClientSession(session, new ClientSession({
                 roles: validatedInstance.roles,
                 email: validatedInstance.email,
                 orgname: validatedInstance.orgname,
                 visits: 1
-            });
-
-            // Setting User Session
-            setClientSession(session, userSession)
+            }));
 
             // Send greeting message or redirect user to the application dashboard.
             return message('Welcome!')
@@ -159,7 +183,7 @@ export class AuthController {
             this.eventEmitter.emit(AuthEvents.CREATE_MEMBER, validatedInstance);
             return message('Member created!')
         }
-        throw new BadRequestException("The member is already exist in your team")
+        throw new BadRequestException("The member already exist in your team")
     }
 
     @SuperAdmin()
@@ -169,10 +193,26 @@ export class AuthController {
     }
 
 
-    // @PublicResource()
-    // @Get('roles')
-    // async getRoles() {
-    //     return await this.roleRepository.find()
-    // }
+    @PublicResource()
+    @Post('forgotpassword')
+    async forgotPassword(@Body(ForgotPasswordValidationPipe) body: ForgotPasswordDTO) {
+
+        try {
+            const foundUser = await this.authUserRepository.findOneOrFail({ email: body.email })
+            if (foundUser && foundUser.email && foundUser.email == body.email) {
+                this.eventEmitter.emit(AuthEvents.FORGOT_PASSWORD, foundUser);
+                return message("We sent a temporary password to your email.");
+            }
+        } catch (err) {
+            this.logger.error(err);
+            throw new BadRequestException("The acount does NOT exist!")
+        }
+
+        throw new BadRequestException("The acount does NOT exist!")
+    }
+
+
+
+
 
 }

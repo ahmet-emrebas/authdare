@@ -1,5 +1,8 @@
+import { genSaltSync, hashSync } from 'bcrypt';
+import { EjsAdapter } from '@nestjs-modules/mailer/dist/adapters/ejs.adapter';
+import { AuthEmailService } from './auth-email.service';
 import { AuthController } from './auth.controller';
-import { CacheInterceptor, CacheModule, Module } from '@nestjs/common';
+import { CacheInterceptor, CacheModule, Logger, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthUserEntity } from './sub';
 import { JwtModule } from '@nestjs/jwt';
@@ -10,10 +13,17 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
 import { ScheduleModule } from '@nestjs/schedule'
 import { AuthCronService } from './auth-cron.service'
 import { EventEmitterModule } from '@nestjs/event-emitter';
-import { AuthEventsService } from './auth-events.service';
+import { AuthDatabaseService } from './auth-database.service';
 import { RoleEntity } from './sub/entity/role.entity';
+import { MailerModule, MailerService } from '@nestjs-modules/mailer';
+import { join } from 'path';
 
 
+const EMAIL_HOST = "mail.authdare.com";
+const EMAIL_USERNAME = "support@authdare.com";
+const EMAIL_PASSWORD = process.env.EMAIL_PASSWORD;
+
+console.log(EMAIL_HOST, EMAIL_USERNAME, EMAIL_PASSWORD)
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -40,7 +50,7 @@ import { RoleEntity } from './sub/entity/role.entity';
       max: 20
     }),
     ScheduleModule.forRoot(),
-    JwtModule.register({ secret: 'secret' }),
+    JwtModule.register({ secret: hashSync(EMAIL_PASSWORD!, genSaltSync(8)) }),
     TypeOrmModule.forRootAsync({
       useFactory: async () => {
         await delay(1000);
@@ -54,13 +64,44 @@ import { RoleEntity } from './sub/entity/role.entity';
         }
       }
     }),
-    TypeOrmModule.forFeature([AuthUserEntity, RoleEntity])
+    TypeOrmModule.forFeature([AuthUserEntity, RoleEntity]),
+
+
+    MailerModule.forRootAsync({
+      useFactory: () => {
+        return {
+          transport: {
+            name: EMAIL_HOST,
+            host: EMAIL_HOST,
+            port: 465, // 587(no ssl)
+            auth: {
+              user: EMAIL_USERNAME,
+              pass: EMAIL_PASSWORD,
+            },
+            tls: {
+              rejectUnauthorized: false,
+            },
+          },
+          defaults: {
+            from: '"Authdare Support Team" <support@authdare.com>',
+          },
+          template: {
+            dir: join(__dirname, 'mail/templates'),
+            adapter: new EjsAdapter(),
+            options: {
+              strict: false,
+            },
+          },
+        };
+      },
+    }),
   ],
   controllers: [AuthController],
   providers: [
     AuthService,
     AuthCronService,
-    AuthEventsService,
+    AuthEmailService,
+    AuthDatabaseService,
     {
       provide: APP_INTERCEPTOR,
       useClass: CacheInterceptor,
@@ -68,5 +109,6 @@ import { RoleEntity } from './sub/entity/role.entity';
   ],
 })
 export class AuthModule {
+  private readonly logger = new Logger(AuthModule.name);
 
 }

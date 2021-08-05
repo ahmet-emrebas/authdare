@@ -1,0 +1,138 @@
+import { internet } from 'faker';
+import { Injectable, InternalServerErrorException, Logger } from "@nestjs/common";
+import { EventEmitter2, OnEvent } from "@nestjs/event-emitter";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Connection, getConnection, createConnection, Repository } from "typeorm";
+import { AuthUserEntity, CreateAuthUserDTO, UpdateAuthUserDTO } from "./sub";
+
+export enum AuthEvents {
+    /**
+     * Any event with "auth." prefix
+     * @event auth.*
+     */
+    ANY = 'auth.*',
+
+    /**
+     * When sign up
+     * @event auth.signup
+     */
+    SIGNUP = 'auth.signup',
+    SIGNUP_EMAIL = 'auth.signup_email',
+
+    /**
+     * When login
+     * @event auth.login
+     */
+    LOGIN = 'auth.login',
+
+    /**
+     * When delete an account
+     * @event auth.delete
+     */
+    DELETE = 'auth.delete',
+
+
+    CREATE_MEMBER = 'auth.create_member',
+    CREATE_MEMBER_EMAIL = 'auth.create_member_email',
+
+    FORGOT_PASSWORD = 'auth.forgot_password',
+    FORGOT_PASSWORD_EMAIL = 'auth.forgot_password_email',
+}
+
+@Injectable()
+export class AuthDatabaseService {
+    private readonly logger = new Logger(AuthDatabaseService.name);
+
+    constructor(
+        private readonly eventEmitter: EventEmitter2,
+        @InjectRepository(AuthUserEntity) private readonly authUserEntity: Repository<AuthUserEntity>) { }
+
+    private async createClientDatabase(orgname: string): Promise<Connection> {
+        let con: Connection
+        try {
+            con = getConnection(orgname);
+        } catch (err) {
+            con = await createConnection({
+                name: orgname,
+                type: 'sqlite',
+                database: `database/${orgname}/main.sqlite`,
+                entities: [AuthUserEntity],
+                synchronize: true,
+                dropSchema: true,
+            })
+        }
+        return con;
+    }
+
+    private async getClientConnection(orgname: string): Promise<Connection> {
+        let con: Connection
+
+        try {
+            con = getConnection(orgname);
+        } catch (err) {
+            con = await createConnection({
+                name: orgname,
+                type: 'sqlite',
+                database: `database/${orgname}/main.sqlite`,
+                entities: [AuthUserEntity]
+            })
+        }
+        return con;
+    }
+
+    private async clientUserRepository(con: Connection) {
+        return await con.getRepository(AuthUserEntity);
+    }
+
+    private async createClient__ADMIN(userData: CreateAuthUserDTO) {
+        let con = await this.createClientDatabase(userData.orgname);
+        const userRepo = await this.clientUserRepository(con);
+        return await userRepo.save(userData)
+    }
+
+    private async createClient__TeamMember(userData: CreateAuthUserDTO) {
+        let con = await this.getClientConnection(userData.orgname);
+        const userRepo = await this.clientUserRepository(con);
+        return await userRepo.save(userData);
+    }
+
+    private async updateClientUserPassword(userData: AuthUserEntity) {
+        let con = await this.getClientConnection(userData.orgname);
+        const userRepo = await this.clientUserRepository(con);
+        await userRepo.update(userData.id, { password: userData.password });
+    }
+
+    @OnEvent(AuthEvents.SIGNUP)
+    private async onSignup(payload: CreateAuthUserDTO) {
+        const savedUser = await this.createClient__ADMIN(payload);
+        this.logger.log('Saved User to client db: ', savedUser);
+        this.eventEmitter.emit(AuthEvents.SIGNUP_EMAIL, payload);
+    }
+
+
+    @OnEvent(AuthEvents.CREATE_MEMBER)
+    private async onCreateMember(payload: CreateAuthUserDTO) {
+        const saved = await this.createClient__TeamMember(payload);
+        this.logger.log('Saved new member to client db: ', saved);
+        this.eventEmitter.emit(AuthEvents.CREATE_MEMBER_EMAIL, payload);
+    }
+
+    @OnEvent(AuthEvents.FORGOT_PASSWORD)
+    private async onForgotPassword(payload: AuthUserEntity) {
+
+        const newPassword = internet.password();
+
+        const { errors, validatedInstance } = await new CreateAuthUserDTO({ ...payload, password: newPassword })
+            .transformAndValidate()
+
+        if (errors) {
+            this.logger.error('Could not validate the user data for some reason!', errors, validatedInstance);
+            throw new InternalServerErrorException()
+        }
+
+        await this.authUserEntity.update(payload.id, { password: newPassword })
+        await this.updateClientUserPassword(new AuthUserEntity({ ...payload, password: validatedInstance.password }))
+        await this.eventEmitter.emit(AuthEvents.FORGOT_PASSWORD_EMAIL, validatedInstance);
+    }
+
+}
