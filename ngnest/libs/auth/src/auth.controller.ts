@@ -1,3 +1,4 @@
+import { AuthPaths } from './auth-paths';
 import { AuthGuard } from './auth.guard';
 import { ClientSession, getClientSession, SessionType, setClientSession } from './session';
 import { AuthEvents } from './auth-database.service';
@@ -20,7 +21,7 @@ import { CreateTeamMemberDTO } from './sub/dto/create-team-member.dto';
 import { compare } from 'bcrypt';
 import { PublicResource } from '@authdare/decorators/auth';
 
-const ClientUsersInterceptor = (options: ClassTransformOptions) => class TPI implements NestInterceptor {
+const ClientUsersInterceptor = (options: ClassTransformOptions) => class CUI implements NestInterceptor {
     intercept(context: ExecutionContext, next: CallHandler<any>): Observable<any> | Promise<Observable<any>> {
         const session = getClientSession(context);
         const orgname = session.orgname;
@@ -108,7 +109,7 @@ export class AuthController {
     @ApiInternalServerErrorResponse({ description: "When cound not connect database or (?)" })
 
     @PublicResource()
-    @Post('signup')
+    @Post(AuthPaths.SIGNUP)
     async signup(@Body(SignupValidationPipe) ___body: SignupDTO, @Session() session: SessionType) {
 
         // Creating, transforming, and validating client admin user.
@@ -156,7 +157,7 @@ export class AuthController {
      * @param session 
      */
     @ClientAdmin()
-    @Post("team")
+    @Post(AuthPaths.CREATE_MEMBER)
     async createTeamMember(@Body(CreateTeamMemberValidationPipe) body: CreateTeamMemberDTO, @Session() session: SessionType) {
 
 
@@ -184,7 +185,7 @@ export class AuthController {
 
 
     @PublicResource()
-    @Post('forgotpassword')
+    @Post(AuthPaths.FORGOT_PASSWORD)
     async forgotPassword(@Body(ForgotPasswordValidationPipe) body: ForgotPasswordDTO) {
 
         try {
@@ -202,7 +203,7 @@ export class AuthController {
     }
 
 
-    @Post('updateprofile')
+    @Post(AuthPaths.UPDATE_PROFILE)
     async updateProfile(@Body() body: UpdateAuthUserDTO, @Session() session: SessionType) {
 
 

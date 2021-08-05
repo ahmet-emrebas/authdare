@@ -1,5 +1,5 @@
+import { ApiTags } from '@nestjs/swagger';
 import { ResourceInterceptor } from './../resource.interceptor';
-
 import { UpdateTaskDTO } from './dto/update-tast.dto';
 import { CreateTaskDTO } from './dto/create-task.dto';
 import { Controller, UseInterceptors } from "@nestjs/common";
@@ -10,6 +10,7 @@ import { TaskEntity } from './entity';
 import { GetResourceRepo, ResourceEntity } from '../resource.decorator';
 
 
+@ApiTags(TaskController.name)
 @ResourceEntity(TaskEntity)
 @UseInterceptors(ResourceInterceptor)
 @Controller('api/tasks')

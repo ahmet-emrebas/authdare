@@ -23,7 +23,8 @@
     "server:test:watch": "jest --watch",
     "server:test:cov": "jest --coverage",
     "server:test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "server:test:e2e": "jest  --config ./apps/api/test/jest-e2e.json  --watch"
+    "server:test:e2e": "jest  --config ./apps/api/test/jest-e2e.json  --watch",
+    "server:test:auth:e2e": "jest  --config ./libs/auth/test/jest-e2e.json  --watch"
   },
   "dependencies": {
     "@angular/animations": "~12.1.0",
@@ -88,9 +89,9 @@
     "@angular/cli": "^12.1.2",
     "@angular/compiler-cli": "~12.1.0",
     "@compodoc/compodoc": "^1.1.13",
-    "@nestjs/cli": "^7.6.0",
-    "@nestjs/schematics": "^7.3.0",
-    "@nestjs/testing": "^7.6.15",
+    "@nestjs/cli": "^8.1.1",
+    "@nestjs/schematics": "^8.0.2",
+    "@nestjs/testing": "^8.0.6",
     "@types/bcrypt": "^5.0.0",
     "@types/cache-manager": "^3.4.2",
     "@types/chai": "^4.2.21",
@@ -152,16 +153,10 @@
       "<rootDir>/libs/"
     ],
     "moduleNameMapper": {
-      "@app/samplelib/(.*)": "<rootDir>/libs/samplelib/src/$1",
-      "@app/samplelib": "<rootDir>/libs/samplelib/src",
-      "authdare/samplelib/(.*)": "<rootDir>/libs/samplelib/src/$1",
-      "authdare/samplelib": "<rootDir>/libs/samplelib/src",
-      "authdare/anotherl/(.*)": "<rootDir>/libs/anotherl/src/$1",
-      "authdare/anotherl": "<rootDir>/libs/anotherl/src",
-      "authdare/nest/another2/(.*)": "<rootDir>/libs/nest/another2/src/$1",
-      "authdare/nest/another2": "<rootDir>/libs/nest/another2/src",
-      "^@authdare/auth(|/.*)$": "<rootDir>/libs/auth/src/$1",
-      "^@authdare/utils(|/.*)$": "<rootDir>/libs/utils/src/$1",
+      "@authdare/auth/(.*)": "<rootDir>/libs/auth/src/$1",
+      "@authdare/auth": "<rootDir>/libs/auth/src",
+      "@authdare/utils/(.*)": "<rootDir>/libs/utils/src/$1",
+      "@authdare/utils": "<rootDir>/libs/utils/src",
       "@authdare/objects/(.*)": "<rootDir>/libs/objects/src/$1",
       "@authdare/objects": "<rootDir>/libs/objects/src",
       "@authdare/resources/(.*)": "<rootDir>/libs/resources/src/$1",
