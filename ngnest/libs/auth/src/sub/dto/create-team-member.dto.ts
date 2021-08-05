@@ -1,10 +1,11 @@
 import { ValidationPipe } from "@nestjs/common";
 import { ApiProperty } from "@nestjs/swagger";
-import { Exclude, Expose } from "class-transformer";
+import { Exclude, Expose, Transform, TransformPlainToClass, Type } from "class-transformer";
 import { IsEmail, Length, NotContains, ValidateNested } from "class-validator";
 import { BaseClass } from '@authdare/objects';
-import { ValidateForbiddenRoleNames } from "@authdare/auth/role";
-
+import { RoleDTO } from "@authdare/auth/role";
+import { InitEach, Trim } from "@authdare/utils";
+import { internet } from 'faker'
 
 export const CreateTeamMemberValidationPipe = new ValidationPipe({ transform: true });
 
@@ -18,12 +19,24 @@ export class CreateTeamMemberDTO extends BaseClass<CreateTeamMemberDTO> {
     @IsEmail({}, { message: 'Email must be an email!' })
     readonly email!: string;
 
-    @ApiProperty({ required: false, default: ['client_admin'] })
+    @ApiProperty({
+        required: false, default: [
+            { name: 'role_name', permissions: [{ method: 'get', resource: 'users' }] }
+        ] as RoleDTO[]
+    })
     @Expose()
     @ValidateNested({ each: true })
-    @ValidateForbiddenRoleNames()
-    @Length(1, 50)
-    readonly roles!: string[];
+    @InitEach(RoleDTO)
+    @Type(() => RoleDTO)
+    readonly roles!: RoleDTO[];
+
+
+    @Expose()
+    @Transform(({ value }) => value && value || internet.password())
+    readonly password!: string;
+
+    @Expose()
+    readonly orgname!: string
 
 }
 

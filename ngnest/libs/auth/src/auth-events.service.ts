@@ -26,7 +26,10 @@ export enum AuthEvents {
      * When delete an account
      * @event auth.delete
      */
-    DELETE = 'auth.delete'
+    DELETE = 'auth.delete',
+
+
+    CREATE_MEMBER = 'auth.create_member'
 
 }
 
@@ -51,17 +54,50 @@ export class AuthEventsService {
         return con;
     }
 
-    async createClientAdminUser(con: Connection, userData: CreateAuthUserDTO) {
-        const userRepo = await con.getRepository(AuthUserEntity);
+    private async getClientConnection(orgname: string): Promise<Connection> {
+        let con: Connection
+
+        try {
+            con = getConnection(orgname);
+        } catch (err) {
+            con = await createConnection({
+                name: orgname,
+                type: 'sqlite',
+                database: `database/${orgname}/main.sqlite`,
+                entities: [AuthUserEntity]
+            })
+        }
+        return con;
+    }
+
+    private async clientUserRepository(con: Connection) {
+        return await con.getRepository(AuthUserEntity);
+    }
+
+    async createClient__ADMIN(userData: CreateAuthUserDTO) {
+        let con = await this.createClientDatabase(userData.orgname);
+        const userRepo = await this.clientUserRepository(con);
         return await userRepo.save(userData)
     }
 
+    async createClient__TeamMember(userData: CreateAuthUserDTO) {
+        let con = await this.getClientConnection(userData.orgname);
+        const userRepo = await this.clientUserRepository(con);
+        return await userRepo.save(userData);
+    }
+
     @OnEvent(AuthEvents.SIGNUP)
-    async onSignup(payload: AuthUserEntity) {
-        const con = await this.createClientDatabase(payload.orgname)
-        const savedUser = await this.createClientAdminUser(con, payload);
+    async onSignup(payload: CreateAuthUserDTO) {
+        const savedUser = await this.createClient__ADMIN(payload);
         this.logger.log('Saved User to client db: ', savedUser);
     }
 
+
+    @OnEvent(AuthEvents.CREATE_MEMBER)
+    async onCreateMember(payload: CreateAuthUserDTO) {
+        const saved = await this.createClient__TeamMember(payload);
+        this.logger.log('Saved new member to client db: ', saved);
+
+    }
 
 }

@@ -1,7 +1,7 @@
 import { BaseEntity } from '@authdare/objects';
 import { Stringify, HashPassword } from '@authdare/utils';
 import { Column, Entity } from 'typeorm'
-import { Role } from '../../role';
+import { RoleDTO } from '../../role';
 
 @Entity({ name: 'subs' })
 export class AuthUserEntity extends BaseEntity<AuthUserEntity> {
@@ -12,11 +12,11 @@ export class AuthUserEntity extends BaseEntity<AuthUserEntity> {
     @Column({ transformer: HashPassword() })
     readonly password!: string;
 
-    @Column({ unique: true, update: false })
+    @Column({ update: false })
     readonly orgname!: string;
 
     @Column({ type: 'text', transformer: Stringify() })
-    readonly roles!: Role[];
+    readonly roles!: RoleDTO[];
 
 
 }

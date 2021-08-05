@@ -4,6 +4,6 @@ import { genSaltSync, hashSync } from "bcrypt";
  * Column Transformer
  */
 export const HashPassword = () => ({
-    to: (value: any) => hashSync(value, genSaltSync(8)),
+    to: (value: any) => value && hashSync(value, genSaltSync(8)) || null,
     from: (value: string) => value
 })

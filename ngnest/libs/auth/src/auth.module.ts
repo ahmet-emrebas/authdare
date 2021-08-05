@@ -11,6 +11,7 @@ import { ScheduleModule } from '@nestjs/schedule'
 import { AuthCronService } from './auth-cron.service'
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { AuthEventsService } from './auth-events.service';
+import { RoleEntity } from './sub/entity/role.entity';
 
 
 @Module({
@@ -47,13 +48,13 @@ import { AuthEventsService } from './auth-events.service';
           name: AuthModule.name,
           type: 'sqlite',
           database: 'database/auth/main.sqlite',
-          entities: [AuthUserEntity],
+          entities: [AuthUserEntity, RoleEntity],
           synchronize: true,
           dropSchema: true,
         }
       }
     }),
-    TypeOrmModule.forFeature([AuthUserEntity])
+    TypeOrmModule.forFeature([AuthUserEntity, RoleEntity])
   ],
   controllers: [AuthController],
   providers: [

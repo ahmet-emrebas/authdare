@@ -1,10 +1,14 @@
 import { NotContains } from 'class-validator';
 import { InternalServerErrorException } from '@nestjs/common';
 import { classToClass } from 'class-transformer';
-import { IsNotIn, validateSync } from 'class-validator';
-import { Permission, Role } from './role-permission.dto';
+import { validateSync } from 'class-validator';
+import { Permission, RoleDTO } from './role-permission.dto';
 
-export function ValidateForbiddenRoleNames() {
+/**
+ * Check the role name is not in the black list
+ * @returns 
+ */
+export function IsRoleNameValid() {
     return NotContains('super')
 }
 
@@ -27,24 +31,24 @@ export class RolesManager {
     private constructor() { }
 
     static superAdmin() {
-        return new Role({
+        return new RoleDTO({
             name: AdminNames.SUPER,
             permissions: [new Permission({ method: AdminMethods.ALL, resource: AdminResoures.SUPER_RESOURCE })]
         });
     }
 
     static clientAdmin() {
-        return new Role({
+        return new RoleDTO({
             name: AdminNames.CLIENT,
             permissions: [new Permission({ method: AdminMethods.ALL, resource: AdminResoures.CLIENT_RESOURCE })]
         })
     }
 
-    private static toClassRoles(plainRoles: Role[]) {
-        return plainRoles.map(e => classToClass(new Role(e)));
+    private static toClassRoles(plainRoles: RoleDTO[]) {
+        return plainRoles.map(e => classToClass(new RoleDTO(e)));
     }
 
-    static hasRoles(requiredRoles: Role[], plainRoles: Role[]) {
+    static hasRoles(requiredRoles: RoleDTO[], plainRoles: RoleDTO[]) {
 
         if (!requiredRoles) return true;
 
@@ -55,7 +59,7 @@ export class RolesManager {
         return false;
     }
 
-    static hasPermissions(requiredPermissions: Permission[], plainRoles: Role[]) {
+    static hasPermissions(requiredPermissions: Permission[], plainRoles: RoleDTO[]) {
 
         if (!requiredPermissions) return true;
 
@@ -90,7 +94,7 @@ export class RolesManager {
      * @param role 
      * @returns 
      */
-    static role(role: Role) {
+    static role(role: RoleDTO) {
         const item = classToClass(role)
         const errors = validateSync(item);
         if (errors && errors.length > 0) {

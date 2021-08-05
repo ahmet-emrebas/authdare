@@ -1,3 +1,4 @@
+import { RoleEntity } from './sub/entity/role.entity';
 import { AuthGuard } from './auth.guard';
 import { ClientSession, getClientSession, SessionType, setClientSession } from './session';
 import { AuthEvents } from './auth-events.service';
@@ -35,7 +36,11 @@ const ClientUsersInterceptor = (options: ClassTransformOptions) => class TPI imp
 @Controller('auth')
 export class AuthController {
     private readonly logger = new Logger(AuthController.name)
-    constructor(private eventEmitter: EventEmitter2, @InjectRepository(AuthUserEntity) public readonly authUserRepository: Repository<AuthUserEntity>) { }
+    constructor(
+        private eventEmitter: EventEmitter2,
+        @InjectRepository(AuthUserEntity) public readonly authUserRepository: Repository<AuthUserEntity>,
+        @InjectRepository(RoleEntity) public readonly roleRepository: Repository<RoleEntity>,
+    ) { }
 
     @ClientAdmin()
     @UseInterceptors(
@@ -75,7 +80,6 @@ export class AuthController {
      * @param session 
      * @returns 
      */
-
     @ApiCreatedResponse({ description: "When account created" })
     @ApiBadRequestResponse({ description: "When account already exist or input validation error." })
     @ApiInternalServerErrorResponse({ description: "When cound not connect database or (?)" })
@@ -133,18 +137,42 @@ export class AuthController {
      */
     @ClientAdmin()
     @Post("team")
-    createTeamMember(@Body(CreateTeamMemberValidationPipe) body: CreateTeamMemberDTO, @Session() session: SessionType) {
-        console.log(body);
-        throw new Error("Not implemented");
+    async createTeamMember(@Body(CreateTeamMemberValidationPipe) body: CreateTeamMemberDTO, @Session() session: SessionType) {
+
+
+        const { errors, validatedInstance } = await new CreateAuthUserDTO({ ...body, orgname: session.auth.orgname }).transformAndValidate();
+
+        if (errors) {
+            this.logger.error('Could not validate the new member for some reason!', errors, validatedInstance);
+            throw new InternalServerErrorException()
+        }
+
+        try {
+            // Try to find the user with orgname and email. If user exists, then skip the CATCH BLOCK, and throw BadRequestException
+            await this.authUserRepository.findOneOrFail({
+                where: { email: validatedInstance.email }
+            })
+        } catch (err) {
+            const __save_new_member = await this.authUserRepository.save(validatedInstance);
+
+            // Emitting SIGNUP EVENT
+            this.eventEmitter.emit(AuthEvents.CREATE_MEMBER, validatedInstance);
+            return message('Member created!')
+        }
+        throw new BadRequestException("The member is already exist in your team")
     }
-
-
-
 
     @SuperAdmin()
     @Delete(":id")
     async deleteTeamMember(@Param("id", ParseIntPipe) id: number) {
         await this.authUserRepository.delete(id);
     }
+
+
+    // @PublicResource()
+    // @Get('roles')
+    // async getRoles() {
+    //     return await this.roleRepository.find()
+    // }
 
 }

@@ -1,5 +1,5 @@
 import { classToClass } from 'class-transformer';
-import { Permission, Role } from './role-permission.dto';
+import { Permission, RoleDTO } from './role-permission.dto';
 import { CustomDecorator, ExecutionContext, SetMetadata } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 
@@ -21,8 +21,8 @@ const PUBLIC_RESOURCE_META_KEY = 'PUBLIC_RESOURCE_META_KEY';
  * Resource security decorator. 
  * @returns {CustomDecorator<string>}
  */
-export function HasRole(roles: Role[]): CustomDecorator<string> {
-    return SetMetadata(ROLE_META_KEY, roles.map(e => classToClass(new Role(e))))
+export function HasRole(roles: RoleDTO[]): CustomDecorator<string> {
+    return SetMetadata(ROLE_META_KEY, roles.map(e => classToClass(new RoleDTO(e))))
 }
 
 /**
@@ -46,10 +46,10 @@ export function PublicResource(): CustomDecorator<string> {
  * Extract the required roles from context.
  * @param context 
  * @param reflector 
- * @returns {Role[]} required roles for the resource
+ * @returns {RoleDTO[]} required roles for the resource
  */
-export function getRequiredRoles(context: ExecutionContext, reflector: Reflector): Role[] {
-    return getMetaData<Role[]>(context, reflector, ROLE_META_KEY);
+export function getRequiredRoles(context: ExecutionContext, reflector: Reflector): RoleDTO[] {
+    return getMetaData<RoleDTO[]>(context, reflector, ROLE_META_KEY);
 }
 
 /**
@@ -73,7 +73,7 @@ export function isPublicResource(context: ExecutionContext, reflector: Reflector
 }
 
 export interface AuthContext {
-    roles: Role[],
+    roles: RoleDTO[],
     permissions: Permission[],
     isPublic: boolean
 }

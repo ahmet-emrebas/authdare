@@ -1,6 +1,6 @@
 import { ValidationPipe } from '@nestjs/common';
 import { Trim, SnakeCase } from '@authdare/utils';
-import { Role } from '../../role';
+import { RoleDTO } from '../../role';
 import { ApiProperty } from "@nestjs/swagger";
 import { Exclude, Expose, Type } from "class-transformer";
 import { IsEmail, Length, NotContains, ValidateNested } from "class-validator";
@@ -35,8 +35,8 @@ export class CreateAuthUserDTO extends BaseClass<CreateAuthUserDTO> {
     @ApiProperty({ required: false, default: [{ name: 'rolename', permissions: [{ method: 'get', resource: 'users' }] }] })
     @Expose()
     @ValidateNested({ each: true })
-    @Type(() => Role)
-    readonly roles!: Role[];
+    @Type(() => RoleDTO)
+    readonly roles!: RoleDTO[];
 
 }
 

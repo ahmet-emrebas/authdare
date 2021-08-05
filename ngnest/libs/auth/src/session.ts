@@ -1,7 +1,7 @@
 import { ExecutionContext } from '@nestjs/common';
 import { BaseClass } from '@authdare/objects';
 import { Expose } from 'class-transformer';
-import { Role } from './role';
+import { RoleDTO } from './role';
 import { InitEach } from '@authdare/utils';
 import { Request } from 'express';
 
@@ -21,8 +21,8 @@ export class ClientSession extends BaseClass<ClientSession> {
     readonly orgname!: string;
 
     @Expose()
-    @InitEach(Role)
-    readonly roles!: Role[];
+    @InitEach(RoleDTO)
+    readonly roles!: RoleDTO[];
 }
 
 export type SessionType = {
