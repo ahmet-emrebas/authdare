@@ -1,3 +1,4 @@
+import { ClassTransformOptions } from 'class-transformer';
 import { classToClass } from 'class-transformer';
 import { TransformOptions } from 'class-transformer';
 import { KeyValue } from './key-value';
@@ -69,11 +70,11 @@ export class BaseClass<T> {
 
 
     @Exclude()
-    async transformAndValidate(validationOptions?: ValidationOptions, transformOptions?: TransformOptions): Promise<{
+    async transformAndValidate(validationOptions?: ValidationOptions, classTransformOptions: ClassTransformOptions = { exposeUnsetFields: undefined, excludeExtraneousValues: true }): Promise<{
         errors?: ValidationError[] | false
         validatedInstance: T
     }> {
-        const transformed = classToClass(this, transformOptions);
+        const transformed = classToClass(this, classTransformOptions);
         const errors = await validate(transformed, validationOptions);
 
         if (errors && errors.length > 0) {

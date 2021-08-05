@@ -1,9 +1,14 @@
+
 import { internet } from 'faker';
 import { Injectable, InternalServerErrorException, Logger } from "@nestjs/common";
 import { EventEmitter2, OnEvent } from "@nestjs/event-emitter";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Connection, getConnection, createConnection, Repository } from "typeorm";
-import { AuthUserEntity, CreateAuthUserDTO, UpdateAuthUserDTO } from "./sub";
+import { AuthUserEntity, CreateAuthUserDTO } from "./sub";
+import { TaskEntity } from '@authdare/resources/task';
+
+
+const entities = [AuthUserEntity, TaskEntity];
 
 export enum AuthEvents {
     /**
@@ -56,7 +61,7 @@ export class AuthDatabaseService {
                 name: orgname,
                 type: 'sqlite',
                 database: `database/${orgname}/main.sqlite`,
-                entities: [AuthUserEntity],
+                entities,
                 synchronize: true,
                 dropSchema: true,
             })
@@ -74,7 +79,7 @@ export class AuthDatabaseService {
                 name: orgname,
                 type: 'sqlite',
                 database: `database/${orgname}/main.sqlite`,
-                entities: [AuthUserEntity]
+                entities,
             })
         }
         return con;

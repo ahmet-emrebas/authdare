@@ -1,7 +1,7 @@
 import { TransformOptions, ClassConstructor, classToClass, } from 'class-transformer';
 import { } from "class-transformer";
 import { Transform } from 'class-transformer';
-import { snakeCase } from 'lodash';
+import { fromPairs, snakeCase, split } from 'lodash';
 
 
 
@@ -78,6 +78,21 @@ export function Trim(options?: TransformOptions) {
  * @param options 
  * @returns 
  */
-export function TrimEach(options?: TransformOptions) {
+export function TTrimEach(options?: TransformOptions) {
     return Transform(({ value }) => _trim_each(value), options)
+}
+
+
+export function TSplitBy(delimeter: string = ',', options?: TransformOptions) {
+    return Transform(({ value }) => value && typeof value == 'string' && value.split(delimeter))
+}
+
+
+export function TParseBool(options?: TransformOptions) {
+    return Transform(({ value }) => value && typeof value == 'string' && (value == 'true' ? true : value == 'false' ? false : undefined));
+}
+
+
+export function TObjectify(options?: TransformOptions) {
+    return Transform(({ value }) => value && typeof value == 'string' && fromPairs(split(value, ',')?.map((e) => e?.split(':'))))
 }

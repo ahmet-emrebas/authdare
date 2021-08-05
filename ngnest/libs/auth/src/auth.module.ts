@@ -14,9 +14,9 @@ import { ScheduleModule } from '@nestjs/schedule'
 import { AuthCronService } from './auth-cron.service'
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { AuthDatabaseService } from './auth-database.service';
-import { RoleEntity } from './sub/entity/role.entity';
-import { MailerModule, MailerService } from '@nestjs-modules/mailer';
+import { MailerModule } from '@nestjs-modules/mailer';
 import { join } from 'path';
+import { TaskEntity } from '@authdare/resources/task';
 
 
 const EMAIL_HOST = "mail.authdare.com";
@@ -58,13 +58,13 @@ console.log(EMAIL_HOST, EMAIL_USERNAME, EMAIL_PASSWORD)
           name: AuthModule.name,
           type: 'sqlite',
           database: 'database/auth/main.sqlite',
-          entities: [AuthUserEntity, RoleEntity],
+          entities: [AuthUserEntity, TaskEntity],
           synchronize: true,
           dropSchema: true,
         }
       }
     }),
-    TypeOrmModule.forFeature([AuthUserEntity, RoleEntity]),
+    TypeOrmModule.forFeature([AuthUserEntity, TaskEntity]),
 
 
     MailerModule.forRootAsync({

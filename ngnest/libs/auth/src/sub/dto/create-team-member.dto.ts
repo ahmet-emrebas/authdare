@@ -13,7 +13,7 @@ export const CreateTeamMemberValidationPipe = new ValidationPipe({ transform: tr
 @Exclude()
 export class CreateTeamMemberDTO extends BaseClass<CreateTeamMemberDTO> {
 
-    @ApiProperty({ type: 'string', required: true, default: 'email@gmail.com' })
+    @ApiProperty({ type: 'string', required: true, default: 'aemrebasus@gmail.com' })
     @Expose()
     @NotContains(' ')
     @IsEmail({}, { message: 'Email must be an email!' })

@@ -2,7 +2,7 @@ import { BaseClass } from "@authdare/objects";
 import { InitEach, Trim } from "@authdare/utils";
 import { ApiProperty, } from "@nestjs/swagger";
 import { Exclude, Expose } from "class-transformer";
-import { IsRoleNameValid } from "./roles-manager";
+import { IsRoleNameValid } from "./is-role-name-valid";
 
 @Exclude()
 export class Permission extends BaseClass<Permission> {

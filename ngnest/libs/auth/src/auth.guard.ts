@@ -19,9 +19,10 @@ export class AuthGuard implements CanActivate {
         const hasRole = RolesManager.hasRoles(authContext.roles, userRoles);
         const hasPermission = RolesManager.hasPermissions(authContext.permissions, userRoles)
 
-
-
-        return hasRole && hasPermission;
+        if (hasRole && hasPermission) {
+            return true;
+        }
+        return false;
     }
 
 }

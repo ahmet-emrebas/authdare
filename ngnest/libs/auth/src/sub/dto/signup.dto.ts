@@ -17,7 +17,7 @@ export const SignupValidationPipe = new ValidationPipe({
 export class SignupDTO extends BaseClass<SignupDTO> {
 
 
-    @ApiProperty({ type: 'string', required: true, default: 'email@gmail.com' })
+    @ApiProperty({ type: 'string', required: true, default: 'aemrebas.dev@gmail.com' })
     @Expose()
     @NotContains(' ')
     @IsEmail({}, { message: 'Email must be an email!' })

@@ -39,12 +39,7 @@ const ClientUsersInterceptor = (options: ClassTransformOptions) => class TPI imp
 @Controller('auth')
 export class AuthController {
     private readonly logger = new Logger(AuthController.name)
-    constructor(
-        private eventEmitter: EventEmitter2,
-        @InjectRepository(AuthUserEntity) public readonly authUserRepository: Repository<AuthUserEntity>,
-        @InjectRepository(RoleEntity) public readonly roleRepository: Repository<RoleEntity>,
-        private jwt: JwtService,
-    ) { }
+    constructor(private eventEmitter: EventEmitter2, @InjectRepository(AuthUserEntity) public readonly authUserRepository: Repository<AuthUserEntity>) { }
 
     @ClientAdmin()
     @UseInterceptors(

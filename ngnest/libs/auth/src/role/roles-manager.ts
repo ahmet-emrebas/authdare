@@ -1,16 +1,8 @@
-import { NotContains } from 'class-validator';
 import { InternalServerErrorException } from '@nestjs/common';
 import { classToClass } from 'class-transformer';
 import { validateSync } from 'class-validator';
 import { Permission, RoleDTO } from './role-permission.dto';
 
-/**
- * Check the role name is not in the black list
- * @returns 
- */
-export function IsRoleNameValid() {
-    return NotContains('super')
-}
 
 enum AdminNames {
     CLIENT = 'client_admin',
