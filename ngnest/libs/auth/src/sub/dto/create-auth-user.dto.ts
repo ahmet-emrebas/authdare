@@ -7,6 +7,7 @@ import { IsEmail, Length, NotContains, ValidateNested } from "class-validator";
 import { BaseClass } from '@authdare/objects';
 
 export const CreateAuthUserValidationPipe = new ValidationPipe({ transform: true });
+
 /**
  * This DTO is for us to create a subscription manually.
  */

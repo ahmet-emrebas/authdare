@@ -2,19 +2,16 @@ import { ResourceInterceptor } from './../resource.interceptor';
 
 import { UpdateTaskDTO } from './dto/update-tast.dto';
 import { CreateTaskDTO } from './dto/create-task.dto';
-import { Controller, UseGuards, UseInterceptors } from "@nestjs/common";
-import { Body, Delete, Get, Param, Patch, Post, Query, SetMetadata } from '@nestjs/common';
+import { Controller, UseInterceptors } from "@nestjs/common";
+import { Body, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
 import { QueryDTO, QueryValidationPipe } from '@authdare/objects';
 import { Repository } from 'typeorm';
 import { TaskEntity } from './entity';
 import { GetResourceRepo, ResourceEntity } from '../resource.decorator';
-import { AuthGuard } from '@authdare/auth/auth.guard';
-import { HasPermission, Permission } from '@authdare/auth/role';
 
 
 @ResourceEntity(TaskEntity)
 @UseInterceptors(ResourceInterceptor)
-@UseGuards(AuthGuard)
 @Controller('api/tasks')
 export class TaskController {
 

@@ -17,13 +17,14 @@ import { AuthDatabaseService } from './auth-database.service';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { join } from 'path';
 import { TaskEntity } from '@authdare/resources/task';
+import { RESOURCE_ENTITIES_TOKEN } from './resource-entities-token';
 
 
 const EMAIL_HOST = "mail.authdare.com";
 const EMAIL_USERNAME = "support@authdare.com";
 const EMAIL_PASSWORD = process.env.EMAIL_PASSWORD;
 
-console.log(EMAIL_HOST, EMAIL_USERNAME, EMAIL_PASSWORD)
+
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -106,9 +107,14 @@ console.log(EMAIL_HOST, EMAIL_USERNAME, EMAIL_PASSWORD)
       provide: APP_INTERCEPTOR,
       useClass: CacheInterceptor,
     },
+    {
+      provide: RESOURCE_ENTITIES_TOKEN,
+      useValue: [AuthUserEntity, TaskEntity]
+    }
   ],
 })
 export class AuthModule {
   private readonly logger = new Logger(AuthModule.name);
+
 
 }

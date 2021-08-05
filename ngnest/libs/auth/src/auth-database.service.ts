@@ -1,14 +1,15 @@
+import { ClassConstructor } from 'class-transformer';
 
 import { internet } from 'faker';
-import { Injectable, InternalServerErrorException, Logger } from "@nestjs/common";
+import { Inject, Injectable, InternalServerErrorException, Logger } from "@nestjs/common";
 import { EventEmitter2, OnEvent } from "@nestjs/event-emitter";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Connection, getConnection, createConnection, Repository } from "typeorm";
 import { AuthUserEntity, CreateAuthUserDTO } from "./sub";
 import { TaskEntity } from '@authdare/resources/task';
+import { RESOURCE_ENTITIES_TOKEN } from './resource-entities-token';
 
 
-const entities = [AuthUserEntity, TaskEntity];
 
 export enum AuthEvents {
     /**
@@ -49,6 +50,7 @@ export class AuthDatabaseService {
     private readonly logger = new Logger(AuthDatabaseService.name);
 
     constructor(
+        @Inject(RESOURCE_ENTITIES_TOKEN) private readonly entities: ClassConstructor<any>[],
         private readonly eventEmitter: EventEmitter2,
         @InjectRepository(AuthUserEntity) private readonly authUserEntity: Repository<AuthUserEntity>) { }
 
@@ -61,7 +63,7 @@ export class AuthDatabaseService {
                 name: orgname,
                 type: 'sqlite',
                 database: `database/${orgname}/main.sqlite`,
-                entities,
+                entities: this.entities,
                 synchronize: true,
                 dropSchema: true,
             })
@@ -79,7 +81,7 @@ export class AuthDatabaseService {
                 name: orgname,
                 type: 'sqlite',
                 database: `database/${orgname}/main.sqlite`,
-                entities,
+                entities: this.entities,
             })
         }
         return con;

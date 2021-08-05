@@ -42,6 +42,18 @@
       ],
       "@authdare/resources/*": [
         "libs/resources/src/*"
+      ],
+      "@authdare/interfaces": [
+        "libs/interfaces/src"
+      ],
+      "@authdare/interfaces/*": [
+        "libs/interfaces/src/*"
+      ],
+      "@authdare/decorators": [
+        "libs/decorators/src"
+      ],
+      "@authdare/decorators/*": [
+        "libs/decorators/src/*"
       ]
     },
     "lib": [

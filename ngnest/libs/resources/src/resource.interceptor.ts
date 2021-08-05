@@ -21,11 +21,10 @@ export class ResourceInterceptor implements NestInterceptor {
         )
 
         const session = req.session as unknown as SessionType;
-        const orgname = session.auth.orgname
+        const orgname = session.auth?.orgname
 
         if (orgname) {
             const repository = await getRepositoryByOrgname(orgname, entity, [TaskEntity]);
-
             (req as any)[RESOURCE_REPO_KEY] = repository;
         }
         return next.handle()

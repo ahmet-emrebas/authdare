@@ -1,4 +1,3 @@
-import { RoleEntity } from './sub/entity/role.entity';
 import { AuthGuard } from './auth.guard';
 import { ClientSession, getClientSession, SessionType, setClientSession } from './session';
 import { AuthEvents } from './auth-database.service';
@@ -8,19 +7,18 @@ import { InjectRepository } from "@nestjs/typeorm";
 import {
     CreateAuthUserDTO, LoginDTO,
     LoginValidationPipe, AuthUserEntity,
-    CreateTeamMemberValidationPipe, SignupValidationPipe, SignupDTO, ForgotPasswordDTO, ForgotPasswordValidationPipe
+    CreateTeamMemberValidationPipe, SignupValidationPipe, SignupDTO, ForgotPasswordDTO, ForgotPasswordValidationPipe, UpdateAuthUserDTO
 } from './sub';
 import { Repository } from 'typeorm';
 import { message, ToplainInterceptor as ToPlainInterceptor } from "@authdare/utils";
 import { EventEmitter2 } from "@nestjs/event-emitter";
-import { PublicResource } from './role/roles-meta-data.decorator';
 import { map, Observable } from 'rxjs';
 import { ClassTransformOptions } from 'class-transformer';
 import { BGN } from '@authdare/objects';
 import { ClientAdmin, RolesManager, SuperAdmin } from './role';
 import { CreateTeamMemberDTO } from './sub/dto/create-team-member.dto';
-import { JwtService } from '@nestjs/jwt';
 import { compare } from 'bcrypt';
+import { PublicResource } from '@authdare/decorators/auth';
 
 const ClientUsersInterceptor = (options: ClassTransformOptions) => class TPI implements NestInterceptor {
     intercept(context: ExecutionContext, next: CallHandler<any>): Observable<any> | Promise<Observable<any>> {
@@ -39,7 +37,11 @@ const ClientUsersInterceptor = (options: ClassTransformOptions) => class TPI imp
 @Controller('auth')
 export class AuthController {
     private readonly logger = new Logger(AuthController.name)
-    constructor(private eventEmitter: EventEmitter2, @InjectRepository(AuthUserEntity) public readonly authUserRepository: Repository<AuthUserEntity>) { }
+
+    constructor(
+        private eventEmitter: EventEmitter2,
+        @InjectRepository(AuthUserEntity) public readonly authUserRepository: Repository<AuthUserEntity>
+    ) { }
 
     @ClientAdmin()
     @UseInterceptors(
@@ -198,5 +200,15 @@ export class AuthController {
 
         throw new BadRequestException("The acount does NOT exist!")
     }
+
+
+    @Post('updateprofile')
+    async updateProfile(@Body() body: UpdateAuthUserDTO, @Session() session: SessionType) {
+
+
+
+    }
+
+
 
 }

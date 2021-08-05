@@ -14,6 +14,4 @@ export class CreateTaskDTO extends BaseClass<CreateTaskDTO>{
     @Expose()
     readonly description!: string
 
-
-
 }

@@ -1,7 +1,7 @@
-import { classToClass } from 'class-transformer';
 import { Permission, RoleDTO } from './role-permission.dto';
-import { CustomDecorator, ExecutionContext, SetMetadata } from '@nestjs/common';
+import { ExecutionContext } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
+import { AuthDecoratorTokens } from '@authdare/decorators/auth';
 
 
 function getMetaData<T>(context: ExecutionContext, reflector: Reflector, key: string) {
@@ -9,36 +9,6 @@ function getMetaData<T>(context: ExecutionContext, reflector: Reflector, key: st
         context.getHandler(),
         context.getClass(),
     ]);
-}
-
-const ROLE_META_KEY = 'ROLE_META_KEY'
-const PERMISSION_META_KEY = 'PERMISSION_META_KEY'
-const PUBLIC_RESOURCE_META_KEY = 'PUBLIC_RESOURCE_META_KEY';
-
-
-
-/**
- * Resource security decorator. 
- * @returns {CustomDecorator<string>}
- */
-export function HasRole(roles: RoleDTO[]): CustomDecorator<string> {
-    return SetMetadata(ROLE_META_KEY, roles.map(e => classToClass(new RoleDTO(e))))
-}
-
-/**
- * Resource security decorator. 
- * @returns {CustomDecorator<string>}
- */
-export function HasPermission(permissions: Permission[]): CustomDecorator {
-    return SetMetadata(PERMISSION_META_KEY, permissions.map(e => classToClass(new Permission(e))))
-}
-
-/**
- * Resource security decorator. 
- * @returns {CustomDecorator<string>}
- */
-export function PublicResource(): CustomDecorator<string> {
-    return SetMetadata(PUBLIC_RESOURCE_META_KEY, true)
 }
 
 
@@ -49,7 +19,7 @@ export function PublicResource(): CustomDecorator<string> {
  * @returns {RoleDTO[]} required roles for the resource
  */
 export function getRequiredRoles(context: ExecutionContext, reflector: Reflector): RoleDTO[] {
-    return getMetaData<RoleDTO[]>(context, reflector, ROLE_META_KEY);
+    return getMetaData<RoleDTO[]>(context, reflector, AuthDecoratorTokens.HasRoleToken);
 }
 
 /**
@@ -59,7 +29,7 @@ export function getRequiredRoles(context: ExecutionContext, reflector: Reflector
  * @returns {Permission[]} required permissions for the resource.
  */
 export function getRequiredPermissions(context: ExecutionContext, reflector: Reflector): Permission[] {
-    return getMetaData<Permission[]>(context, reflector, PERMISSION_META_KEY);
+    return getMetaData<Permission[]>(context, reflector, AuthDecoratorTokens.HasRoleToken);
 }
 
 /**
@@ -69,7 +39,7 @@ export function getRequiredPermissions(context: ExecutionContext, reflector: Ref
  * @returns {boolean}
  */
 export function isPublicResource(context: ExecutionContext, reflector: Reflector): boolean {
-    return getMetaData<boolean>(context, reflector, PUBLIC_RESOURCE_META_KEY);
+    return getMetaData<boolean>(context, reflector, AuthDecoratorTokens.PublicResourceToken);
 }
 
 export interface AuthContext {

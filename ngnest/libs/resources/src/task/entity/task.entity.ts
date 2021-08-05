@@ -11,4 +11,7 @@ export class TaskEntity extends BaseEntity<TaskEntity>{
     @Column()
     readonly description!: string;
 
+
+    @Column()
+    readonly for_whom!: number[]
 }
