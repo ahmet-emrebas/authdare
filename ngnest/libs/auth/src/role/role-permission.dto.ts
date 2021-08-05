@@ -18,7 +18,6 @@ export class Permission extends BaseClass<Permission> implements IPermission {
     @Trim()
     readonly resource!: string;
 
-
 }
 
 
@@ -35,6 +34,7 @@ export class RoleDTO extends BaseClass<RoleDTO> implements IRole {
     @Expose()
     @InitEach(Permission)
     readonly permissions!: Permission[];
+
 }
 
 

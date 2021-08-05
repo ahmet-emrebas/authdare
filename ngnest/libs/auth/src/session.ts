@@ -15,6 +15,9 @@ export class ClientSession extends BaseClass<ClientSession> {
     readonly visits!: number;
 
     @Expose()
+    readonly id!: number;
+
+    @Expose()
     readonly email!: string;
 
     @Expose()
@@ -34,7 +37,12 @@ export function setClientSession(session: SessionType, data: ClientSession): voi
     session[CLIENT_SESSION_KEY] = data;
 }
 
-export function getClientSession(context: ExecutionContext): ClientSession {
+export async function getClientSession(context: ExecutionContext): Promise<ClientSession> {
     const req = context.switchToHttp().getRequest<Request>()
-    return (req.session as any)[CLIENT_SESSION_KEY] as ClientSession;
+    const session = req.session;
+    const { errors, validatedInstance } = await new ClientSession((session as any)[CLIENT_SESSION_KEY]).transformAndValidate();
+    if (errors) {
+        return undefined!
+    }
+    return validatedInstance;
 }

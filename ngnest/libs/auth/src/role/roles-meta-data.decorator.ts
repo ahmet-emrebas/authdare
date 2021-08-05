@@ -29,7 +29,7 @@ export function getRequiredRoles(context: ExecutionContext, reflector: Reflector
  * @returns {Permission[]} required permissions for the resource.
  */
 export function getRequiredPermissions(context: ExecutionContext, reflector: Reflector): Permission[] {
-    return getMetaData<Permission[]>(context, reflector, AuthDecoratorTokens.HasRoleToken);
+    return getMetaData<Permission[]>(context, reflector, AuthDecoratorTokens.HasPermissionToken);
 }
 
 /**

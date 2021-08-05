@@ -51,11 +51,9 @@ export class RolesManager {
         return false;
     }
 
-    static hasPermissions(requiredPermissions: Permission[], plainRoles: RoleDTO[]) {
+    static hasPermissions(requiredPermissions: Permission[], roles: RoleDTO[]) {
+        if (!requiredPermissions || requiredPermissions.length == 0) return true;
 
-        if (!requiredPermissions) return true;
-
-        const roles = this.toClassRoles(plainRoles);
         for (let p of requiredPermissions) {
             for (let r of roles) {
                 if (r.hasIn('permissions', p)) {

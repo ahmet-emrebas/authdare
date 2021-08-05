@@ -8,12 +8,12 @@ import { InjectRepository } from "@nestjs/typeorm";
 import {
     CreateAuthUserDTO, LoginDTO,
     LoginValidationPipe, AuthUserEntity,
-    CreateTeamMemberValidationPipe, SignupValidationPipe, SignupDTO, ForgotPasswordDTO, ForgotPasswordValidationPipe, UpdateAuthUserDTO
+    CreateTeamMemberValidationPipe, SignupValidationPipe, SignupDTO, ForgotPasswordDTO, ForgotPasswordValidationPipe, UpdateAuthUserDTO, UpdateAuthUserValidationPipe
 } from './sub';
 import { Repository } from 'typeorm';
 import { message, ToplainInterceptor as ToPlainInterceptor } from "@authdare/utils";
 import { EventEmitter2 } from "@nestjs/event-emitter";
-import { map, Observable } from 'rxjs';
+import { map, Observable, throttleTime } from 'rxjs';
 import { ClassTransformOptions } from 'class-transformer';
 import { BGN } from '@authdare/objects';
 import { ClientAdmin, RolesManager, SuperAdmin } from './role';
@@ -22,8 +22,8 @@ import { compare } from 'bcrypt';
 import { PublicResource } from '@authdare/decorators/auth';
 
 const ClientUsersInterceptor = (options: ClassTransformOptions) => class CUI implements NestInterceptor {
-    intercept(context: ExecutionContext, next: CallHandler<any>): Observable<any> | Promise<Observable<any>> {
-        const session = getClientSession(context);
+    async intercept(context: ExecutionContext, next: CallHandler<any>): Promise<Observable<any>> {
+        const session = await getClientSession(context);
         const orgname = session.orgname;
         return next.handle().pipe(map((data: AuthUserEntity[]) => {
             return data.filter((e) => e.orgname && orgname && e.orgname == orgname)
@@ -37,6 +37,7 @@ const ClientUsersInterceptor = (options: ClassTransformOptions) => class CUI imp
 @UseGuards(AuthGuard)
 @Controller('auth')
 export class AuthController {
+
     private readonly logger = new Logger(AuthController.name)
 
     constructor(
@@ -81,7 +82,7 @@ export class AuthController {
                     roles: foundUser.roles,
                     orgname: foundUser.orgname,
                     visits: 1,
-
+                    id: foundUser.id
                 }));
                 return message('Welcome back!');
             } else {
@@ -131,7 +132,7 @@ export class AuthController {
                 ]
             })
         } catch (err) {
-            const ___saved_auth_user = await this.authUserRepository.save(validatedInstance);
+            const savedUser = await this.authUserRepository.save(validatedInstance);
 
             // Emitting SIGNUP EVENT
             this.eventEmitter.emit(AuthEvents.SIGNUP, validatedInstance);
@@ -141,7 +142,8 @@ export class AuthController {
                 roles: validatedInstance.roles,
                 email: validatedInstance.email,
                 orgname: validatedInstance.orgname,
-                visits: 1
+                visits: 1,
+                id: savedUser.id
             }));
 
             // Send greeting message or redirect user to the application dashboard.
@@ -204,10 +206,10 @@ export class AuthController {
 
 
     @Post(AuthPaths.UPDATE_PROFILE)
-    async updateProfile(@Body() body: UpdateAuthUserDTO, @Session() session: SessionType) {
-
-
-
+    async updateProfile(@Body(UpdateAuthUserValidationPipe) body: UpdateAuthUserDTO, @Session() session: SessionType) {
+        console.log(body)
+        await this.authUserRepository.update(session.auth.id, body);
+        return message("Updated profile.");
     }
 
 
