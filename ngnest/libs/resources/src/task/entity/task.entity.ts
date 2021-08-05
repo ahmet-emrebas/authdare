@@ -1,13 +1,14 @@
-import { CommonColumns } from '@authdare/objects';
+
+import { BaseEntity } from '@authdare/objects';
 import { Column, Entity } from 'typeorm';
 
 @Entity({ name: 'tasks' })
-export class TaskEntity extends CommonColumns<TaskEntity>{
+export class TaskEntity extends BaseEntity<TaskEntity>{
 
     @Column()
     readonly title!: string;
 
     @Column()
-    readonly desc!: string;
+    readonly description!: string;
 
 }

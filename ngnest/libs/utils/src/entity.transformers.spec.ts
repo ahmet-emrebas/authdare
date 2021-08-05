@@ -1,6 +1,5 @@
-import { assert } from 'chai';
-import { Stringify } from './stringify';
-
+import { assert } from "chai";
+import { Stringify } from "./entity.transformers";
 describe('stringify', () => {
     it('to should stringify and from should objectify   ', () => {
 
