@@ -1,35 +1,21 @@
-import { Trim } from '@authdare/utils';
-import { RolesManager, Role } from '../../role';
-import { BaseClass } from "@authdare/objects";
-import { ValidationPipe } from "@nestjs/common";
+import { ValidationPipe } from '@nestjs/common';
+import { Trim, SnakeCase } from '@authdare/utils';
+import { Role } from '../../role';
 import { ApiProperty } from "@nestjs/swagger";
-import { Exclude, Expose, Transform, Type } from "class-transformer";
+import { Exclude, Expose, Type } from "class-transformer";
 import { IsEmail, Length, NotContains, ValidateNested } from "class-validator";
-import { SnakeCase } from '@authdare/utils/snake-case';
+import { BaseClass } from '@authdare/objects';
 
-enum Groups {
-    SIGNUP = 'SIGNUP',
-    CREATE_TEAM_MEMBER = 'CREATE_TEAM_MEMBER'
-}
-
-export const SubCreateTeamValidation = new ValidationPipe({
-    transform: true,
-    transformOptions: { groups: [Groups.CREATE_TEAM_MEMBER], },
-    groups: [Groups.CREATE_TEAM_MEMBER]
-});
-
-export const SubSignupValidationPipe = new ValidationPipe({
-    transform: true,
-    transformOptions: { groups: [Groups.SIGNUP] }
-});
-
-
+export const CreateAuthUserValidationPipe = new ValidationPipe({ transform: true });
+/**
+ * This DTO is for us to create a subscription manually.
+ */
 @Exclude()
 export class CreateAuthUserDTO extends BaseClass<CreateAuthUserDTO> {
 
     @ApiProperty({ type: 'string', required: true, default: 'email@gmail.com' })
     @Expose()
-    @Trim()
+    @NotContains(' ')
     @IsEmail({}, { message: 'Email must be an email!' })
     readonly email!: string;
 
@@ -48,7 +34,6 @@ export class CreateAuthUserDTO extends BaseClass<CreateAuthUserDTO> {
 
     @ApiProperty({ required: false, default: [{ name: 'rolename', permissions: [{ method: 'get', resource: 'users' }] }] })
     @Expose()
-    @Transform(({ value }) => [RolesManager.clientAdmin()], { groups: [Groups.SIGNUP] })   // When user signup, then give him Client Admin Roles
     @ValidateNested({ each: true })
     @Type(() => Role)
     readonly roles!: Role[];

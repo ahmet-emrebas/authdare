@@ -1,7 +1,7 @@
 import { BaseClass } from "@authdare/objects";
 import { InitEach, Trim } from "@authdare/utils";
 import { ApiProperty, } from "@nestjs/swagger";
-import { Exclude, Expose } from "class-transformer";
+import { Expose } from "class-transformer";
 
 
 export class Permission extends BaseClass<Permission> {

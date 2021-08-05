@@ -1,15 +1,15 @@
-import { CommonColumns } from '@authdare/objects';
-import { Stringify } from '@authdare/utils';
+import { BaseEntity } from '@authdare/objects';
+import { Stringify, HashPassword } from '@authdare/utils';
 import { Column, Entity } from 'typeorm'
-import { Role } from '../dto';
+import { Role } from '../../role';
 
 @Entity({ name: 'subs' })
-export class AuthUserEntity extends CommonColumns<AuthUserEntity> {
+export class AuthUserEntity extends BaseEntity<AuthUserEntity> {
 
     @Column({ unique: true })
     readonly email!: string;
 
-    @Column({})
+    @Column({ transformer: HashPassword() })
     readonly password!: string;
 
     @Column({ unique: true, update: false })

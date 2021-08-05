@@ -1,6 +1,12 @@
+import { NotContains } from 'class-validator';
+import { InternalServerErrorException } from '@nestjs/common';
 import { classToClass } from 'class-transformer';
-import { validateOrReject } from 'class-validator';
-import { Permission, Role } from "../sub"
+import { IsNotIn, validateSync } from 'class-validator';
+import { Permission, Role } from './role-permission.dto';
+
+export function ValidateForbiddenRoleNames() {
+    return NotContains('super')
+}
 
 enum AdminNames {
     CLIENT = 'client_admin',
@@ -17,6 +23,9 @@ enum AdminResoures {
 }
 
 export class RolesManager {
+
+    private constructor() { }
+
     static superAdmin() {
         return new Role({
             name: AdminNames.SUPER,
@@ -34,6 +43,7 @@ export class RolesManager {
     private static toClassRoles(plainRoles: Role[]) {
         return plainRoles.map(e => classToClass(new Role(e)));
     }
+
     static hasRoles(requiredRoles: Role[], plainRoles: Role[]) {
 
         if (!requiredRoles) return true;
@@ -65,9 +75,13 @@ export class RolesManager {
      * @param permission 
      * @returns 
      */
-    static async permission(permission: Permission) {
+    static permission(permission: Permission) {
         const item = classToClass(permission)
-        await validateOrReject(item);
+        const errors = validateSync(item);
+        if (errors && errors.length > 0) {
+            console.error(errors, RolesManager.name);
+            throw new InternalServerErrorException(errors);
+        }
         return item;
     }
 
@@ -76,9 +90,13 @@ export class RolesManager {
      * @param role 
      * @returns 
      */
-    static async role(role: Role) {
+    static role(role: Role) {
         const item = classToClass(role)
-        await validateOrReject(item);
+        const errors = validateSync(item);
+        if (errors && errors.length > 0) {
+            console.error(errors, RolesManager.name);
+            throw new InternalServerErrorException(errors);
+        }
         return item;
     }
 

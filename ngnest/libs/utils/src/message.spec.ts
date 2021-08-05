@@ -1,5 +1,5 @@
 import { assert } from 'chai';
-import { message } from '@authdare/utils';
+import { message } from './message'
 describe('Message', () => {
     it('should return an object with property message', () => {
 

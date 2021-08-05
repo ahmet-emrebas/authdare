@@ -10,10 +10,4 @@ export class TaskEntity extends CommonColumns<TaskEntity>{
     @Column()
     readonly desc!: string;
 
-    @Column()
-    readonly status!: string;
-
-    @Column()
-    readonly assignee!: number;
-
 }

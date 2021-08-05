@@ -1,52 +1,120 @@
 import { AuthGuard } from './auth.guard';
-import { RolesManager } from './role/roles-manager';
-import { ClientSession, SessionType, setClientSession } from './session';
+import { ClientSession, getClientSession, SessionType, setClientSession } from './session';
 import { AuthEvents } from './auth-events.service';
-import { BadRequestException, Body, Controller, Delete, Get, NotImplementedException, Param, ParseIntPipe, Post, Session, UseGuards } from "@nestjs/common";
+import { BadRequestException, Body, CallHandler, Controller, Delete, ExecutionContext, Get, InternalServerErrorException, Logger, NestInterceptor, Param, ParseIntPipe, Post, Session, UseGuards, UseInterceptors } from "@nestjs/common";
 import { ApiBadRequestResponse, ApiCreatedResponse, ApiInternalServerErrorResponse, ApiTags } from "@nestjs/swagger";
 import { InjectRepository } from "@nestjs/typeorm";
-import { CreateAuthUserDTO, LoginDTO, LoginValidationPipe, AuthUserEntity, SubCreateTeamValidation, SubSignupValidationPipe } from './sub';
+import {
+    CreateAuthUserDTO, LoginDTO,
+    LoginValidationPipe, AuthUserEntity,
+    CreateTeamMemberValidationPipe, SignupValidationPipe, SignupDTO
+} from './sub';
 import { Repository } from 'typeorm';
-import { message } from "@authdare/utils";
+import { message, ToplainInterceptor as ToPlainInterceptor } from "@authdare/utils";
 import { EventEmitter2 } from "@nestjs/event-emitter";
-import { HasRole } from './role/set-roles.decorator';
+import { PublicResource } from './role/roles-meta-data.decorator';
+import { map, Observable } from 'rxjs';
+import { ClassTransformOptions } from 'class-transformer';
+import { BGN } from '@authdare/objects';
+import { ClientAdmin, RolesManager, SuperAdmin } from './role';
+import { CreateTeamMemberDTO } from './sub/dto/create-team-member.dto';
+
+const ClientUsersInterceptor = (options: ClassTransformOptions) => class TPI implements NestInterceptor {
+    intercept(context: ExecutionContext, next: CallHandler<any>): Observable<any> | Promise<Observable<any>> {
+        const session = getClientSession(context);
+        const orgname = session.orgname;
+        return next.handle().pipe(map((data: AuthUserEntity[]) => {
+            return data.filter((e) => e.orgname && orgname && e.orgname == orgname)
+        }))
+    }
+}
+
 
 @ApiTags(AuthController.name)
+@UseGuards(AuthGuard)
 @Controller('auth')
 export class AuthController {
+    private readonly logger = new Logger(AuthController.name)
+    constructor(private eventEmitter: EventEmitter2, @InjectRepository(AuthUserEntity) public readonly authUserRepository: Repository<AuthUserEntity>) { }
 
-    constructor(private eventEmitter: EventEmitter2, @InjectRepository(AuthUserEntity) public readonly subRepository: Repository<AuthUserEntity>) { }
-
-    @Get('users')
-    @UseGuards(AuthGuard)
-    @HasRole([RolesManager.clientAdmin()])
-    async getUsers() {
-        return await this.subRepository.find()
+    @ClientAdmin()
+    @UseInterceptors(
+        ToPlainInterceptor(),
+        ClientUsersInterceptor({ groups: [...Object.values(BGN)] })
+    )
+    @Get('client/users')
+    async getClientUsers() {
+        return await this.authUserRepository.find()
     }
 
-    @Post('login')
-    login(@Body(LoginValidationPipe) body: LoginDTO) {
+    @SuperAdmin()
+    @UseInterceptors(ToPlainInterceptor())
+    @Get('all/users')
+    async getAllUsers() {
+        return await this.authUserRepository.find()
+    }
+
+    @PublicResource()
+    @Get('orgs')
+    async getOrgs() {
+        return (await this.authUserRepository.find({ select: ['orgname'] })).map(e => e.orgname)
+    }
+
+    @PublicResource()
+    @Post(':orgname/login')
+    async login(@Param('orgname') orgname: string, @Body(LoginValidationPipe) body: LoginDTO) {
         this.eventEmitter.emit(AuthEvents.LOGIN)
         return body;
     }
 
+
+
+    /**
+     * Signup process
+     * @param ___body 
+     * @param session 
+     * @returns 
+     */
+
     @ApiCreatedResponse({ description: "When account created" })
     @ApiBadRequestResponse({ description: "When account already exist or input validation error." })
     @ApiInternalServerErrorResponse({ description: "When cound not connect database or (?)" })
+
+    @PublicResource()
     @Post('signup')
-    async signup(@Body(SubSignupValidationPipe) body: CreateAuthUserDTO, @Session() session: SessionType) {
+    async signup(@Body(SignupValidationPipe) ___body: SignupDTO, @Session() session: SessionType) {
+
+        // Creating, transforming, and validating client admin user.
+        const { errors, validatedInstance } =
+            await new CreateAuthUserDTO({ ...___body, roles: [RolesManager.clientAdmin()] })
+                .transformAndValidate()
+
+        if (errors) {
+            this.logger.error('Could not validate the user for some reason!', errors, validatedInstance);
+            throw new InternalServerErrorException()
+        }
 
         try {
             // Try to find the user with orgname and email. If user exists, then skip the CATCH BLOCK, and throw BadRequestException
-            await this.subRepository.findOneOrFail({ where: [{ orgname: body.orgname }, { email: body.email }] })
+            await this.authUserRepository.findOneOrFail({
+                where: [
+                    { orgname: validatedInstance.orgname },
+                    { email: validatedInstance.email }
+                ]
+            })
         } catch (err) {
-            const savedUser = await this.subRepository.save(body);
+            const ___saved_auth_user = await this.authUserRepository.save(validatedInstance);
 
             // Emitting SIGNUP EVENT
-            this.eventEmitter.emit(AuthEvents.SIGNUP, savedUser);
+            this.eventEmitter.emit(AuthEvents.SIGNUP, validatedInstance);
 
             // Creating User Session
-            const userSession = new ClientSession({ roles: body.roles, email: body.email, orgname: body.orgname, visits: 1 });
+            const userSession = new ClientSession({
+                roles: validatedInstance.roles,
+                email: validatedInstance.email,
+                orgname: validatedInstance.orgname,
+                visits: 1
+            });
 
             // Setting User Session
             setClientSession(session, userSession)
@@ -58,15 +126,25 @@ export class AuthController {
         throw new BadRequestException("Account already exist")
     }
 
-    @HasRole([RolesManager.clientAdmin()])
+    /**
+     * Create a team member
+     * @param body 
+     * @param session 
+     */
+    @ClientAdmin()
     @Post("team")
-    createTeamMember(@Body(SubCreateTeamValidation) body: CreateAuthUserDTO, @Session() session: SessionType) {
+    createTeamMember(@Body(CreateTeamMemberValidationPipe) body: CreateTeamMemberDTO, @Session() session: SessionType) {
+        console.log(body);
         throw new Error("Not implemented");
     }
 
+
+
+
+    @SuperAdmin()
     @Delete(":id")
     async deleteTeamMember(@Param("id", ParseIntPipe) id: number) {
-        await this.subRepository.delete(id);
+        await this.authUserRepository.delete(id);
     }
 
 }

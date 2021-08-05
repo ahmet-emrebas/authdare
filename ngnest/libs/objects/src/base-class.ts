@@ -1,7 +1,12 @@
+import { classToClass } from 'class-transformer';
+import { TransformOptions } from 'class-transformer';
+import { KeyValue } from './key-value';
 import { Exclude } from 'class-transformer';
 import { cloneDeep, isEqual } from 'lodash';
+import { validate, ValidationError, ValidationOptions } from 'class-validator';
+import { ValidationErrors } from '@angular/forms';
 
-export type OmitBaseMethods<T> = Omit<T, 'isEqual' | 'hasIn'>
+export type OmitBaseMethods<T> = Omit<T, 'isEqual' | 'hasIn' | 'toString' | 'findByKey' | 'transformAndValidate'>
 
 
 export class BaseClass<T> {
@@ -24,6 +29,16 @@ export class BaseClass<T> {
         return isEqual(this, obj);
     }
 
+
+    /**
+     * @returns string version of the object
+     */
+    @Exclude()
+    toString() {
+        return JSON.stringify(this);
+    }
+
+
     /**
      * Check value exist the the the objectField (assuming it is an array).
      * @param objectField 
@@ -38,5 +53,41 @@ export class BaseClass<T> {
         }
         return false;
     }
+
+    /**
+     * Find a value of an item in a field (array field) by key.
+     * @param fieldName name of the fiels, which points to an array of key-value object
+     * @param key of the object you are looking for
+     * @returns the value of the object if found, undefined otherwise
+     */
+    @Exclude()
+    findByKey(objectProperty: keyof OmitBaseMethods<T>, key: string) {
+        const fieldRef = (this as any)[objectProperty] as Array<KeyValue>;
+        return fieldRef.find(e => e.key == key)?.value;
+    }
+
+
+
+
+    @Exclude()
+    async transformAndValidate(validationOptions?: ValidationOptions, transformOptions?: TransformOptions): Promise<{
+        errors?: ValidationError[] | false
+        validatedInstance: T
+    }> {
+        const transformed = classToClass(this, transformOptions);
+        const errors = await validate(transformed, validationOptions);
+
+        if (errors && errors.length > 0) {
+            return {
+                errors: errors,
+                validatedInstance: this as unknown as T
+            };
+        }
+        return {
+            errors: false,
+            validatedInstance: transformed as unknown as T
+        };
+    }
+
 
 }
