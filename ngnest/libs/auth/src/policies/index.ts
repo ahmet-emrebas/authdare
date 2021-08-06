@@ -5,5 +5,5 @@ export * from "./i-role";
 export * from "./member-policy.decorator";
 export * from "./permission-policy.decorator";
 export * from "./public-policy.decorator";
-export * from "./resource-policy";
-export * from "./roles-policy.decorator";
+export * from "./policy.key";
+export * from "./role.policy";

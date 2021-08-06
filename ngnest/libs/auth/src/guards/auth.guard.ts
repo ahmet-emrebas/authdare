@@ -1,7 +1,7 @@
 import { Request } from 'express';
 import { Reflector } from '@nestjs/core';
 import { CanActivate, ExecutionContext, Injectable } from "@nestjs/common";
-import { Policies } from '@authdare/auth/policies';
+import { PolicyKey } from '@authdare/auth/policies';
 import { IPermission } from '../policies/i-permission';
 import { IDynamicPermission } from '../policies/i-dynamic-permission';
 import { IRole } from '../policies/i-role';
@@ -15,11 +15,11 @@ export class AuthGuard implements CanActivate {
         const session = req.session;
         const getPolicy = <T>(key: string) => this.reflector.getAllAndOverride<T>(key, [context.getClass(), context.getHandler()]);
 
-        const isPublicPolicy = getPolicy<boolean>(Policies.PUBLIC);
-        const isMemberPolicy = getPolicy<boolean>(Policies.PUBLIC);
-        const hasPermissionPolicy = getPolicy<IPermission[]>(Policies.PERMISSION);
-        const hasRolePolicy = getPolicy<IRole[]>(Policies.ROLE);
-        const hasDynamicPolicy = getPolicy<IDynamicPermission[]>(Policies.DYNAMIC);
+        const isPublicPolicy = getPolicy<boolean>(PolicyKey.PUBLIC);
+        const isMemberPolicy = getPolicy<boolean>(PolicyKey.PUBLIC);
+        const hasPermissionPolicy = getPolicy<IPermission[]>(PolicyKey.PERMISSION);
+        const hasRolePolicy = getPolicy<IRole[]>(PolicyKey.ROLE);
+        const hasDynamicPolicy = getPolicy<IDynamicPermission[]>(PolicyKey.DYNAMIC);
 
 
         return false;

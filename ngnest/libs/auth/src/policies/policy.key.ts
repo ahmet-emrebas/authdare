@@ -4,7 +4,8 @@ import { v4 as uuid } from 'uuid'
 /**
  * Resource Access Policies
  */
-export const Policies = ImObject({
+export const PolicyKey = ImObject({
+
 
     /**
      * This key is for storing the policies of the user into the user's session so that upon request policies are compared and allow / deny the user request.
@@ -12,19 +13,16 @@ export const Policies = ImObject({
     SESSION_KEY: uuid(),
 
     /**
-     * Property key of enforced roles for the resource, which will be used for storing policy in session or request or any prefered storage item.
-     * @policy User Role
+     * Property key of SUPER_USER policy    
+     * SuperUser is allowed to access any resource.
+     * When user has this priviledge, user session will be ignored and user information will be checked in database every time to protect system from potential attackers.
+     * @policy Super User
      */
-    ROLE: uuid(),
+    SUPER_USER: uuid(),
+
 
     /**
-     * Property key of enforced permissions for the resource path in session or request or any prefered storage item.
-     * @policy User Permission
-     */
-    PERMISSION: uuid(),
-
-    /**
-     * Property key of  PUBLIC policy for the resource path in session/request/or whereever stored.
+     * Property key of PUBLIC policy 
      * This policy allows any user to consume the resouce/resoruces
      * @policy Public Resource
      */
@@ -37,6 +35,20 @@ export const Policies = ImObject({
      * @policy Member
      */
     MEMBER: uuid(),
+
+
+    /**
+     * Property key of enforced roles for the resource, which will be used for storing policy in session or request or any prefered storage item.
+     * @policy User Role
+     */
+    ROLE: uuid(),
+
+    /**
+     * Property key of enforced permissions in session or request or any prefered storage item.
+     * @policy User Permission
+     */
+    PERMISSION: uuid(),
+
 
     /**
      * Property key of DYNAMIC policy for the resource, which will be used for storing policy in session or request or any prefered storage item.
