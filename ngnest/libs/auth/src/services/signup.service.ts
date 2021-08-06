@@ -4,7 +4,6 @@ import { UserService } from './user.service';
 import { CreateUserDTO } from '@authdare/auth/sub';
 import { SignupDTO } from '../sub/dto/signup.dto';
 import { BadRequestException, Injectable, InternalServerErrorException, Logger } from "@nestjs/common";
-import { Role, Permission } from '../role';
 import { EmailEvents } from './email.service';
 
 
@@ -25,7 +24,7 @@ export class SignupService {
 
     private async createNewSusbscription(user: SignupDTO) {
 
-        const userRole = new Role({ name: 'admin', permissions: [new Permission({ method: 'all', resource: 'all' })] });
+        const userRole = null; ///TODO SET Client Admin role
         const orgname = user.orgname;
 
         const isUserExist = await this.userService.isExist({ where: [{ orgname }, { email: user.email }] })

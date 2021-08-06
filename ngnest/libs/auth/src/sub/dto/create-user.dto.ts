@@ -1,6 +1,5 @@
 import { ValidationPipe } from '@nestjs/common';
 import { Trim, SnakeCase } from '@authdare/utils';
-import { Role } from '../../role';
 import { ApiProperty } from "@nestjs/swagger";
 import { Exclude, Expose, Type } from "class-transformer";
 import { IsEmail, Length, NotContains, ValidateNested } from "class-validator";

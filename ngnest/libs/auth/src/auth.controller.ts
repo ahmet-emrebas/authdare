@@ -1,5 +1,5 @@
 import { SignupService } from './services/signup.service';
-import { AuthGuard } from './auth.guard';
+import { AuthGuard } from './guards/auth.guard';
 import { Body, Controller, Logger, Post, Session, UseGuards } from "@nestjs/common";
 import { ApiBadRequestResponse, ApiCreatedResponse, ApiInternalServerErrorResponse, ApiTags } from "@nestjs/swagger";
 import {
@@ -7,9 +7,8 @@ import {
     LoginValidationPipe, CreateTeamMemberValidationPipe, SignupValidationPipe, SignupDTO, ForgotPasswordDTO, ForgotPasswordValidationPipe, UpdateUserDTO, UpdateAuthUserValidationPipe
 } from './sub';
 import { EventEmitter2 } from "@nestjs/event-emitter";
-import { ClientAdmin } from './role';
 import { CreateTeamMemberDTO } from './sub/dto/create-team-member.dto';
-import { PublicPolicy } from '@authdare/decorators/auth';
+import { PublicPolicy } from '@authdare/auth/policies';
 import { LoginService } from './services/login.service';
 
 @ApiTags(AuthController.name)
@@ -54,7 +53,6 @@ export class AuthController {
      * @param body 
      * @param session 
      */
-    @ClientAdmin()
     @Post("create-member")
     async createTeamMember(@Body(CreateTeamMemberValidationPipe) body: CreateTeamMemberDTO, @Session() session: any) { }
 
