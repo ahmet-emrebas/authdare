@@ -46,7 +46,7 @@ export function InitEach<T = any>(C: ClassConstructor<T>, options?: TransformOpt
  * @returns 
  */
 export function SnakeCase(options?: TransformOptions) {
-    return Transform(({ value }) => value && typeof value == 'string' && snakeCase(value))
+    return Transform(({ value }) => value && typeof value == 'string' && snakeCase(value), options)
 }
 
 
@@ -83,16 +83,16 @@ export function TTrimEach(options?: TransformOptions) {
 }
 
 
-export function TSplitBy(delimeter: string = ',', options?: TransformOptions) {
-    return Transform(({ value }) => value && typeof value == 'string' && value.split(delimeter))
+export function TSplitBy(delimeter = ',', options?: TransformOptions) {
+    return Transform(({ value }) => value && typeof value == 'string' && value.split(delimeter), options)
 }
 
 
 export function TParseBool(options?: TransformOptions) {
-    return Transform(({ value }) => value && typeof value == 'string' && (value == 'true' ? true : value == 'false' ? false : undefined));
+    return Transform(({ value }) => value && typeof value == 'string' && (value == 'true' ? true : value == 'false' ? false : undefined), options);
 }
 
 
 export function TObjectify(options?: TransformOptions) {
-    return Transform(({ value }) => value && typeof value == 'string' && fromPairs(split(value, ',')?.map((e) => e?.split(':'))))
+    return Transform(({ value }) => value && typeof value == 'string' && fromPairs(split(value, ',')?.map((e) => e?.split(':'))), options)
 }

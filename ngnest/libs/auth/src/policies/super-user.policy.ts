@@ -1,5 +1,4 @@
 import { PolicyKey } from './policy.key';
-import { IRole } from './i-role';
 import { Policy } from './policy';
 
 
@@ -8,7 +7,7 @@ import { Policy } from './policy';
  * @value boolean
  * @returns CustomDecorator<string>
  */
-export function SuperUserPolicy(roles: IRole[]): Policy<boolean> {
+export function SuperUserPolicy(): Policy<boolean> {
     return new Policy(PolicyKey.SUPER_USER, true)
 }
 

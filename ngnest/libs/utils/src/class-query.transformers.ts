@@ -31,7 +31,7 @@ function __moreThan(value: any) {
  * @returns 
  */
 export function TLikeContains(options?: TransformOptions) {
-    return Transform(({ value }) => __likeContains(value));
+    return Transform(({ value }) => __likeContains(value), options);
 }
 /**
  * Transform string to SQL query LIKE
@@ -39,7 +39,7 @@ export function TLikeContains(options?: TransformOptions) {
  * @returns 
  */
 export function TLikeStartWith(options?: TransformOptions) {
-    return Transform(({ value }) => __likeStartsWith(value));
+    return Transform(({ value }) => __likeStartsWith(value), options);
 }
 
 /**
@@ -48,7 +48,7 @@ export function TLikeStartWith(options?: TransformOptions) {
  * @returns 
  */
 export function TLikeEndWith(options?: TransformOptions) {
-    return Transform(({ value }) => __likeEndsWith(value));
+    return Transform(({ value }) => __likeEndsWith(value), options);
 }
 
 
@@ -58,7 +58,7 @@ export function TLikeEndWith(options?: TransformOptions) {
  * @returns 
  */
 export function TLessThan(options?: TransformOptions) {
-    return Transform(({ value }) => __lessThan(value));
+    return Transform(({ value }) => __lessThan(value), options);
 }
 /**
  * Transform Date string to LessThan Query which means afte the date.
@@ -66,5 +66,5 @@ export function TLessThan(options?: TransformOptions) {
  * @returns 
  */
 export function TMoreThan(options?: TransformOptions) {
-    return Transform(({ value }) => __moreThan(value));
+    return Transform(({ value }) => __moreThan(value), options);
 }

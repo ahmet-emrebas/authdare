@@ -7,7 +7,7 @@ describe('Delay', () => {
         const i = setInterval(() => counter++, 100);
         await delay(2000);
         clearInterval(i);
-        expect(counter).to.greaterThan(18);
+        expect(counter).to.be.greaterThan(17);
 
     });
 });
