@@ -7,6 +7,6 @@ import { SetMetadata, CustomDecorator } from '@nestjs/common';
  * @returns {CustomDecorator<string>}
  */
 export function HasPermission(permissions: IPermission[]): CustomDecorator {
-    return SetMetadata(AuthDecoratorTokens.HasPermissionToken, permissions)
+    return SetMetadata(AuthDecoratorTokens.HAS_PERMISSION_TOKEN, permissions)
 }
 

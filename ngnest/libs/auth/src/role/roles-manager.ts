@@ -1,7 +1,7 @@
-import { InternalServerErrorException } from '@nestjs/common';
+import { IPermission, IRole } from '@authdare/interfaces';
+import { InternalServerErrorException, Logger } from '@nestjs/common';
 import { classToClass } from 'class-transformer';
-import { validateSync } from 'class-validator';
-import { Permission, RoleDTO } from './role-permission.dto';
+import { Permission, Role } from '.';
 
 
 enum AdminNames {
@@ -19,28 +19,28 @@ enum AdminResoures {
 }
 
 export class RolesManager {
-
+    private static logger = new Logger(RolesManager.name);
     private constructor() { }
 
     static superAdmin() {
-        return new RoleDTO({
+        return new Role({
             name: AdminNames.SUPER,
             permissions: [new Permission({ method: AdminMethods.ALL, resource: AdminResoures.SUPER_RESOURCE })]
         });
     }
 
     static clientAdmin() {
-        return new RoleDTO({
+        return new Role({
             name: AdminNames.CLIENT,
             permissions: [new Permission({ method: AdminMethods.ALL, resource: AdminResoures.CLIENT_RESOURCE })]
         })
     }
 
-    private static toClassRoles(plainRoles: RoleDTO[]) {
-        return plainRoles.map(e => classToClass(new RoleDTO(e)));
+    private static toClassRoles(plainRoles: Role[]) {
+        return plainRoles.map(e => classToClass(new Role(e)));
     }
 
-    static hasRoles(requiredRoles: RoleDTO[], plainRoles: RoleDTO[]) {
+    static hasRoles(requiredRoles: Role[], plainRoles: Role[]) {
 
         if (!requiredRoles) return true;
 
@@ -51,7 +51,7 @@ export class RolesManager {
         return false;
     }
 
-    static hasPermissions(requiredPermissions: Permission[], roles: RoleDTO[]) {
+    static hasPermissions(requiredPermissions: Permission[], roles: Role[]) {
         if (!requiredPermissions || requiredPermissions.length == 0) return true;
 
         for (let p of requiredPermissions) {
@@ -69,14 +69,13 @@ export class RolesManager {
      * @param permission 
      * @returns 
      */
-    static permission(permission: Permission) {
-        const item = classToClass(permission)
-        const errors = validateSync(item);
+    static async permission(permission: IPermission) {
+        const { errors, validatedInstance } = await new Permission(permission).transformAndValidate()
         if (errors && errors.length > 0) {
-            console.error(errors, RolesManager.name);
+            this.logger.error(errors, RolesManager.name);
             throw new InternalServerErrorException(errors);
         }
-        return item;
+        return validatedInstance;
     }
 
     /**
@@ -84,14 +83,13 @@ export class RolesManager {
      * @param role 
      * @returns 
      */
-    static role(role: RoleDTO) {
-        const item = classToClass(role)
-        const errors = validateSync(item);
-        if (errors && errors.length > 0) {
-            console.error(errors, RolesManager.name);
+    static async role(role: IRole): Promise<Role> {
+        const { errors, validatedInstance } = await new Role(role).transformAndValidate();
+        if (errors) {
+            this.logger.error(errors, RolesManager.name);
             throw new InternalServerErrorException(errors);
         }
-        return item;
+        return validatedInstance;
     }
 
 }

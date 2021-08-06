@@ -3,7 +3,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { Exclude, Expose, Transform, TransformPlainToClass, Type } from "class-transformer";
 import { IsEmail, Length, NotContains, ValidateNested } from "class-validator";
 import { BaseClass } from '@authdare/objects';
-import { RoleDTO } from "@authdare/auth/role";
+import { Role } from "@authdare/auth/role";
 import { InitEach, Trim } from "@authdare/utils";
 import { internet } from 'faker'
 
@@ -22,13 +22,13 @@ export class CreateTeamMemberDTO extends BaseClass<CreateTeamMemberDTO> {
     @ApiProperty({
         required: false, default: [
             { name: 'role_name', permissions: [{ method: 'get', resource: 'users' }] }
-        ] as RoleDTO[]
+        ] as Role[]
     })
     @Expose()
     @ValidateNested({ each: true })
-    @InitEach(RoleDTO)
-    @Type(() => RoleDTO)
-    readonly roles!: RoleDTO[];
+    @InitEach(Role)
+    @Type(() => Role)
+    readonly roles!: Role[];
 
 
     @Expose()

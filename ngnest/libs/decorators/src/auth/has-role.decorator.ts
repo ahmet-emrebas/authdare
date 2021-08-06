@@ -7,5 +7,5 @@ import { IRole } from '@authdare/interfaces';
  * @returns {CustomDecorator<string>}
  */
 export function HasRole(roles: IRole[]): CustomDecorator<string> {
-    return SetMetadata(AuthDecoratorTokens.HasRoleToken, roles)
+    return SetMetadata(AuthDecoratorTokens.HAS_ROLE_TOKEN, roles)
 }

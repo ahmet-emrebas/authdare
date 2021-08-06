@@ -1,7 +1,7 @@
 import { ExecutionContext } from '@nestjs/common';
 import { BaseClass } from '@authdare/objects';
 import { Expose } from 'class-transformer';
-import { RoleDTO } from './role';
+import { Role } from './role';
 import { InitEach } from '@authdare/utils';
 import { Request } from 'express';
 
@@ -24,8 +24,8 @@ export class ClientSession extends BaseClass<ClientSession> {
     readonly orgname!: string;
 
     @Expose()
-    @InitEach(RoleDTO)
-    readonly roles!: RoleDTO[];
+    @InitEach(Role)
+    readonly roles!: Role[];
 }
 
 export type SessionType = {
@@ -37,10 +37,19 @@ export function setClientSession(session: SessionType, data: ClientSession): voi
     session[CLIENT_SESSION_KEY] = data;
 }
 
-export async function getClientSession(context: ExecutionContext): Promise<ClientSession> {
+export async function getClientSession(context: ExecutionContext): Promise<ClientSession | undefined> {
     const req = context.switchToHttp().getRequest<Request>()
     const session = req.session;
-    const { errors, validatedInstance } = await new ClientSession((session as any)[CLIENT_SESSION_KEY]).transformAndValidate();
+
+
+    if (!session) return undefined;
+
+    const authSession = (session as any)[CLIENT_SESSION_KEY];
+
+    if (!authSession) return undefined;
+
+    const { errors, validatedInstance } = await new ClientSession(authSession).transformAndValidate();
+
     if (errors) {
         return undefined!
     }

@@ -5,5 +5,5 @@ import { CustomDecorator, SetMetadata } from '@nestjs/common';
  * @returns {CustomDecorator<string>}
  */
 export function PublicResource(): CustomDecorator<string> {
-    return SetMetadata(AuthDecoratorTokens.PublicResourceToken, true)
+    return SetMetadata(AuthDecoratorTokens.PUBLIC_RESOURCE_TOKEN, true)
 }

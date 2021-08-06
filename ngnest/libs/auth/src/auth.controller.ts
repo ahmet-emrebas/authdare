@@ -13,7 +13,7 @@ import {
 import { Repository } from 'typeorm';
 import { message, ToplainInterceptor as ToPlainInterceptor } from "@authdare/utils";
 import { EventEmitter2 } from "@nestjs/event-emitter";
-import { map, Observable, throttleTime } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { ClassTransformOptions } from 'class-transformer';
 import { BGN } from '@authdare/objects';
 import { ClientAdmin, RolesManager, SuperAdmin } from './role';
@@ -24,7 +24,7 @@ import { PublicResource } from '@authdare/decorators/auth';
 const ClientUsersInterceptor = (options: ClassTransformOptions) => class CUI implements NestInterceptor {
     async intercept(context: ExecutionContext, next: CallHandler<any>): Promise<Observable<any>> {
         const session = await getClientSession(context);
-        const orgname = session.orgname;
+        const orgname = session?.orgname;
         return next.handle().pipe(map((data: AuthUserEntity[]) => {
             return data.filter((e) => e.orgname && orgname && e.orgname == orgname)
         }))
@@ -40,16 +40,10 @@ export class AuthController {
 
     private readonly logger = new Logger(AuthController.name)
 
-    constructor(
-        private eventEmitter: EventEmitter2,
-        @InjectRepository(AuthUserEntity) public readonly authUserRepository: Repository<AuthUserEntity>
-    ) { }
+    constructor(private eventEmitter: EventEmitter2, @InjectRepository(AuthUserEntity) public readonly authUserRepository: Repository<AuthUserEntity>) { }
 
     @ClientAdmin()
-    @UseInterceptors(
-        ToPlainInterceptor(),
-        ClientUsersInterceptor({ groups: [...Object.values(BGN)] })
-    )
+    @UseInterceptors(ToPlainInterceptor(), ClientUsersInterceptor({ groups: [...Object.values(BGN)] }))
     @Get('client/users')
     async getClientUsers() {
         return await this.authUserRepository.find()
@@ -111,46 +105,7 @@ export class AuthController {
 
     @PublicResource()
     @Post(AuthPaths.SIGNUP)
-    async signup(@Body(SignupValidationPipe) ___body: SignupDTO, @Session() session: SessionType) {
-
-        // Creating, transforming, and validating client admin user.
-        const { errors, validatedInstance } =
-            await new CreateAuthUserDTO({ ...___body, roles: [RolesManager.clientAdmin()] })
-                .transformAndValidate()
-
-        if (errors) {
-            this.logger.error('Could not validate the user for some reason!', errors, validatedInstance);
-            throw new InternalServerErrorException()
-        }
-
-        try {
-            // Try to find the user with orgname and email. If user exists, then skip the CATCH BLOCK, and throw BadRequestException
-            await this.authUserRepository.findOneOrFail({
-                where: [
-                    { orgname: validatedInstance.orgname },
-                    { email: validatedInstance.email }
-                ]
-            })
-        } catch (err) {
-            const savedUser = await this.authUserRepository.save(validatedInstance);
-
-            // Emitting SIGNUP EVENT
-            this.eventEmitter.emit(AuthEvents.SIGNUP, validatedInstance);
-
-            // Setting User Session
-            setClientSession(session, new ClientSession({
-                roles: validatedInstance.roles,
-                email: validatedInstance.email,
-                orgname: validatedInstance.orgname,
-                visits: 1,
-                id: savedUser.id
-            }));
-
-            // Send greeting message or redirect user to the application dashboard.
-            return message('Welcome!')
-        }
-
-        throw new BadRequestException("Account already exist")
+    async signup(@Body(SignupValidationPipe) userdata: SignupDTO, @Session() session: SessionType) {
     }
 
     /**
@@ -207,8 +162,8 @@ export class AuthController {
 
     @Post(AuthPaths.UPDATE_PROFILE)
     async updateProfile(@Body(UpdateAuthUserValidationPipe) body: UpdateAuthUserDTO, @Session() session: SessionType) {
-        console.log(body)
-        await this.authUserRepository.update(session.auth.id, body);
+        console.log(body);
+        await this.authUserRepository.update(session.auth.id, body as any);
         return message("Updated profile.");
     }
 

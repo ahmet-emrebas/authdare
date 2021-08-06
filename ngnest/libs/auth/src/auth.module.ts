@@ -6,7 +6,7 @@ import { CacheInterceptor, CacheModule, Logger, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthUserEntity } from './sub';
 import { JwtModule } from '@nestjs/jwt';
-import { AuthService } from './auth.service';
+import { AuthUserService } from './auth-user.service';
 import { delay } from '@authdare/utils';
 import { ConfigModule } from '@nestjs/config';
 import { APP_INTERCEPTOR } from '@nestjs/core';
@@ -99,7 +99,7 @@ const EMAIL_PASSWORD = process.env.EMAIL_PASSWORD;
   ],
   controllers: [AuthController],
   providers: [
-    AuthService,
+    AuthUserService,
     AuthCronService,
     AuthEmailService,
     AuthDatabaseService,

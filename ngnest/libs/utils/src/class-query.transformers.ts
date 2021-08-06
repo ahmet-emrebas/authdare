@@ -1,5 +1,29 @@
+import { isNotEmpty } from 'class-validator';
 import { LessThan, Like, MoreThan } from 'typeorm';
 import { Transform, TransformOptions } from 'class-transformer';
+import { isString } from 'lodash';
+
+
+function __likeContains(value: any) {
+    return isNotEmpty(value) && isString(value) && Like(`%${value}%`)
+}
+
+function __likeStartsWith(value: any) {
+    return isNotEmpty(value) && isString(value) && Like(`${value}%`)
+}
+
+function __likeEndsWith(value: any) {
+    return isNotEmpty(value) && isString(value) && Like(`${value}%`)
+}
+
+function __lessThan(value: any) {
+    return isNotEmpty(value) && isString(value) && LessThan(new Date(value))
+}
+
+function __moreThan(value: any) {
+    return isNotEmpty(value) && isString(value) && MoreThan(new Date(value))
+}
+
 
 /**
  * Transform string to SQL query LIKE
@@ -7,7 +31,7 @@ import { Transform, TransformOptions } from 'class-transformer';
  * @returns 
  */
 export function TLikeContains(options?: TransformOptions) {
-    return Transform(({ value }) => Like(`%${value}%`));
+    return Transform(({ value }) => __likeContains(value));
 }
 /**
  * Transform string to SQL query LIKE
@@ -15,7 +39,7 @@ export function TLikeContains(options?: TransformOptions) {
  * @returns 
  */
 export function TLikeStartWith(options?: TransformOptions) {
-    return Transform(({ value }) => Like(`${value}%`));
+    return Transform(({ value }) => __likeStartsWith(value));
 }
 
 /**
@@ -24,7 +48,7 @@ export function TLikeStartWith(options?: TransformOptions) {
  * @returns 
  */
 export function TLikeEndWith(options?: TransformOptions) {
-    return Transform(({ value }) => Like(`${value}%`));
+    return Transform(({ value }) => __likeEndsWith(value));
 }
 
 
@@ -34,7 +58,7 @@ export function TLikeEndWith(options?: TransformOptions) {
  * @returns 
  */
 export function TLessThan(options?: TransformOptions) {
-    return Transform(({ value }) => LessThan(new Date(value)));
+    return Transform(({ value }) => __lessThan(value));
 }
 /**
  * Transform Date string to LessThan Query which means afte the date.
@@ -42,5 +66,5 @@ export function TLessThan(options?: TransformOptions) {
  * @returns 
  */
 export function TMoreThan(options?: TransformOptions) {
-    return Transform(({ value }) => MoreThan(new Date(value)));
+    return Transform(({ value }) => __moreThan(value));
 }

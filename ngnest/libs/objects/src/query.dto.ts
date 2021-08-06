@@ -1,10 +1,20 @@
-import { ValidationPipe } from '@nestjs/common';
+import { PipeTransform, ArgumentMetadata } from '@nestjs/common';
 import { TObjectify, TParseBool, TSplitBy } from "@authdare/utils";
 import { ApiProperty } from "@nestjs/swagger";
-import { Exclude, Expose } from "class-transformer";
+import { ClassConstructor, Exclude, Expose } from "class-transformer";
 import { BaseClass } from "./base-class";
+import { FindManyOptions } from 'typeorm';
 
-export const QueryValidationPipe = new ValidationPipe({ transform: true, transformOptions: { excludeExtraneousValues: true, exposeUnsetFields: false } });
+export function QueryValidationPipe<T extends BaseClass<any> = any>(resourceQueryDTO: ClassConstructor<T>) {
+    return class QueryValidationPipe implements PipeTransform {
+        async transform(value: any, metadata: ArgumentMetadata): Promise<FindManyOptions> {
+            const query = await new QueryDTO(value).transformAndValidate({}, { exposeUnsetFields: false, excludeExtraneousValues: true })
+            const fieldsQuery = await new resourceQueryDTO(value).transformAndValidate({}, { exposeUnsetFields: false, excludeExtraneousValues: true })
+            return { ...(query.errors ? {} : query.validatedInstance) as any, where: fieldsQuery.errors ? {} : fieldsQuery.validatedInstance }
+        }
+    }
+
+}
 
 
 @Exclude()

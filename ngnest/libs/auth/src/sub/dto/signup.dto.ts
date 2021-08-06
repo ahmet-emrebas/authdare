@@ -3,14 +3,10 @@ import { Trim } from '@authdare/utils';
 import { ValidationPipe } from '@nestjs/common';
 import { Exclude, Expose } from "class-transformer";
 import { IsEmail, Length, NotContains } from "class-validator";
-import { AuthUserGroups } from './auth-user-groups';
 import { ApiProperty } from '@nestjs/swagger';
 import { SnakeCase } from '@authdare/utils';
 
-export const SignupValidationPipe = new ValidationPipe({
-    transform: true,
-    transformOptions: { groups: [AuthUserGroups.SIGNUP] }
-});
+export const SignupValidationPipe = new ValidationPipe({ transform: true });
 
 
 @Exclude()

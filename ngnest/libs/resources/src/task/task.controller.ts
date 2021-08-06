@@ -18,7 +18,7 @@ export class TaskController {
 
     // @HasPermission([new Permission({ method: 'get', resource: 'users' })])
     @Get()
-    async find(@Query(QueryValidationPipe) query: QueryDTO, @GetResourceRepo() repo: Repository<TaskEntity>) {
+    async find(@Query(QueryValidationPipe(CreateTaskDTO)) query: QueryDTO, @GetResourceRepo() repo: Repository<TaskEntity>) {
         const { errors, validatedInstance } = await new CreateTaskDTO(query as any).transformAndValidate()
         console.log(query, validatedInstance);
         return await repo.find({ ...(query as any), where: errors ? {} : validatedInstance });

@@ -1,7 +1,9 @@
-import { Permission, RoleDTO } from './role-permission.dto';
+
 import { ExecutionContext } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { AuthDecoratorTokens } from '@authdare/decorators/auth';
+import { Role } from './role';
+import { Permission } from './permission'
 
 
 function getMetaData<T>(context: ExecutionContext, reflector: Reflector, key: string) {
@@ -16,10 +18,10 @@ function getMetaData<T>(context: ExecutionContext, reflector: Reflector, key: st
  * Extract the required roles from context.
  * @param context 
  * @param reflector 
- * @returns {RoleDTO[]} required roles for the resource
+ * @returns {Role[]} required roles for the resource
  */
-export function getRequiredRoles(context: ExecutionContext, reflector: Reflector): RoleDTO[] {
-    return getMetaData<RoleDTO[]>(context, reflector, AuthDecoratorTokens.HasRoleToken);
+export function getRequiredRoles(context: ExecutionContext, reflector: Reflector): Role[] {
+    return getMetaData<Role[]>(context, reflector, AuthDecoratorTokens.HAS_ROLE_TOKEN);
 }
 
 /**
@@ -29,7 +31,7 @@ export function getRequiredRoles(context: ExecutionContext, reflector: Reflector
  * @returns {Permission[]} required permissions for the resource.
  */
 export function getRequiredPermissions(context: ExecutionContext, reflector: Reflector): Permission[] {
-    return getMetaData<Permission[]>(context, reflector, AuthDecoratorTokens.HasPermissionToken);
+    return getMetaData<Permission[]>(context, reflector, AuthDecoratorTokens.HAS_PERMISSION_TOKEN);
 }
 
 /**
@@ -39,11 +41,11 @@ export function getRequiredPermissions(context: ExecutionContext, reflector: Ref
  * @returns {boolean}
  */
 export function isPublicResource(context: ExecutionContext, reflector: Reflector): boolean {
-    return getMetaData<boolean>(context, reflector, AuthDecoratorTokens.PublicResourceToken);
+    return getMetaData<boolean>(context, reflector, AuthDecoratorTokens.PUBLIC_RESOURCE_TOKEN);
 }
 
 export interface AuthContext {
-    roles: RoleDTO[],
+    roles: Role[],
     permissions: Permission[],
     isPublic: boolean
 }

@@ -1,3 +1,4 @@
+import { genSaltSync } from 'bcrypt';
 import { NestFactory } from '@nestjs/core';
 import * as  express from 'express';
 import { ExpressAdapter } from '@nestjs/platform-express';
@@ -7,12 +8,14 @@ import * as session from 'express-session';
 import * as cookieParser from 'cookie-parser';
 import * as helmet from 'helmet';
 import * as cors from 'cors';
+import * as csurf from 'csurf'
 import { ResourcesModule } from '@authdare/resources/resources.module';
-
 
 async function bootstrap() {
 
   const server = express()
+  server.use(helmet());
+  server.use(csurf());
 
   server.use(session({
     name: 'session',
@@ -25,7 +28,6 @@ async function bootstrap() {
   }));
 
   server.use(cookieParser());
-  server.use(helmet());
   server.use(cors());
 
   const adapter = new ExpressAdapter(server);
