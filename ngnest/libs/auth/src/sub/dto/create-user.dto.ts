@@ -32,11 +32,11 @@ export class CreateUserDTO extends BaseClass<CreateUserDTO> {
     @Length(3, 50)
     readonly orgname!: string;
 
-    @ApiProperty({ required: false, default: [{ name: 'rolename', permissions: [{ method: 'get', resource: 'users' }] }] })
-    @Expose()
-    @ValidateNested({ each: true })
-    @Type(() => Role)
-    readonly roles!: Role[];
+    // @ApiProperty({ required: false, default: [{ name: 'rolename', permissions: [{ method: 'get', resource: 'users' }] }] })
+    // @Expose()
+    // @ValidateNested({ each: true })
+    // @Type(() => Role)
+    // readonly roles!: Role[];
 
 }
 

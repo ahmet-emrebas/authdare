@@ -1,7 +1,6 @@
 import { BaseEntity } from '@authdare/objects';
 import { Stringify, HashPassword } from '@authdare/utils';
 import { Column, Entity } from 'typeorm'
-import { Role } from '../../role';
 
 @Entity({ name: 'subs' })
 export class UserEntity extends BaseEntity<UserEntity> {
@@ -15,8 +14,8 @@ export class UserEntity extends BaseEntity<UserEntity> {
     @Column({ update: false })
     readonly orgname!: string;
 
-    @Column({ type: 'text', transformer: Stringify() })
-    readonly roles!: Role[];
+    // @Column({ type: 'text', transformer: Stringify() })
+    // readonly roles!: Role[];
 
 
 }

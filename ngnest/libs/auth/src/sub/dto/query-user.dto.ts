@@ -1,6 +1,5 @@
 import { ValidationPipe } from '@nestjs/common';
 import { Trim, TLikeContains } from '@authdare/utils';
-import { Role } from '../../role';
 import { ApiProperty } from "@nestjs/swagger";
 import { Exclude, Expose } from "class-transformer";
 import { Length, NotContains } from "class-validator";
@@ -27,10 +26,10 @@ export class QueryUserDTO extends BaseClass<QueryUserDTO> {
     @Length(3, 50)
     readonly orgname!: string;
 
-    @ApiProperty({ required: false, default: [{ name: 'rolename', permissions: [{ method: 'get', resource: 'users' }] }] })
-    @TLikeContains()
-    @Expose()
-    readonly roles!: Role[];
+    // @ApiProperty({ required: false, default: [{ name: 'rolename', permissions: [{ method: 'get', resource: 'users' }] }] })
+    // @TLikeContains()
+    // @Expose()
+    // readonly roles!: Role[];
 
 }
 

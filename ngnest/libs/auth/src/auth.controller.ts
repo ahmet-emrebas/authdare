@@ -8,7 +8,6 @@ import {
 } from './sub';
 import { EventEmitter2 } from "@nestjs/event-emitter";
 import { CreateTeamMemberDTO } from './sub/dto/create-team-member.dto';
-import { PublicPolicy } from '@authdare/auth/policies';
 import { LoginService } from './services/login.service';
 
 @ApiTags(AuthController.name)
@@ -25,7 +24,6 @@ export class AuthController {
     ) { }
 
 
-    @PublicPolicy()
     @Post('login')
     async login(@Body(LoginValidationPipe) body: LoginDTO, @Session() session: any) {
         const user = await this.loginService.login(body);
@@ -43,7 +41,6 @@ export class AuthController {
     @ApiBadRequestResponse({ description: "When account already exist or input validation error." })
     @ApiInternalServerErrorResponse({ description: "When cound not connect database or (?)" })
 
-    @PublicPolicy()
     @Post("signup")
     async signup(@Body(SignupValidationPipe) userdata: SignupDTO, @Session() session: any) {
     }
@@ -57,7 +54,6 @@ export class AuthController {
     async createTeamMember(@Body(CreateTeamMemberValidationPipe) body: CreateTeamMemberDTO, @Session() session: any) { }
 
 
-    @PublicPolicy()
     @Post("forgot-password")
     async forgotPassword(@Body(ForgotPasswordValidationPipe) body: ForgotPasswordDTO) {
 

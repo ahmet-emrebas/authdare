@@ -18,16 +18,16 @@ export class CreateTeamMemberDTO extends BaseClass<CreateTeamMemberDTO> {
     @IsEmail({}, { message: 'Email must be an email!' })
     readonly email!: string;
 
-    @ApiProperty({
-        required: false, default: [
-            { name: 'role_name', permissions: [{ method: 'get', resource: 'users' }] }
-        ]
-    })
-    @Expose()
-    @ValidateNested({ each: true })
-    @InitEach(Role)
-    @Type(() => Role)
-    readonly roles!: Role[];
+    // @ApiProperty({
+    //     required: false, default: [
+    //         { name: 'role_name', permissions: [{ method: 'get', resource: 'users' }] }
+    //     ]
+    // })
+    // @Expose()
+    // @ValidateNested({ each: true })
+    // @InitEach(Role)
+    // @Type(() => Role)
+    // readonly roles!: Role[];
 
 
     @Expose()

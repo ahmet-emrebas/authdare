@@ -10,6 +10,11 @@ type TPolicy = IRole[] | IPermission[] | true | false | string
 
 export class Policy<T = TPolicy> {
 
+    /**
+     * 
+     * @param key string
+     * @param policy type TPolicy = IRole[] | IPermission[] | true | false | string
+     */
     constructor(private readonly key: string, private readonly policy: T) { }
 
     /**
@@ -25,7 +30,7 @@ export class Policy<T = TPolicy> {
      * Check the policies are equal or not.
      * @param session key value object
      */
-    validate(session: TSession): Promise<boolean> | boolean {
+    verify(session: TSession): Promise<boolean> | boolean {
         let __policy;
         try {
             __policy = session[PolicyKey.SESSION_KEY][this.key];
