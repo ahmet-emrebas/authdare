@@ -1,20 +1,26 @@
 import { EventEmitter2 } from '@nestjs/event-emitter';
-import { AuthUserService } from './auth-user.service';
+import { UserService } from './user.service';
 
-import { CreateAuthUserDTO } from '@authdare/auth/sub';
-import { SignupDTO } from './sub/dto/signup.dto';
+import { CreateUserDTO } from '@authdare/auth/sub';
+import { SignupDTO } from '../sub/dto/signup.dto';
 import { BadRequestException, Injectable, InternalServerErrorException, Logger } from "@nestjs/common";
-import { Role, Permission } from './role';
+import { Role, Permission } from '../role';
+import { EmailEvents } from './email.service';
 
 
 @Injectable()
 export class SignupService {
     private readonly logger = new Logger(SignupService.name);
 
-    constructor(private authUserService: AuthUserService, private eventEmitter: EventEmitter2) { }
+    constructor(
+        private userService: UserService,
+        private events: EventEmitter2
+    ) { }
 
     async signup(user: SignupDTO) {
         const createdUser = await this.createNewSusbscription(user);
+        this.events.emit(EmailEvents.GREETING, createdUser.email);
+        return createdUser;
     }
 
     private async createNewSusbscription(user: SignupDTO) {
@@ -22,14 +28,14 @@ export class SignupService {
         const userRole = new Role({ name: 'admin', permissions: [new Permission({ method: 'all', resource: 'all' })] });
         const orgname = user.orgname;
 
-        const isUserExist = await this.authUserService.isExist({ where: [{ orgname }, { email: user.email }] })
+        const isUserExist = await this.userService.isExist({ where: [{ orgname }, { email: user.email }] })
 
         if (isUserExist) {
             throw new BadRequestException("Account already exists!")
         }
 
 
-        const { errors, validatedInstance } = await new CreateAuthUserDTO({ ...user, roles: [userRole] })
+        const { errors, validatedInstance } = await new CreateUserDTO({ ...user, roles: [userRole] })
             .transformAndValidate()
 
 
@@ -38,7 +44,7 @@ export class SignupService {
             throw new InternalServerErrorException()
         }
 
-        return await this.authUserService.create(validatedInstance);
+        return await this.userService.create(validatedInstance);
     }
 
 

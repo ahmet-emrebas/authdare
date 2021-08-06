@@ -1,4 +1,3 @@
-import { genSaltSync } from 'bcrypt';
 import { NestFactory } from '@nestjs/core';
 import * as  express from 'express';
 import { ExpressAdapter } from '@nestjs/platform-express';
@@ -8,14 +7,15 @@ import * as session from 'express-session';
 import * as cookieParser from 'cookie-parser';
 import * as helmet from 'helmet';
 import * as cors from 'cors';
-import * as csurf from 'csurf'
+
 import { ResourcesModule } from '@authdare/resources/resources.module';
+import { DatabaseModule } from '@authdare/database';
 
 async function bootstrap() {
 
   const server = express()
   server.use(helmet());
-  server.use(csurf());
+  // server.use(csurf());
 
   server.use(session({
     name: 'session',
@@ -40,8 +40,14 @@ async function bootstrap() {
   const authApp = await NestFactory.create(AuthModule, adapter);
   configureSwagger({ app: authApp, description: 'Auth app doc', title: 'Auth', path: 'auth' });
 
+  // Database APP 
+  const databaseApp = await NestFactory.create(DatabaseModule.register(), adapter);
+  configureSwagger({ app: databaseApp, description: 'Database app doc', title: 'Database', path: 'db' });
+
+
   resourceApi.init();
   authApp.init();
+  databaseApp.init();
 
   await adapter.listen(process.env['PORT'] || 3000);
 }

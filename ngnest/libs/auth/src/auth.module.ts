@@ -1,12 +1,13 @@
+import { SignupService } from './services/signup.service';
 import { genSaltSync, hashSync } from 'bcrypt';
 import { EjsAdapter } from '@nestjs-modules/mailer/dist/adapters/ejs.adapter';
-import { AuthEmailService } from './auth-email.service';
+import { EmailService } from './services/email.service';
 import { AuthController } from './auth.controller';
 import { CacheInterceptor, CacheModule, Logger, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AuthUserEntity } from './sub';
+import { UserEntity } from './sub';
 import { JwtModule } from '@nestjs/jwt';
-import { AuthUserService } from './auth-user.service';
+import { UserService } from './services/user.service';
 import { delay } from '@authdare/utils';
 import { ConfigModule } from '@nestjs/config';
 import { APP_INTERCEPTOR } from '@nestjs/core';
@@ -17,7 +18,9 @@ import { AuthDatabaseService } from './auth-database.service';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { join } from 'path';
 import { TaskEntity } from '@authdare/resources/task';
-import { RESOURCE_ENTITIES_TOKEN } from './resource-entities-token';
+import { ProviderTokens } from './provider-tokens';
+import { LoginService } from './services/login.service';
+import { CreateMemberService } from './services/create-member.service';
 
 
 const EMAIL_HOST = "mail.authdare.com";
@@ -59,13 +62,13 @@ const EMAIL_PASSWORD = process.env.EMAIL_PASSWORD;
           name: AuthModule.name,
           type: 'sqlite',
           database: 'database/auth/main.sqlite',
-          entities: [AuthUserEntity, TaskEntity],
+          entities: [UserEntity, TaskEntity],
           synchronize: true,
           dropSchema: true,
         }
       }
     }),
-    TypeOrmModule.forFeature([AuthUserEntity, TaskEntity]),
+    TypeOrmModule.forFeature([UserEntity, TaskEntity]),
 
 
     MailerModule.forRootAsync({
@@ -99,17 +102,20 @@ const EMAIL_PASSWORD = process.env.EMAIL_PASSWORD;
   ],
   controllers: [AuthController],
   providers: [
-    AuthUserService,
+    UserService,
     AuthCronService,
-    AuthEmailService,
+    EmailService,
     AuthDatabaseService,
+    LoginService,
+    SignupService,
+    CreateMemberService,
     {
       provide: APP_INTERCEPTOR,
       useClass: CacheInterceptor,
     },
     {
-      provide: RESOURCE_ENTITIES_TOKEN,
-      useValue: [AuthUserEntity, TaskEntity]
+      provide: ProviderTokens.RESOURCE_ENTITIES_TOKEN,
+      useValue: [UserEntity, TaskEntity]
     }
   ],
 })

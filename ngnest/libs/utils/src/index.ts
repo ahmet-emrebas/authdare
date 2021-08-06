@@ -3,5 +3,6 @@ export * from "./class.transformers";
 export * from "./database";
 export * from "./delay";
 export * from "./entity.transformers";
+export * from "./immutable-object";
 export * from "./message";
 export * from "./to-plain.interceptor";

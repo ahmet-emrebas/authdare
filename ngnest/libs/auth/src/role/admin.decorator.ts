@@ -1,11 +1,11 @@
-import { HasRole } from '@authdare/decorators/auth';
+import { RolesPolicy } from '@authdare/decorators/auth';
 import { RolesManager } from './roles-manager';
 
 export function ClientAdmin() {
-    return HasRole([RolesManager.clientAdmin()])
+    return RolesPolicy([RolesManager.clientAdmin()])
 }
 
 
 export function SuperAdmin() {
-    return HasRole([RolesManager.superAdmin()]);
+    return RolesPolicy([RolesManager.superAdmin()]);
 }

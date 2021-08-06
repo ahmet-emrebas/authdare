@@ -82,6 +82,7 @@
     "swagger-ui-express": "^4.1.6",
     "tslib": "^2.2.0",
     "typeorm": "^0.2.34",
+    "uuid": "^8.3.2",
     "validator": "^13.6.0",
     "zone.js": "~0.11.4"
   },
@@ -110,6 +111,7 @@
     "@types/node": "^12.11.1",
     "@types/sqlite3": "^3.1.7",
     "@types/supertest": "^2.0.10",
+    "@types/uuid": "^8.3.1",
     "@typescript-eslint/eslint-plugin": "^4.19.0",
     "@typescript-eslint/parser": "^4.19.0",
     "cypress": "^7.7.0",
@@ -166,7 +168,8 @@
       "@authdare/interfaces/(.*)": "<rootDir>/libs/interfaces/src/$1",
       "@authdare/interfaces": "<rootDir>/libs/interfaces/src",
       "@authdare/decorators/(.*)": "<rootDir>/libs/decorators/src/$1",
-      "@authdare/decorators": "<rootDir>/libs/decorators/src"
+      "@authdare/decorators": "<rootDir>/libs/decorators/src",
+      "^@authdare/database(|/.*)$": "<rootDir>/libs/database/src/$1"
     }
   }
 }

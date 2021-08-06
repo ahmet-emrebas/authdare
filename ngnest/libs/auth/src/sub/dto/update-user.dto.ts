@@ -10,7 +10,7 @@ export const UpdateAuthUserValidationPipe = new ValidationPipe({ transform: true
 
 
 @Exclude()
-export class UpdateAuthUserDTO extends BaseClass<UpdateAuthUserDTO> {
+export class UpdateUserDTO extends BaseClass<UpdateUserDTO> {
 
     @ApiProperty({ type: 'string', required: true, default: 'email@gmail.com' })
     @Expose()

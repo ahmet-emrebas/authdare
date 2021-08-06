@@ -4,7 +4,7 @@ import { Column, Entity } from 'typeorm'
 import { Role } from '../../role';
 
 @Entity({ name: 'subs' })
-export class AuthUserEntity extends BaseEntity<AuthUserEntity> {
+export class UserEntity extends BaseEntity<UserEntity> {
 
     @Column({ unique: true, update: false })
     readonly email!: string;

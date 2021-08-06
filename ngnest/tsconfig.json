@@ -54,6 +54,12 @@
       ],
       "@authdare/decorators/*": [
         "libs/decorators/src/*"
+      ],
+      "@authdare/database": [
+        "libs/database/src"
+      ],
+      "@authdare/database/*": [
+        "libs/database/src/*"
       ]
     },
     "lib": [
