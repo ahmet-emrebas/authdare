@@ -1,8 +1,8 @@
 import { ValidationPipe } from '@nestjs/common';
 import { Trim, TLikeContains } from '@authdare/utils';
-import { ApiProperty } from "@nestjs/swagger";
-import { Exclude, Expose } from "class-transformer";
-import { Length, NotContains } from "class-validator";
+import { ApiProperty } from '@nestjs/swagger';
+import { Exclude, Expose } from 'class-transformer';
+import { Length, NotContains } from 'class-validator';
 import { BaseClass } from '@authdare/objects';
 
 export const CreateAuthUserValidationPipe = new ValidationPipe({ transform: true });
@@ -12,7 +12,6 @@ export const CreateAuthUserValidationPipe = new ValidationPipe({ transform: true
  */
 @Exclude()
 export class QueryUserDTO extends BaseClass<QueryUserDTO> {
-
     @ApiProperty({ type: 'string', required: true, default: 'email@gmail.com' })
     @Expose()
     @TLikeContains()
@@ -26,11 +25,7 @@ export class QueryUserDTO extends BaseClass<QueryUserDTO> {
     @Length(3, 50)
     readonly orgname!: string;
 
-    // @ApiProperty({ required: false, default: [{ name: 'rolename', permissions: [{ method: 'get', resource: 'users' }] }] })
-    // @TLikeContains()
-    // @Expose()
-    // readonly roles!: Role[];
-
+    @ApiProperty({ required: false, default: [{ name: 'rolename', permissions: [{ method: 'get', resource: 'users' }] }] })
+    @Expose()
+    readonly roles!: string[];
 }
-
-

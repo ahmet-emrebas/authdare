@@ -1,12 +1,12 @@
 import { ClassConstructor } from 'class-transformer';
 
 import { internet } from 'faker';
-import { Inject, Injectable, InternalServerErrorException, Logger } from "@nestjs/common";
-import { EventEmitter2, OnEvent } from "@nestjs/event-emitter";
-import { InjectRepository } from "@nestjs/typeorm";
-import { Connection, getConnection, createConnection, Repository } from "typeorm";
-import { UserEntity, CreateUserDTO } from "./sub";
-import { ProviderTokens } from './provider-tokens';
+import { Inject, Injectable, InternalServerErrorException, Logger } from '@nestjs/common';
+import { EventEmitter2, OnEvent } from '@nestjs/event-emitter';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Connection, getConnection, createConnection, Repository } from 'typeorm';
+import { UserEntity, CreateUserDTO } from '../sub';
+import { ProviderTokens } from '../provider-tokens';
 
 export enum AuthEvents {
     /**
@@ -34,7 +34,6 @@ export enum AuthEvents {
      */
     DELETE = 'auth.delete',
 
-
     CREATE_MEMBER = 'auth.create_member',
     CREATE_MEMBER_EMAIL = 'auth.create_member_email',
 
@@ -49,10 +48,11 @@ export class AuthDatabaseService {
     constructor(
         @Inject(ProviderTokens.RESOURCE_ENTITIES_TOKEN) private readonly entities: ClassConstructor<any>[],
         private readonly eventEmitter: EventEmitter2,
-        @InjectRepository(UserEntity) private readonly authUserEntity: Repository<UserEntity>) { }
+        @InjectRepository(UserEntity) private readonly authUserEntity: Repository<UserEntity>,
+    ) {}
 
     private async createClientDatabase(orgname: string): Promise<Connection> {
-        let con: Connection
+        let con: Connection;
         try {
             con = getConnection(orgname);
         } catch (err) {
@@ -63,13 +63,13 @@ export class AuthDatabaseService {
                 entities: this.entities,
                 synchronize: true,
                 dropSchema: true,
-            })
+            });
         }
         return con;
     }
 
     private async getClientConnection(orgname: string): Promise<Connection> {
-        let con: Connection
+        let con: Connection;
 
         try {
             con = getConnection(orgname);
@@ -79,7 +79,7 @@ export class AuthDatabaseService {
                 type: 'sqlite',
                 database: `database/${orgname}/main.sqlite`,
                 entities: this.entities,
-            })
+            });
         }
         return con;
     }
@@ -91,7 +91,7 @@ export class AuthDatabaseService {
     private async createClient__ADMIN(userData: CreateUserDTO) {
         let con = await this.createClientDatabase(userData.orgname);
         const userRepo = await this.clientUserRepository(con);
-        return await userRepo.save(userData)
+        return await userRepo.save(userData);
     }
 
     private async createClient__TeamMember(userData: CreateUserDTO) {
@@ -113,7 +113,6 @@ export class AuthDatabaseService {
         this.eventEmitter.emit(AuthEvents.SIGNUP_EMAIL, payload);
     }
 
-
     @OnEvent(AuthEvents.CREATE_MEMBER)
     private async onCreateMember(payload: CreateUserDTO) {
         const saved = await this.createClient__TeamMember(payload);
@@ -123,20 +122,17 @@ export class AuthDatabaseService {
 
     @OnEvent(AuthEvents.FORGOT_PASSWORD)
     private async onForgotPassword(payload: UserEntity) {
-
         const newPassword = internet.password();
 
-        const { errors, validatedInstance } = await new CreateUserDTO({ ...payload, password: newPassword })
-            .transformAndValidate()
+        const { errors, validatedInstance } = await new CreateUserDTO({ ...payload, password: newPassword }).transformAndValidate();
 
         if (errors) {
             this.logger.error('Could not validate the user data for some reason!', errors, validatedInstance);
-            throw new InternalServerErrorException()
+            throw new InternalServerErrorException();
         }
 
-        await this.authUserEntity.update(payload.id, { password: newPassword })
-        await this.updateClientUserPassword(new UserEntity({ ...payload, password: validatedInstance.password }))
+        await this.authUserEntity.update(payload.id, { password: newPassword });
+        await this.updateClientUserPassword(new UserEntity({ ...payload, password: validatedInstance.password }));
         await this.eventEmitter.emit(AuthEvents.FORGOT_PASSWORD_EMAIL, validatedInstance);
     }
-
 }

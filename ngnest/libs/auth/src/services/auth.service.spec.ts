@@ -1,0 +1,8 @@
+import { assert } from 'chai';
+import { UserService } from './user.service';
+
+describe('AuthService', () => {
+    it('should be created', () => {
+        assert.isNotNull(new UserService(null as any));
+    });
+});
