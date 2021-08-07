@@ -1,7 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { Cron } from '@nestjs/schedule'
+import { Cron, CronExpression } from '@nestjs/schedule';
 import { EventEmitter2, OnEvent } from '@nestjs/event-emitter';
-
 
 // * * * * * *
 // | | | | | |
@@ -22,8 +21,7 @@ import { EventEmitter2, OnEvent } from '@nestjs/event-emitter';
 export class AuthCronService {
     private readonly logger = new Logger(AuthCronService.name);
 
-    constructor(private eventEmitter: EventEmitter2) { }
-
+    constructor(private eventEmitter: EventEmitter2) {}
 
     @Cron('30 * * * * *')
     handleCron() {
@@ -31,8 +29,8 @@ export class AuthCronService {
         this.eventEmitter.emit('cron.hello');
     }
 
-    @OnEvent('cron.*')
-    logInfo(payload: any) {
-        this.logger.debug('Cron just ran.')
+    @Cron(CronExpression.EVERY_DAY_AT_6PM)
+    report() {
+        this.logger.log('Reporting');
     }
 }

@@ -1,62 +1,61 @@
+import { UpdateUserValidationPipe } from './user/dto/update-user.dto';
 import { SignupService } from './services/signup.service';
 import { AuthGuard } from './guards/auth.guard';
-import { Body, Controller, Logger, Post, Session, UseGuards } from "@nestjs/common";
-import { ApiBadRequestResponse, ApiCreatedResponse, ApiInternalServerErrorResponse, ApiTags } from "@nestjs/swagger";
+import { Body, Controller, Logger, Post, Session, UseGuards } from '@nestjs/common';
+import { ApiBadRequestResponse, ApiCreatedResponse, ApiInternalServerErrorResponse, ApiTags } from '@nestjs/swagger';
 import {
     LoginDTO,
-    LoginValidationPipe, CreateTeamMemberValidationPipe, SignupValidationPipe, SignupDTO, ForgotPasswordDTO, ForgotPasswordValidationPipe, UpdateUserDTO, UpdateAuthUserValidationPipe
-} from './sub';
-import { EventEmitter2 } from "@nestjs/event-emitter";
-import { CreateTeamMemberDTO } from './sub/dto/create-team-member.dto';
+    CreateTeamMemberDTO,
+    LoginValidationPipe,
+    CreateTeamMemberValidationPipe,
+    SignupValidationPipe,
+    SignupDTO,
+    ForgotPasswordDTO,
+    ForgotPasswordValidationPipe,
+    UpdateUserDTO,
+} from './user';
+import { EventEmitter2 } from '@nestjs/event-emitter';
 import { LoginService } from './services/login.service';
 
 @ApiTags(AuthController.name)
 @UseGuards(AuthGuard)
 @Controller('auth')
 export class AuthController {
-
-    private readonly logger = new Logger(AuthController.name)
+    private readonly logger = new Logger(AuthController.name);
 
     constructor(
-        private eventEmitter: EventEmitter2,
-        private loginService: LoginService,
-        private signupService: SignupService
-    ) { }
-
+        private readonly eventEmitter: EventEmitter2,
+        private readonly loginService: LoginService,
+        private readonly signupService: SignupService,
+    ) {}
 
     @Post('login')
     async login(@Body(LoginValidationPipe) body: LoginDTO, @Session() session: any) {
         const user = await this.loginService.login(body);
-
     }
-
 
     /**
      * Signup process
-     * @param ___body 
-     * @param session 
-     * @returns 
+     * @param ___body
+     * @param session
+     * @returns
      */
-    @ApiCreatedResponse({ description: "When account created" })
-    @ApiBadRequestResponse({ description: "When account already exist or input validation error." })
-    @ApiInternalServerErrorResponse({ description: "When cound not connect database or (?)" })
-
-    @Post("signup")
-    async signup(@Body(SignupValidationPipe) userdata: SignupDTO, @Session() session: any) {
-    }
+    @ApiCreatedResponse({ description: 'When account created' })
+    @ApiBadRequestResponse({ description: 'When account already exist or input validation error.' })
+    @ApiInternalServerErrorResponse({ description: 'When cound not connect database or (?)' })
+    @Post('signup')
+    async signup(@Body(SignupValidationPipe) userdata: SignupDTO, @Session() session: any) {}
 
     /**
      * Create a team member
-     * @param body 
-     * @param session 
+     * @param body
+     * @param session
      */
-    @Post("create-member")
-    async createTeamMember(@Body(CreateTeamMemberValidationPipe) body: CreateTeamMemberDTO, @Session() session: any) { }
+    @Post('create-member')
+    async createTeamMember(@Body(CreateTeamMemberValidationPipe) body: CreateTeamMemberDTO, @Session() session: any) {}
 
-
-    @Post("forgot-password")
+    @Post('forgot-password')
     async forgotPassword(@Body(ForgotPasswordValidationPipe) body: ForgotPasswordDTO) {
-
         // try {
         //     const foundUser = await this.authUserRepository.findOneOrFail({ email: body.email })
         //     if (foundUser && foundUser.email && foundUser.email == body.email) {
@@ -67,18 +66,13 @@ export class AuthController {
         //     this.logger.error(err);
         //     throw new BadRequestException("The acount does NOT exist!")
         // }
-
         // throw new BadRequestException("The acount does NOT exist!")
     }
 
-
-    @Post("update-profile")
-    async updateProfile(@Body(UpdateAuthUserValidationPipe) body: UpdateUserDTO, @Session() session: any) {
+    @Post('update-profile')
+    async updateProfile(@Body(UpdateUserValidationPipe) body: UpdateUserDTO, @Session() session: any) {
         // console.log(body);
         // await this.authUserRepository.update(session.auth.id, body as any);
         // return message("Updated profile.");
     }
-
-
-
 }

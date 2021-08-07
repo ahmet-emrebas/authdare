@@ -5,7 +5,7 @@ import { Inject, Injectable, InternalServerErrorException, Logger } from '@nestj
 import { EventEmitter2, OnEvent } from '@nestjs/event-emitter';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Connection, getConnection, createConnection, Repository } from 'typeorm';
-import { UserEntity, CreateUserDTO } from '../sub';
+import { UserEntity, CreateUserDTO } from '../user';
 import { ProviderTokens } from '../provider-tokens';
 
 export enum AuthEvents {

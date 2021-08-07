@@ -1,31 +1,28 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { UserService } from './user.service';
 import { compare } from 'bcrypt';
-import { LoginDTO } from '../sub/dto/login.dto';
+import { LoginDTO } from '../user';
 
 @Injectable()
 export class LoginService {
-
-    constructor(private readonly userService: UserService) { }
-
+    constructor(private readonly userService: UserService) {}
 
     /**
      * Try to find the user with credentials and return it, throw BadRequestException otherwise.
-     * @param credentials 
-     * @returns 
+     * @param credentials
+     * @returns
      */
     async login(credentials: LoginDTO) {
         let isPasswordMatch = false;
-        const foundUser = await this.userService.isExistByEmail(credentials.email)
+        const foundUser = await this.userService.isExistByEmail(credentials.email);
         if (foundUser) {
             isPasswordMatch = await compare(credentials.password, foundUser.password);
             if (isPasswordMatch) {
-                return foundUser
+                return foundUser;
             }
         } else {
-            throw new BadRequestException("User not found!")
+            throw new BadRequestException('User not found!');
         }
         throw new BadRequestException('Wrong password');
-
     }
 }

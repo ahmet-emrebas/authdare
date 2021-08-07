@@ -1,11 +1,11 @@
 import { ValidationPipe } from '@nestjs/common';
 import { Trim, SnakeCase } from '@authdare/utils';
 import { ApiProperty } from '@nestjs/swagger';
-import { Exclude, Expose, Type } from 'class-transformer';
-import { IsEmail, Length, NotContains, ValidateNested } from 'class-validator';
+import { Exclude, Expose } from 'class-transformer';
+import { IsEmail, Length, NotContains } from 'class-validator';
 import { BaseClass } from '@authdare/objects';
 
-export const CreateAuthUserValidationPipe = new ValidationPipe({ transform: true });
+export const CreateUserValidationPipe = new ValidationPipe({ transform: true });
 
 /**
  * This DTO is for us to create a subscription manually.
@@ -31,7 +31,7 @@ export class CreateUserDTO extends BaseClass<CreateUserDTO> {
     @Length(3, 50)
     readonly orgname!: string;
 
-    @ApiProperty({ required: false, default: [{ name: 'rolename', permissions: [{ method: 'get', resource: 'users' }] }] })
+    @ApiProperty({ required: false, default: [''] })
     @Expose()
-    readonly roles!: string[];
+    readonly permissions!: string[];
 }

@@ -1,4 +1,3 @@
-
 /**
  * Common Columns Group
  */
@@ -12,4 +11,3 @@ export enum BGN {
     GROUP_ID = 'GROUP_ID',
     DETAILS = 'DETAILS',
 }
-

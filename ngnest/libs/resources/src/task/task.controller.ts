@@ -1,59 +1,50 @@
-import { ApiTags } from '@nestjs/swagger';
-import { ResourceInterceptor } from './../resource.interceptor';
-import { UpdateTaskDTO } from './dto/update-tast.dto';
-import { CreateTaskDTO } from './dto/create-task.dto';
-import { Controller, UseInterceptors } from "@nestjs/common";
+import { classToPlain } from 'class-transformer';
+import { QueryTaskPipe, FindManyTasksOptions } from './dto/query-task.dto';
+import { UpdateTaskDTO, CreateTaskDTO } from './dto';
+import { Controller } from '@nestjs/common';
 import { Body, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
-import { QueryDTO, QueryValidationPipe } from '@authdare/objects';
-import { Repository } from 'typeorm';
-import { TaskEntity } from './entity';
-import { GetResourceRepo, ResourceEntity } from '../resource.decorator';
+import { FindManyOptions } from 'typeorm';
+import { TaskService } from './task.service';
+import { rest } from 'lodash';
 
-
-@ApiTags(TaskController.name)
-@ResourceEntity(TaskEntity)
-@UseInterceptors(ResourceInterceptor)
 @Controller('api/tasks')
 export class TaskController {
-
-    // @HasPermission([new Permission({ method: 'get', resource: 'users' })])
+    constructor(private readonly taskService: TaskService) {}
     @Get()
-    async find(@Query(QueryValidationPipe(CreateTaskDTO)) query: QueryDTO, @GetResourceRepo() repo: Repository<TaskEntity>) {
-        const { errors, validatedInstance } = await new CreateTaskDTO(query as any).transformAndValidate()
-        console.log(query, validatedInstance);
-        return await repo.find({ ...(query as any), where: errors ? {} : validatedInstance });
+    async find(@Query(QueryTaskPipe) query: FindManyTasksOptions) {
+        console.log(query);
+        const where = classToPlain(query.where);
+        const q = { ...query, where };
+        console.log(q);
+        return await this.taskService.find(q);
     }
 
-    // @HasPermission([new Permission({ method: 'get', resource: 'users' })])
     @Get(':id')
-    async fingById(@Param('id') id: number, @GetResourceRepo() repo: Repository<TaskEntity>) {
-        return await repo.findOne(id);
+    async findOneById(@Param('id') id: number) {
+        return await this.taskService.findOneById(id);
     }
 
-    // @HasPermission([new Permission({ method: 'get', resource: 'users' })])
     @Post('query')
-    async query(@Body() query: QueryDTO, @GetResourceRepo() repo: Repository<TaskEntity>) {
-        const { errors, validatedInstance } = await new CreateTaskDTO(query as any).transformAndValidate()
-        return await repo.find({ ...(query as any), where: errors ? {} : validatedInstance });
+    async query(@Body() query: FindManyOptions) {
+        return await this.taskService.find(query);
     }
 
-    // @HasPermission([new Permission({ method: 'get', resource: 'users' })])
     @Post()
-    async create(@Body() body: CreateTaskDTO, @GetResourceRepo() repo: Repository<TaskEntity>) {
-        return await repo.save(body);
+    async create(@Body() body: CreateTaskDTO) {
+        return await this.taskService.create(body);
     }
 
-    // @HasPermission([new Permission({ method: 'get', resource: 'users' })])
     @Patch(':id')
-    async update(@Param('id') id: number, @Body() body: UpdateTaskDTO, @GetResourceRepo() repo: Repository<TaskEntity>) {
-        return await repo.update(id, body);
+    async update(@Param('id') id: number, @Body() body: UpdateTaskDTO) {
+        return await this.taskService.update(id, body);
     }
 
-    // @HasPermission([new Permission({ method: 'get', resource: 'users' })])
-    @Delete(':id/:hard')
-    async delete(@Param('id') id: number, @Param('hard') hard: boolean, @GetResourceRepo() repo: Repository<TaskEntity>) {
-        if (hard == true)
-            return await repo.delete(id);
-        return await repo.softDelete(id);
+    @Delete(':id')
+    async delete(@Param('id') id: number, @Param('hard') hard: boolean) {
+        return await this.taskService.softDelete(id);
+    }
+    @Delete(':id/hard')
+    async deleteHard(@Param('id') id: number, @Param('hard') hard: boolean) {
+        return await this.taskService.delete(id);
     }
 }

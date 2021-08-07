@@ -1,38 +1,19 @@
+import { Controller, Get, Param, Post } from '@nestjs/common';
+import { Connection } from 'typeorm';
 
-import { Controller, Get, Param, Post } from "@nestjs/common";
-import {
-    Connection, createConnection, EntitySchema,
-    EntitySchemaColumnOptions, EntitySchemaIndexOptions,
-    EntitySchemaRelationOptions, getConnection, OrderByCondition, SelectQueryBuilder
-} from "typeorm";
-import { EntitySchemaCheckOptions } from "typeorm/entity-schema/EntitySchemaCheckOptions";
-import { EntitySchemaExclusionOptions } from "typeorm/entity-schema/EntitySchemaExclusionOptions";
-import { EntitySchemaOptions } from "typeorm/entity-schema/EntitySchemaOptions";
-import { EntitySchemaUniqueOptions } from "typeorm/entity-schema/EntitySchemaUniqueOptions";
-import { TableType } from "typeorm/metadata/types/TableTypes";
-
-
-@Controller(":orgname/:resource")
+@Controller(':orgname/:resource')
 export class ResourceController {
-    constructor() { }
+    constructor() {}
     @Get()
-    get(@Param("orgname") orgname: string, @Param("resource") resource: string) {
-
-    }
+    get(@Param('orgname') orgname: string, @Param('resource') resource: string) {}
 }
 
-
-@Controller("database")
+@Controller('database')
 export class DatabaseController {
-    async createTable(orgname: string) {
-
-    }
-
+    async createTable(orgname: string) {}
 
     @Post()
     async createDatabase(orgname: string): Promise<Connection> {
-        throw new Error("Not implemetned");
+        throw new Error('Not implemetned');
     }
-
-
 }

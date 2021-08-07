@@ -1,3 +1,3 @@
 export enum GlobalGroups {
-    QUERY = 'QUERY'
+    QUERY = 'QUERY',
 }

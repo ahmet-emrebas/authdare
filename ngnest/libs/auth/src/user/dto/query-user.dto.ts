@@ -5,7 +5,7 @@ import { Exclude, Expose } from 'class-transformer';
 import { Length, NotContains } from 'class-validator';
 import { BaseClass } from '@authdare/objects';
 
-export const CreateAuthUserValidationPipe = new ValidationPipe({ transform: true });
+export const QueryUserValidationPipe = new ValidationPipe({ transform: true });
 
 /**
  * This DTO is for us to create a subscription manually.
@@ -25,7 +25,7 @@ export class QueryUserDTO extends BaseClass<QueryUserDTO> {
     @Length(3, 50)
     readonly orgname!: string;
 
-    @ApiProperty({ required: false, default: [{ name: 'rolename', permissions: [{ method: 'get', resource: 'users' }] }] })
+    @ApiProperty({ required: false, default: [''] })
     @Expose()
-    readonly roles!: string[];
+    readonly permissions!: string[];
 }

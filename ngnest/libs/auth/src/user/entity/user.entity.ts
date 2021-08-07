@@ -14,5 +14,5 @@ export class UserEntity extends BaseEntity<UserEntity> {
     readonly orgname!: string;
 
     @Column({ type: 'text', transformer: Stringify() })
-    readonly roles!: string[];
+    readonly permissions!: string[];
 }

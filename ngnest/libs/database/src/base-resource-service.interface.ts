@@ -9,6 +9,6 @@ export interface IBaseResourceService<E, C, U> {
     createMany(...createDtos: C[]): Promise<E[]>;
     update(id: number, updated: U): Promise<UpdateResult>;
     updateMany(options: FindOneOptions<any>, updated: U): Promise<UpdateResult[]>;
-    deleteHard(id: number): Promise<DeleteResult>;
+    delete(id: number): Promise<DeleteResult>;
     softDelete(id: number): Promise<UpdateResult>;
 }

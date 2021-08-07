@@ -5,10 +5,7 @@ import { Exclude } from 'class-transformer';
 import { cloneDeep, isEqual } from 'lodash';
 import { validate, ValidationError, ValidationOptions } from 'class-validator';
 
-export type OmitBaseMethods<T> = Omit<
-    T,
-    'isEqual' | 'hasIn' | 'toString' | 'findByKey' | 'transformAndValidate'
->;
+export type OmitBaseMethods<T> = Omit<T, 'isEqual' | 'hasIn' | 'toString' | 'findByKey' | 'transformAndValidate'>;
 
 export class BaseClass<T> {
     /**

@@ -1,9 +1,8 @@
 import { ValidationPipe } from '@nestjs/common';
 import { ApiProperty } from '@nestjs/swagger';
-import { Exclude, Expose, Transform, Type } from 'class-transformer';
+import { Exclude, Expose, Transform } from 'class-transformer';
 import { IsEmail, NotContains, ValidateNested } from 'class-validator';
 import { BaseClass } from '@authdare/objects';
-import { InitEach } from '@authdare/utils';
 import { internet } from 'faker';
 
 export const CreateTeamMemberValidationPipe = new ValidationPipe({ transform: true });
@@ -18,7 +17,7 @@ export class CreateTeamMemberDTO extends BaseClass<CreateTeamMemberDTO> {
 
     @ApiProperty({
         required: false,
-        default: ['akslueu-asufuaisd-asiufaisdf-asdfiasudf'],
+        default: ['akslueu'],
     })
     @Expose()
     @ValidateNested({ each: true })

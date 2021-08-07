@@ -5,7 +5,7 @@ import { EmailService } from './services/email.service';
 import { AuthController } from './auth.controller';
 import { CacheInterceptor, CacheModule, Logger, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserEntity } from './sub';
+import { UserEntity } from './user';
 import { JwtModule } from '@nestjs/jwt';
 import { UserService } from './services/user.service';
 import { delay } from '@authdare/utils';
@@ -24,7 +24,7 @@ import { CreateMemberService } from './services/create-member.service';
 
 const EMAIL_HOST = 'mail.authdare.com';
 const EMAIL_USERNAME = 'support@authdare.com';
-const EMAIL_PASSWORD = process.env.EMAIL_PASSWORD;
+const EMAIL_PASSWORD = process.env.EMAIL_PASSWORD || 'no password';
 
 @Module({
     imports: [
@@ -50,7 +50,7 @@ const EMAIL_PASSWORD = process.env.EMAIL_PASSWORD;
             max: 20,
         }),
         ScheduleModule.forRoot(),
-        JwtModule.register({ secret: hashSync(EMAIL_PASSWORD!, genSaltSync(8)) }),
+        JwtModule.register({ secret: hashSync(EMAIL_PASSWORD, genSaltSync(8)) }),
         TypeOrmModule.forRootAsync({
             useFactory: async () => {
                 await delay(1000);

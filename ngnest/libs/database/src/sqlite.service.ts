@@ -6,8 +6,7 @@ import { Inject, Injectable } from '@nestjs/common';
 
 @Injectable()
 export class SQLiteService implements DatabaseService {
-
-    constructor(@Inject(ENTITIES_TOKEN) private readonly entities: []) { }
+    constructor(@Inject(ENTITIES_TOKEN) private readonly entities: []) {}
 
     async getConnection(orgname: string) {
         let con: Connection;
@@ -17,12 +16,11 @@ export class SQLiteService implements DatabaseService {
             con = await createConnection({
                 type: 'sqlite',
                 database: `database/${orgname}/main.sqlite`,
-                entities: this.entities
+                entities: this.entities,
             });
         }
         return con;
     }
-
 
     async createDatabase(orgname: string): Promise<Connection> {
         return await createConnection({
@@ -39,10 +37,6 @@ export class SQLiteService implements DatabaseService {
     }
 
     async deleteDatabase(orgname: string) {
-        throw new Error("Not implemented")
+        throw new Error('Not implemented');
     }
-
-
-
-
 }

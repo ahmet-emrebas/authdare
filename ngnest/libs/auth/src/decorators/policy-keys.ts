@@ -1,14 +1,14 @@
 import { ImObject } from '@authdare/utils';
 import { v4 as uuid } from 'uuid';
 
-export const SessionKeys = ImObject({
+export const PolicyKeys = ImObject({
     /**
      * Auth session will be stored in the session with this key
      */
-    SESSION_KEY: uuid(),
+    PUBLIC: uuid(),
 
     /**
      * User PERMISSIONS will be stored in session with this key
      */
-    PERMISSIONS: uuid(),
+    PERMISSION: uuid(),
 });

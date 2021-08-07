@@ -1,24 +1,29 @@
 import { PipeTransform, ArgumentMetadata } from '@nestjs/common';
-import { TObjectify, TParseBool, TSplitBy } from "@authdare/utils";
-import { ApiProperty } from "@nestjs/swagger";
-import { ClassConstructor, Exclude, Expose } from "class-transformer";
-import { BaseClass } from "./base-class";
+import { TObjectify, TParseBool, TSplitBy } from '@authdare/utils';
+import { ApiProperty } from '@nestjs/swagger';
+import { ClassConstructor, Exclude, Expose } from 'class-transformer';
+import { BaseClass } from './base-class';
 import { FindManyOptions } from 'typeorm';
+import { EntityFieldsNames } from 'typeorm/common/EntityFieldsNames';
 
 export function QueryValidationPipe<T extends BaseClass<any> = any>(resourceQueryDTO: ClassConstructor<T>) {
     return class QueryValidationPipe implements PipeTransform {
-        async transform(value: any, metadata: ArgumentMetadata): Promise<FindManyOptions> {
-            const query = await new QueryDTO(value).transformAndValidate({}, { exposeUnsetFields: false, excludeExtraneousValues: true })
-            const fieldsQuery = await new resourceQueryDTO(value).transformAndValidate({}, { exposeUnsetFields: false, excludeExtraneousValues: true })
-            return { ...(query.errors ? {} : query.validatedInstance) as any, where: fieldsQuery.errors ? {} : fieldsQuery.validatedInstance }
+        async transform(value: any, __metadata: ArgumentMetadata): Promise<FindManyOptions> {
+            const query = await new QueryDTO(value).transformAndValidate({}, { exposeUnsetFields: false, excludeExtraneousValues: true });
+            const fieldsQuery = await new resourceQueryDTO(value).transformAndValidate(
+                {},
+                { exposeUnsetFields: false, excludeExtraneousValues: true },
+            );
+            return {
+                ...((query.errors ? {} : query.validatedInstance) as any),
+                where: fieldsQuery.errors ? {} : fieldsQuery.validatedInstance,
+            };
         }
-    }
-
+    };
 }
 
-
 @Exclude()
-export class QueryDTO extends BaseClass<QueryDTO> {
+export class QueryDTO<T> extends BaseClass<QueryDTO<T>> {
     /**
      * limit
      */
@@ -39,7 +44,7 @@ export class QueryDTO extends BaseClass<QueryDTO> {
     @Expose()
     @ApiProperty({ required: false })
     @TSplitBy()
-    select?: string;
+    select?: string[];
 
     /**
      * Indicates what relations of entity should be loaded (simplified left join form).
@@ -47,8 +52,7 @@ export class QueryDTO extends BaseClass<QueryDTO> {
     @Expose()
     @ApiProperty({ required: false })
     @TSplitBy()
-    relations?: string;
-
+    relations?: string[];
 
     /**
      * Indicates if soft-deleted rows should be included in entity result.
@@ -58,7 +62,6 @@ export class QueryDTO extends BaseClass<QueryDTO> {
     @TParseBool()
     withDeleted?: boolean;
 
-
     /**
      * Enables or disables query result caching.
      */
@@ -66,7 +69,6 @@ export class QueryDTO extends BaseClass<QueryDTO> {
     @ApiProperty({ required: false })
     @TParseBool()
     cache?: boolean;
-
 
     /**
      * Indicates if eager relations should be loaded or not.
@@ -76,41 +78,13 @@ export class QueryDTO extends BaseClass<QueryDTO> {
     @ApiProperty({ required: false })
     loadEagerRelations?: boolean;
 
-
     /**
      * Order, in which entities should be ordered.
      */
     @Expose()
     @ApiProperty({ required: false })
     @TObjectify()
-    order?: string; // { [P in EntityFieldsNames<Entity>]?: "ASC" | "DESC" | 1 | -1; };
-
-    /**
-     * Indicates what locking mode should be used.
-     *
-     * Note: For lock tables, you must specify the table names and not the relation names
-     * ````
-     *  {
-     *      mode: "optimistic";
-     *      version: number | Date;
-     *  } 
-     * ````
-     */
-    @Expose()
-    @ApiProperty({ required: false })
-    @TObjectify()
-    lock?: string;
-
-
-    /**
-     * If sets to true then loads all relation ids of the entity and maps them into relation values (not relation objects).
-     * If array of strings is given then loads only relation ids of the given properties.
-     */
-    @Expose()
-    @ApiProperty({ required: false })
-    @TParseBool()
-    loadRelationIds?: boolean;
-
+    order?: { [P in EntityFieldsNames<T>]?: 'ASC' | 'DESC' | 1 | -1 };
 
     /**
      * If this is set to true, SELECT query in a `find` method will be executed in a transaction.

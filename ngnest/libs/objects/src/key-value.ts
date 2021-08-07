@@ -11,12 +11,11 @@ export class KeyValue<K = string, V = string> extends BaseClass<KeyValue> {
  * KeyValue<string, string>
  * @key 1, 30
  */
-class SS<K = string, V = string> extends KeyValue<K, V>{
+class SS<K = string, V = string> extends KeyValue<K, V> {
     @Trim()
     @Length(1, 30)
     readonly key!: K;
 }
-
 
 /**
  * @key 1, 30
@@ -38,7 +37,6 @@ export class Contacts extends SS {
     readonly value!: string;
 }
 
-
 /**
  * @key 1, 30
  * @value 400
@@ -58,9 +56,3 @@ export class LongText extends SS {
     @Length(0, 2000)
     readonly value!: string;
 }
-
-
-
-
-
-
