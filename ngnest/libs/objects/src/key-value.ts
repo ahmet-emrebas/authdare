@@ -1,8 +1,7 @@
 import { Trim } from '@authdare/utils';
 import { Length } from 'class-validator';
-import { BaseClass } from './base-class';
 
-export class KeyValue<K = string, V = string> extends BaseClass<KeyValue> {
+export class KeyValue<K = string, V = string> {
     readonly key!: K;
     readonly value!: V;
 }

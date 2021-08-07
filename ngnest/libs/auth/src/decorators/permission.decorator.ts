@@ -6,6 +6,6 @@ import { SetMetadata } from '@nestjs/common';
  * @param permission Unique string
  * @returns CustomDecorator<string>
  */
-export function Permission(permission: string) {
+export function PermissionPolicy(permission: string) {
     return SetMetadata(PolicyKeys.PERMISSION, permission);
 }

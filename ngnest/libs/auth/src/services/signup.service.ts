@@ -17,7 +17,7 @@ export class SignupService {
     }
 
     private async createNewSusbscription(user: SignupDTO) {
-        const userPermissions = null; ///TODO SET Client Admin role
+        const userPermissions = ['all:all'];
         const orgname = user.orgname;
 
         const isUserExist = await this.userService.isExist({ where: [{ orgname }, { email: user.email }] });
@@ -26,7 +26,7 @@ export class SignupService {
             throw new BadRequestException('Account already exists!');
         }
 
-        const { errors, validatedInstance } = await new CreateUserDTO({ ...user, permissions: [userPermissions!] }).transformAndValidate();
+        const { errors, validatedInstance } = await new CreateUserDTO({ ...user, permissions: userPermissions }).transformAndValidate();
 
         if (errors) {
             this.logger.error('Could not validate the user for some reason!', errors, validatedInstance);
@@ -38,18 +38,3 @@ export class SignupService {
 
     async createClientResources(orgname: string) {}
 }
-
-// Emitting SIGNUP EVENT
-// this.eventEmitter.emit(AuthEvents.SIGNUP, validatedInstance);
-
-// // Setting User Session
-// setClientSession(session, new ClientSession({
-//     roles: validatedInstance.roles,
-//     email: validatedInstance.email,
-//     orgname: validatedInstance.orgname,
-//     visits: 1,
-//     id: savedUser.id
-// }));
-
-// Send greeting message or redirect user to the application dashboard.
-// return message('Welcome!')

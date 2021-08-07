@@ -8,12 +8,12 @@ import * as helmet from 'helmet';
 import * as cors from 'cors';
 import { ResourcesModule } from '@authdare/resources';
 import { AuthModule } from '@authdare/auth';
+import * as csurf from 'csurf';
+import { v4 as uuid } from 'uuid';
 
 async function bootstrap() {
     const server = express();
     server.use(helmet());
-    // server.use(csurf());
-
     server.use(
         session({
             name: 'session',
@@ -25,33 +25,26 @@ async function bootstrap() {
             saveUninitialized: true,
         }),
     );
-
     server.use(cookieParser());
     server.use(cors());
-
+    // server.use(
+    //     csurf({
+    //         cookie: true,
+    //         sessionKey: uuid(),
+    //     }),
+    // );
     const adapter = new ExpressAdapter(server);
-
-    // // AppModule
-    // const mainApp = await NestFactory.create(ApiModule, adapter);
-    // configureSwagger({ app: mainApp, description: 'Api doc', title: 'Api', path: '' });
-    // mainApp.init();
 
     // Resource Module
     const resourceApi = await NestFactory.create(ResourcesModule, adapter);
-    configureSwagger({ app: resourceApi, description: 'Api doc', title: 'Api', path: 'api' });
-    resourceApi.init();
+    configureSwagger({ app: resourceApi, description: 'Api doc', title: 'Api', path: 'resource' });
 
     // Auth Module
     const authApp = await NestFactory.create(AuthModule, adapter);
-    configureSwagger({ app: authApp, description: 'Auth app doc', title: 'Auth', path: 'auth' });
+    configureSwagger({ app: authApp, description: 'Auth app doc', title: 'Auth', path: 'security' });
+
+    resourceApi.init();
     authApp.init();
-
-    // // Database Module
-    // const databaseApp = await NestFactory.create(DatabaseModule.register(), adapter);
-    // configureSwagger({ app: databaseApp, description: 'Database app doc', title: 'Database', path: 'db' });
-
-    // databaseApp.init();
-
     await adapter.listen(process.env['PORT'] || 3000);
 }
 bootstrap();

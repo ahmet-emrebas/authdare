@@ -9,6 +9,12 @@ export class UserService extends BaseResourceService<UserEntity, CreateUserDTO, 
     constructor(@InjectRepository(UserEntity) authUserRepository: Repository<UserEntity>) {
         super(authUserRepository, new Logger(UserService.name));
     }
+    /**
+     * check the user exist or not.
+     * If exist, return the UserEntiy, else return false
+     * @param email
+     * @returns boolean | UserEntity
+     */
     async isExistByEmail(email: string) {
         return await this.isExist({ where: { email } });
     }

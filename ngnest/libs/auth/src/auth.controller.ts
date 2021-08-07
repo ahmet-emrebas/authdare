@@ -1,7 +1,9 @@
+import { ForgotPasswordService } from './services/forgot-password.service';
+import { UserService } from './services/user.service';
 import { UpdateUserValidationPipe } from './user/dto/update-user.dto';
 import { SignupService } from './services/signup.service';
 import { AuthGuard } from './guards/auth.guard';
-import { Body, Controller, Logger, Post, Session, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Logger, Post, Session, UseGuards, BadRequestException, Query } from '@nestjs/common';
 import { ApiBadRequestResponse, ApiCreatedResponse, ApiInternalServerErrorResponse, ApiTags } from '@nestjs/swagger';
 import {
     LoginDTO,
@@ -16,6 +18,11 @@ import {
 } from './user';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { LoginService } from './services/login.service';
+import { PublicPolicy } from './decorators';
+import { message } from '@authdare/utils';
+import { SessionKeys } from './session-keys';
+import { PermissionPolicy } from './decorators';
+import { EmailEvents } from '.';
 
 @ApiTags(AuthController.name)
 @UseGuards(AuthGuard)
@@ -27,46 +34,42 @@ export class AuthController {
         private readonly eventEmitter: EventEmitter2,
         private readonly loginService: LoginService,
         private readonly signupService: SignupService,
+        private readonly forgotPasswordService: ForgotPasswordService,
+
+        private readonly userService: UserService,
     ) {}
 
-    @Post('login')
-    async login(@Body(LoginValidationPipe) body: LoginDTO, @Session() session: any) {
-        const user = await this.loginService.login(body);
+    @PermissionPolicy('get:tasks')
+    @Get('profile')
+    canRead(@Session() session: any) {
+        const { orgname, email } = session[SessionKeys.USER];
+        this.logger.log(session[SessionKeys.USER]);
+        return this.userService.find({ where: { orgname, email } });
     }
 
-    /**
-     * Signup process
-     * @param ___body
-     * @param session
-     * @returns
-     */
-    @ApiCreatedResponse({ description: 'When account created' })
-    @ApiBadRequestResponse({ description: 'When account already exist or input validation error.' })
-    @ApiInternalServerErrorResponse({ description: 'When cound not connect database or (?)' })
-    @Post('signup')
-    async signup(@Body(SignupValidationPipe) userdata: SignupDTO, @Session() session: any) {}
+    @PublicPolicy()
+    @Post('login')
+    async login(@Body(LoginValidationPipe) body: LoginDTO, @Session() session: any) {
+        const { password, ...withoutPassword } = await this.loginService.login(body);
+        session[SessionKeys.USER] = withoutPassword;
+        return message('Welcome Back!');
+    }
 
-    /**
-     * Create a team member
-     * @param body
-     * @param session
-     */
+    @PublicPolicy()
+    @Post('signup')
+    async signup(@Body(SignupValidationPipe) userdata: SignupDTO, @Session() session: any) {
+        const { password, ...withoutPassword } = await this.signupService.signup(userdata);
+        session[SessionKeys.USER] = withoutPassword;
+        return message('Welcome!');
+    }
+
+    @PermissionPolicy('post:users')
     @Post('create-member')
     async createTeamMember(@Body(CreateTeamMemberValidationPipe) body: CreateTeamMemberDTO, @Session() session: any) {}
 
     @Post('forgot-password')
     async forgotPassword(@Body(ForgotPasswordValidationPipe) body: ForgotPasswordDTO) {
-        // try {
-        //     const foundUser = await this.authUserRepository.findOneOrFail({ email: body.email })
-        //     if (foundUser && foundUser.email && foundUser.email == body.email) {
-        //         this.eventEmitter.emit(AuthEvents.FORGOT_PASSWORD, foundUser);
-        //         return message("We sent a temporary password to your email.");
-        //     }
-        // } catch (err) {
-        //     this.logger.error(err);
-        //     throw new BadRequestException("The acount does NOT exist!")
-        // }
-        // throw new BadRequestException("The acount does NOT exist!")
+        return await this.forgotPasswordService.forgotPassword(body);
     }
 
     @Post('update-profile')

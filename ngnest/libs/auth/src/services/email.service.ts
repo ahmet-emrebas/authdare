@@ -1,12 +1,12 @@
 import { MailerService } from '@nestjs-modules/mailer';
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { OnEvent } from '@nestjs/event-emitter';
 import { CreateUserDTO } from '../user';
 import { v4 as uuid } from 'uuid';
 
 enum Templates {
     GREETING = './greeting',
-    FORGOT_PASSWORD = './forgot_password',
+    FORGOT_PASSWORD = './forgot-password',
     INVITATION = './invitation',
 }
 
@@ -17,23 +17,29 @@ export class EmailEvents {
     private constructor() {}
 }
 
+export interface TextMessage {
+    email: string;
+    message: string;
+}
+
 @Injectable()
 export class EmailService {
+    private readonly logger = new Logger(EmailService.name);
     constructor(private readonly email: MailerService) {}
 
     /**
      * Send forgot password email
      */
     @OnEvent(EmailEvents.FORGOT_PASSWORD)
-    async resetPassword(payload: CreateUserDTO) {
+    async forgotPassword(payload: TextMessage) {
         await this.email.sendMail({
             to: payload.email,
             subject: 'Password Reset',
             template: Templates.FORGOT_PASSWORD,
             context: {
-                newPassword: payload.password,
+                message: payload.message,
             },
-            text: `Here is your temporary password " ${payload.password} "`,
+            text: payload.message,
         });
     }
 
@@ -42,6 +48,7 @@ export class EmailService {
      */
     @OnEvent(EmailEvents.GREETING)
     async greeting(email: string) {
+        this.logger.log(`Sending greeting email to  ${email}`);
         await this.email.sendMail({
             to: email,
             subject: 'Hello!',

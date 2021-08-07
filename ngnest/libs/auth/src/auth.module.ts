@@ -1,6 +1,8 @@
+import { TokenStoreService } from './services/token-store.service';
+import { ForgotPasswordService } from './services/forgot-password.service';
 import { SignupService } from './services/signup.service';
 import { genSaltSync, hashSync } from 'bcrypt';
-import { EjsAdapter } from '@nestjs-modules/mailer/dist/adapters/ejs.adapter';
+import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import { EmailService } from './services/email.service';
 import { AuthController } from './auth.controller';
 import { CacheInterceptor, CacheModule, Logger, Module } from '@nestjs/common';
@@ -85,8 +87,8 @@ const EMAIL_PASSWORD = process.env.EMAIL_PASSWORD || 'no password';
                         from: '"Authdare Support" <support@authdare.com>',
                     },
                     template: {
-                        dir: join(__dirname, 'mail/templates'),
-                        adapter: new EjsAdapter(),
+                        dir: join(__dirname, '../../mail/templates'),
+                        adapter: new HandlebarsAdapter(),
                         options: {
                             strict: false,
                         },
@@ -103,6 +105,8 @@ const EMAIL_PASSWORD = process.env.EMAIL_PASSWORD || 'no password';
         AuthDatabaseService,
         LoginService,
         SignupService,
+        ForgotPasswordService,
+        TokenStoreService,
         CreateMemberService,
         {
             provide: APP_INTERCEPTOR,
