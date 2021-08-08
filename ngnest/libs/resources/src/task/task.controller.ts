@@ -7,14 +7,18 @@ import {
     ApiTags,
     ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
+import { Controller, Logger, Res, UseGuards } from '@nestjs/common';
+import { Body, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
+import { Response } from 'express';
+import { AuthGuard, ResourceType, ResourceTypeTokens } from '@authdare/auth';
+
 import { FindManyTasksOptions, QueryTaskDTO } from './dto/query-task.dto';
 import { UpdateTaskDTO, CreateTaskDTO } from './dto';
-import { Controller, Logger, Res } from '@nestjs/common';
-import { Body, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
 import { TaskService } from './task.service';
-import { Response } from 'express';
 
 @ApiTags(TaskController.name)
+@UseGuards(AuthGuard)
+@ResourceType(ResourceTypeTokens.DATA)
 @Controller('api/tasks')
 export class TaskController {
     private readonly logger = new Logger(TaskController.name);

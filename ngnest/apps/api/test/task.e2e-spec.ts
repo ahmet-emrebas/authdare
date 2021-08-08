@@ -1,9 +1,9 @@
-import { CreateTaskDTO } from './../src/task/dto/create-task.dto';
 import * as supertest from 'supertest';
 import { assert, expect } from 'chai';
 import { lorem } from 'faker';
 import { range } from 'lodash';
-import { delay } from '@authdare/utils';
+import { CreateTaskDTO } from '../../../libs/resources/src/task/dto/create-task.dto';
+import { delay } from './../../../libs/utils/src';
 
 const request = supertest(`http://localhost:3000/api/tasks/`);
 const signup = supertest('http://localhost:3000/auth/signup');
