@@ -15,7 +15,6 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
 import { ScheduleModule } from '@nestjs/schedule';
 import { AuthCronService } from './services/auth-cron.service';
 import { EventEmitterModule } from '@nestjs/event-emitter';
-import { AuthDatabaseService } from './services/auth-database.service';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { join } from 'path';
 import { TaskEntity } from '@authdare/resources/task';
@@ -117,7 +116,6 @@ const Config = ImObject({
         UserService,
         AuthCronService,
         EmailService,
-        AuthDatabaseService,
         LoginService,
         SignupService,
         ForgotPasswordService,
@@ -130,6 +128,11 @@ const Config = ImObject({
         {
             provide: ProviderTokens.RESOURCE_ENTITIES_TOKEN,
             useValue: [UserEntity, TaskEntity],
+        },
+
+        {
+            provide: ProviderTokens.RESOURCE_PATHS,
+            useValue: ['users', 'tasks'],
         },
     ],
 })

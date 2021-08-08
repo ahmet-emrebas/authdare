@@ -3,7 +3,7 @@ import { Trim, SnakeCase } from '@authdare/utils';
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude, Expose } from 'class-transformer';
 import { IsEmail, Length, NotContains } from 'class-validator';
-import { BaseClass } from '@authdare/objects';
+import { cloneDeep } from 'lodash';
 
 export const CreateUserValidationPipe = new ValidationPipe({ transform: true });
 
@@ -11,7 +11,7 @@ export const CreateUserValidationPipe = new ValidationPipe({ transform: true });
  * This DTO is for us to create a subscription manually.
  */
 @Exclude()
-export class CreateUserDTO extends BaseClass<CreateUserDTO> {
+export class CreateUserDTO {
     @ApiProperty({ type: 'string', required: true, default: 'email@gmail.com' })
     @Expose()
     @NotContains(' ')
@@ -34,4 +34,8 @@ export class CreateUserDTO extends BaseClass<CreateUserDTO> {
     @ApiProperty({ required: false, default: [''] })
     @Expose()
     readonly permissions!: string[];
+
+    constructor(obj: CreateUserDTO) {
+        Object.assign(this, cloneDeep(obj));
+    }
 }

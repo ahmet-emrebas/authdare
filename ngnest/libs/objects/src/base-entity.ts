@@ -1,11 +1,10 @@
 import { BGN } from './group-names';
-import { BaseClass } from './base-class';
 import { Column, CreateDateColumn, DeleteDateColumn, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import { Expose } from 'class-transformer';
 import { Stringify } from '@authdare/utils';
 import { IsNumber, ValidateNested } from 'class-validator';
 
-export class BaseEntity<T> extends BaseClass<T> {
+export class BaseEntity<T> {
     @Expose()
     @PrimaryGeneratedColumn()
     readonly id!: number;

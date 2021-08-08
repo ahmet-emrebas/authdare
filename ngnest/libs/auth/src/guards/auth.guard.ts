@@ -5,6 +5,7 @@ import { Reflector } from '@nestjs/core';
 import { CanActivate, ExecutionContext, Logger } from '@nestjs/common';
 import { SessionKeys } from '../session-keys';
 import { Injectable } from '@angular/core';
+import { ResourceTypeTokens } from '..';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -17,8 +18,7 @@ export class AuthGuard implements CanActivate {
         const originalUrl = req.originalUrl;
         const ip = req.ip;
         const url = req.url;
-        const authorization = req.headers.authorization;
-        console.table({ hostname, originalUrl, ip, url, authorization });
+        // console.table({ hostname, originalUrl, ip, url });
 
         /**
          * If is public then next
@@ -40,7 +40,9 @@ export class AuthGuard implements CanActivate {
          */
         const requiredPermission = this.reflector.getAllAndOverride(PolicyKeys.PERMISSION, [context.getClass(), context.getHandler()]);
         const userPermissions = user?.permissions;
+
         if (!requiredPermission) return true;
+
         if (userPermissions?.includes(requiredPermission)) {
             return true;
         }
@@ -48,7 +50,6 @@ export class AuthGuard implements CanActivate {
         /**
          * If user does not have permission return ForbiddenResourceException
          */
-
         return false;
     }
 }

@@ -1,16 +1,13 @@
-import { BaseClass } from "@authdare/objects";
-import { Trim } from "@authdare/utils";
-import { ValidationPipe } from "@nestjs/common";
-import { ApiProperty } from "@nestjs/swagger";
-import { Expose } from "class-transformer";
-import { IsEmail, Length } from "class-validator";
-
+import { cloneDeep } from 'lodash';
+import { Trim } from '@authdare/utils';
+import { ValidationPipe } from '@nestjs/common';
+import { ApiProperty } from '@nestjs/swagger';
+import { Expose } from 'class-transformer';
+import { IsEmail, Length } from 'class-validator';
 
 export const LoginValidationPipe = new ValidationPipe({ transform: true, transformOptions: { excludeExtraneousValues: true } });
 
-
-export class LoginDTO extends BaseClass<LoginDTO> {
-
+export class LoginDTO {
     @Expose()
     @ApiProperty({ type: 'string', default: 'login@gmail.com' })
     @IsEmail()
@@ -21,7 +18,8 @@ export class LoginDTO extends BaseClass<LoginDTO> {
     @ApiProperty({ type: 'string', default: 'password' })
     @Length(6, 100)
     @Trim()
-    readonly password!: string
-
-
+    readonly password!: string;
+    constructor(obj: LoginDTO) {
+        Object.assign(this, cloneDeep(obj));
+    }
 }

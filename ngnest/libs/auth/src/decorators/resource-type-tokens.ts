@@ -4,7 +4,7 @@ import { v4 as uuid } from 'uuid';
 /**
  * Define the type of the resource.
  */
-export const ResourceTypeKeys = ImObject({
+export const ResourceTypeTokens = ImObject({
     AUTH: uuid(),
     DATA: uuid(),
 });

@@ -1,5 +1,6 @@
 import { BaseEntity } from '@authdare/objects';
 import { Stringify, HashPassword } from '@authdare/utils';
+import { cloneDeep } from 'lodash';
 import { Column, Entity } from 'typeorm';
 
 @Entity({ name: 'subs' })
@@ -15,4 +16,9 @@ export class UserEntity extends BaseEntity<UserEntity> {
 
     @Column({ type: 'text', transformer: Stringify() })
     readonly permissions!: string[];
+
+    constructor(obj: UserEntity) {
+        super();
+        Object.assign(this, cloneDeep(obj));
+    }
 }

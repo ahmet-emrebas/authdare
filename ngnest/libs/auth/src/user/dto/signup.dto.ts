@@ -1,4 +1,4 @@
-import { BaseClass } from '@authdare/objects';
+import { cloneDeep } from 'lodash';
 import { Trim } from '@authdare/utils';
 import { ValidationPipe } from '@nestjs/common';
 import { Exclude, Expose } from 'class-transformer';
@@ -9,7 +9,7 @@ import { SnakeCase } from '@authdare/utils';
 export const SignupValidationPipe = new ValidationPipe({ transform: true });
 
 @Exclude()
-export class SignupDTO extends BaseClass<SignupDTO> {
+export class SignupDTO {
     @ApiProperty({ type: 'string', required: true, default: 'aemrebas.dev@gmail.com' })
     @Expose()
     @NotContains(' ')
@@ -28,4 +28,8 @@ export class SignupDTO extends BaseClass<SignupDTO> {
     @SnakeCase()
     @Length(3, 50)
     readonly orgname!: string;
+
+    constructor(obj: SignupDTO) {
+        Object.assign(this, cloneDeep(obj));
+    }
 }
