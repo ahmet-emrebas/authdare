@@ -14,19 +14,26 @@ import { v4 as uuid } from 'uuid';
 async function bootstrap() {
     const server = express();
     server.use(helmet());
+    server.use((req, res, next) => {
+        req.headers['access-control-allow-credentials'] =
+            'http://localhost:4200';
+        req.headers['access-control-allow-headers'] = '*';
+        next();
+    });
     server.use(
         session({
             name: 'session',
             secret: 'my-secret',
             cookie: {
-                sameSite: true,
+                sameSite: false,
             },
             resave: false,
+
             saveUninitialized: true,
         }),
     );
     server.use(cookieParser());
-    server.use(cors());
+    server.use(cors({}));
     // server.use(
     //     csurf({
     //         cookie: true,
@@ -37,11 +44,21 @@ async function bootstrap() {
 
     // Resource Module
     const resourceApi = await NestFactory.create(ResourcesModule, adapter);
-    configureSwagger({ app: resourceApi, description: 'Api doc', title: 'Api', path: 'resources' });
+    configureSwagger({
+        app: resourceApi,
+        description: 'Api doc',
+        title: 'Api',
+        path: 'resources',
+    });
 
     // Auth Module
     const authApp = await NestFactory.create(AuthModule, adapter);
-    configureSwagger({ app: authApp, description: 'Auth app doc', title: 'Auth', path: 'security' });
+    configureSwagger({
+        app: authApp,
+        description: 'Auth app doc',
+        title: 'Auth',
+        path: 'security',
+    });
 
     resourceApi.init();
     authApp.init();
