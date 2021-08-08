@@ -1,18 +1,18 @@
+import { EmailService } from './email.service';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { UserService } from './user.service';
 import { SignupDTO, CreateUserDTO } from '../user';
 import { BadRequestException, Injectable, InternalServerErrorException, Logger } from '@nestjs/common';
-import { EmailEvents } from './email.service';
 
 @Injectable()
 export class SignupService {
     private readonly logger = new Logger(SignupService.name);
 
-    constructor(private userService: UserService, private events: EventEmitter2) {}
+    constructor(private readonly userService: UserService, private readonly emailService: EmailService) {}
 
     async signup(user: SignupDTO) {
         const createdUser = await this.createNewSusbscription(user);
-        this.events.emit(EmailEvents.GREETING, createdUser.email);
+        await this.emailService.greeting(user.email);
         return createdUser;
     }
 

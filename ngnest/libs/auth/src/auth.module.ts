@@ -1,7 +1,6 @@
 import { TokenStoreService } from './services/token-store.service';
 import { ForgotPasswordService } from './services/forgot-password.service';
 import { SignupService } from './services/signup.service';
-import { genSaltSync, hashSync } from 'bcrypt';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import { EmailService } from './services/email.service';
 import { AuthController } from './auth.controller';
@@ -10,7 +9,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserEntity } from './user';
 import { JwtModule } from '@nestjs/jwt';
 import { UserService } from './services/user.service';
-import { delay } from '@authdare/utils';
+import { delay, ImObject } from '@authdare/utils';
 import { ConfigModule } from '@nestjs/config';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { ScheduleModule } from '@nestjs/schedule';
@@ -23,10 +22,26 @@ import { TaskEntity } from '@authdare/resources/task';
 import { ProviderTokens } from './provider-tokens';
 import { LoginService } from './services/login.service';
 import { CreateMemberService } from './services/create-member.service';
+import { v4 } from 'uuid';
 
-const EMAIL_HOST = 'mail.authdare.com';
-const EMAIL_USERNAME = 'support@authdare.com';
-const EMAIL_PASSWORD = process.env.EMAIL_PASSWORD || 'no password';
+const Config = ImObject({
+    // Email
+    EMAIL_TEMPLATE_PATH: join(__dirname, 'mail/templates'),
+    EMAIL_HOST: 'mail.authdare.com',
+    EMAIL_USERNAME: 'support@authdare.com',
+    EMAIL_PASSWORD: process.env.EMAIL_PASSWORD || 'no password',
+    EMAIL_DEFAULT_FROM: '"Authdare Support" <support@authdare.com>',
+
+    // Database
+    DB_TYPE: 'sqlite',
+    DB_URL: 'database/auth/main.sqlite',
+    DB_USERNAME: process.env.DB_USERNAME,
+    DB_PASSWORD: process.env.DB_PASSWORD,
+    ENTITIES: [UserEntity, TaskEntity],
+
+    // JWT
+    SECRET: process.env.SECRET || v4(),
+});
 
 @Module({
     imports: [
@@ -52,15 +67,15 @@ const EMAIL_PASSWORD = process.env.EMAIL_PASSWORD || 'no password';
             max: 20,
         }),
         ScheduleModule.forRoot(),
-        JwtModule.register({ secret: hashSync(EMAIL_PASSWORD, genSaltSync(8)) }),
+        JwtModule.register({ secret: Config.SECRET }),
         TypeOrmModule.forRootAsync({
             useFactory: async () => {
                 await delay(1000);
                 return {
                     name: AuthModule.name,
-                    type: 'sqlite',
-                    database: 'database/auth/main.sqlite',
-                    entities: [UserEntity, TaskEntity],
+                    type: Config.DB_TYPE as any,
+                    database: Config.DB_URL,
+                    entities: Config.ENTITIES,
                     synchronize: true,
                     dropSchema: true,
                 };
@@ -72,22 +87,22 @@ const EMAIL_PASSWORD = process.env.EMAIL_PASSWORD || 'no password';
             useFactory: () => {
                 return {
                     transport: {
-                        name: EMAIL_HOST,
-                        host: EMAIL_HOST,
+                        name: Config.EMAIL_HOST,
+                        host: Config.EMAIL_HOST,
                         port: 465, // 587(no ssl)
                         auth: {
-                            user: EMAIL_USERNAME,
-                            pass: EMAIL_PASSWORD,
+                            user: Config.EMAIL_USERNAME,
+                            pass: Config.EMAIL_PASSWORD,
                         },
                         tls: {
                             rejectUnauthorized: false,
                         },
                     },
                     defaults: {
-                        from: '"Authdare Support" <support@authdare.com>',
+                        from: Config.EMAIL_DEFAULT_FROM,
                     },
                     template: {
-                        dir: join(__dirname, '../../mail/templates'),
+                        dir: Config.EMAIL_TEMPLATE_PATH,
                         adapter: new HandlebarsAdapter(),
                         options: {
                             strict: false,

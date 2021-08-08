@@ -1,10 +1,11 @@
+import { ResourceTypeKeys } from './decorators/resource-type-keys';
 import { ForgotPasswordService } from './services/forgot-password.service';
 import { UserService } from './services/user.service';
 import { UpdateUserValidationPipe } from './user/dto/update-user.dto';
 import { SignupService } from './services/signup.service';
 import { AuthGuard } from './guards/auth.guard';
-import { Body, Controller, Get, Logger, Post, Session, UseGuards, BadRequestException, Query } from '@nestjs/common';
-import { ApiBadRequestResponse, ApiCreatedResponse, ApiInternalServerErrorResponse, ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Get, Logger, Post, Session, UseGuards } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import {
     LoginDTO,
     CreateTeamMemberDTO,
@@ -16,22 +17,20 @@ import {
     ForgotPasswordValidationPipe,
     UpdateUserDTO,
 } from './user';
-import { EventEmitter2 } from '@nestjs/event-emitter';
 import { LoginService } from './services/login.service';
 import { PublicPolicy } from './decorators';
 import { message } from '@authdare/utils';
 import { SessionKeys } from './session-keys';
-import { PermissionPolicy } from './decorators';
-import { EmailEvents } from '.';
+import { PermissionPolicy, ResourceType } from './decorators';
 
 @ApiTags(AuthController.name)
 @UseGuards(AuthGuard)
+@ResourceType(ResourceTypeKeys.AUTH)
 @Controller('auth')
 export class AuthController {
     private readonly logger = new Logger(AuthController.name);
 
     constructor(
-        private readonly eventEmitter: EventEmitter2,
         private readonly loginService: LoginService,
         private readonly signupService: SignupService,
         private readonly forgotPasswordService: ForgotPasswordService,
@@ -39,12 +38,14 @@ export class AuthController {
         private readonly userService: UserService,
     ) {}
 
-    @PermissionPolicy('get:tasks')
     @Get('profile')
-    canRead(@Session() session: any) {
-        const { orgname, email } = session[SessionKeys.USER];
-        this.logger.log(session[SessionKeys.USER]);
-        return this.userService.find({ where: { orgname, email } });
+    seeProfile(@Session() session: any) {
+        try {
+            const { orgname, email } = session[SessionKeys.USER];
+            return this.userService.find({ where: { orgname, email } });
+        } catch (err) {
+            return { message: 'What?' };
+        }
     }
 
     @PublicPolicy()
@@ -67,6 +68,7 @@ export class AuthController {
     @Post('create-member')
     async createTeamMember(@Body(CreateTeamMemberValidationPipe) body: CreateTeamMemberDTO, @Session() session: any) {}
 
+    @PublicPolicy()
     @Post('forgot-password')
     async forgotPassword(@Body(ForgotPasswordValidationPipe) body: ForgotPasswordDTO) {
         return await this.forgotPasswordService.forgotPassword(body);
@@ -74,8 +76,7 @@ export class AuthController {
 
     @Post('update-profile')
     async updateProfile(@Body(UpdateUserValidationPipe) body: UpdateUserDTO, @Session() session: any) {
-        // console.log(body);
-        // await this.authUserRepository.update(session.auth.id, body as any);
-        // return message("Updated profile.");
+        await this.userService.update(session[SessionKeys.USER].id, body);
+        return message('Updated profile.');
     }
 }

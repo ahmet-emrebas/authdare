@@ -3,12 +3,22 @@ import { v4 as uuid } from 'uuid';
 
 export const PolicyKeys = ImObject({
     /**
-     * Auth session will be stored in the session with this key
+     * This key will be used by Policy Decorators to define the resource policy and enforcements.
      */
     PUBLIC: uuid(),
 
     /**
-     * User PERMISSIONS will be stored in session with this key
+     *  This key will be used by Policy Decorators to define the resource policy and enforcements.
      */
     PERMISSION: uuid(),
+
+    /**
+     * This key will be used by Policy Decorators to define the resource policy and enforcements.
+     */
+    RESOURCE_TYPE: uuid(),
+
+    /**
+     * This key will be used by Policy Decorators to define the resource policy and enforcements.
+     */
+    ORIGIN_WHITE_LIST: uuid(),
 });

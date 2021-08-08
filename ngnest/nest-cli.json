@@ -4,7 +4,6 @@
   "version": "1",
   "monorepo": true,
   "root": "api",
-  "newProjectRoot": "libs/nest",
   "compilerOptions": {
     "webpack": true,
     "tsConfigPath": "apps/api/tsconfig.app.json",
