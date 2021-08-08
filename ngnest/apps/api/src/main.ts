@@ -37,7 +37,7 @@ async function bootstrap() {
 
     // Resource Module
     const resourceApi = await NestFactory.create(ResourcesModule, adapter);
-    configureSwagger({ app: resourceApi, description: 'Api doc', title: 'Api', path: 'resource' });
+    configureSwagger({ app: resourceApi, description: 'Api doc', title: 'Api', path: 'resources' });
 
     // Auth Module
     const authApp = await NestFactory.create(AuthModule, adapter);

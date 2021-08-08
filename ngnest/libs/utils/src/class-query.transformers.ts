@@ -3,24 +3,26 @@ import { LessThan, Like, MoreThan } from 'typeorm';
 import { Transform, TransformOptions } from 'class-transformer';
 import { isString } from 'lodash';
 
-function __likeContains(value: any) {
-    return isNotEmpty(value) && isString(value) && Like(`%${value}%`);
+export function __likeContains(value: any) {
+    return isNotEmpty(value) && isString(value)
+        ? Like(`%${value}%`)
+        : undefined;
 }
 
-function __likeStartsWith(value: any) {
-    return isNotEmpty(value) && isString(value) && Like(`${value}%`);
+export function __likeStartsWith(value: any) {
+    return isNotEmpty(value) && isString(value) ? Like(`${value}%`) : undefined;
 }
 
-function __likeEndsWith(value: any) {
-    return isNotEmpty(value) && isString(value) && Like(`${value}%`);
+export function __likeEndsWith(value: any) {
+    return isNotEmpty(value) && isString(value) ? Like(`%${value}`) : undefined;
 }
 
-function __lessThan(value: any) {
-    return isNotEmpty(value) && isString(value) && LessThan(new Date(value));
+export function __lessThan(value: any) {
+    return isNotEmpty(value) ? LessThan(new Date(value)) : undefined;
 }
 
-function __moreThan(value: any) {
-    return isNotEmpty(value) && isString(value) && MoreThan(new Date(value));
+export function __moreThan(value: any) {
+    return isNotEmpty(value) ? MoreThan(new Date(value)) : undefined;
 }
 
 /**

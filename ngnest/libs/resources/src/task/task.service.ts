@@ -5,9 +5,11 @@ import { TaskEntity } from '@authdare/resources/task';
 import { BaseResourceService } from '@authdare/database';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { Injectable } from '@angular/core';
 
+@Injectable()
 export class TaskService extends BaseResourceService<TaskEntity, CreateTaskDTO, UpdateTaskDTO> {
-    constructor(@InjectRepository(TaskEntity) __repo: Repository<TaskEntity>) {
-        super(__repo, new Logger(TaskService.name));
+    constructor(@InjectRepository(TaskEntity) taskRepository: Repository<TaskEntity>) {
+        super(taskRepository, new Logger(TaskService.name));
     }
 }

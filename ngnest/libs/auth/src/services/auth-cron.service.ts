@@ -25,12 +25,11 @@ export class AuthCronService {
 
     @Cron('30 * * * * *')
     handleCron() {
-        this.logger.debug('Called when the current second is 45');
-        this.eventEmitter.emit('cron.hello');
+        // Not Implemented
     }
 
     @Cron(CronExpression.EVERY_DAY_AT_6PM)
     report() {
-        this.logger.log('Reporting');
+        // Not Implemented
     }
 }

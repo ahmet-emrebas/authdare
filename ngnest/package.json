@@ -17,9 +17,10 @@
     "server:test:watch": "jest --watch",
     "server:test:cov": "jest --coverage",
     "server:test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:auth": "jest -i --watch  -c ./libs/auth/test/jest-e2e.json ",
     "postserver:build": "cp -r mail dist/api && cp -r package.json dist/api",
-    "server:build": "nest build"
+    "server:build": "nest build",
+    "test:auth": "jest --verbose -i --watch  -c ./libs/auth/test/jest-e2e.json -t Auth",
+    "test:resources": "jest --verbose -i --watch  -c ./libs/resources/test/jest-e2e.json -t Resource"
   },
   "dependencies": {
     "@angular/animations": "~12.1.0",
@@ -139,7 +140,7 @@
       "ts"
     ],
     "rootDir": ".",
-    "testRegex": ".*\\.spec\\.ts$",
+    "testRegex": ".*\\.(spec)\\.ts$",
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
     },

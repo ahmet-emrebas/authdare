@@ -1,4 +1,4 @@
-import { lowerCase, snakeCase, kebabCase, isEqual } from 'lodash';
+import { snakeCase } from 'lodash';
 import { AuthRoutes } from './../src/auth-routes';
 import { LoginDTO } from './../src/user/dto/login.dto';
 import { SignupDTO } from './../src/user/dto/signup.dto';

@@ -43,7 +43,7 @@ export class QueryDTO<T> extends BaseClass<QueryDTO<T>> {
      */
     @Expose()
     @ApiProperty({ required: false })
-    @TSplitBy()
+    @TSplitBy(undefined, { groups: ['get'] })
     select?: string[];
 
     /**
@@ -51,7 +51,7 @@ export class QueryDTO<T> extends BaseClass<QueryDTO<T>> {
      */
     @Expose()
     @ApiProperty({ required: false })
-    @TSplitBy()
+    @TSplitBy(undefined, { groups: ['get'] })
     relations?: string[];
 
     /**
@@ -76,6 +76,7 @@ export class QueryDTO<T> extends BaseClass<QueryDTO<T>> {
      */
     @Expose()
     @ApiProperty({ required: false })
+    @TParseBool()
     loadEagerRelations?: boolean;
 
     /**
@@ -83,7 +84,7 @@ export class QueryDTO<T> extends BaseClass<QueryDTO<T>> {
      */
     @Expose()
     @ApiProperty({ required: false })
-    @TObjectify()
+    @TObjectify({ groups: ['get'] })
     order?: { [P in EntityFieldsNames<T>]?: 'ASC' | 'DESC' | 1 | -1 };
 
     /**

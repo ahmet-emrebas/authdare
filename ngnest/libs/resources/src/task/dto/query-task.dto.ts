@@ -1,18 +1,12 @@
-import { ValidationPipe } from '@nestjs/common';
-import { BaseClass, QueryDTO } from '@authdare/objects';
+import { QueryDTO } from '@authdare/objects';
 import { ApiProperty } from '@nestjs/swagger';
-import { classToPlain, Exclude, Expose, Transform, Type } from 'class-transformer';
-import { InitEach, InitOne, TLikeContains } from '@authdare/utils';
-import { ValidateNested } from 'class-validator';
+import { Exclude, Expose } from 'class-transformer';
+import { TLikeContains } from '@authdare/utils';
 import { TaskEntity } from '../entity';
-
-export const QueryTaskPipe = new ValidationPipe({
-    transform: true,
-    transformOptions: { excludeExtraneousValues: true, exposeUnsetFields: false },
-});
+import { cloneDeep } from 'lodash';
 
 @Exclude()
-export class QueryTaskDTO extends BaseClass<QueryTaskDTO> {
+export class QueryTaskDTO {
     @Expose()
     @ApiProperty({ default: '', required: false })
     @TLikeContains()
@@ -22,14 +16,10 @@ export class QueryTaskDTO extends BaseClass<QueryTaskDTO> {
     @ApiProperty({ default: '', required: false })
     @TLikeContains()
     readonly description?: string;
+
+    constructor(obj: QueryTaskDTO) {
+        Object.assign(this, cloneDeep(obj));
+    }
 }
 
-export class FindManyTasksOptions extends QueryDTO<TaskEntity> {
-    @Expose()
-    @ApiProperty({ required: false })
-    @ValidateNested()
-    @Type(() => QueryTaskDTO)
-    @Transform(({ value }) => new QueryTaskDTO(value), { toClassOnly: true })
-    @Transform(({ value }) => classToPlain(value), { toPlainOnly: true })
-    readonly where?: QueryTaskDTO;
-}
+export class FindManyTasksOptions extends QueryDTO<TaskEntity> {}

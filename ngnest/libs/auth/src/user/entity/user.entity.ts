@@ -3,7 +3,7 @@ import { Stringify, HashPassword } from '@authdare/utils';
 import { cloneDeep } from 'lodash';
 import { Column, Entity } from 'typeorm';
 
-@Entity({ name: 'subs' })
+@Entity({ name: 'users' })
 export class UserEntity extends BaseEntity<UserEntity> {
     @Column({ unique: true, update: false })
     readonly email!: string;
