@@ -7,17 +7,21 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+button {
+    border-radius: 20px !important;
+}
+
 *::selection {
     background-color: yellow;
     color: black;
 }
 
-.flex-column {
+.col {
     display: flex;
     flex-direction: column;
 }
 
-.flex-row {
+.row {
     display: flex;
     flex-direction: row;
 }
@@ -25,6 +29,14 @@ body {
 .center {
     text-align: center;
     vertical-align: middle;
+}
+
+.n-select {
+    user-select: none;
+}
+
+.full {
+    width: 100%;
 }
 
 mat-card {
@@ -95,4 +107,16 @@ input:-webkit-autofill {
     top: 32px;
     color: rgba(255, 200, 100, 0.8);
     font-size: 11pt;
+}
+
+.fix {
+    position: fixed;
+}
+
+.abs {
+    position: absolute;
+}
+
+.rel {
+    position: relative;
 }

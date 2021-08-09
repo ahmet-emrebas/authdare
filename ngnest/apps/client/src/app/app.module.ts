@@ -18,7 +18,7 @@ import { TextFieldModule } from '@angular/cdk/text-field';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
-
+import { MatTooltipModule } from '@angular/material/tooltip';
 @NgModule({
     declarations: [AppComponent],
     imports: [
@@ -35,7 +35,7 @@ import { MatButtonModule } from '@angular/material/button';
         MatIconModule,
         MatFormFieldModule,
         MatButtonModule,
-
+        MatTooltipModule,
         // --- Material Modues
 
         ServiceWorkerModule.register('ngsw-worker.js', {

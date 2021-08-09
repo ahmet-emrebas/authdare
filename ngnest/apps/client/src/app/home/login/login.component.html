@@ -6,9 +6,7 @@
             <span [cdkCopyToClipboard]="err" class="mat-error" [@fadeIn] [@fadeOut] (click)="snack(err)"
                 *ngIf="$serverMessage | async as err">{{ err}}</span>
         </p>
-        <form [formGroup]="loginForm" autocomplete="off" class="flex-column">
-
-
+        <form class="col" [formGroup]="loginForm" autocomplete="off">
             <!-- Email -->
             <mat-form-field appearance="standard" [@fadeIn] [@fadeOut]>
                 <mat-label>Email</mat-label>

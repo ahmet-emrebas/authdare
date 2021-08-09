@@ -9,23 +9,23 @@ import {
 
 export const routeAnimations = [
     slideInDownOnEnterAnimation({
-        animateChildren: 'after',
+        animateChildren: 'together',
         anchor: 'enter',
-        duration: 1000,
+        duration: 400,
     }),
     slideOutUpOnLeaveAnimation({
-        animateChildren: 'before',
+        animateChildren: 'together',
         anchor: 'leave',
-        duration: 1000,
+        duration: 400,
     }),
 ];
 
 export const fadeInOut = [
-    fadeInOnEnterAnimation({ anchor: 'fadeIn', duration: 400 }),
+    fadeInOnEnterAnimation({ anchor: 'fadeIn', duration: 1600 }),
     fadeOutOnLeaveAnimation({ anchor: 'fadeOut', duration: 400 }),
 ];
 
 export const toRightLeft = [
-    slideInLeftOnEnterAnimation({ anchor: 'toRight', duration: 400 }),
+    slideInLeftOnEnterAnimation({ anchor: 'toRight', duration: 1600 }),
     slideOutLeftOnLeaveAnimation({ anchor: 'toLeft', duration: 400 }),
 ];
