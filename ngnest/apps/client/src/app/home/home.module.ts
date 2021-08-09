@@ -11,6 +11,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { LoginService } from './login/login.service';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
     declarations: [HomeComponent, LoginComponent],
@@ -25,6 +26,7 @@ import { LoginService } from './login/login.service';
         HomeRoutingModule,
         MatButtonModule,
         MatIconModule,
+        MatCardModule,
     ],
     providers: [LoginService],
 })
