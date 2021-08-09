@@ -14,8 +14,18 @@ import { LoginService } from './login/login.service';
 import { MatCardModule } from '@angular/material/card';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { SignupComponent } from './signup/signup.component';
+import { SignupService } from './signup/signup.service';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ForgotPasswordService } from './forgot-password/password.service';
+
 @NgModule({
-    declarations: [HomeComponent, LoginComponent],
+    declarations: [
+        HomeComponent,
+        LoginComponent,
+        SignupComponent,
+        ForgotPasswordComponent,
+    ],
     imports: [
         CommonModule,
         HttpClientModule,
@@ -31,6 +41,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
         ClipboardModule,
         MatSnackBarModule,
     ],
-    providers: [LoginService],
+    providers: [LoginService, SignupService, ForgotPasswordService],
 })
 export class HomeModule {}

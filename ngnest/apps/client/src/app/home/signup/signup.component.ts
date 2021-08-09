@@ -1,4 +1,3 @@
-import { routeAnimations, fadeInOut } from '../../animations';
 import { BehaviorSubject } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import {
@@ -8,12 +7,13 @@ import {
     NgForm,
     Validators,
 } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
-import { LoginService } from './login.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { SignupService } from './signup.service';
+import { ErrorStateMatcher } from '@angular/material/core';
+import { fadeInOut, routeAnimations } from '../../animations';
 import { Router } from '@angular/router';
 
-const LoginErrorStateMatcher = (formGroup: FormGroup) =>
+const SignupErrorStateMatcher = (formGroup: FormGroup) =>
     new (class ErrorMatcher implements ErrorStateMatcher {
         isErrorState(
             control: FormControl | null,
@@ -27,42 +27,47 @@ const LoginErrorStateMatcher = (formGroup: FormGroup) =>
     })();
 
 @Component({
-    selector: 'login-page',
-    templateUrl: './login.component.html',
-    styleUrls: ['./login.component.scss', './../home.component.scss'],
+    templateUrl: './signup.component.html',
+    styleUrls: ['./signup.component.scss', './../home.component.scss'],
     animations: [...routeAnimations, fadeInOut],
 })
-export class LoginComponent implements OnInit {
+export class SignupComponent implements OnInit {
     readonly email = new FormControl('', [Validators.email]);
     readonly password = new FormControl('', [
         Validators.max(100),
         Validators.min(6),
     ]);
+    readonly orgname = new FormControl('', [Validators.max(50), Validators.min(3)]);
 
-    readonly loginForm = new FormGroup({
+    readonly signupForm = new FormGroup({
         email: this.email,
         password: this.password,
+        orgname: this.orgname,
     });
 
-    readonly errorStateMatcher = LoginErrorStateMatcher(this.loginForm);
+    readonly errorStateMatcher = SignupErrorStateMatcher(this.signupForm);
     $serverMessage = new BehaviorSubject('');
 
     constructor(
-        private readonly loginService: LoginService,
+        private readonly signupService: SignupService,
         private readonly snackBar: MatSnackBar,
         private readonly router: Router,
     ) {}
 
     ngOnInit(): void {}
 
-    async login() {
-        (this.loginForm as any)['submitted'] = true;
-        if (this.loginForm.valid) {
-            const response: any = await this.loginService.login(
-                this.loginForm.value,
+    async signup() {
+        (this.signupForm as any)['submitted'] = true;
+        if (this.signupForm.valid) {
+            const response: any = await this.signupService.signup(
+                this.signupForm.value,
             );
 
-            this.$serverMessage.next(response.message);
+            if (response.status >= 400) {
+                this.$serverMessage.next(response.message);
+                return;
+            }
+            this.router.navigate(['/login']);
         }
     }
 
@@ -85,9 +90,5 @@ export class LoginComponent implements OnInit {
             duration: 3000,
             panelClass: 'snack',
         });
-    }
-
-    forgotPassword() {
-        this.router.navigate(['/forgot-password']);
     }
 }

@@ -1,13 +1,14 @@
 <div class="abs full" [@enter] [@leave]>
-    <mat-card class="auth">
+
+    <mat-card class="auth" [@enter] [@leave]>
         <mat-card-content>
             <!-- Server Error -->
             <p class="center vs usn">
                 &nbsp;
-                <span [cdkCopyToClipboard]="err" class="mat-error" [@fadeIn] [@fadeOut] (click)="snack(err)"
+                <span [cdkCopyToClipboard]="err" [class]=" 'mat-error'" [@fadeIn] [@fadeOut] (click)="snack(err)"
                     *ngIf="$serverMessage | async as err">{{ err}}</span>
             </p>
-            <form class="col" [formGroup]="loginForm">
+            <form class="col" [formGroup]="signupForm">
                 <!-- Email -->
                 <mat-form-field appearance="standard" [@fadeIn] [@fadeOut]>
                     <mat-label>Email</mat-label>
@@ -19,6 +20,7 @@
                         Not a valid email!
                     </mat-error>
                 </mat-form-field>
+
                 <!-- Password -->
                 <mat-form-field appearance="standard" color="primary" [@fadeIn] [@fadeOut]>
                     <mat-label>Password</mat-label>
@@ -32,26 +34,27 @@
                     <mat-hint>Password must be at least 6 characters long!</mat-hint>
                 </mat-form-field>
 
+                <!-- Organization Name -->
+                <mat-form-field appearance="standard" color="primary" [@fadeIn] [@fadeOut]>
+                    <mat-label>Organization</mat-label>
+                    <input name="orgname" #passwordInput matInput type="text" autocomplete="organization" required
+                        minlength="3" maxlength="50" [formControl]="orgname" [errorStateMatcher]="errorStateMatcher" />
+                    <mat-icon role="button" matSuffix color="primary" title="Show-Hide"
+                        (click)="tooblePasswordVisibility()">
+                        {{passwordIcon}}
+                    </mat-icon>
+                    <mat-hint>Organization name must be 3 to 50 characters long</mat-hint>
+                </mat-form-field>
+
                 <div class="vs"></div>
+
                 <!-- Actions -->
-                <button name="Login" mat-raised-button color="primary" type="submit" (click)="login()" [@fadeIn]
-                    [@fadeOut]>Login</button>
-
-                <div class="vs"></div>
-
-                <div class="row justify">
-                    <button name="Signup" mat-raised-button type="button" color="warn" (click)="forgotPassword()"
-                        [@fadeIn] [@fadeOut]>
-                        <mat-icon>mood</mat-icon>
-                        Signup
-                    </button>
-                    <button name="Forgot Password" mat-raised-button type="button" (click)="forgotPassword()" [@fadeIn]
-                        [@fadeOut]>
-                        <mat-icon class="vpn-key"> vpn_key </mat-icon> Forgot Password
-
-                    </button>
-                </div>
+                <button name="Login" mat-raised-button color="primary" type="submit" (click)="signup()" [@fadeIn]
+                    [@fadeOut] [disabled]="signupForm.invalid">
+                    Signup
+                </button>
             </form>
+
         </mat-card-content>
     </mat-card>
 </div>

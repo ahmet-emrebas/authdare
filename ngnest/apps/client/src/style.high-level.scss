@@ -9,6 +9,12 @@ body {
 
 button {
     border-radius: 20px !important;
+    text-align: center;
+    vertical-align: middle;
+}
+button > * {
+    line-height: 20pt !important;
+    vertical-align: middle !important;
 }
 
 *::selection {
@@ -16,35 +22,11 @@ button {
     color: black;
 }
 
-.col {
-    display: flex;
-    flex-direction: column;
-}
-
-.row {
-    display: flex;
-    flex-direction: row;
-}
-
-.center {
-    text-align: center;
-    vertical-align: middle;
-}
-
-.n-select {
-    user-select: none;
-}
-
-.full {
-    width: 100%;
-}
-
 mat-card {
     max-width: 90%;
     width: 400px;
     padding: 30px;
-    margin: auto;
-    z-index: 50;
+    border-radius: 10px !important;
 }
 
 mat-toolbar {
@@ -85,19 +67,15 @@ mat-icon * {
 }
 
 input:-webkit-autofill {
-    box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.884);
+    box-shadow: inset 50px 50px 1px rgb(255, 200, 100);
     width: min-content !important;
     padding: 5px;
-
-    -moz-border-radius: 15px;
     border-radius: 15px;
 }
 
 .mat-form-field-autofilled mat-label::before {
     content: "✎ Auto Filled";
-    position: fixed;
-    right: 50px;
-    top: 32px;
+    padding-right: 20px;
     color: orange;
     font-size: 11pt;
 }
@@ -105,10 +83,17 @@ input:-webkit-autofill {
 mat-form-field.ng-valid mat-icon::before {
     content: "done";
     font-weight: 900;
-    color: rgba(105, 252, 105, 0.911) !important;
+    color: rgba(100, 255, 100, 0.8) !important;
     position: absolute;
     right: 30px;
-    clear: both;
+}
+
+mat-form-field.ng-touched.ng-invalid mat-icon::before {
+    content: "close";
+    color: rgba(255, 100, 100, 0.8) !important;
+    font-weight: 900;
+    position: absolute;
+    right: 30px;
 }
 
 .fix {
@@ -121,4 +106,43 @@ mat-form-field.ng-valid mat-icon::before {
 
 .rel {
     position: relative;
+}
+.vs {
+    height: 20px;
+}
+
+.hs {
+    width: 20px;
+}
+
+.col {
+    display: flex;
+    flex-direction: column;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+}
+.justify {
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.justify > * {
+    margin-top: 5px !important;
+    width: 47.5% !important;
+}
+
+.center {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.usn {
+    user-select: none;
+}
+
+.full {
+    width: 100%;
 }
