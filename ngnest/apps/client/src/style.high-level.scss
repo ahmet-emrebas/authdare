@@ -65,6 +65,17 @@ mat-icon * {
     width: 100%;
     text-align: center;
 }
+.snack-info {
+    @extend .snack;
+    background-color: teal;
+    color: white;
+}
+
+.snack-error {
+    @extend .snack;
+    background-color: rgba(255, 0, 0, 0.8);
+    color: white;
+}
 
 input:-webkit-autofill {
     box-shadow: inset 50px 50px 1px rgb(255, 200, 100);

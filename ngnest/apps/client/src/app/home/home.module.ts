@@ -17,7 +17,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SignupComponent } from './signup/signup.component';
 import { SignupService } from './signup/signup.service';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
-import { ForgotPasswordService } from './forgot-password/password.service';
+import { ForgotPasswordService } from './forgot-password/forgot-password.service';
 
 @NgModule({
     declarations: [

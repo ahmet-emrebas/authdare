@@ -48,6 +48,12 @@
       ],
       "@authdare/database/*": [
         "libs/database/src/*"
+      ],
+      "@authdare/shared-code": [
+        "libs/shared-code/src"
+      ],
+      "@authdare/shared-code/*": [
+        "libs/shared-code/src/*"
       ]
     },
     "lib": [

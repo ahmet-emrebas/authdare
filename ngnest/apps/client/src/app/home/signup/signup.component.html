@@ -8,6 +8,9 @@
                 <span [cdkCopyToClipboard]="err" [class]=" 'mat-error'" [@fadeIn] [@fadeOut] (click)="snack(err)"
                     *ngIf="$serverMessage | async as err">{{ err}}</span>
             </p>
+
+            <div class="vs"></div>
+
             <form class="col" [formGroup]="signupForm">
                 <!-- Email -->
                 <mat-form-field appearance="standard" [@fadeIn] [@fadeOut]>
@@ -16,9 +19,7 @@
                         [formControl]="email" [errorStateMatcher]="errorStateMatcher" autofilled="true" />
 
                     <mat-icon matSuffix color="primary">email</mat-icon>
-                    <mat-error>
-                        Not a valid email!
-                    </mat-error>
+                    <mat-error> Not a valid email! </mat-error>
                 </mat-form-field>
 
                 <!-- Password -->

@@ -1,6 +1,5 @@
 import { routeAnimations, fadeInOut } from '../../animations';
-import { BehaviorSubject } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
     FormControl,
     FormGroup,
@@ -12,6 +11,8 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { LoginService } from './login.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { SubSink } from 'subsink';
+import { Messages } from '@authdare/shared-code';
 
 const LoginErrorStateMatcher = (formGroup: FormGroup) =>
     new (class ErrorMatcher implements ErrorStateMatcher {
@@ -32,20 +33,16 @@ const LoginErrorStateMatcher = (formGroup: FormGroup) =>
     styleUrls: ['./login.component.scss', './../home.component.scss'],
     animations: [...routeAnimations, fadeInOut],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
     readonly email = new FormControl('', [Validators.email]);
-    readonly password = new FormControl('', [
-        Validators.max(100),
-        Validators.min(6),
-    ]);
-
+    readonly password = new FormControl('', [Validators.min(6)]);
+    readonly subsink = new SubSink();
     readonly loginForm = new FormGroup({
         email: this.email,
         password: this.password,
     });
 
     readonly errorStateMatcher = LoginErrorStateMatcher(this.loginForm);
-    $serverMessage = new BehaviorSubject('');
 
     constructor(
         private readonly loginService: LoginService,
@@ -55,14 +52,24 @@ export class LoginComponent implements OnInit {
 
     ngOnInit(): void {}
 
+    ngOnDestroy(): void {
+        this.subsink.unsubscribe();
+    }
+
     async login() {
         (this.loginForm as any)['submitted'] = true;
         if (this.loginForm.valid) {
-            const response: any = await this.loginService.login(
-                this.loginForm.value,
-            );
-
-            this.$serverMessage.next(response.message);
+            const res: any = await this.loginService.login(this.loginForm.value);
+            if (res.statusCode >= 400) {
+                if (res.message == Messages.EN.USER_NOT_FOUND) {
+                    this.loginForm.setValue({});
+                } else if (res.message == Messages.EN.WRONG_PASSWORD) {
+                    this.password.setValue('');
+                }
+                this.snack(res.message, 'snack-error');
+                return;
+            }
+            this.snack(res.message, 'snack-info');
         }
     }
 
@@ -78,16 +85,16 @@ export class LoginComponent implements OnInit {
         this.passwordType = this.passwordType == 'password' ? 'text' : 'password';
     }
 
-    snack(err: string) {
-        this.snackBar.open(`Copied to clipboard, ${err}`, undefined, {
+    snack(message: string, type?: 'snack-info' | 'snack-error') {
+        this.snackBar.open(message, undefined, {
             horizontalPosition: 'center',
             verticalPosition: 'top',
-            duration: 3000,
-            panelClass: 'snack',
+            duration: 10000,
+            panelClass: type || 'snack',
         });
     }
 
-    forgotPassword() {
-        this.router.navigate(['/forgot-password']);
+    navigate(route: string) {
+        this.router.navigate([route]);
     }
 }

@@ -10,7 +10,8 @@ import {
 } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ForgotPasswordService } from './password.service';
+import { ForgotPasswordService } from './forgot-password.service';
+import { Router } from '@angular/router';
 
 const ForgotPasswordErrorStateMatcher = (formGroup: FormGroup) =>
     new (class ErrorMatcher implements ErrorStateMatcher {
@@ -32,9 +33,11 @@ const ForgotPasswordErrorStateMatcher = (formGroup: FormGroup) =>
 })
 export class ForgotPasswordComponent implements OnInit {
     readonly email = new FormControl('', [Validators.email]);
+    readonly code = new FormControl('', [Validators.maxLength(100)]);
 
     readonly forgotPasswordForm = new FormGroup({
         email: this.email,
+        code: this.code,
     });
 
     readonly errorStateMatcher = ForgotPasswordErrorStateMatcher(
@@ -42,30 +45,51 @@ export class ForgotPasswordComponent implements OnInit {
     );
     $serverMessage = new BehaviorSubject('');
 
+    isCodeSent = false;
+
     constructor(
-        private readonly passwordService: ForgotPasswordService,
+        private readonly forgotPasswordService: ForgotPasswordService,
         private readonly snackBar: MatSnackBar,
+        private readonly router: Router,
     ) {}
 
     ngOnInit(): void {}
 
-    async forgotPassword() {
+    async requestVerificationCode() {
         (this.forgotPasswordForm as any)['submitted'] = true;
-        if (this.forgotPasswordForm.valid) {
-            const response: any = await this.passwordService.forgotPassword(
-                this.forgotPasswordForm.value,
-            );
 
-            this.$serverMessage.next(response.message);
+        if (this.forgotPasswordForm.valid) {
+            let res: any;
+            res = await this.forgotPasswordService.forgotPassword(this.email.value);
+            if (res.statusCode >= 400) {
+                this.$serverMessage.next(res.message);
+                return;
+            }
+            this.isCodeSent = true;
+            this.snack(res.message, 'snack-info');
         }
     }
 
-    snack(err: string) {
-        this.snackBar.open(`Copied to clipboard, ${err}`, undefined, {
+    async verifyCode() {
+        (this.forgotPasswordForm as any)['submitted'] = true;
+        const res = await this.forgotPasswordService.verifyCode(
+            this.email.value,
+            this.code.value,
+        );
+        if (res.statusCode >= 400) {
+            this.$serverMessage.next(res.message);
+            return;
+        }
+        this.snack(res.message, 'snack-info');
+        this.router.navigate(['/login']);
+    }
+
+    snack(message: string, type?: 'snack-info' | 'snack-error') {
+        this.snackBar.open(message, undefined, {
             horizontalPosition: 'center',
             verticalPosition: 'top',
-            duration: 3000,
-            panelClass: 'snack',
+            duration: 10000,
+            panelClass: type || 'snack',
         });
     }
 }

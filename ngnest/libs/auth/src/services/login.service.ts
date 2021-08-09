@@ -2,6 +2,7 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { UserService } from './user.service';
 import { compare } from 'bcrypt';
 import { LoginDTO } from '../user';
+import { Messages } from '@authdare/shared-code';
 
 @Injectable()
 export class LoginService {
@@ -16,13 +17,16 @@ export class LoginService {
         let isPasswordMatch = false;
         const foundUser = await this.userService.isExistByEmail(credentials.email);
         if (foundUser) {
-            isPasswordMatch = await compare(credentials.password, foundUser.password);
+            isPasswordMatch = await compare(
+                credentials.password,
+                foundUser.password,
+            );
             if (isPasswordMatch) {
                 return foundUser;
             }
         } else {
-            throw new BadRequestException('User not found!');
+            throw new BadRequestException(Messages.EN.USER_NOT_FOUND);
         }
-        throw new BadRequestException('Wrong password');
+        throw new BadRequestException(Messages.EN.WRONG_PASSWORD);
     }
 }

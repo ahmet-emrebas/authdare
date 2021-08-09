@@ -22,7 +22,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.subsink.sink = this.router.events.subscribe((event) => {
-            console.log(event);
             if (event instanceof ActivationStart) {
                 this.pageName.next(event.snapshot.data?.pageName);
             }

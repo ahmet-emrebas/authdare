@@ -59,12 +59,10 @@ export class SignupComponent implements OnInit {
     async signup() {
         (this.signupForm as any)['submitted'] = true;
         if (this.signupForm.valid) {
-            const response: any = await this.signupService.signup(
-                this.signupForm.value,
-            );
+            const res: any = await this.signupService.signup(this.signupForm.value);
 
-            if (response.status >= 400) {
-                this.$serverMessage.next(response.message);
+            if (res.statusCode >= 400) {
+                this.$serverMessage.next(res.message);
                 return;
             }
             this.router.navigate(['/login']);

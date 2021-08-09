@@ -10,11 +10,9 @@ export class SignupService {
         const signup = this.http.post('/auth/signup', signupForm);
         try {
             const res = await firstValueFrom(signup);
-            console.log(res);
             return res;
-        } catch (err) {
-            console.log(err);
-            return (err as HttpErrorResponse).error;
+        } catch (error: any) {
+            return error.error;
         }
     }
 }

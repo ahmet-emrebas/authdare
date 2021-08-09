@@ -1,12 +1,7 @@
 <div class="abs full" [@enter] [@leave]>
     <mat-card class="auth">
         <mat-card-content>
-            <!-- Server Error -->
-            <p class="center vs usn">
-                &nbsp;
-                <span [cdkCopyToClipboard]="err" class="mat-error" [@fadeIn] [@fadeOut] (click)="snack(err)"
-                    *ngIf="$serverMessage | async as err">{{ err}}</span>
-            </p>
+
             <form class="col" [formGroup]="loginForm">
                 <!-- Email -->
                 <mat-form-field appearance="standard" [@fadeIn] [@fadeOut]>
@@ -23,8 +18,7 @@
                 <mat-form-field appearance="standard" color="primary" [@fadeIn] [@fadeOut]>
                     <mat-label>Password</mat-label>
                     <input name="password" #passwordInput matInput [type]="passwordType" autocomplete="new-password"
-                        required minlength="6" maxlength="100" [formControl]="password"
-                        [errorStateMatcher]="errorStateMatcher" />
+                        required minlength="6" [formControl]="password" [errorStateMatcher]="errorStateMatcher" />
                     <mat-icon role="button" matSuffix color="primary" title="Show-Hide"
                         (click)="tooblePasswordVisibility()">
                         {{passwordIcon}}
@@ -35,18 +29,18 @@
                 <div class="vs"></div>
                 <!-- Actions -->
                 <button name="Login" mat-raised-button color="primary" type="submit" (click)="login()" [@fadeIn]
-                    [@fadeOut]>Login</button>
+                    [@fadeOut] [disabled]="loginForm.invalid">Login</button>
 
                 <div class="vs"></div>
 
                 <div class="row justify">
-                    <button name="Signup" mat-raised-button type="button" color="warn" (click)="forgotPassword()"
+                    <button name="Signup" mat-raised-button type="button" color="warn" (click)="navigate('/signup')"
                         [@fadeIn] [@fadeOut]>
                         <mat-icon>mood</mat-icon>
                         Signup
                     </button>
-                    <button name="Forgot Password" mat-raised-button type="button" (click)="forgotPassword()" [@fadeIn]
-                        [@fadeOut]>
+                    <button name="Forgot Password" mat-raised-button type="button"
+                        (click)="navigate('/forgot-password')" [@fadeIn] [@fadeOut]>
                         <mat-icon class="vpn-key"> vpn_key </mat-icon> Forgot Password
 
                     </button>

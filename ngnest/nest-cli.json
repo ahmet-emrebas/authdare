@@ -83,6 +83,15 @@
       "compilerOptions": {
         "tsConfigPath": "libs/database/tsconfig.lib.json"
       }
+    },
+    "shared-code": {
+      "type": "library",
+      "root": "libs/shared-code",
+      "entryFile": "index",
+      "sourceRoot": "libs/shared-code/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/shared-code/tsconfig.lib.json"
+      }
     }
   }
 }
