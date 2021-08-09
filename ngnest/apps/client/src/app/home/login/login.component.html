@@ -1,10 +1,12 @@
 <mat-card [@enter] [@leave]>
     <mat-card-content>
-
+        <!-- Server Error -->
+        <p class="center" style="height: 50px;">
+            &nbsp;
+            <span class="mat-error" [@fadeIn] [@fadeOut] *ngIf="$serverMessage | async as err">{{ err}}</span>
+        </p>
         <form [formGroup]="loginForm" autocomplete="off" class="flex-column">
 
-            <!-- Server Error -->
-            <p class="mat-error">{{ $serverMessage | async }}</p>
 
             <!-- Email -->
             <mat-form-field appearance="standard" [@fadeIn] [@fadeOut]>

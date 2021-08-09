@@ -2,8 +2,6 @@
 
 @include mat.core();
 
-@import url("./style.high-level.scss");
-
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
@@ -54,3 +52,6 @@ $client-dark-theme: mat.define-dark-theme(
 .theme-dark {
   @include mat.all-component-themes($client-dark-theme);
 }
+
+// High Level Component Styles
+@import url("./style.high-level.scss");

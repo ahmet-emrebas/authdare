@@ -22,11 +22,23 @@ body {
     flex-direction: row;
 }
 
+.center {
+    text-align: center;
+    vertical-align: middle;
+}
+
 mat-card {
     max-width: 90%;
     width: 400px;
     padding: 30px;
     margin: auto;
+    z-index: 50;
+}
+
+mat-toolbar {
+    position: sticky;
+    top: 0px;
+    z-index: 1000;
 }
 
 mat-icon {
@@ -34,6 +46,34 @@ mat-icon {
     cursor: pointer;
 }
 
+mat-sidenav-container,
+mat-sidenav-content {
+    min-height: 100vh;
+}
+
 mat-hint {
     font-style: italic;
+}
+
+mat-form-field.ng-valid mat-icon {
+    color: green;
+}
+
+mat-form-field.ng-invalid mat-icon {
+    color: red;
+}
+
+// AutoFilled
+input:-webkit-autofill {
+    box-shadow: 0px 0px 10px rgba(100, 100, 100, 0.8), inset 0px 0px 10px rgba(100, 100, 100, 0.8);
+    background-color: transparent !important;
+    width: min-content !important;
+    padding: 5px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+}
+.mat-form-field-autofilled::after {
+    content: "✎ Auto Filled";
+    color: orange;
+    font-size: 9pt;
 }
