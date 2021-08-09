@@ -10,6 +10,7 @@ import {
 } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { LoginService } from './login.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 const LoginErrorStateMatcher = (formGroup: FormGroup) =>
     new (class ErrorMatcher implements ErrorStateMatcher {
@@ -45,7 +46,10 @@ export class LoginComponent implements OnInit {
     readonly errorStateMatcher = LoginErrorStateMatcher(this.loginForm);
     $serverMessage = new BehaviorSubject('');
 
-    constructor(private readonly loginService: LoginService) {}
+    constructor(
+        private readonly loginService: LoginService,
+        private readonly snackBar: MatSnackBar,
+    ) {}
 
     ngOnInit(): void {}
 
@@ -70,5 +74,14 @@ export class LoginComponent implements OnInit {
             this.passwordIcon == 'visibility' ? 'visibility_off' : 'visibility';
 
         this.passwordType = this.passwordType == 'password' ? 'text' : 'password';
+    }
+
+    snack(err: string) {
+        this.snackBar.open(`Copied to clipboard, ${err}`, undefined, {
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+            duration: 3000,
+            panelClass: 'snack',
+        });
     }
 }

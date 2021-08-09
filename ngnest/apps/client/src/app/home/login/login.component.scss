@@ -14,18 +14,3 @@ mat-form-field.ng-valid.ng-dirty mat-icon {
 mat-form-field.ng-invalid.ng-dirty mat-icon {
     color: rgba(250, 100, 100, 0.8);
 }
-
-// AutoFilled
-input:-webkit-autofill {
-    box-shadow: 0px 0px 10px rgba(100, 100, 100, 0.8), inset 0px 0px 10px rgba(100, 100, 100, 0.8);
-    background-color: transparent !important;
-    width: min-content !important;
-    padding: 5px;
-    -moz-border-radius: 15px;
-    border-radius: 15px;
-}
-.mat-form-field-autofilled::after {
-    content: "✎ Auto Filled";
-    color: orange;
-    font-size: 9pt;
-}

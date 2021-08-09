@@ -1,9 +1,10 @@
 <mat-card [@enter] [@leave]>
     <mat-card-content>
         <!-- Server Error -->
-        <p class="center" style="height: 50px;">
+        <p class="center" style="height: 50px; user-select: none;">
             &nbsp;
-            <span class="mat-error" [@fadeIn] [@fadeOut] *ngIf="$serverMessage | async as err">{{ err}}</span>
+            <span [cdkCopyToClipboard]="err" class="mat-error" [@fadeIn] [@fadeOut] (click)="snack(err)"
+                *ngIf="$serverMessage | async as err">{{ err}}</span>
         </p>
         <form [formGroup]="loginForm" autocomplete="off" class="flex-column">
 

@@ -12,7 +12,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { LoginService } from './login/login.service';
 import { MatCardModule } from '@angular/material/card';
-
+import { ClipboardModule } from '@angular/cdk/clipboard';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 @NgModule({
     declarations: [HomeComponent, LoginComponent],
     imports: [
@@ -27,6 +28,8 @@ import { MatCardModule } from '@angular/material/card';
         MatButtonModule,
         MatIconModule,
         MatCardModule,
+        ClipboardModule,
+        MatSnackBarModule,
     ],
     providers: [LoginService],
 })

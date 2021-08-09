@@ -63,17 +63,36 @@ mat-form-field.ng-invalid mat-icon {
     color: red;
 }
 
-// AutoFilled
+mat-form-field * {
+    overflow: visible !important;
+}
+
+.snack {
+    @extend .center;
+    background-color: rgba(255, 200, 100, 0.8);
+    color: black;
+}
+.snack * {
+    position: relative;
+    width: 100%;
+    text-align: center;
+}
+
 input:-webkit-autofill {
-    box-shadow: 0px 0px 10px rgba(100, 100, 100, 0.8), inset 0px 0px 10px rgba(100, 100, 100, 0.8);
-    background-color: transparent !important;
+    border: 3px solid rgba(255, 200, 100, 0.8);
+    border-left: 10px solid rgba(255, 200, 100, 0.8);
+    border-right: 10px solid rgba(255, 200, 100, 0.8);
     width: min-content !important;
-    padding: 5px;
+    padding: 2px;
     -moz-border-radius: 15px;
     border-radius: 15px;
 }
-.mat-form-field-autofilled::after {
+
+.mat-form-field-autofilled mat-label::before {
     content: "✎ Auto Filled";
-    color: orange;
-    font-size: 9pt;
+    position: fixed;
+    right: 10px;
+    top: 32px;
+    color: rgba(255, 200, 100, 0.8);
+    font-size: 11pt;
 }
