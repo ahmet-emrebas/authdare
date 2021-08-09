@@ -3,6 +3,7 @@ import { routeAnimations, fadeInOut, toRightLeft } from './animations';
 import { Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
 import { ActivationStart, Router } from '@angular/router';
 import { SubSink } from 'subsink';
+
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
@@ -11,7 +12,7 @@ import { SubSink } from 'subsink';
 })
 export class AppComponent implements OnInit, OnDestroy {
     pageName = new BehaviorSubject('Home');
-    isDark = true;
+    isDark = false;
     subsink = new SubSink();
     @HostBinding('class')
     get themeMode() {

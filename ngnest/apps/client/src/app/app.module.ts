@@ -19,8 +19,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { A11yModule } from '@angular/cdk/a11y';
 import { ObserversModule } from '@angular/cdk/observers';
+
 @NgModule({
     declarations: [AppComponent],
     imports: [
@@ -38,9 +38,7 @@ import { ObserversModule } from '@angular/cdk/observers';
         MatFormFieldModule,
         MatButtonModule,
         MatTooltipModule,
-        A11yModule,
         ObserversModule,
-        // --- Material Modues
 
         ServiceWorkerModule.register('ngsw-worker.js', {
             enabled: environment.production,

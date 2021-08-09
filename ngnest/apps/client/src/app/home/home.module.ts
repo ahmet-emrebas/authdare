@@ -18,7 +18,7 @@ import { SignupComponent } from './signup/signup.component';
 import { SignupService } from './signup/signup.service';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ForgotPasswordService } from './forgot-password/forgot-password.service';
-import { A11yModule } from '@angular/cdk/a11y';
+
 @NgModule({
     declarations: [
         HomeComponent,

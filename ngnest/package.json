@@ -75,7 +75,7 @@
     "sqlite3": "^5.0.2",
     "subsink": "^1.0.2",
     "swagger-ui-express": "^4.1.6",
-    "tslib": "^2.2.0",
+    "tslib": "^2.3.0",
     "typeorm": "^0.2.34",
     "uuid": "^8.3.2",
     "validator": "^13.6.0",
