@@ -11,9 +11,9 @@
 
 // Light Theme
 
-$client-primary: mat.define-palette(mat.$indigo-palette);
-$client-accent: mat.define-palette(mat.$pink-palette);
-$client-warn: mat.define-palette(mat.$red-palette);
+$client-primary: mat.define-palette(mat.$light-blue-palette);
+$client-accent: mat.define-palette(mat.$purple-palette);
+$client-warn: mat.define-palette(mat.$pink-palette);
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".
 $client-theme: mat.define-light-theme(
@@ -27,9 +27,9 @@ $client-theme: mat.define-light-theme(
 );
 
 // Dark Theme
-$client-dark-primary: mat.define-palette(mat.$indigo-palette, 200);
-$client-dark-accent: mat.define-palette(mat.$pink-palette, 200);
-$client-dark-warn: mat.define-palette(mat.$red-palette, 200);
+$client-dark-primary: mat.define-palette(mat.$light-blue-palette, 200);
+$client-dark-accent: mat.define-palette(mat.$purple-palette, 200);
+$client-dark-warn: mat.define-palette(mat.$pink-palette, 200);
 
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".
