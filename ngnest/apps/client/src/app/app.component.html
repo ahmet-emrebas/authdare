@@ -1,1 +1,18 @@
-<router-outlet></router-outlet>
+<mat-sidenav-container>
+    <mat-sidenav-content [@enter] [@leave]>
+        <mat-toolbar [color]="isDark ? null : 'primary'">
+            <button [@eenter] mat-icon-button [routerLink]="['/']" *ngIf="!(pageName=='Home')">
+                <mat-icon>keyboard_arrow_left</mat-icon>
+            </button>
+            <div [@eenter] [@eleave]>
+                {{pageName}}
+            </div>
+            <div style="flex: auto 1;"></div>
+            <!-- Theme Switch -->
+            <mat-slide-toggle [@eenter] [@eleave] [checked]="isDark" (change)="toggleTheme()" color="white">
+                <small matPrefix> {{isDark ? 'Dark' : "Light"}} </small>
+            </mat-slide-toggle>
+        </mat-toolbar>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>

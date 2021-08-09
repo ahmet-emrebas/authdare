@@ -1,0 +1,21 @@
+form.login-form {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    max-width: 60%;
+    padding: 30px;
+    margin: auto;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.301);
+}
+
+mat-icon {
+    user-select: none;
+    cursor: pointer;
+}
+
+mat-sidenav-container,
+mat-sidenav-content {
+    min-height: 100vh;
+}

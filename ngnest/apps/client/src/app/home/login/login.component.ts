@@ -1,3 +1,5 @@
+import { routeAnimations } from './../../route-animations';
+import { BehaviorSubject } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import {
     FormControl,
@@ -7,7 +9,6 @@ import {
     Validators,
 } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { Store } from '@ngrx/store';
 import { LoginService } from './login.service';
 
 const LoginErrorStateMatcher = (formGroup: FormGroup) =>
@@ -24,24 +25,38 @@ const LoginErrorStateMatcher = (formGroup: FormGroup) =>
     })();
 
 @Component({
+    selector: 'login-page',
     templateUrl: './login.component.html',
-    styleUrls: ['./login.component.scss'],
+    styleUrls: ['./login.component.scss', './../home.component.scss'],
+    animations: routeAnimations,
 })
 export class LoginComponent implements OnInit {
-    loginForm = new FormGroup({
-        email: new FormControl('', [Validators.email]),
-        password: new FormControl('', [Validators.max(100), Validators.min(6)]),
+    readonly email = new FormControl('', [Validators.email]);
+    readonly password = new FormControl('', [
+        Validators.max(100),
+        Validators.min(6),
+    ]);
+
+    readonly loginForm = new FormGroup({
+        email: this.email,
+        password: this.password,
     });
-    errorStateMatcher = LoginErrorStateMatcher(this.loginForm);
+
+    readonly errorStateMatcher = LoginErrorStateMatcher(this.loginForm);
+    $serverMessage = new BehaviorSubject('');
 
     constructor(private readonly loginService: LoginService) {}
 
     ngOnInit(): void {}
 
-    login() {
+    async login() {
         (this.loginForm as any)['submitted'] = true;
         if (this.loginForm.valid) {
-            this.loginService.login(this.loginForm.value);
+            const response: any = await this.loginService.login(
+                this.loginForm.value,
+            );
+
+            this.$serverMessage.next(response.message);
         }
     }
 
@@ -54,7 +69,6 @@ export class LoginComponent implements OnInit {
         this.passwordIcon =
             this.passwordIcon == 'visibility' ? 'visibility_off' : 'visibility';
 
-        this.passwordType =
-            this.passwordType == 'password' ? 'text' : 'password';
+        this.passwordType = this.passwordType == 'password' ? 'text' : 'password';
     }
 }

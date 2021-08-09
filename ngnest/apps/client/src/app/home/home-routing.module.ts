@@ -7,10 +7,12 @@ const routes: Routes = [
     {
         path: '',
         component: HomeComponent,
+        data: { pageName: 'Home' },
     },
     {
         path: 'login',
         component: LoginComponent,
+        data: { pageName: 'Login' },
     },
 ];
 
