@@ -1,5 +1,4 @@
-import { elementAnimations } from './element-animations';
-import { routeAnimations } from './route-animations';
+import { routeAnimations, fadeInOut, toRightLeft } from './animations';
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { ActivationStart, Router } from '@angular/router';
 
@@ -7,7 +6,7 @@ import { ActivationStart, Router } from '@angular/router';
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
-    animations: [...routeAnimations, ...elementAnimations],
+    animations: [...routeAnimations, ...fadeInOut, ...toRightLeft],
 })
 export class AppComponent implements OnInit {
     pageName = 'Unknown';

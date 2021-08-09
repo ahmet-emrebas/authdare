@@ -1,4 +1,4 @@
-import { routeAnimations } from './../../route-animations';
+import { routeAnimations, fadeInOut } from '../../animations';
 import { BehaviorSubject } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import {
@@ -28,7 +28,7 @@ const LoginErrorStateMatcher = (formGroup: FormGroup) =>
     selector: 'login-page',
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.scss', './../home.component.scss'],
-    animations: routeAnimations,
+    animations: [...routeAnimations, fadeInOut],
 })
 export class LoginComponent implements OnInit {
     readonly email = new FormControl('', [Validators.email]);

@@ -1,6 +1,6 @@
 <form [formGroup]="loginForm" autocomplete="off" [@enter] [@leave]>
     <p class="mat-error">{{ $serverMessage | async }}</p>
-    <mat-form-field appearance="standard">
+    <mat-form-field appearance="standard" [@fadeIn] [@fadeOut]>
         <mat-label>Email</mat-label>
         <input name="email" type="email" minlength="3" matInput autocomplete="email" required [formControl]="email"
             [errorStateMatcher]="errorStateMatcher" autofilled="true" />
@@ -10,7 +10,7 @@
             Not a valid email!
         </mat-error>
     </mat-form-field>
-    <mat-form-field appearance="standard" color="primary">
+    <mat-form-field appearance="standard" color="primary" [@fadeIn] [@fadeOut]>
         <mat-label>Password</mat-label>
         <input name="password" #passwordInput matInput [type]="passwordType" autocomplete="new-password" required
             minlength="6" maxlength="100" [formControl]="password" [errorStateMatcher]="errorStateMatcher" />
@@ -20,7 +20,9 @@
         <mat-hint>Password must be at least 6 characters long!</mat-hint>
     </mat-form-field>
     <br />
-    <button name="Login" mat-raised-button color="primary" type="submit" (click)="login()">Login</button>
+    <button name="Login" mat-raised-button color="primary" type="submit" (click)="login()" [@fadeIn]
+        [@fadeOut]>Login</button>
     <br>
-    <button name="Forgot Password" mat-raised-button color="accent" type="button">Forgot Password</button>
+    <button name="Forgot Password" mat-raised-button color="accent" type="button" [@fadeIn] [@fadeOut]>Forgot
+        Password</button>
 </form>

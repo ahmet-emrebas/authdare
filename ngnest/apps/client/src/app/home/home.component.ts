@@ -1,13 +1,13 @@
-import { elementAnimations } from './../element-animations';
+import { fadeInOut } from './../animations';
 import { firstValueFrom } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { Component, HostBinding, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {} from 'axios';
 @Component({
     selector: 'home-page',
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.scss'],
-    animations: [elementAnimations],
+    animations: [fadeInOut],
 })
 export class HomeComponent implements OnInit {
     constructor(private readonly httpClient: HttpClient) {}

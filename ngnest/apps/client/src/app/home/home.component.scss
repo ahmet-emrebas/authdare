@@ -4,7 +4,9 @@ button.auth {
     left: -100px;
     text-align: right;
     transition: left ease-in-out 400ms;
-    margin-top: 10px;
+
+    position: fixed;
+    top: 100px;
 }
 
 // Do not animate hower for small devices because there is NO hover on touch screens.
