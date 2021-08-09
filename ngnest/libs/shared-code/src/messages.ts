@@ -1,6 +1,4 @@
-import { ImObject } from '@authdare/utils';
-
-export const Messages = ImObject({
+export const Messages = {
     EN: {
         USER_NOT_FOUND: 'User not found!',
         WRONG_PASSWORD: 'Wrong password!',
@@ -13,4 +11,4 @@ export const Messages = ImObject({
         WELCOME: 'Hosgeldiniz!',
         WELCOME_BACK: 'Tekrar, hosgeldiniz!',
     },
-});
+};

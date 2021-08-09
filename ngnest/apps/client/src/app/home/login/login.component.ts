@@ -12,7 +12,6 @@ import { LoginService } from './login.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { SubSink } from 'subsink';
-import { Messages } from '@authdare/shared-code';
 
 const LoginErrorStateMatcher = (formGroup: FormGroup) =>
     new (class ErrorMatcher implements ErrorStateMatcher {
@@ -61,9 +60,9 @@ export class LoginComponent implements OnInit, OnDestroy {
         if (this.loginForm.valid) {
             const res: any = await this.loginService.login(this.loginForm.value);
             if (res.statusCode >= 400) {
-                if (res.message == Messages.EN.USER_NOT_FOUND) {
+                if (res.message == 'User not found!') {
                     this.loginForm.setValue({});
-                } else if (res.message == Messages.EN.WRONG_PASSWORD) {
+                } else if (res.message == 'Wrong password!') {
                     this.password.setValue('');
                 }
                 this.snack(res.message, 'snack-error');

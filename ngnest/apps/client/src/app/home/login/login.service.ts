@@ -1,4 +1,3 @@
-import { BadRequestException } from '@nestjs/common';
 import { firstValueFrom } from 'rxjs';
 import { LoginForm } from './login-form';
 import { HttpClient } from '@angular/common/http';
