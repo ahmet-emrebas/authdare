@@ -15,8 +15,7 @@ async function bootstrap() {
     const server = express();
     server.use(helmet());
     server.use((req, res, next) => {
-        req.headers['access-control-allow-credentials'] =
-            'http://localhost:4200';
+        req.headers['access-control-allow-credentials'] = 'http://localhost:4200';
         req.headers['access-control-allow-headers'] = '*';
         next();
     });
@@ -46,18 +45,18 @@ async function bootstrap() {
     const resourceApi = await NestFactory.create(ResourcesModule, adapter);
     configureSwagger({
         app: resourceApi,
-        description: 'Api doc',
-        title: 'Api',
-        path: 'resources',
+        description: 'Api resource documentation',
+        title: 'Api Resources',
+        path: 'api',
     });
 
     // Auth Module
     const authApp = await NestFactory.create(AuthModule, adapter);
     configureSwagger({
         app: authApp,
-        description: 'Auth app doc',
-        title: 'Auth',
-        path: 'security',
+        description: 'Authentication modules documentation',
+        title: 'Authentication Routes',
+        path: 'auth',
     });
 
     resourceApi.init();

@@ -68,13 +68,12 @@ export class TaskController {
             excludeExtraneousValues: true,
             exposeUnsetFields: false,
         });
+
         const where = classToClass(new QueryTaskDTO(query as any), {
             excludeExtraneousValues: true,
             exposeUnsetFields: false,
         });
 
-        // console.log(where);
-        // console.log(findManyOptions);
         const founds = await this.taskService.find({
             ...findManyOptions,
             where,
