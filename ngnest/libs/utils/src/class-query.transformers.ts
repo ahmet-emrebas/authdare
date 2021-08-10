@@ -5,16 +5,20 @@ import { isString } from 'lodash';
 
 export function __likeContains(value: any) {
     return isNotEmpty(value) && isString(value)
-        ? Like(`%${value}%`)
+        ? Like(`%${value.trim()}%`)
         : undefined;
 }
 
 export function __likeStartsWith(value: any) {
-    return isNotEmpty(value) && isString(value) ? Like(`${value}%`) : undefined;
+    return isNotEmpty(value) && isString(value)
+        ? Like(`${value.trim()}%`)
+        : undefined;
 }
 
 export function __likeEndsWith(value: any) {
-    return isNotEmpty(value) && isString(value) ? Like(`%${value}`) : undefined;
+    return isNotEmpty(value) && isString(value)
+        ? Like(`%${value.trim()}`)
+        : undefined;
 }
 
 export function __lessThan(value: any) {

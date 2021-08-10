@@ -1,58 +1,41 @@
-import { PipeTransform, ArgumentMetadata } from '@nestjs/common';
+import { cloneDeep } from 'lodash';
 import { TObjectify, TParseBool, TSplitBy } from '@authdare/utils';
 import { ApiProperty } from '@nestjs/swagger';
-import { ClassConstructor, Exclude, Expose } from 'class-transformer';
-import { BaseClass } from './base-class';
-import { FindManyOptions } from 'typeorm';
+import { Exclude, Expose, Transform } from 'class-transformer';
 import { EntityFieldsNames } from 'typeorm/common/EntityFieldsNames';
-
-export function QueryValidationPipe<T extends BaseClass<any> = any>(resourceQueryDTO: ClassConstructor<T>) {
-    return class QueryValidationPipe implements PipeTransform {
-        async transform(value: any, __metadata: ArgumentMetadata): Promise<FindManyOptions> {
-            const query = await new QueryDTO(value).transformAndValidate({}, { exposeUnsetFields: false, excludeExtraneousValues: true });
-            const fieldsQuery = await new resourceQueryDTO(value).transformAndValidate(
-                {},
-                { exposeUnsetFields: false, excludeExtraneousValues: true },
-            );
-            return {
-                ...((query.errors ? {} : query.validatedInstance) as any),
-                where: fieldsQuery.errors ? {} : fieldsQuery.validatedInstance,
-            };
-        }
-    };
-}
+import { t } from '.';
 
 @Exclude()
-export class QueryDTO<T> extends BaseClass<QueryDTO<T>> {
+export class QueryDTO<T> {
     /**
      * limit
      */
     @Expose()
     @ApiProperty({ required: false })
-    take?: number;
+    take? = t<number>();
 
     /**
      * offset
      */
     @Expose()
     @ApiProperty({ required: false })
-    skip?: number;
+    skip? = t<number>();
 
     /**
      * Specifies what columns should be retrieved.
      */
     @Expose()
     @ApiProperty({ required: false })
-    @TSplitBy(undefined, { groups: ['get'] })
-    select?: string[];
+    @TSplitBy(undefined, {})
+    select? = t<string[]>();
 
     /**
      * Indicates what relations of entity should be loaded (simplified left join form).
      */
     @Expose()
     @ApiProperty({ required: false })
-    @TSplitBy(undefined, { groups: ['get'] })
-    relations?: string[];
+    @TSplitBy(undefined, {})
+    relations? = t<string[]>();
 
     /**
      * Indicates if soft-deleted rows should be included in entity result.
@@ -60,7 +43,7 @@ export class QueryDTO<T> extends BaseClass<QueryDTO<T>> {
     @Expose()
     @ApiProperty({ required: false })
     @TParseBool()
-    withDeleted?: boolean;
+    withDeleted? = t<boolean>();
 
     /**
      * Enables or disables query result caching.
@@ -68,7 +51,7 @@ export class QueryDTO<T> extends BaseClass<QueryDTO<T>> {
     @Expose()
     @ApiProperty({ required: false })
     @TParseBool()
-    cache?: boolean;
+    cache? = t<boolean>();
 
     /**
      * Indicates if eager relations should be loaded or not.
@@ -77,15 +60,15 @@ export class QueryDTO<T> extends BaseClass<QueryDTO<T>> {
     @Expose()
     @ApiProperty({ required: false })
     @TParseBool()
-    loadEagerRelations?: boolean;
+    loadEagerRelations? = t<boolean>();
 
     /**
      * Order, in which entities should be ordered.
      */
     @Expose()
     @ApiProperty({ required: false })
-    @TObjectify({ groups: ['get'] })
-    order?: { [P in EntityFieldsNames<T>]?: 'ASC' | 'DESC' | 1 | -1 };
+    @TObjectify({})
+    order? = t<{ [P in EntityFieldsNames<T>]?: 'ASC' | 'DESC' | 1 | -1 }>();
 
     /**
      * If this is set to true, SELECT query in a `find` method will be executed in a transaction.
@@ -93,5 +76,9 @@ export class QueryDTO<T> extends BaseClass<QueryDTO<T>> {
     @Expose()
     @ApiProperty({ required: false })
     @TParseBool()
-    transaction?: boolean;
+    transaction? = t<boolean>();
+
+    constructor(obj: QueryDTO<T>) {
+        Object.assign(this, cloneDeep(obj));
+    }
 }

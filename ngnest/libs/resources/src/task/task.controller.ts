@@ -1,3 +1,8 @@
+import { SessionKeys } from './../../../auth/src/session-keys';
+import {
+    WriteFromOrgInterceptor,
+    ReadFromOrgInterceptor,
+} from './../org.interceptor';
 import { classToPlain, classToClass } from 'class-transformer';
 import {
     ApiBadRequestResponse,
@@ -7,14 +12,28 @@ import {
     ApiTags,
     ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import { Controller, Logger, Res, UseGuards } from '@nestjs/common';
+import {
+    Controller,
+    InternalServerErrorException,
+    Logger,
+    Res,
+    Session,
+    UseGuards,
+    UseInterceptors,
+} from '@nestjs/common';
 import { Body, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
 import { Response } from 'express';
 import { AuthGuard, ResourceType, ResourceTypeTokens } from '@authdare/auth';
 
-import { FindManyTasksOptions, QueryTaskDTO } from './dto/query-task.dto';
-import { UpdateTaskDTO, CreateTaskDTO } from './dto';
+import {
+    FindManyTasksOptions,
+    QueryTaskDTO,
+    ValidateFindManyTaskOptionsPipe,
+} from './dto/query-task.dto';
+import { UpdateTaskDTO, CreateTaskDTO, CreateTaskDTOPipe } from './dto';
 import { TaskService } from './task.service';
+import { TaskEntity } from '.';
+import { keys, pickBy } from 'lodash';
 
 @ApiTags(TaskController.name)
 @UseGuards(AuthGuard)
@@ -24,72 +43,97 @@ export class TaskController {
     private readonly logger = new Logger(TaskController.name);
     constructor(private readonly taskService: TaskService) {}
 
+    private orgname(session: any) {
+        const orgname = session[SessionKeys.USER].orgname;
+        if (!orgname) {
+            this.logger.error(`Orgname not found!`);
+            throw new InternalServerErrorException();
+        }
+        return orgname;
+    }
+
     @ApiUnauthorizedResponse()
     @ApiBadRequestResponse()
     @ApiOkResponse()
     @Get()
-    async find(@Query() query: FindManyTasksOptions, @Res() res: Response) {
+    async find(
+        @Query(ValidateFindManyTaskOptionsPipe) query: FindManyTasksOptions,
+        @Res() res: Response,
+        @Session() session: any,
+    ) {
         const findManyOptions = classToPlain(new FindManyTasksOptions(query), {
             excludeExtraneousValues: true,
+
             exposeUnsetFields: false,
         });
+
+        findManyOptions.select = findManyOptions.select?.filter((e: string) =>
+            keys(TaskEntity).includes(e),
+        );
+
         const where = classToClass(new QueryTaskDTO(query as any), {
             excludeExtraneousValues: true,
             exposeUnsetFields: false,
         });
 
-        // console.log(where);
-        // console.log(findManyOptions);
+        console.log(findManyOptions);
+        console.log(where);
+
         const founds = await this.taskService.find({
-            ...findManyOptions,
-            where,
+            ...pickBy(findManyOptions, (e) => !!e),
+            where: pickBy(where, (e) => !!e),
         });
 
+        const orgname = this.orgname(session);
         res.status(200);
-        res.send(founds);
+        res.send(founds.filter((e) => e.orgname == orgname));
     }
 
     @ApiUnauthorizedResponse()
     @ApiBadRequestResponse()
     @ApiOkResponse()
     @Get(':id')
-    async findOneById(@Param('id') id: number, @Res() res: Response) {
+    async findOneById(
+        @Param('id') id: number,
+        @Res() res: Response,
+        @Session() session: any,
+    ) {
         const founds = await this.taskService.findOneById(id);
-        res.status(200);
-        res.send(founds);
+
+        const orgname = this.orgname(session);
+        if (founds?.orgname == orgname) {
+            res.status(200);
+            res.send(founds);
+            return;
+        }
+
+        return {};
     }
 
     @ApiUnauthorizedResponse()
     @ApiBadRequestResponse()
     @ApiOkResponse()
     @Post('query')
-    async query(@Body() query: FindManyTasksOptions, @Res() res: Response) {
-        const findManyOptions = classToPlain(new FindManyTasksOptions(query), {
-            excludeExtraneousValues: true,
-            exposeUnsetFields: false,
-        });
-
-        const where = classToClass(new QueryTaskDTO(query as any), {
-            excludeExtraneousValues: true,
-            exposeUnsetFields: false,
-        });
-
-        const founds = await this.taskService.find({
-            ...findManyOptions,
-            where,
-        });
-        if (founds) {
-            res.status(200);
-            res.send(founds);
-        }
+    async query(
+        @Body(ValidateFindManyTaskOptionsPipe) query: FindManyTasksOptions,
+        @Res() res: Response,
+        @Session() session: any,
+    ) {
+        return this.find(query, res, session);
     }
 
     @ApiUnauthorizedResponse()
     @ApiBadRequestResponse()
     @ApiCreatedResponse()
     @Post()
-    async create(@Body() body: CreateTaskDTO, @Res() res: Response) {
-        const created = await this.taskService.create(body);
+    async create(
+        @Body(CreateTaskDTOPipe) body: CreateTaskDTO,
+        @Res() res: Response,
+        @Session() session: any,
+    ) {
+        const withOrg = { ...body, orgname: this.orgname(session) };
+        const created = await this.taskService.create(withOrg);
+
         res.status(201);
         res.send(created);
     }

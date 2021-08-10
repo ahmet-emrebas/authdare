@@ -3,20 +3,33 @@ import { BaseEntity } from '@authdare/objects';
 import { cloneDeep } from 'lodash';
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
+function t<T>(): string | undefined {
+    return undefined;
+}
+
 @Entity({ name: 'tasks' })
 export class TaskEntity extends BaseEntity<TaskEntity> {
-    @Column()
-    readonly title!: string;
+    @Column({
+        type: 'text',
+    })
+    readonly title = t<string>();
+    @Column({
+        type: 'text',
+    })
+    readonly description = t<string>();
 
-    @Column()
-    readonly description!: string;
+    @Column({
+        type: 'text',
+        default: 'new',
+    })
+    readonly status = t<string>();
 
-    @Column({ default: 'new' })
-    readonly status!: string;
-
-    @ManyToOne(() => UserEntity, (user) => user.id, { eager: true, createForeignKeyConstraints: true })
+    @ManyToOne(() => UserEntity, (user) => user.id, {
+        eager: true,
+        createForeignKeyConstraints: true,
+    })
     @JoinColumn()
-    user?: UserEntity;
+    user? = t<UserEntity>();
 
     constructor(obj: TaskEntity) {
         super();

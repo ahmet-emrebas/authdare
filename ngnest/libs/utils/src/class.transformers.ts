@@ -8,7 +8,13 @@ export function __initOne<T = any>(C: ClassConstructor<T>, value: any) {
 }
 
 export function __initEach<T = any>(C: ClassConstructor<T>, value: any) {
-    return (value && typeof value == 'object' && value.map && value?.map((e: T) => classToClass(new C(e)))) || undefined;
+    return (
+        (value &&
+            typeof value == 'object' &&
+            value.map &&
+            value?.map((e: T) => classToClass(new C(e)))) ||
+        undefined
+    );
 }
 
 export function _toUndefined(value: any) {
@@ -17,9 +23,14 @@ export function _toUndefined(value: any) {
     return value;
 }
 
-export const _trim = (value: any) => (value && typeof value == 'string' && value.trim()) || undefined;
+export const _trim = (value: any) =>
+    (value && typeof value == 'string' && value.trim()) || undefined;
 
-export const _trim_each = (value: any) => value && typeof value == 'object' && value.map && value.map((e: string) => _trim(e));
+export const _trim_each = (value: any) =>
+    value &&
+    typeof value == 'object' &&
+    value.map &&
+    value.map((e: string) => _trim(e));
 
 /**
  * Initialize each item in the array with the provided class constructor.
@@ -27,7 +38,10 @@ export const _trim_each = (value: any) => value && typeof value == 'object' && v
  * @param options TransformOptions
  * @returns initialized items of array
  */
-export function InitOne<T = any>(C: ClassConstructor<T>, options?: TransformOptions) {
+export function InitOne<T = any>(
+    C: ClassConstructor<T>,
+    options?: TransformOptions,
+) {
     return Transform(({ value }) => __initOne(C, value), options);
 }
 /**
@@ -36,7 +50,10 @@ export function InitOne<T = any>(C: ClassConstructor<T>, options?: TransformOpti
  * @param options TransformOptions
  * @returns initialized items of array
  */
-export function InitEach<T = any>(C: ClassConstructor<T>, options?: TransformOptions) {
+export function InitEach<T = any>(
+    C: ClassConstructor<T>,
+    options?: TransformOptions,
+) {
     return Transform(({ value }) => __initEach(C, value), options);
 }
 
@@ -46,7 +63,10 @@ export function InitEach<T = any>(C: ClassConstructor<T>, options?: TransformOpt
  * @returns
  */
 export function SnakeCase(options?: TransformOptions) {
-    return Transform(({ value }) => value && typeof value == 'string' && snakeCase(value), options);
+    return Transform(
+        ({ value }) => value && typeof value == 'string' && snakeCase(value),
+        options,
+    );
 }
 
 /**
@@ -77,16 +97,30 @@ export function TTrimEach(options?: TransformOptions) {
 }
 
 export function TSplitBy(delimeter = ',', options?: TransformOptions) {
-    return Transform(({ value }) => value && typeof value == 'string' && value.split(delimeter), options);
+    return Transform(({ value }) => {
+        if (typeof value == 'string') {
+            return value.split(delimeter);
+        }
+        return value;
+    }, options);
 }
 
 export function TParseBool(options?: TransformOptions) {
     return Transform(
-        ({ value }) => value && typeof value == 'string' && (value == 'true' ? true : value == 'false' ? false : undefined),
+        ({ value }) =>
+            value &&
+            typeof value == 'string' &&
+            (value == 'true' ? true : value == 'false' ? false : undefined),
         options,
     );
 }
 
 export function TObjectify(options?: TransformOptions) {
-    return Transform(({ value }) => value && typeof value == 'string' && fromPairs(split(value, ',')?.map((e) => e?.split(':'))), options);
+    return Transform(({ value }) => {
+        if (typeof value == 'string') {
+            return fromPairs(split(value, ',')?.map((e) => e?.split(':')));
+        } else {
+            return value;
+        }
+    }, options);
 }

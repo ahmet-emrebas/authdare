@@ -2,9 +2,10 @@ import { cloneDeep } from 'lodash';
 import { ValidationPipe } from '@nestjs/common';
 import { Trim, TLikeContains } from '@authdare/utils';
 import { ApiProperty } from '@nestjs/swagger';
-import { Exclude, Expose, Transform } from 'class-transformer';
+import { Exclude, Expose } from 'class-transformer';
 import { Length, NotContains } from 'class-validator';
-import { BaseClass } from '@authdare/objects';
+import { QueryDTO } from '@authdare/objects';
+import { UserEntity } from './../entity';
 
 export const QueryUserValidationPipe = new ValidationPipe({ transform: true });
 
@@ -34,3 +35,5 @@ export class QueryUserDTO {
         Object.assign(this, cloneDeep(obj));
     }
 }
+
+export class FindManyUsersOptions extends QueryDTO<UserEntity> {}

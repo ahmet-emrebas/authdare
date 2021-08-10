@@ -1,58 +1,60 @@
 import { IBaseResourceService } from './base-resource-service.interface';
-import { BadRequestException, Logger } from '@nestjs/common';
-import { DeleteResult, FindManyOptions, FindOneOptions, Repository, UpdateResult } from 'typeorm';
+import { FindManyOptions, FindOneOptions, Repository, UpdateResult } from 'typeorm';
+import { Logger, NotAcceptableException } from '@nestjs/common';
 
 export class BaseResourceService<Entity extends { id: any }, CreateDTO, UpdateDTO>
     implements IBaseResourceService<Entity, CreateDTO, UpdateDTO>
 {
-    constructor(private readonly repo: Repository<Entity>, private readonly logger: Logger) {}
-
-    private async wrapper<R>(handler: () => Promise<any>): Promise<R> {
-        try {
-            return await handler();
-        } catch (err) {
-            this.logger.error(err);
-            throw new BadRequestException();
-        }
-    }
+    constructor(
+        private readonly repo: Repository<Entity>,
+        private readonly logger: Logger,
+    ) {}
 
     async find(options?: FindManyOptions): Promise<Entity[]> {
-        return await this.wrapper<Entity[]>(() => this.repo.find(options));
+        return await this.repo.find(options);
     }
 
     async findOne(options?: FindOneOptions) {
-        return this.wrapper<Entity>(() => this.repo.findOne(options));
+        return this.repo.findOne(options);
     }
 
+    /**
+     * Find one or fail
+     * @param options
+     * @returns UserEntity
+     * @throws Error
+     */
     async isExist(options: FindOneOptions) {
-        try {
-            return await this.repo.findOneOrFail(options);
-        } catch (err) {
-            return false;
-        }
+        return await this.repo.findOneOrFail(options);
     }
 
     async findOneById(id: number) {
-        return this.wrapper<Entity>(() => this.repo.findOne(id));
+        return this.repo.findOne(id);
     }
 
     async findByIds(...ids: number[]) {
-        return await this.wrapper<Entity[]>(() => this.repo.findByIds(ids));
+        return await this.repo.findByIds(ids);
     }
 
     async create(createDTO: CreateDTO): Promise<Entity> {
-        return await this.wrapper<Entity>(() => this.repo.save(createDTO as any));
+        return await this.repo.save(createDTO as any);
     }
 
     async createMany(...createDTOs: CreateDTO[]): Promise<Entity[]> {
-        return await this.wrapper<Entity[]>(() => this.repo.save(createDTOs as any));
+        return await this.repo.save(createDTOs as any);
     }
 
-    async update(id: number, updated: UpdateDTO): Promise<UpdateResult> {
-        return await this.wrapper<UpdateResult>(() => this.repo.update(id, updated as any));
+    async update(
+        id: string | number | undefined,
+        updated: UpdateDTO,
+    ): Promise<UpdateResult> {
+        return this.repo.update(id!, updated as any);
     }
 
-    async updateMany(options: FindManyOptions, updated: UpdateDTO): Promise<UpdateResult[]> {
+    async updateMany(
+        options: FindManyOptions,
+        updated: UpdateDTO,
+    ): Promise<UpdateResult[]> {
         const found = await this.repo.find(options);
         const result: UpdateResult[] = [];
         if (found) {
@@ -64,10 +66,10 @@ export class BaseResourceService<Entity extends { id: any }, CreateDTO, UpdateDT
     }
 
     async delete(id: number) {
-        return await this.wrapper<DeleteResult>(() => this.repo.delete(id));
+        return await this.repo.delete(id);
     }
 
     async softDelete(id: number): Promise<UpdateResult> {
-        return await this.wrapper<UpdateResult>(() => this.repo.softDelete(id));
+        return await this.repo.softDelete(id);
     }
 }

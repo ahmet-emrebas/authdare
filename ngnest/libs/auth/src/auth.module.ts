@@ -1,6 +1,4 @@
 import { TokenStoreService } from './services/token-store.service';
-import { ForgotPasswordService } from './services/forgot-password.service';
-import { SignupService } from './services/signup.service';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import { EmailService } from './services/email.service';
 import { AuthController } from './auth.controller';
@@ -8,7 +6,7 @@ import { CacheInterceptor, CacheModule, Logger, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserEntity } from './user';
 import { JwtModule } from '@nestjs/jwt';
-import { UserService } from './services/user.service';
+import { UserService } from './user/user.service';
 import { delay, ImObject } from '@authdare/utils';
 import { ConfigModule } from '@nestjs/config';
 import { APP_INTERCEPTOR } from '@nestjs/core';
@@ -19,9 +17,10 @@ import { MailerModule } from '@nestjs-modules/mailer';
 import { join } from 'path';
 import { TaskEntity } from '@authdare/resources/task';
 import { ProviderTokens } from './provider-tokens';
-import { LoginService } from './services/login.service';
-import { CreateMemberService } from './services/create-member.service';
 import { v4 } from 'uuid';
+import { SignupController } from './signup.controller';
+import { LoginController } from './login.controller';
+import { ForgotPasswordController } from './forgot-password.controller';
 
 const Config = ImObject({
     // Email
@@ -111,16 +110,18 @@ const Config = ImObject({
             },
         }),
     ],
-    controllers: [AuthController],
+    controllers: [
+        AuthController,
+        SignupController,
+        LoginController,
+        ForgotPasswordController,
+    ],
     providers: [
         UserService,
         AuthCronService,
         EmailService,
-        LoginService,
-        SignupService,
-        ForgotPasswordService,
         TokenStoreService,
-        CreateMemberService,
+        UserService,
         {
             provide: APP_INTERCEPTOR,
             useClass: CacheInterceptor,

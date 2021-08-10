@@ -1,16 +1,28 @@
-import { BaseClass, QueryDTO } from '@authdare/objects';
+import { HttpStatus, ValidationPipe } from '@nestjs/common';
+import { cloneDeep } from 'lodash';
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude, Expose } from 'class-transformer';
+import { Length, MinLength } from 'class-validator';
 
-QueryDTO;
+export const CreateTaskDTOPipe = new ValidationPipe({
+    errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE,
+});
 
 @Exclude()
-export class CreateTaskDTO extends BaseClass<CreateTaskDTO> {
+export class CreateTaskDTO {
     @ApiProperty({ default: 'title' })
     @Expose()
-    readonly title!: string;
+    @Length(3, 50)
+    readonly title: string | undefined = undefined;
 
     @ApiProperty({ default: 'title' })
     @Expose()
-    readonly description!: string;
+    @MinLength(3)
+    readonly description: string | undefined = undefined;
+
+    constructor(obj: CreateTaskDTO) {
+        Object.assign(this, cloneDeep(obj));
+    }
 }
+
+console.log(Object.getOwnPropertyNames(new CreateTaskDTO(null!)));

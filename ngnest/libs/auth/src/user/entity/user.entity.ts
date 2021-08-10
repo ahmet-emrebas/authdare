@@ -11,9 +11,6 @@ export class UserEntity extends BaseEntity<UserEntity> {
     @Column({ transformer: HashPassword(), update: true })
     readonly password!: string;
 
-    @Column({ update: false })
-    readonly orgname!: string;
-
     @Column({ type: 'text', transformer: Stringify() })
     readonly permissions!: string[];
 
