@@ -1,10 +1,10 @@
 import { CommonConstructor, t } from '@authdare/common';
-
 import { DynamicModule, Logger, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DatabaseController } from './database.controller';
 import { DatabaseService } from './database.service';
+
 import { ConnectionOptions } from 'typeorm';
 
 class DatabaseConfigSchema extends CommonConstructor<DatabaseConfigSchema> {
