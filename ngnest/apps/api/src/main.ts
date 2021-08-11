@@ -8,6 +8,7 @@ import * as helmet from 'helmet';
 import * as cors from 'cors';
 import { DatabaseModule } from './../../database/src/database.module';
 import { NestFactory } from '@nestjs/core';
+const a = 1234;
 
 async function bootstrap() {
     const server = express();
