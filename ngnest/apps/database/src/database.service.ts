@@ -27,9 +27,7 @@ export class DatabaseService {
             (e: any) => e.datname,
         ) as string[];
 
-        const authdareDbs = allDBs
-            .filter((e: string) => e.startsWith('authdare_'))
-            .sort();
+        const authdareDbs = allDBs.filter((e: string) => e.startsWith('authdare_')).sort();
         return authdareDbs;
     }
 
@@ -41,7 +39,7 @@ export class DatabaseService {
         const terminateProcessQuery = `
         SELECT pg_terminate_backend(pid) 
         FROM pg_stat_activity 
-        WHERE datname = '${this.dbTemplateName}' and state = 'idle'';`;
+        WHERE datname = '${this.dbTemplateName}' and state = 'idle';`;
         await con.query(terminateProcessQuery);
     }
 
@@ -55,7 +53,11 @@ export class DatabaseService {
 
         await this.terminateTemplateConnections();
 
-        const CREATE_DB_QUERY = `CREATE DATABASE ${newDatabaseName} TEMPLATE ${this.dbTemplateName};`;
+        const CREATE_DB_QUERY = `
+        CREATE DATABASE ${newDatabaseName}
+        TEMPLATE '${this.dbTemplateName}';
+        `;
+
         try {
             const __result = await con.query(CREATE_DB_QUERY);
             this.logger.log(`CREATED CLIENT DATABASE ${newDatabaseName}`);

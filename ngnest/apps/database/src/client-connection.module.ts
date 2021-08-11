@@ -2,12 +2,7 @@ import { DPT } from './database-provider.tokens';
 import { Global, Scope, Module, Logger, DynamicModule } from '@nestjs/common';
 import { REQUEST } from '@nestjs/core';
 import { Request } from 'express';
-import {
-    Connection,
-    ConnectionOptions,
-    createConnection,
-    getConnection,
-} from 'typeorm';
+import { Connection, ConnectionOptions, createConnection, getConnection } from 'typeorm';
 
 /**
  * Client Connection Module
@@ -35,8 +30,7 @@ export class CCM {
                     scope: Scope.REQUEST,
                     provide: DPT.CLIENT_CONNECTION,
                     useFactory: async (req: Request) => {
-                        const orgname =
-                            (req.query.orgname as string) || req.params.orgname;
+                        const orgname = (req.query.orgname as string) || req.params.orgname;
                         let con: Connection;
                         try {
                             con = await getClientCon(orgname);

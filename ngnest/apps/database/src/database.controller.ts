@@ -1,4 +1,4 @@
-import { waitFor } from '@authdare/common/utils';
+import { waitFor } from '@authdare/common/util';
 import { getConnection } from 'typeorm';
 import { Controller, Get, Logger, Param } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';

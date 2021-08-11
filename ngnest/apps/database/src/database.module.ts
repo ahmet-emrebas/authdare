@@ -9,13 +9,8 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DatabaseController } from './database.controller';
 import { DatabaseService } from './database.service';
-import {
-    Connection,
-    ConnectionOptions,
-    createConnection,
-    getManager,
-} from 'typeorm';
-import { waitFor } from '@authdare/common/utils';
+import { ConnectionOptions, createConnection } from 'typeorm';
+import { waitFor } from '@authdare/common/util';
 import { v4 } from 'uuid';
 import { CCM } from './client-connection.module';
 
@@ -32,6 +27,8 @@ class DatabaseConfigSchema extends CommonConstructor<DatabaseConfigSchema> {
 
 /**
  * @basepath /dba
+ * @doc https://devcenter.heroku.com/articles/heroku-postgresql#connecting-in-node-js
+ *
  */
 @Module({})
 export class DatabaseModule {
@@ -69,6 +66,7 @@ export class DatabaseModule {
                     useValue: templateDatabaseName,
                 },
             ],
+            exports: [CCM],
         };
     }
 
@@ -100,9 +98,7 @@ export class DatabaseModule {
                 } as any)
             ).close();
 
-            this.logger.log(
-                `CREATED TEMPLATE DATABASE and TABLES ${templateDatabaseName}`,
-            );
+            this.logger.log(`CREATED TEMPLATE DATABASE and TABLES ${templateDatabaseName}`);
         } catch (err) {
             this.logger.error(err);
         }

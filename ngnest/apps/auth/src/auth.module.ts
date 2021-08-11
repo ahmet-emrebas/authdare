@@ -7,9 +7,4 @@ import { AuthService } from './auth.service';
     controllers: [AuthController],
     providers: [AuthService],
 })
-export class AuthModule {
-    static readonly title = AuthModule.name;
-    static readonly description =
-        'Provides authentication and autorization services';
-    static readonly path = 'auth';
-}
+export class AuthModule {}
