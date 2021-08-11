@@ -46,10 +46,8 @@ async function bootstrap() {
     const configuredModules = [mainApp];
     for (const m of modules as any) {
         const conf = configService.get(m.name)!;
-
+        console.log('Prefix of ', m.name, conf.prefix);
         logger.log(`creating the ${m.name} with configuration`);
-
-        console.table(conf);
 
         let module = null;
         if (m.configure) {
@@ -60,6 +58,8 @@ async function bootstrap() {
         const createdApp = await NestFactory.create(module, expressAdapter);
 
         createdApp.use(middlewares);
+
+        createdApp.setGlobalPrefix(conf.prefix);
 
         if (conf?.swagger) {
             console.table(conf.swagger);

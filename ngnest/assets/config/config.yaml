@@ -1,27 +1,30 @@
 Domain:
     clients: ['http://localhost:4200']
+
 DatabaseModule:
+    prefix: database
     swagger:
         title: DatabaseModule
-        description: Provides database services
+        description: Provides database
         path: database-module
     connection:
         type: postgres
-        appname: authdare
         database: authdare
         # database: database/authdare/main.sqlite
         username: postgres
         password: password
+        retryDelay: 2000
+        retryAttempts: 5
+        autoLoadEntities: true
         synchronize: true
         dropSchema: true
 
 AuthModule:
+    prefix: auth
     swagger:
         title: AuthModule
         description: Provides authentication and authorization services
         path: auth-module
-    jwt:
-        secret: 'secret'
-        expirations:
-            admin: 30 day
-            client: 3 months
+
+MessageModule:
+    prefix: message

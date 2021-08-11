@@ -1,13 +1,11 @@
-import { UserEntity } from './user/user.entity';
+import { UserEntity } from '@authdare/models/user';
 import { DPT } from './database-provider.tokens';
 import { range } from 'lodash';
-import { UserModule } from './user/user.module';
 import { CommonConstructor } from '@authdare/common/class';
 import { t } from '@authdare/common/type';
 import { DynamicModule, Logger, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { DatabaseController } from './database.controller';
 import { DatabaseService } from './database.service';
 import { ConnectionOptions, createConnection } from 'typeorm';
 import { waitFor } from '@authdare/common/util';
@@ -21,7 +19,7 @@ for (let i of range(0, 4)) {
     console.log(v4());
 }
 
-class DatabaseConfigSchema extends CommonConstructor<DatabaseConfigSchema> {
+class DatabaseConfig extends CommonConstructor<DatabaseConfig> {
     connection = t<ConnectionOptions>();
 }
 
@@ -33,7 +31,7 @@ class DatabaseConfigSchema extends CommonConstructor<DatabaseConfigSchema> {
 @Module({})
 export class DatabaseModule {
     private static logger = new Logger(DatabaseModule.name);
-    static async configure(conf: DatabaseConfigSchema): Promise<DynamicModule> {
+    static async configure(conf: DatabaseConfig): Promise<DynamicModule> {
         await waitFor(2000);
 
         // template database name
@@ -56,9 +54,7 @@ export class DatabaseModule {
                     },
                 }),
                 CCM.configure(conf.connection),
-                UserModule,
             ],
-            controllers: [DatabaseController],
             providers: [
                 DatabaseService,
                 {

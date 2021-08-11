@@ -25,6 +25,12 @@
       "@authdare/common/*": [
         "libs/common/src/*"
       ],
+      "@authdare/models": [
+        "libs/models/src"
+      ],
+      "@authdare/models/*": [
+        "libs/models/src/*"
+      ]
     },
     "lib": [
       "es2018",

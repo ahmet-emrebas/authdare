@@ -10,7 +10,7 @@ export class UserEntity extends BaseEntity<UserEntity> {
     @Column({ name: 'last_name', type: 'text' })
     lastName = t<string>();
 
-    @Column({ type: 'text' })
+    @Column({ type: 'text', unique: true })
     email = t<string>();
 
     @Column({ type: 'text' })
