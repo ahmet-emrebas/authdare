@@ -1,0 +1,57 @@
+@use '~@angular/material' as mat;
+
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+// Light Colors
+// Peroperties descriptions
+// $default: 500, $lighter: 100, $darker: 700,  $text: $default
+
+// Light Theme
+
+$client-primary: mat.define-palette(mat.$light-blue-palette);
+$client-accent: mat.define-palette(mat.$purple-palette);
+$client-warn: mat.define-palette(mat.$pink-palette);
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$client-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $client-primary,
+      accent: $client-accent,
+      warn: $client-warn,
+    ),
+  )
+);
+
+// Dark Theme
+$client-dark-primary: mat.define-palette(mat.$light-blue-palette, 200);
+$client-dark-accent: mat.define-palette(mat.$purple-palette, 200);
+$client-dark-warn: mat.define-palette(mat.$pink-palette, 200);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$client-dark-theme: mat.define-dark-theme(
+  (
+    color: (
+      primary: $client-dark-primary,
+      accent: $client-dark-accent,
+      warn: $client-dark-warn,
+    ),
+  )
+);
+
+// @include mat.all-component-themes($client-theme);
+
+.theme-light {
+  @include mat.all-component-themes($client-theme);
+}
+
+.theme-dark {
+  @include mat.all-component-themes($client-dark-theme);
+}
+
+// High Level Component Styles
+@import url("./style.high-level.scss");

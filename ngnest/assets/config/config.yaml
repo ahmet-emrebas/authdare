@@ -1,0 +1,24 @@
+name: Global Configuration
+database:
+    swagger:
+        title: Database Module
+        description: Provides database services
+        path: dba
+
+    connection:
+        type: sqlite
+        database: database/authdare/main.sqlite
+        syncronize: true
+        drop_schema: true
+
+auth:
+    swagger:
+        title: Auth Module
+        description: Provides authentication and authorization services
+        path: auth
+
+    jwt:
+        secret: 'secret'
+        expirations:
+            admin: 30 day
+            client: 3 months

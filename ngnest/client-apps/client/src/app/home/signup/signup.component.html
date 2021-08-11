@@ -1,0 +1,61 @@
+<div class="abs full" [@enter] [@leave]>
+
+    <mat-card class="auth" [@enter] [@leave]>
+        <mat-card-content>
+            <!-- Server Error -->
+            <p class="center vs usn">
+                &nbsp;
+                <span [cdkCopyToClipboard]="err" [class]=" 'mat-error'" [@fadeIn] [@fadeOut] (click)="snack(err)"
+                    *ngIf="$serverMessage | async as err">{{ err}}</span>
+            </p>
+
+            <div class="vs"></div>
+
+            <form class="col" [formGroup]="signupForm">
+                <!-- Email -->
+                <mat-form-field appearance="standard" [@fadeIn] [@fadeOut]>
+                    <mat-label>Email</mat-label>
+                    <input name="email" type="email" minlength="3" matInput autocomplete="email" required
+                        [formControl]="email" [errorStateMatcher]="errorStateMatcher" autofilled="true" />
+
+                    <mat-icon matSuffix color="primary">email</mat-icon>
+                    <mat-error> Not a valid email! </mat-error>
+                </mat-form-field>
+
+                <!-- Password -->
+                <mat-form-field appearance="standard" color="primary" [@fadeIn] [@fadeOut]>
+                    <mat-label>Password</mat-label>
+                    <input name="password" #passwordInput matInput [type]="passwordType" autocomplete="new-password"
+                        required minlength="6" maxlength="100" [formControl]="password"
+                        [errorStateMatcher]="errorStateMatcher" />
+                    <mat-icon role="button" matSuffix color="primary" title="Show-Hide"
+                        (click)="tooblePasswordVisibility()">
+                        {{passwordIcon}}
+                    </mat-icon>
+                    <mat-hint>Password must be at least 6 characters long!</mat-hint>
+                </mat-form-field>
+
+                <!-- Organization Name -->
+                <mat-form-field appearance="standard" color="primary" [@fadeIn] [@fadeOut]>
+                    <mat-label>Organization</mat-label>
+                    <input name="orgname" #passwordInput matInput type="text" autocomplete="organization" required
+                        minlength="3" maxlength="50" [formControl]="orgname" [errorStateMatcher]="errorStateMatcher" />
+                    <mat-icon role="button" matSuffix color="primary" title="Show-Hide"
+                        (click)="tooblePasswordVisibility()">
+                        {{passwordIcon}}
+                    </mat-icon>
+                    <mat-hint>Organization name must be 3 to 50 characters long</mat-hint>
+                </mat-form-field>
+
+                <div class="vs"></div>
+
+                <!-- Actions -->
+                <button name="Login" mat-raised-button color="primary" type="submit" (click)="signup()" [@fadeIn]
+                    [@fadeOut] [disabled]="signupForm.invalid">
+                    Signup
+                </button>
+            </form>
+
+        </mat-card-content>
+    </mat-card>
+</div>

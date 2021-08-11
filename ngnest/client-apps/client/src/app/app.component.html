@@ -1,0 +1,25 @@
+<mat-sidenav-container>
+    <mat-sidenav-content [@enter] [@leave]>
+        <mat-toolbar [color]="isDark ? null : 'primary'">
+
+
+            <div class="fix" [@toRight] [@fadeOut] *ngIf="(pageName | async)!=='Home'">
+                <button mat-icon-button [routerLink]="['/']">
+                    <mat-icon>keyboard_arrow_left</mat-icon>
+                </button>
+            </div>
+
+            <div class="full n-select center">
+                {{pageName | async }}
+            </div>
+
+
+            <div style="flex: auto 1;"></div>
+            <!-- Theme Switch -->
+            <mat-slide-toggle [checked]="isDark" (change)="toggleTheme()" color="primary" [labelPosition]="'after'">
+            </mat-slide-toggle>
+
+        </mat-toolbar>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>

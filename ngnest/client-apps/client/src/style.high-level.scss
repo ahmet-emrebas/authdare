@@ -1,0 +1,159 @@
+html,
+body {
+    height: 100%;
+}
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+button {
+    border-radius: 20px !important;
+    text-align: center;
+    vertical-align: middle;
+}
+button > * {
+    line-height: 20pt !important;
+    vertical-align: middle !important;
+}
+
+*::selection {
+    background-color: yellow;
+    color: black;
+}
+
+mat-card {
+    max-width: 90%;
+    width: 400px;
+    padding: 30px;
+    border-radius: 10px !important;
+}
+
+mat-toolbar {
+    position: sticky;
+    top: 0px;
+    z-index: 1000;
+}
+
+mat-icon {
+    user-select: none;
+    cursor: pointer;
+}
+
+mat-sidenav-container,
+mat-sidenav-content {
+    min-height: 100vh;
+}
+
+mat-hint {
+    font-style: italic;
+}
+
+mat-form-field *,
+mat-icon,
+mat-icon * {
+    overflow: visible !important;
+}
+
+.snack {
+    @extend .center;
+    background-color: orange;
+    color: black;
+}
+.snack * {
+    position: relative;
+    width: 100%;
+    text-align: center;
+}
+.snack-info {
+    @extend .snack;
+    background-color: teal;
+    color: white;
+}
+
+.snack-error {
+    @extend .snack;
+    background-color: rgba(255, 0, 0, 0.8);
+    color: white;
+}
+
+input:-webkit-autofill {
+    box-shadow: inset 50px 50px 1px rgb(255, 200, 100);
+    width: min-content !important;
+    padding: 5px;
+    border-radius: 15px;
+}
+
+.mat-form-field-autofilled mat-label::before {
+    content: "✎ Auto Filled";
+    padding-right: 20px;
+    color: orange;
+    font-size: 11pt;
+}
+
+mat-form-field.ng-valid mat-icon::before {
+    content: "done";
+    font-weight: 900;
+    color: rgba(100, 255, 100, 0.8) !important;
+    position: absolute;
+    right: 30px;
+}
+
+mat-form-field.ng-touched.ng-invalid mat-icon::before {
+    content: "close";
+    color: rgba(255, 100, 100, 0.8) !important;
+    font-weight: 900;
+    position: absolute;
+    right: 30px;
+}
+
+.fix {
+    position: fixed;
+}
+
+.abs {
+    position: absolute;
+}
+
+.rel {
+    position: relative;
+}
+.vs {
+    height: 20px;
+}
+
+.hs {
+    width: 20px;
+}
+
+.col {
+    display: flex;
+    flex-direction: column;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+}
+.justify {
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.justify > * {
+    margin-top: 5px !important;
+    width: 47.5% !important;
+}
+
+.center {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.usn {
+    user-select: none;
+}
+
+.full {
+    width: 100%;
+}

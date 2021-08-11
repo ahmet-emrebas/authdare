@@ -1,0 +1,31 @@
+import {
+    slideInDownOnEnterAnimation,
+    slideOutUpOnLeaveAnimation,
+    fadeInOnEnterAnimation,
+    fadeOutOnLeaveAnimation,
+    slideInLeftOnEnterAnimation,
+    slideOutLeftOnLeaveAnimation,
+} from 'angular-animations';
+
+export const routeAnimations = [
+    slideInDownOnEnterAnimation({
+        animateChildren: 'together',
+        anchor: 'enter',
+        duration: 400,
+    }),
+    slideOutUpOnLeaveAnimation({
+        animateChildren: 'together',
+        anchor: 'leave',
+        duration: 400,
+    }),
+];
+
+export const fadeInOut = [
+    fadeInOnEnterAnimation({ anchor: 'fadeIn', duration: 1600 }),
+    fadeOutOnLeaveAnimation({ anchor: 'fadeOut', duration: 400 }),
+];
+
+export const toRightLeft = [
+    slideInLeftOnEnterAnimation({ anchor: 'toRight', duration: 1600 }),
+    slideOutLeftOnLeaveAnimation({ anchor: 'toLeft', duration: 400 }),
+];

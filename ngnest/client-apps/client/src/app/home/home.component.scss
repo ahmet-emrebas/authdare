@@ -1,0 +1,23 @@
+button.auth {
+    display: block;
+    width: 200px;
+    left: -100px;
+    text-align: right;
+    transition: left ease-in-out 400ms;
+
+    position: fixed;
+    top: 100px;
+}
+
+// Do not animate hower for small devices because there is NO hover on touch screens.
+@media screen and (min-width: 1000px) {
+    button.auth:hover {
+        left: -50px;
+    }
+}
+
+mat-card.auth {
+    margin: auto;
+    border-top-left-radius: 0px !important;
+    border-top-right-radius: 0px !important;
+}
