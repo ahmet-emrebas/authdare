@@ -30,10 +30,9 @@ export class DatabaseModule {
                 TypeOrmModule.forRootAsync({
                     useFactory: async () => {
                         return {
-                            type: 'sqlite',
-                            synchronize: true,
-                            dropSchema: true,
-                            entities: [''],
+                            ...conf.connection,
+                            retryDelay: 2000,
+                            autoLoadEntities: true,
                         };
                     },
                 }),

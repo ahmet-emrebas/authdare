@@ -6,10 +6,13 @@ database:
         path: dba
 
     connection:
-        type: sqlite
-        database: database/authdare/main.sqlite
-        syncronize: true
-        drop_schema: true
+        type: postgres
+        database: authdare
+        # database: database/authdare/main.sqlite
+        username: postgres
+        password: password
+        synchronize: true
+        dropSchema: true
 
 auth:
     swagger:
