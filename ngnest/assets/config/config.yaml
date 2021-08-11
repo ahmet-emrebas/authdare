@@ -7,6 +7,7 @@ DatabaseModule:
         path: database-module
     connection:
         type: postgres
+        appname: authdare
         database: authdare
         # database: database/authdare/main.sqlite
         username: postgres
