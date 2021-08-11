@@ -1,3 +1,3 @@
-export function t<T>(): T | undefined {
-    return undefined;
+export function t<T>(): T {
+    return undefined as any as T;
 }

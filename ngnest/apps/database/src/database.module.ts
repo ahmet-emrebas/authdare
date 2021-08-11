@@ -1,4 +1,5 @@
-import { CommonConstructor, t } from '@authdare/common';
+import { CommonConstructor } from '@authdare/common/class';
+import { t } from '@authdare/common/type';
 import { DynamicModule, Logger, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -32,6 +33,7 @@ export class DatabaseModule {
                         return {
                             ...conf.connection,
                             retryDelay: 2000,
+                            retryAttempts: 5,
                             autoLoadEntities: true,
                         };
                     },

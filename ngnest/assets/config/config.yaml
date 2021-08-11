@@ -1,10 +1,10 @@
-name: Global Configuration
-database:
+Domain:
+    clients: ['http://localhost:4200']
+DatabaseModule:
     swagger:
-        title: Database Module
+        title: DatabaseModule
         description: Provides database services
-        path: dba
-
+        path: database-module
     connection:
         type: postgres
         database: authdare
@@ -14,12 +14,11 @@ database:
         synchronize: true
         dropSchema: true
 
-auth:
+AuthModule:
     swagger:
-        title: Auth Module
+        title: AuthModule
         description: Provides authentication and authorization services
-        path: auth
-
+        path: auth-module
     jwt:
         secret: 'secret'
         expirations:

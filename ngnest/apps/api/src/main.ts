@@ -1,3 +1,5 @@
+import { snakeCase } from 'lodash';
+import { modules } from './modules';
 import { ConfigService } from '@nestjs/config';
 import { MainModule } from './main.module';
 import * as express from 'express';
@@ -6,20 +8,20 @@ import * as session from 'express-session';
 import * as cookieParser from 'cookie-parser';
 import * as helmet from 'helmet';
 import * as cors from 'cors';
-import { DatabaseModule } from './../../database/src/database.module';
 import { NestFactory } from '@nestjs/core';
-const a = 1234;
+import { Logger } from '@nestjs/common';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import crossOriginCookieMiddleware from '@authdare/common/middleware/cross-origin-cookie..middleware';
+import * as csurf from 'csurf';
+import { v4 } from 'uuid';
 
 async function bootstrap() {
+    const logger = new Logger('bootstrap');
     const server = express();
 
-    server.use(helmet());
-    server.use((req, res, next) => {
-        req.headers['access-control-allow-credentials'] = 'http://localhost:4200';
-        req.headers['access-control-allow-headers'] = '*';
-        next();
-    });
-    server.use(
+    const middlewares = [
+        helmet(),
+        crossOriginCookieMiddleware(['http://localhost:3000']),
         session({
             name: 'session',
             secret: 'my-secret',
@@ -27,30 +29,56 @@ async function bootstrap() {
             resave: false,
             saveUninitialized: true,
         }),
-    );
-    server.use(cookieParser());
-    server.use(cors({}));
-    // server.use(csurf({ cookie: true, sessionKey: uuid() }));
+        cookieParser(),
+        cors({}),
+        csurf({ cookie: true }),
+    ];
+
+    // server.use();
 
     const expressAdapter = new ExpressAdapter(server);
 
     // Main Wrapper App
     const mainApp = await NestFactory.create(MainModule, expressAdapter);
-    mainApp.init();
+    mainApp.use(middlewares);
     const configService = mainApp.get(ConfigService);
 
-    console.log(configService.get('database'));
+    const configuredModules = [mainApp];
+    for (const m of modules as any) {
+        const conf = configService.get(m.name)!;
 
-    // Configurations
-    const databaseModuleConfig = configService.get('database')!;
-    const authModuleConfig = configService.get('database')!;
+        logger.log(`creating the ${m.name} with configuration`);
 
-    //Configuring Modules
-    const databaseModule = DatabaseModule.configure(databaseModuleConfig);
+        console.table(conf);
 
-    // Creating apps
-    const databaseApp = await NestFactory.create(databaseModule, expressAdapter);
-    databaseApp.init();
+        let module = null;
+        if (m.configure) {
+            module = await m.configure(conf);
+        } else {
+            module = m;
+        }
+        const createdApp = await NestFactory.create(module, expressAdapter);
+
+        createdApp.use(middlewares);
+
+        if (conf?.swagger) {
+            console.table(conf.swagger);
+            SwaggerModule.setup(
+                conf.swagger.path,
+                createdApp,
+                SwaggerModule.createDocument(
+                    createdApp,
+                    new DocumentBuilder()
+                        .setTitle(conf.swagger.title)
+                        .setDescription(conf.swagger.description)
+                        .build(),
+                ),
+            );
+        }
+        configuredModules.push(createdApp);
+    }
+
+    await Promise.all(configuredModules.map((__app) => __app.init()));
 
     await expressAdapter.listen(process.env['PORT'] || 3000);
 }

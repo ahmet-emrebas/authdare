@@ -7,7 +7,7 @@ import { DatabaseService } from './database.service';
 export class DatabaseController {
     constructor(private readonly databaseService: DatabaseService) {}
 
-    @Get()
+    @Get('hello')
     getHello(): string {
         return this.databaseService.getHello();
     }
