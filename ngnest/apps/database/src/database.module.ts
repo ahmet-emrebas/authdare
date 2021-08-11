@@ -1,13 +1,11 @@
-import { CommonConstructor, SwaggerOptions, t } from '@authdare/common';
+import { CommonConstructor, t } from '@authdare/common';
 
 import { DynamicModule, Logger, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DatabaseController } from './database.controller';
 import { DatabaseService } from './database.service';
-import { plainToClass, Transform } from 'class-transformer';
 import { ConnectionOptions } from 'typeorm';
-import { validateSync } from 'class-validator';
 
 class DatabaseConfigSchema extends CommonConstructor<DatabaseConfigSchema> {
     connection = t<ConnectionOptions>();
