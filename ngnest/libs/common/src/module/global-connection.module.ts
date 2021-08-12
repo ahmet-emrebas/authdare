@@ -5,9 +5,9 @@ import { Connection } from 'typeorm';
 
 export const GLOBAL_CONNECTION_TOKEN = '44c3a4c1-e6e5-4dc2-be59-c7d208792984';
 
-export type GetClientConnectionHandler = (req: Request) => Promise<Connection>;
+export type GlobalConnectionHandler = (req: Request) => Promise<Connection>;
 
-export const GlobalConnectionProvider = (getClientConnection: GetClientConnectionHandler) => {
+export const GlobalConnectionProvider = (getClientConnection: GlobalConnectionHandler) => {
     return {
         inject: [REQUEST],
         scope: Scope.REQUEST,
@@ -24,9 +24,7 @@ export const GlobalConnectionProvider = (getClientConnection: GetClientConnectio
 @Global()
 @Module({})
 export class GlobalConnectionModule {
-    static async configure(
-        getClientConnection: GetClientConnectionHandler,
-    ): Promise<DynamicModule> {
+    static async configure(getClientConnection: GlobalConnectionHandler): Promise<DynamicModule> {
         return {
             module: GlobalConnectionModule,
             providers: [GlobalConnectionProvider(getClientConnection)],

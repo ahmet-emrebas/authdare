@@ -1,48 +1,46 @@
+import { GLOBAL_CONNECTION_TOKEN } from '@authdare/common/module';
 import { Test, TestingModule } from '@nestjs/testing';
+import { EventEmitter2 } from 'eventemitter2';
 import {
+    AuthActionHandler,
     AuthController,
-    ForgotPasswordHandler,
     ForgotPasswordHandlerToken,
-    LoginHandler,
     LoginHandlerToken,
-    SignupHandler,
     SignupHandlerToken,
 } from './auth.controller';
 
 describe('AuthController', () => {
     let authController: AuthController;
     beforeEach(async () => {
-        const loginHandler: LoginHandler = (loginForm, session) => {
-            return 'login';
-        };
-        const signupHandler: SignupHandler = (signupForm, session) => {
-            return 'signup';
-        };
-        const forgotPasswordHandler: ForgotPasswordHandler = (form) => {
-            return 'forgot';
+        const handler: (value: string) => AuthActionHandler = (value) => (arg) => {
+            return value;
         };
         const app: TestingModule = await Test.createTestingModule({
             controllers: [AuthController],
             providers: [
-                { provide: ForgotPasswordHandlerToken, useValue: forgotPasswordHandler },
-                { provide: LoginHandlerToken, useValue: loginHandler },
-                { provide: SignupHandlerToken, useValue: signupHandler },
+                {
+                    provide: ForgotPasswordHandlerToken,
+                    useValue: handler(ForgotPasswordHandlerToken),
+                },
+                { provide: LoginHandlerToken, useValue: handler(LoginHandlerToken) },
+                { provide: SignupHandlerToken, useValue: handler(SignupHandlerToken) },
+                { provide: GLOBAL_CONNECTION_TOKEN, useValue: null },
+                { provide: EventEmitter2, useValue: null },
             ],
         }).compile();
 
         authController = app.get<AuthController>(AuthController);
-        // let authController = new AuthController(loginHandler, signupHandler, forgotPasswordHandler);
     });
 
     it('should login', async () => {
-        expect(await authController.login(null, null)).toBe('login' as any);
+        expect(await authController.login(null, null)).toBe(LoginHandlerToken);
     });
 
     it('should signup', async () => {
-        expect(await authController.signup(null, null)).toBe('signup' as any);
+        expect(await authController.signup(null, null)).toBe(SignupHandlerToken);
     });
 
     it('should forgot password', async () => {
-        expect(await authController.forgotPassword(null)).toBe('forgot' as any);
+        expect(await authController.forgotPassword(null, null)).toBe(ForgotPasswordHandlerToken);
     });
 });

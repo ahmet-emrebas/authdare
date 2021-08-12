@@ -1,18 +1,24 @@
+import { GLOBAL_CONNECTION_TOKEN } from '@authdare/common/module';
 import { Body, Controller, Inject, Post, Session } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+import { EventEmitter2 } from 'eventemitter2';
 
-export type LoginHandler<Form = any, Session = any, ReturnType = any> = (
-    loginForm: Form,
-    session: Session,
-) => ReturnType;
-export type SignupHandler<Form = any, Session = any, ReturnType = any> = (
-    signupForm: Form,
-    session: Session,
-) => ReturnType;
+export type AuthActionHandlerArgument<Connection, EventEmitter, Form, TSession> = {
+    connection: Connection;
+    form: Form;
+    session: TSession;
+    eventEmitter: EventEmitter;
+};
 
-export type ForgotPasswordHandler<Form = any, Session = any, ReturnType = any> = (
-    forgotPasswordForm: Form,
-) => ReturnType;
+export type AuthActionHandler<
+    Connection = any,
+    EventEmitter = any,
+    Form = any,
+    TSession = any,
+    ReturnType = any,
+> = (arg: AuthActionHandlerArgument<Connection, EventEmitter, Form, TSession>) => ReturnType;
+
+class EmptyClass {}
 
 export const LoginHandlerToken = 'LoginHandlerToken';
 export const SignupHandlerToken = 'SignupHandlerToken';
@@ -22,24 +28,41 @@ export const ForgotPasswordHandlerToken = 'ForgotPasswordHandlerToken';
 @Controller('auth')
 export class AuthController {
     constructor(
-        @Inject(LoginHandlerToken) private readonly loginHandler: LoginHandler,
-        @Inject(SignupHandlerToken) private readonly signupHandler: SignupHandler,
+        @Inject(LoginHandlerToken) private readonly loginHandler: AuthActionHandler,
+        @Inject(SignupHandlerToken) private readonly signupHandler: AuthActionHandler,
         @Inject(ForgotPasswordHandlerToken)
-        private readonly forgotPasswordHandler: ForgotPasswordHandler,
+        private readonly forgotPasswordHandler: AuthActionHandler,
+        @Inject(GLOBAL_CONNECTION_TOKEN) private readonly connection: any,
+        private readonly eventEmitter: EventEmitter2,
     ) {}
 
     @Post('login')
-    async login(@Body() loginForm: any, @Session() session: any) {
-        return await this.loginHandler(loginForm, session);
+    async login(@Body() form: EmptyClass, @Session() session: any) {
+        return await this.loginHandler({
+            form,
+            session,
+            eventEmitter: this.eventEmitter,
+            connection: this.connection,
+        });
     }
 
     @Post('signup')
-    async signup(@Body() signupForm: any, @Session() session: any) {
-        return await this.signupHandler(signupForm, session);
+    async signup(@Body() form: EmptyClass, @Session() session: any) {
+        return await this.signupHandler({
+            form,
+            session,
+            eventEmitter: this.eventEmitter,
+            connection: this.connection,
+        });
     }
 
     @Post('forgot-password')
-    async forgotPassword(@Body() form: any) {
-        return await this.forgotPasswordHandler(form);
+    async forgotPassword(@Body() form: any, @Session() session: any) {
+        return await this.forgotPasswordHandler({
+            form,
+            session,
+            eventEmitter: this.eventEmitter,
+            connection: this.connection,
+        });
     }
 }

@@ -8,6 +8,7 @@ import * as cors from 'cors';
 import { NestFactory } from '@nestjs/core';
 import { crossOriginCookieMiddleware } from '@authdare/common/middleware';
 import * as csurf from 'csurf';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
     const server = express();
@@ -23,13 +24,22 @@ async function bootstrap() {
         }),
         cookieParser(),
         cors({}),
-        csurf({ cookie: true }),
+        // csurf({}),
     ];
 
     const expressAdapter = new ExpressAdapter(server);
 
     const mainApp = await NestFactory.create(MainModule, expressAdapter);
     mainApp.use(middlewares);
+
+    const config = new DocumentBuilder()
+        .setTitle('Authdare API')
+        .setDescription('All modules and services')
+        .build();
+
+    const document = SwaggerModule.createDocument(mainApp, config);
+    SwaggerModule.setup('api', mainApp, document);
+
     await mainApp.init();
 
     await expressAdapter.listen(process.env['PORT'] || 3000);
