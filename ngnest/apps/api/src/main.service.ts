@@ -1,18 +1,17 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotImplementedException } from '@nestjs/common';
 import { OnEvent } from '@nestjs/event-emitter';
 
 @Injectable()
 export class MainService {
-    @OnEvent('login')
     echo(payload: any) {
-        console.log(payload);
+        throw new NotImplementedException();
     }
-    @OnEvent('signup')
+
     signup(payload: any) {
-        console.log(payload);
+        throw new NotImplementedException();
     }
-    @OnEvent('forgot')
+
     forgot(payload: any) {
-        console.log(payload);
+        throw new NotImplementedException();
     }
 }

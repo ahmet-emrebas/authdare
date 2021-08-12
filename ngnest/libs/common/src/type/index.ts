@@ -1,3 +1,6 @@
-export function t<T>(): T {
-    return undefined as any as T;
+export function t<T>(value?: T): T {
+    if (value !== undefined) {
+        return undefined as any as T;
+    }
+    return value as T;
 }

@@ -30,7 +30,10 @@ async function bootstrap() {
     const expressAdapter = new ExpressAdapter(server);
 
     const mainApp = await NestFactory.create(MainModule, expressAdapter);
+
     mainApp.use(middlewares);
+
+    mainApp.setGlobalPrefix(':orgname');
 
     const config = new DocumentBuilder()
         .setTitle('Authdare API')

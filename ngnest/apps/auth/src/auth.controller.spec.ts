@@ -1,3 +1,4 @@
+import { DatabaseService } from './../../database/src/database.service';
 import { GLOBAL_CONNECTION_TOKEN } from '@authdare/common/module';
 import { Test, TestingModule } from '@nestjs/testing';
 import { EventEmitter2 } from 'eventemitter2';
@@ -26,6 +27,8 @@ describe('AuthController', () => {
                 { provide: SignupHandlerToken, useValue: handler(SignupHandlerToken) },
                 { provide: GLOBAL_CONNECTION_TOKEN, useValue: null },
                 { provide: EventEmitter2, useValue: null },
+                { provide: DatabaseService, useValue: null },
+                { provide: 'UserEntityRepository', useValue: null },
             ],
         }).compile();
 
@@ -33,14 +36,14 @@ describe('AuthController', () => {
     });
 
     it('should login', async () => {
-        expect(await authController.login(null, null)).toBe(LoginHandlerToken);
+        expect(await authController.login()).toBe(LoginHandlerToken);
     });
 
     it('should signup', async () => {
-        expect(await authController.signup(null, null)).toBe(SignupHandlerToken);
+        expect(await authController.signup()).toBe(SignupHandlerToken);
     });
 
     it('should forgot password', async () => {
-        expect(await authController.forgotPassword(null, null)).toBe(ForgotPasswordHandlerToken);
+        expect(await authController.forgotPassword()).toBe(ForgotPasswordHandlerToken);
     });
 });

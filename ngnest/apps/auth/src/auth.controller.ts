@@ -1,22 +1,25 @@
-import { GLOBAL_CONNECTION_TOKEN } from '@authdare/common/module';
-import { Body, Controller, Inject, Post, Session } from '@nestjs/common';
+import { DatabaseService } from './../../database/src/database.service';
+import { t } from '@authdare/common/type';
+import { Body, Controller, Inject, Param, Post, Session } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { EventEmitter2 } from 'eventemitter2';
+import { SessionData } from 'express-session';
+import { Repository } from 'typeorm';
+import { UserEntity } from '@authdare/models/user';
+import { InjectRepository } from '@nestjs/typeorm';
 
-export type AuthActionHandlerArgument<Connection, EventEmitter, Form, TSession> = {
-    connection: Connection;
-    form: Form;
-    session: TSession;
-    eventEmitter: EventEmitter;
-};
+export class AuthActionHandlerArgument<Form = any, TSession = any> {
+    form = t<Form>();
+    session = t<TSession>();
+    eventEmitter = t<EventEmitter2>();
+    orgname = t<string>();
+    databaseService?: DatabaseService;
+    userRepository?: Repository<UserEntity>;
+}
 
-export type AuthActionHandler<
-    Connection = any,
-    EventEmitter = any,
-    Form = any,
-    TSession = any,
-    ReturnType = any,
-> = (arg: AuthActionHandlerArgument<Connection, EventEmitter, Form, TSession>) => ReturnType;
+export type AuthActionHandler<Form = any, TSession = any, ReturnType = any> = (
+    arg: AuthActionHandlerArgument<Form, TSession>,
+) => ReturnType;
 
 class EmptyClass {}
 
@@ -32,37 +35,54 @@ export class AuthController {
         @Inject(SignupHandlerToken) private readonly signupHandler: AuthActionHandler,
         @Inject(ForgotPasswordHandlerToken)
         private readonly forgotPasswordHandler: AuthActionHandler,
-        @Inject(GLOBAL_CONNECTION_TOKEN) private readonly connection: any,
         private readonly eventEmitter: EventEmitter2,
+        private readonly databaseService: DatabaseService,
+        @InjectRepository(UserEntity) private readonly userRepository: Repository<UserEntity>,
     ) {}
 
     @Post('login')
-    async login(@Body() form: EmptyClass, @Session() session: any) {
+    async login(
+        @Body() form: EmptyClass = t<EmptyClass>({}),
+        @Session() session: SessionData = t<any>(),
+        @Param('orgname') orgname: string = t<string>(''),
+    ) {
         return await this.loginHandler({
             form,
             session,
             eventEmitter: this.eventEmitter,
-            connection: this.connection,
+            userRepository: this.userRepository,
+            orgname,
         });
     }
 
     @Post('signup')
-    async signup(@Body() form: EmptyClass, @Session() session: any) {
+    async signup(
+        @Body() form: EmptyClass = t<EmptyClass>({}),
+        @Session() session: SessionData = t<any>(),
+        @Param('orgname') orgname: string = t<string>(),
+    ) {
         return await this.signupHandler({
             form,
             session,
             eventEmitter: this.eventEmitter,
-            connection: this.connection,
+            userRepository: this.userRepository,
+            orgname,
+            databaseService: this.databaseService,
         });
     }
 
     @Post('forgot-password')
-    async forgotPassword(@Body() form: any, @Session() session: any) {
+    async forgotPassword(
+        @Body() form: EmptyClass = t<EmptyClass>({}),
+        @Session() session: SessionData = t<any>(),
+        @Param('orgname') orgname: string = t<string>(),
+    ) {
         return await this.forgotPasswordHandler({
             form,
             session,
             eventEmitter: this.eventEmitter,
-            connection: this.connection,
+            userRepository: this.userRepository,
+            orgname,
         });
     }
 }

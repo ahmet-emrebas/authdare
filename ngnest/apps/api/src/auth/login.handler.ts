@@ -1,3 +1,4 @@
+import { AuthEvents } from './auth.events';
 import { AuthActionHandlerArgument } from './../../../auth/src/auth.controller';
 import { AuthActionHandler } from 'apps/auth/src/auth.controller';
 import { Connection } from 'typeorm';
@@ -10,11 +11,11 @@ type Form = {
 };
 
 export const loginHandler: AuthActionHandler = ({
-    connection,
+    userRepository,
     eventEmitter,
     form,
     session,
-}: AuthActionHandlerArgument<Connection, EventEmitter2, Form, SessionData>) => {
-    eventEmitter.emit('login', 'I can log in');
+}: AuthActionHandlerArgument) => {
+    eventEmitter.emit(AuthEvents.LOGIN, 'I can log in');
     return 'loginHandler';
 };

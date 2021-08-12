@@ -1,3 +1,5 @@
+import { UserEntity } from './../../../libs/models/src/user/user.entity';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { DynamicModule, Module } from '@nestjs/common';
 import {
     AuthActionHandler,
@@ -22,6 +24,7 @@ export class AuthModule {
     }: AuthModuleOptions): Promise<DynamicModule> {
         return {
             module: AuthModule,
+            imports: [TypeOrmModule.forFeature([UserEntity])],
             controllers: [AuthController],
             providers: [
                 { provide: ForgotPasswordHandlerToken, useValue: forgotPasswordHandler },

@@ -1,13 +1,9 @@
 import { HttpStatus } from '@nestjs/common';
 
-export interface Appendings<T> {
-    [name: string]: Body<T, undefined>;
-}
-
 /**
  * Response body for all requests.
  */
-export interface Body<T, A> {
+export interface ResponseBody<T, A> {
     event: string;
     message: string;
     resource: string;
@@ -19,13 +15,17 @@ export interface Body<T, A> {
     data: T;
 }
 
+export interface Appendings<T> {
+    [name: string]: ResponseBody<T, undefined>;
+}
+
 export interface Repo<T, A, Q> {
-    findOne(query: Q): Promise<Body<T, A>>;
-    findMany(query: Q): Promise<Body<T[], A>[]>;
-    query(query: string | number): Promise<Body<T[], A>>;
-    post(body: T): Promise<Body<T, A>>;
-    patch(id: number, updated: Partial<T>): Promise<Body<T, A>>;
-    delete(id: number): Promise<Body<T, A>>;
+    findOne(query: Q): Promise<ResponseBody<T, A>>;
+    findMany(query: Q): Promise<ResponseBody<T[], A>[]>;
+    query(query: string | number): Promise<ResponseBody<T[], A>>;
+    post(body: T): Promise<ResponseBody<T, A>>;
+    patch(id: number, updated: Partial<T>): Promise<ResponseBody<T, A>>;
+    delete(id: number): Promise<ResponseBody<T, A>>;
 }
 
 export interface Hash {

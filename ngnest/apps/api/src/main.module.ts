@@ -5,12 +5,24 @@ import { AuthModule } from './../../auth/src/auth.module';
 import { DatabaseModule } from './../../database/src/database.module';
 import { entities } from '@authdare/models';
 import { join } from 'path';
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import loadConfig from './load-config';
-import { signupHandler, loginHandler, forgotPasswordHandler } from './auth';
+import { signupHandler, loginHandler, forgotPasswordHandler, AuthMaillerService } from './auth';
 import { EventEmitterModule } from '@nestjs/event-emitter';
+import { APP_GUARD } from '@nestjs/core';
+import { AUthGuard } from '@authdare/common/guard';
+import { MailerModule } from '@nestjs-modules/mailer';
+import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
+
+const MaillerConfig = {
+    EMAIL_TEMPLATE_PATH: join(__dirname, 'mail/templates'),
+    EMAIL_HOST: 'mail.authdare.com',
+    EMAIL_USERNAME: 'support@authdare.com',
+    EMAIL_PASSWORD: process.env.EMAIL_PASSWORD || 'no password',
+    EMAIL_DEFAULT_FROM: '"Authdare Support" <support@authdare.com>',
+};
 
 @Module({
     imports: [
@@ -33,7 +45,47 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
             renderPath: '/',
             exclude: ['api', 'api/**/*'],
         }),
+
+        MailerModule.forRootAsync({
+            useFactory: () => {
+                return {
+                    transport: {
+                        name: MaillerConfig.EMAIL_HOST,
+                        host: MaillerConfig.EMAIL_HOST,
+                        port: 465, // 587(no ssl)
+                        auth: {
+                            user: MaillerConfig.EMAIL_USERNAME,
+                            pass: MaillerConfig.EMAIL_PASSWORD,
+                        },
+                        tls: {
+                            rejectUnauthorized: false,
+                        },
+                    },
+                    defaults: {
+                        from: MaillerConfig.EMAIL_DEFAULT_FROM,
+                    },
+                    template: {
+                        dir: MaillerConfig.EMAIL_TEMPLATE_PATH,
+                        adapter: new HandlebarsAdapter(),
+                        options: {
+                            strict: false,
+                        },
+                    },
+                };
+            },
+        }),
     ],
-    providers: [MainService],
+    providers: [
+        MainService,
+        AuthMaillerService,
+        {
+            provide: APP_GUARD,
+            useClass: AUthGuard,
+        },
+    ],
 })
-export class MainModule {}
+export class MainModule implements NestModule {
+    configure(consumer: MiddlewareConsumer) {
+        // TODO
+    }
+}
