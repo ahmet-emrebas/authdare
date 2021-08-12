@@ -1,9 +1,11 @@
+import { Body, Hash, Repo } from './../interface/index';
 import { IsString, MinLength } from 'class-validator';
 import { cloneDeep } from 'lodash';
 import { t } from '../type';
 import {
     CreateDateColumn,
     DeleteDateColumn,
+    FindManyOptions,
     PrimaryGeneratedColumn,
     UpdateDateColumn,
 } from 'typeorm';
@@ -24,7 +26,7 @@ export class SwaggerOptions extends CommonConstructor<SwaggerOptions> {
     description = t<string>();
 }
 
-export class BaseEntity<T> extends CommonConstructor<T> {
+export class CommonEntity<T> extends CommonConstructor<T> {
     @PrimaryGeneratedColumn()
     readonly id = t<number>();
     @CreateDateColumn()
@@ -33,4 +35,34 @@ export class BaseEntity<T> extends CommonConstructor<T> {
     readonly updated_at = t<string>();
     @DeleteDateColumn()
     readonly deleted_at = t<string>();
+}
+
+export class ResourceService<T, A, Q> implements Repo<T, A, Q> {
+    findMany(query: Q): Promise<Body<T[], A>[]> {
+        throw new Error('Method not implemented.');
+    }
+    query(query: string | number): Promise<Body<T[], A>> {
+        throw new Error('Method not implemented.');
+    }
+    findOne(query: Q): Promise<Body<T, A>> {
+        throw new Error('Method not implemented.');
+    }
+    post(body: T): Promise<Body<T, A>> {
+        throw new Error('Method not implemented.');
+    }
+    patch(id: number, updated: Partial<T>): Promise<Body<T, A>> {
+        throw new Error('Method not implemented.');
+    }
+    delete(id: number): Promise<Body<T, A>> {
+        throw new Error('Method not implemented.');
+    }
+}
+
+export class HashService implements Hash {
+    hash(value: any): Promise<string> {
+        throw new Error('Method not implemented.');
+    }
+    verify(hashValue: string, rawValue: string): Promise<boolean> {
+        throw new Error('Method not implemented.');
+    }
 }

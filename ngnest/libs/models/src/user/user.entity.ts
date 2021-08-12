@@ -1,9 +1,9 @@
-import { BaseEntity } from '@authdare/common/class';
+import { CommonEntity } from '@authdare/common/class';
 import { t } from '@authdare/common/type';
 import { Column, Entity } from 'typeorm';
 
 @Entity({ name: 'users' })
-export class UserEntity extends BaseEntity<UserEntity> {
+export class UserEntity extends CommonEntity<UserEntity> {
     @Column({ name: 'first_name', type: 'text' })
     firstName = t<string>();
 
@@ -15,4 +15,7 @@ export class UserEntity extends BaseEntity<UserEntity> {
 
     @Column({ type: 'text' })
     password = t<string>();
+
+    @Column({ type: 'text' })
+    orgname = t<string>();
 }

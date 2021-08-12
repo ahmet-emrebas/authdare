@@ -1,24 +1,45 @@
-import { CommonConstructor } from '@authdare/common/class';
-import { t } from '@authdare/common/type';
-import { Body, Controller, Get, Post, Session } from '@nestjs/common';
-import { ApiProperty, ApiTags } from '@nestjs/swagger';
-import { AuthService } from './auth.service';
+import { Body, Controller, Inject, Post, Session } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 
-class LoginForm extends CommonConstructor<LoginForm> {
-    @ApiProperty() username = t<string>();
-    @ApiProperty() password = t<string>();
-}
+export type LoginHandler<Form = any, Session = any, ReturnType = any> = (
+    loginForm: Form,
+    session: Session,
+) => ReturnType;
+export type SignupHandler<Form = any, Session = any, ReturnType = any> = (
+    signupForm: Form,
+    session: Session,
+) => ReturnType;
+
+export type ForgotPasswordHandler<Form = any, Session = any, ReturnType = any> = (
+    forgotPasswordForm: Form,
+) => ReturnType;
+
+export const LoginHandlerToken = 'LoginHandlerToken';
+export const SignupHandlerToken = 'SignupHandlerToken';
+export const ForgotPasswordHandlerToken = 'ForgotPasswordHandlerToken';
 
 @ApiTags(AuthController.name)
 @Controller('auth')
 export class AuthController {
-    constructor(private readonly authService: AuthService) {}
-
-    @Get()
-    getHello(): string {
-        return this.authService.getHello();
-    }
+    constructor(
+        @Inject(LoginHandlerToken) private readonly loginHandler: LoginHandler,
+        @Inject(SignupHandlerToken) private readonly signupHandler: SignupHandler,
+        @Inject(ForgotPasswordHandlerToken)
+        private readonly forgotPasswordHandler: ForgotPasswordHandler,
+    ) {}
 
     @Post('login')
-    login(@Body() loginForm: LoginForm, @Session() session: any) {}
+    async login(@Body() loginForm: any, @Session() session: any) {
+        return await this.loginHandler(loginForm, session);
+    }
+
+    @Post('signup')
+    async signup(@Body() signupForm: any, @Session() session: any) {
+        return await this.signupHandler(signupForm, session);
+    }
+
+    @Post('forgot-password')
+    async forgotPassword(@Body() form: any) {
+        return await this.forgotPasswordHandler(form);
+    }
 }

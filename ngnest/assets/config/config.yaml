@@ -7,20 +7,10 @@ DatabaseModule:
         title: DatabaseModule
         description: Provides database
         path: database-module
-    connection:
-        type: postgres
-        database: authdare
-        # database: database/authdare/main.sqlite
-        username: postgres
-        password: password
-        retryDelay: 2000
-        retryAttempts: 5
-        autoLoadEntities: true
-        synchronize: true
-        dropSchema: true
 
 AuthModule:
     prefix: auth
+    active: false
     swagger:
         title: AuthModule
         description: Provides authentication and authorization services
