@@ -19,11 +19,19 @@ export class DatabaseModule {
             password: 'password',
         });
 
-        const previousDB = ((await con.query(Queries.dbs())) as string[])
+        const dbs = ((await con.query(Queries.dbs())) as string[])
             .map((e: any) => e.datname)
             .filter((e) => e.startsWith('authdare_1'))
-            .sort()
-            .pop();
+            .sort();
+
+        if (dbs.length > 4) {
+            const firstOne = dbs.shift();
+            await con.query(Queries.terminate(firstOne));
+            await con.query(Queries.drop(firstOne));
+        }
+
+        const previousDB = dbs.pop();
+
         await con.query(Queries.terminate(previousDB));
         try {
             if (previousDB) {

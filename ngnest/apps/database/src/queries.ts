@@ -25,6 +25,10 @@ export const Queries = {
     TEMPLATE '${templateName}';
     `,
 
+    drop: (name: string) => `
+    DROP DATABASE ${name};
+    `,
+
     /**
      * Create a new database
      * @param name
