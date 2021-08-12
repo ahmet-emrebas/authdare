@@ -21,6 +21,7 @@ export const globalConnectionHandler: GlobalConnectionHandler = async (req: Requ
         return getConnection(orgname);
     } catch (err) {
         return await createConnection({
+            name: orgname,
             type: 'postgres',
             database: orgname,
             entities,

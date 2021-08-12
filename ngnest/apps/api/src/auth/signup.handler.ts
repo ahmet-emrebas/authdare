@@ -1,12 +1,9 @@
 import { AuthEvents } from './auth.events';
 import { AuthActionHandlerArgument } from './../../../auth/src/auth.controller';
 import { AuthActionHandler } from 'apps/auth/src/auth.controller';
-import { EventEmitter2 } from 'eventemitter2';
-import { SessionData } from 'express-session';
 import { t } from '@authdare/common/type';
 import { IsEmail, Length } from 'class-validator';
 import { NotAcceptableException } from '@nestjs/common';
-import { getConnection } from 'typeorm';
 
 class SignupForm {
     @Length(1, 100) firstName = t<string>();
