@@ -16,17 +16,6 @@ export class SessionGuard implements CanActivate {
 
         console.log(`${method}  : ${resourceName} ---> ${handlerPath} `);
 
-        const options = this.reflector.getAllAndOverride<IResourcePolicyOptions>(
-            HandlerOptionsToken,
-            [context.getClass(), context.getHandler()],
-        );
-
-        console.log(options);
-
-        if (options.public) {
-            return true;
-        }
-
         return true;
     }
 }

@@ -1,6 +1,6 @@
 import { cloneDeep } from 'lodash';
-import { t } from '../type';
 import {
+    Column,
     CreateDateColumn,
     DeleteDateColumn,
     PrimaryGeneratedColumn,
@@ -13,53 +13,27 @@ export class CommonConstructor<T> {
     }
 }
 
-// export class SwaggerOptions extends CommonConstructor<SwaggerOptions> {
-//     @IsString()
-//     @MinLength(3)
-//     title = t<string>();
-
-//     @IsString()
-//     @MinLength(3)
-//     description = t<string>();
-// }
-
 export class CommonEntity<T> extends CommonConstructor<T> {
     @PrimaryGeneratedColumn()
-    readonly id = t<number>();
+    id?: number;
+
     @CreateDateColumn()
-    readonly created_at = t<string>();
+    created_at?: string;
+
     @UpdateDateColumn()
-    readonly updated_at = t<string>();
+    updated_at?: string;
+
     @DeleteDateColumn()
-    readonly deleted_at = t<string>();
+    deleted_at?: string;
+
+    @Column({ nullable: true })
+    string?: string;
+
+    toString() {
+        const stringVersion = Object.entries(this)
+            .map(([key, value]) => `${key}=${value}`)
+            .join('&');
+        this.string = stringVersion;
+        return stringVersion;
+    }
 }
-
-// export class ResourceService<T, A, Q> implements Repo<T, A, Q> {
-//     findMany(query: Q): Promise<ResponseBody<T[], A>[]> {
-//         throw new Error('Method not implemented.');
-//     }
-//     query(query: string | number): Promise<ResponseBody<T[], A>> {
-//         throw new Error('Method not implemented.');
-//     }
-//     findOne(query: Q): Promise<ResponseBody<T, A>> {
-//         throw new Error('Method not implemented.');
-//     }
-//     post(body: T): Promise<ResponseBody<T, A>> {
-//         throw new Error('Method not implemented.');
-//     }
-//     patch(id: number, updated: Partial<T>): Promise<ResponseBody<T, A>> {
-//         throw new Error('Method not implemented.');
-//     }
-//     delete(id: number): Promise<ResponseBody<T, A>> {
-//         throw new Error('Method not implemented.');
-//     }
-// }
-
-// export class HashService implements Hash {
-//     hash(value: any): Promise<string> {
-//         throw new Error('Method not implemented.');
-//     }
-//     verify(hashValue: string, rawValue: string): Promise<boolean> {
-//         throw new Error('Method not implemented.');
-//     }
-// }

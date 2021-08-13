@@ -1,1 +1,1 @@
-export * from './global-connection.module';
+export * from './connection-module';

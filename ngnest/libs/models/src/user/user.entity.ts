@@ -1,5 +1,5 @@
 import { CommonEntity } from '@authdare/common/class';
-import { Column, Entity, OneToMany } from 'typeorm';
+import { Column, Entity } from 'typeorm';
 
 @Entity({ name: 'users' })
 export class UserEntity extends CommonEntity<UserEntity> {
@@ -15,11 +15,8 @@ export class UserEntity extends CommonEntity<UserEntity> {
     @Column({})
     password?: string;
 
-    @Column({})
+    @Column({ nullable: true })
     permissions?: string;
-
-    @OneToMany(() => UserEntity, (user) => user.orgname)
-    org?: UserEntity;
 
     @Column({ nullable: true, unique: true, update: false })
     orgname?: string;

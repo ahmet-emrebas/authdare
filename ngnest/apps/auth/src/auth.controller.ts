@@ -1,7 +1,8 @@
+import { DatabaseTokens } from './../../database/src/database-tokens';
+import { AuthInterceptor } from './auth.interceptor';
 import { IAuthController } from './../../../libs/common/src/decorator/handler-options';
 import { Length, IsEmail, IsOptional, isNotEmpty } from 'class-validator';
 import { Transform } from 'class-transformer';
-import { DatabaseService } from './../../database/src/database.service';
 import { t } from '@authdare/common/type';
 import {
     Body,
@@ -11,6 +12,7 @@ import {
     Param,
     Post,
     Session,
+    UseInterceptors,
     ValidationPipe,
 } from '@nestjs/common';
 import {
@@ -20,26 +22,10 @@ import {
     ApiProperty,
     ApiTags,
 } from '@nestjs/swagger';
-import { EventEmitter2 } from 'eventemitter2';
 import { SessionData } from 'express-session';
-import { Repository } from 'typeorm';
-import { UserEntity } from '@authdare/models/user';
-import { InjectRepository } from '@nestjs/typeorm';
 import { CommonConstructor } from '@authdare/common/class';
 import { ResourcePolicy } from '@authdare/common/decorator';
-
-export class AuthActionHandlerArgument<Form = any, TSession = any> {
-    form = t<Form>();
-    session = t<TSession>();
-    eventEmitter = t<EventEmitter2>();
-    orgname? = t<string>();
-    databaseService? = t<DatabaseService>();
-    userRepository? = t<Repository<UserEntity>>();
-}
-
-export type AuthActionHandler<Form = any, TSession = any, ReturnType = any> = (
-    arg: AuthActionHandlerArgument<Form, TSession>,
-) => ReturnType;
+import { Connection } from 'typeorm';
 
 export const LoginHandlerToken = 'LoginHandlerToken';
 export const SignupHandlerToken = 'SignupHandlerToken';
@@ -63,7 +49,11 @@ export class SignupForm extends CommonConstructor<SignupForm> {
     password = t<string>();
 
     @ApiProperty({ type: 'string', minLength: 1, maxLength: 100, required: true })
-    @Length(3, 20)
+    @IsOptional()
+    permissions = t<string>();
+
+    @ApiProperty({ type: 'string', minLength: 1, maxLength: 100, required: true })
+    @Length(3, 50)
     @Transform(({ value }) =>
         isNotEmpty(value) ? `authdare_` + value + '_' + new Date().getTime() : value,
     )
@@ -93,40 +83,35 @@ export class ForgotPasswordForm {
 
 const FormValidationPipe = new ValidationPipe({
     transform: true,
-    transformOptions: { exposeUnsetFields: false, excludeExtraneousValues: true },
 });
 
+@UseInterceptors(AuthInterceptor)
 @ApiTags(AuthController.name)
 @Controller({ path: 'auth' })
 export class AuthController implements IAuthController {
-    constructor(
-        @Inject(LoginHandlerToken) private readonly loginHandler: AuthActionHandler,
-        @Inject(SignupHandlerToken) private readonly signupHandler: AuthActionHandler,
-        @Inject(ForgotPasswordHandlerToken)
-        private readonly forgotPasswordHandler: AuthActionHandler,
-        private readonly eventEmitter: EventEmitter2,
-        private readonly databaseService: DatabaseService,
-        @InjectRepository(UserEntity) private readonly userRepository: Repository<UserEntity>,
-    ) {}
+    constructor(@Inject(DatabaseTokens.CLIENT_CONNECTION) con: Connection) {}
+
+    @ApiNotFoundResponse({ description: 'When account with the email already exits' })
+    @ApiNotAcceptableResponse({
+        description: 'When input validation fails',
+    })
+    @ResourcePolicy({ public: true })
+    @Post(':orgname/join')
+    join(@Body() form: LoginForm, @Param('orgname') orgname: string) {
+        throw new InternalServerErrorException('Something went wrong.');
+    }
 
     @ApiNotFoundResponse({ description: 'When account with the email does not exist.' })
-    @ApiNotFoundResponse({
+    @ApiNotAcceptableResponse({
         description: 'When password is wrong or initial input validation fails.',
     })
     @ResourcePolicy({ public: true })
-    @Post('login')
+    @Post(':orgname/login')
     async login(
         @Body(FormValidationPipe) form: LoginForm,
         @Session() session: SessionData = t<any>(),
         @Param('orgname') orgname: string = t<string>(''),
-    ) {
-        return await this.loginHandler({
-            form,
-            session,
-            eventEmitter: this.eventEmitter,
-            userRepository: this.userRepository,
-        });
-    }
+    ) {}
 
     @ApiConflictResponse({ description: 'When account with the email & orgname already exists.' })
     @ApiNotAcceptableResponse({
@@ -138,13 +123,7 @@ export class AuthController implements IAuthController {
         @Body(FormValidationPipe) form: SignupForm,
         @Session() session: SessionData = t<any>(),
     ) {
-        return await this.signupHandler({
-            form,
-            session,
-            eventEmitter: this.eventEmitter,
-            userRepository: this.userRepository,
-            databaseService: this.databaseService,
-        });
+        throw new InternalServerErrorException('Something went wrong!');
     }
 
     @ApiNotFoundResponse({ description: 'When account with the email does not exist.' })
@@ -157,12 +136,7 @@ export class AuthController implements IAuthController {
         @Body(FormValidationPipe) form: ForgotPasswordForm,
         @Session() session: SessionData = t<any>(),
     ) {
-        return await this.forgotPasswordHandler({
-            form,
-            session,
-            eventEmitter: this.eventEmitter,
-            userRepository: this.userRepository,
-        });
+        throw new InternalServerErrorException('Something went wrong!');
     }
 
     @ResourcePolicy({ public: true })

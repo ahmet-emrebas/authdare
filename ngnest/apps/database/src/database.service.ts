@@ -1,15 +1,30 @@
-import { GLOBAL_CONNECTION_TOKEN } from '@authdare/common/module';
-import { Inject, Injectable } from '@nestjs/common';
-import { Connection } from 'typeorm';
-import { TEMPLATE_DATABASE_TOKEN } from './database.consts';
+import { DatabaseTokens } from './database-tokens';
+import { Inject, Injectable, Scope } from '@nestjs/common';
+import { Connection, createConnection, getConnection } from 'typeorm';
 import { Queries } from './queries';
 
-@Injectable()
+@Injectable({
+    scope: Scope.REQUEST,
+})
 export class DatabaseService {
-    constructor(
-        @Inject(GLOBAL_CONNECTION_TOKEN) private readonly con: Connection,
-        @Inject(TEMPLATE_DATABASE_TOKEN) private readonly templateName: string,
-    ) {}
+    constructor(@Inject(DatabaseTokens.TEMPLATE_DB) private readonly templateName: string) {}
+
+    private async con() {
+        let _con: Connection;
+        try {
+            _con = getConnection('admin-connection');
+        } catch (err) {
+            _con = await createConnection({
+                name: 'admin-connection',
+                type: 'postgres',
+                database: 'postgres',
+                username: 'postgres',
+                password: 'password',
+            });
+        }
+
+        return _con;
+    }
 
     /**
      * Create an empty database
@@ -17,7 +32,7 @@ export class DatabaseService {
      * @param name
      */
     async createDB(name: string) {
-        await this.con.query(Queries.create(name));
+        (await this.con()).query(Queries.create(name));
     }
 
     /**
@@ -26,8 +41,7 @@ export class DatabaseService {
      * @param name
      */
     async createDBFromTemplate(name: string) {
-        await this.con.query(Queries.terminate(this.templateName));
-        await this.con.query(Queries.createFromTemplate(name, this.templateName));
+        (await this.con()).query(Queries.terminate(this.templateName));
+        (await this.con()).query(Queries.createFromTemplate(name, this.templateName));
     }
-
 }

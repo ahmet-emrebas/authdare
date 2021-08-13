@@ -1,5 +1,4 @@
-import { globalConnectionHandler } from './connection';
-import { GlobalConnectionModule } from '@authdare/common/module';
+import { ConnectionModule } from '@authdare/common/module';
 import { MainService } from './main.service';
 import { AuthModule } from './../../auth/src/auth.module';
 import { DatabaseModule } from './../../database/src/database.module';
@@ -9,7 +8,7 @@ import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import loadConfig from './load-config';
-import { signupHandler, loginHandler, forgotPasswordHandler, AuthMaillerService } from './auth';
+import { AuthMaillerService } from './auth';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
@@ -27,15 +26,10 @@ const MaillerConfig = {
 @Module({
     imports: [
         DatabaseModule.init(entities),
-        GlobalConnectionModule.configure(globalConnectionHandler),
         EventEmitterModule.forRoot({
             global: true,
         }),
-        AuthModule.init({
-            loginHandler,
-            signupHandler,
-            forgotPasswordHandler,
-        }),
+        AuthModule,
         ConfigModule.forRoot({
             isGlobal: true,
             load: [loadConfig],

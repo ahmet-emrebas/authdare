@@ -16,6 +16,7 @@ export interface IAuthController {
     forgotPassword(...args: any[]): any;
     requestOneTimeLoginCode(...args: any[]): any;
     updateProfile(...args: any[]): any;
+    join(...args: any[]): any;
 }
 
 export interface IResourcePolicyOptions {
