@@ -10,11 +10,10 @@ export const signupHandler: AuthActionHandler = async ({
     session,
     databaseService,
 }: AuthActionHandlerArgument) => {
+    const { email, orgname } = form;
     try {
-        const orgname = `authdare_` + form.orgname + '_' + new Date().getTime();
-
-        const created = await userRepository?.save({ ...form, orgname });
-        eventEmitter.emit(AuthEvents.SIGNUP, { email: form.email });
+        const created = await userRepository?.save(form);
+        eventEmitter.emit(AuthEvents.SIGNUP, { email });
         session.user = created;
 
         try {

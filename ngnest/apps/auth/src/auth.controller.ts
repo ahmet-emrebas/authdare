@@ -1,4 +1,5 @@
-import { Length, IsEmail, IsOptional } from 'class-validator';
+import { Length, IsEmail, IsOptional, isNotEmpty } from 'class-validator';
+import { Transform } from 'class-transformer';
 import { DatabaseService } from './../../database/src/database.service';
 import { t } from '@authdare/common/type';
 import { Body, Controller, Inject, Param, Post, Session, ValidationPipe } from '@nestjs/common';
@@ -29,8 +30,6 @@ export type AuthActionHandler<Form = any, TSession = any, ReturnType = any> = (
     arg: AuthActionHandlerArgument<Form, TSession>,
 ) => ReturnType;
 
-class EmptyClass {}
-
 export const LoginHandlerToken = 'LoginHandlerToken';
 export const SignupHandlerToken = 'SignupHandlerToken';
 export const ForgotPasswordHandlerToken = 'ForgotPasswordHandlerToken';
@@ -54,6 +53,9 @@ export class SignupForm extends CommonConstructor<SignupForm> {
 
     @ApiProperty({ type: 'string', minLength: 1, maxLength: 100, required: true })
     @Length(3, 20)
+    @Transform(({ value }) =>
+        isNotEmpty(value) ? `authdare_` + value + '_' + new Date().getTime() : value,
+    )
     orgname = t<string>();
 }
 
@@ -78,6 +80,11 @@ export class ForgotPasswordForm {
     code = t<string>();
 }
 
+const FormValidationPipe = new ValidationPipe({
+    transform: true,
+    transformOptions: { exposeUnsetFields: false, excludeExtraneousValues: true },
+});
+
 @ApiTags(AuthController.name)
 @Controller('auth')
 export class AuthController {
@@ -97,7 +104,7 @@ export class AuthController {
     })
     @Post('login')
     async login(
-        @Body(new ValidationPipe()) form: LoginForm,
+        @Body(FormValidationPipe) form: LoginForm,
         @Session() session: SessionData = t<any>(),
         @Param('orgname') orgname: string = t<string>(''),
     ) {
@@ -115,7 +122,7 @@ export class AuthController {
     })
     @Post('signup')
     async signup(
-        @Body(new ValidationPipe()) form: SignupForm,
+        @Body(FormValidationPipe) form: SignupForm,
         @Session() session: SessionData = t<any>(),
     ) {
         return await this.signupHandler({
@@ -133,7 +140,7 @@ export class AuthController {
     })
     @Post('forgot-password')
     async forgotPassword(
-        @Body(new ValidationPipe()) form: ForgotPasswordForm,
+        @Body(FormValidationPipe) form: ForgotPasswordForm,
         @Session() session: SessionData = t<any>(),
     ) {
         return await this.forgotPasswordHandler({
