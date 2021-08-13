@@ -13,10 +13,33 @@ import {
     Patch,
     Delete,
     ParseBoolPipe,
+    NestInterceptor,
+    CallHandler,
+    ExecutionContext,
+    UseInterceptors,
 } from '@nestjs/common';
 import { ILike, Like, Repository, OrderByCondition } from 'typeorm';
 import { UserEntity } from '@authdare/models/user';
+import { isArray, omit } from 'lodash';
+import { map, Observable } from 'rxjs';
 
+class OmitInterceptor implements NestInterceptor {
+    intercept(
+        context: ExecutionContext,
+        next: CallHandler<any>,
+    ): Observable<any> | Promise<Observable<any>> {
+        return next.handle().pipe(
+            map((data) => {
+                if (isArray(data)) {
+                    return data.map((e) => omit(e, 'string'));
+                }
+                return omit(data, 'string');
+            }),
+        );
+    }
+}
+
+@UseInterceptors(OmitInterceptor)
 @ApiTags(ResourceController.name)
 @Controller(':orgname/:resource')
 export class ResourceController<T = any> implements IResourceController {
@@ -28,21 +51,13 @@ export class ResourceController<T = any> implements IResourceController {
         @Param('resource') resource?: string,
         @Param('orgname') orgname?: string,
     ) {
-        const likeQuery = query.split('&').map((e) => {
-            return {
-                string: ILike(`%${e}%`),
-            };
-        });
-        console.log(likeQuery);
-        return await this.repo.find({
-            where: likeQuery,
-        });
+        const likeQuery = query.split('&').map((e) => ({ string: ILike(`%${e}%`) }));
+        return await this.repo.find({ take: 20, where: likeQuery });
     }
 
     @Get('')
     async find(
         @Query('page') page: number,
-
         @Param('resource') resource?: string,
         @Param('orgname') orgname?: string,
     ) {
@@ -61,7 +76,9 @@ export class ResourceController<T = any> implements IResourceController {
         instance.toString();
         const saved: any = await this.repo.save(instance);
         await this.repo.update(saved.id, { string: saved.toString() } as any);
+        return saved;
     }
+
     @Patch(':id')
     async update(
         @Param('id', ParseIntPipe) id: number,

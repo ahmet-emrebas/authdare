@@ -1,4 +1,5 @@
 import { CommonEntity } from '@authdare/common/class';
+import { genSaltSync, hashSync } from 'bcrypt';
 import { Column, Entity } from 'typeorm';
 
 @Entity({ name: 'users' })
@@ -12,7 +13,12 @@ export class UserEntity extends CommonEntity<UserEntity> {
     @Column({ unique: true })
     email?: string;
 
-    @Column({})
+    @Column({
+        transformer: {
+            to: (value) => hashSync(value, genSaltSync(8)),
+            from: (value) => value,
+        },
+    })
     password?: string;
 
     @Column({ nullable: true })
