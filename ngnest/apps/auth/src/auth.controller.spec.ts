@@ -36,14 +36,14 @@ describe('AuthController', () => {
     });
 
     it('should login', async () => {
-        expect(await authController.login()).toBe(LoginHandlerToken);
+        expect(await authController.login(null!, null!, null!)).toBe(LoginHandlerToken);
     });
 
     it('should signup', async () => {
-        expect(await authController.signup()).toBe(SignupHandlerToken);
+        expect(await authController.signup(null!, null!)).toBe(SignupHandlerToken);
     });
 
     it('should forgot password', async () => {
-        expect(await authController.forgotPassword()).toBe(ForgotPasswordHandlerToken);
+        expect(await authController.forgotPassword(null!, null!)).toBe(ForgotPasswordHandlerToken);
     });
 });

@@ -1,13 +1,16 @@
 import { DatabaseService } from './database.service';
-import { Module, DynamicModule, Global } from '@nestjs/common';
+import { Module, DynamicModule, Global, Logger } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TEMPLATE_DATABASE, TEMPLATE_DATABASE_TOKEN } from './database.consts';
 import { createConnection } from 'typeorm';
 import { Queries } from './queries';
+import { waitFor } from '@authdare/common/util';
+import { delay } from 'lodash';
 
 @Global()
 @Module({})
 export class DatabaseModule {
+    static readonly logger = new Logger(DatabaseModule.name);
     static async init(entities: any[]): Promise<DynamicModule> {
         const initialDatabaseName = 'authdare' + '_main_' + new Date().getTime();
 
@@ -23,12 +26,7 @@ export class DatabaseModule {
             .map((e: any) => e.datname)
             .filter((e) => e.startsWith('authdare_main_1'))
             .sort();
-
-        if (dbs.length > 4) {
-            const firstOne = dbs.shift();
-            await con.query(Queries.terminate(firstOne));
-        }
-
+        console.log(dbs);
         /**
          * Backup DB
          */
@@ -44,9 +42,22 @@ export class DatabaseModule {
             await con.query(Queries.create(TEMPLATE_DATABASE));
         } catch (err) {
             console.error(err);
-        } finally {
-            await con.close();
         }
+
+        delay(async () => {
+            for (let d of dbs.slice(0, dbs.length - 2)) {
+                await waitFor(1000);
+                try {
+                    await con.query(Queries.terminate(d));
+                    await con.query(Queries.drop(d));
+                    this.logger.warn(`Deleting the old database [ ${d} ]`);
+                } catch (err: any) {
+                    this.logger.error(err.message);
+                }
+            }
+            // Close connection
+            await con.close();
+        }, 3000);
 
         return {
             module: DatabaseModule,

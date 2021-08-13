@@ -1,74 +1,46 @@
 import { SetMetadata } from '@nestjs/common';
-import { t } from '@authdare/common/type';
-import {
-    IsBoolean,
-    IsString,
-    ValidateNested,
-    Length,
-    Matches,
-    MinLength,
-    IsArray,
-    ArrayMaxSize,
-    IsOptional,
-    validate,
-    validateSync,
-} from 'class-validator';
-import { isLength } from 'lodash';
-import { CommonConstructor } from '../class';
 export const HandlerOptionsToken = 'HandlerOptions';
 import * as joi from 'joi';
-/// users:get,patch,delete,
 
-class HandlerOptions extends CommonConstructor<HandlerOptions> {
-    @IsBoolean()
-    email? = t<boolean>();
-
-    @IsArray()
-    @ValidateNested({ each: true })
-    @IsString()
-    @Length(3, 20)
-    events? = t<string[]>();
-
-    @IsBoolean()
-    uniques? = t<string[]>();
-
-    @IsArray()
-    @ValidateNested({ each: true })
-    @IsString()
-    @Matches(new RegExp(``))
-    permissions? = t<string>();
-
-    @IsBoolean()
-    public? = t<boolean>();
-
-    private static validate(options: HandlerOptions) {
-        const errors = validateSync(options, { skipMissingProperties: true });
-        if (errors.length > 0) {
-            throw new Error('Malformed handler options');
-        }
-    }
+export interface IResourceController {
+    query(...args: any[]): any;
+    find(...args: any[]): any;
+    save(...args: any[]): any;
+    update(...args: any[]): any;
+    delete(...args: any[]): any;
 }
 
-const permissionEx = (fields: string[]) =>
-    new RegExp(
-        `^( ){0,}[a-z][a-z]{2,10}s(( ){1,}--->( ){1,}(( ){1,}(get|patch|put|post|delete)){1,}(( ){1,}>(( ){1,}(${fields.join(
-            '|',
-        )})){1,}){0,1}){1,}( ){0,}$`,
-    );
+export interface IAuthController {
+    login(...args: any[]): any;
+    signup(...args: any[]): any;
+    forgotPassword(...args: any[]): any;
+    requestOneTimeLoginCode(...args: any[]): any;
+    updateProfile(...args: any[]): any;
+}
 
-const HandlerOptionValidator = (fields: string[]) =>
-    joi.object({
-        email: joi.boolean(),
-        events: joi.array().items(joi.string()),
-        uniques: joi.array().items(joi.string()),
-        permissions: joi.string().pattern(permissionEx(fields)),
-        public: joi.boolean(),
+export interface IResourcePolicyOptions {
+    permission?: string;
+    public?: boolean;
+}
 
-        // uniques
-        // permissions
-        // public
-    });
+const resourceNameExp = ` *[a-zA-Z]{3,20}`;
+const methodExp = ` *(GET|POST|PUT|DELETE|UPDATE){1}`;
+const resourcePermissionString = methodExp + resourceNameExp;
 
-export function SetHandlerOptions(options: HandlerOptions) {
+const ResourcePolicyValidator = joi.object<IResourcePolicyOptions>({
+    permission: joi.string().pattern(new RegExp(resourcePermissionString, 'im')),
+    public: joi.boolean(),
+});
+
+/**
+ * Set meta data for the handler
+ * @param options
+ * @returns
+ */
+export function ResourcePolicy(options: IResourcePolicyOptions) {
+    const errors = ResourcePolicyValidator.validate(options);
+    if (errors.error) {
+        throw new Error(errors.error.message);
+    }
     return SetMetadata(HandlerOptionsToken, options);
 }

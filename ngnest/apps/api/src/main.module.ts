@@ -13,6 +13,8 @@ import { signupHandler, loginHandler, forgotPasswordHandler, AuthMaillerService 
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
+import { APP_GUARD } from '@nestjs/core';
+import { SessionGuard } from '@authdare/common/guard';
 
 const MaillerConfig = {
     EMAIL_TEMPLATE_PATH: join(__dirname, 'mail/templates'),
@@ -73,7 +75,14 @@ const MaillerConfig = {
             },
         }),
     ],
-    providers: [MainService, AuthMaillerService],
+    providers: [
+        MainService,
+        AuthMaillerService,
+        {
+            provide: APP_GUARD,
+            useClass: SessionGuard,
+        },
+    ],
 })
 export class MainModule implements NestModule {
     configure(consumer: MiddlewareConsumer) {

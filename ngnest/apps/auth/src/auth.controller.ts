@@ -1,8 +1,18 @@
+import { IAuthController } from './../../../libs/common/src/decorator/handler-options';
 import { Length, IsEmail, IsOptional, isNotEmpty } from 'class-validator';
 import { Transform } from 'class-transformer';
 import { DatabaseService } from './../../database/src/database.service';
 import { t } from '@authdare/common/type';
-import { Body, Controller, Inject, Param, Post, Session, ValidationPipe } from '@nestjs/common';
+import {
+    Body,
+    Controller,
+    Inject,
+    InternalServerErrorException,
+    Param,
+    Post,
+    Session,
+    ValidationPipe,
+} from '@nestjs/common';
 import {
     ApiConflictResponse,
     ApiNotAcceptableResponse,
@@ -16,6 +26,7 @@ import { Repository } from 'typeorm';
 import { UserEntity } from '@authdare/models/user';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CommonConstructor } from '@authdare/common/class';
+import { ResourcePolicy } from '@authdare/common/decorator';
 
 export class AuthActionHandlerArgument<Form = any, TSession = any> {
     form = t<Form>();
@@ -86,8 +97,8 @@ const FormValidationPipe = new ValidationPipe({
 });
 
 @ApiTags(AuthController.name)
-@Controller('auth')
-export class AuthController {
+@Controller({ path: 'auth' })
+export class AuthController implements IAuthController {
     constructor(
         @Inject(LoginHandlerToken) private readonly loginHandler: AuthActionHandler,
         @Inject(SignupHandlerToken) private readonly signupHandler: AuthActionHandler,
@@ -102,6 +113,7 @@ export class AuthController {
     @ApiNotFoundResponse({
         description: 'When password is wrong or initial input validation fails.',
     })
+    @ResourcePolicy({ public: true })
     @Post('login')
     async login(
         @Body(FormValidationPipe) form: LoginForm,
@@ -120,6 +132,7 @@ export class AuthController {
     @ApiNotAcceptableResponse({
         description: 'When initial validation fails',
     })
+    @ResourcePolicy({ public: true })
     @Post('signup')
     async signup(
         @Body(FormValidationPipe) form: SignupForm,
@@ -138,6 +151,7 @@ export class AuthController {
     @ApiNotAcceptableResponse({
         description: 'When initial validation fails',
     })
+    @ResourcePolicy({ public: true })
     @Post('forgot-password')
     async forgotPassword(
         @Body(FormValidationPipe) form: ForgotPasswordForm,
@@ -149,5 +163,17 @@ export class AuthController {
             eventEmitter: this.eventEmitter,
             userRepository: this.userRepository,
         });
+    }
+
+    @ResourcePolicy({ public: true })
+    @Post('request-one-time-login-code')
+    requestOneTimeLoginCode(...args: any[]) {
+        throw new InternalServerErrorException('Something went wrong!');
+    }
+
+    @ResourcePolicy({ permission: 'update users' })
+    @Post('update-profile')
+    updateProfile(...args: any[]) {
+        throw new InternalServerErrorException('Something went wrong!');
     }
 }

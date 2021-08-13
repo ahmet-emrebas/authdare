@@ -1,21 +1,26 @@
 import { CommonEntity } from '@authdare/common/class';
-import { t } from '@authdare/common/type';
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, OneToMany } from 'typeorm';
 
 @Entity({ name: 'users' })
 export class UserEntity extends CommonEntity<UserEntity> {
-    @Column({ name: 'first_name', type: 'text' })
-    firstName = t<string>();
+    @Column({ name: 'first_name' })
+    firstName?: string;
 
-    @Column({ name: 'last_name', type: 'text' })
-    lastName = t<string>();
+    @Column({ name: 'last_name' })
+    lastName?: string;
 
-    @Column({ type: 'text', unique: true })
-    email = t<string>();
+    @Column({ unique: true })
+    email?: string;
 
-    @Column({ type: 'text' })
-    password = t<string>();
+    @Column({})
+    password?: string;
 
-    @Column({ type: 'text' })
-    orgname = t<string>();
+    @Column({})
+    permissions?: string;
+
+    @OneToMany(() => UserEntity, (user) => user.orgname)
+    org?: UserEntity;
+
+    @Column({ nullable: true, unique: true, update: false })
+    orgname?: string;
 }
