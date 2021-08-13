@@ -1,11 +1,10 @@
+import { SubscriberEntity } from 'apps/api/src/models/user';
 import { AuthInterceptor } from './auth.interceptor';
-
 import {
     Body,
     Controller,
-    Inject,
-    InternalServerErrorException,
     Param,
+    ParseIntPipe,
     Post,
     Session,
     UseInterceptors,
@@ -17,11 +16,10 @@ import {
     ApiTags,
 } from '@nestjs/swagger';
 import { SessionData } from 'express-session';
-import { IAuthController, ResourcePolicy } from '@authdare/common/decorator';
-import { Connection } from 'typeorm';
-import { DatabaseTokens } from '../database/database-tokens';
+import { IAuthController } from '@authdare/common/interface';
 import { ForgotPasswordForm, FormValidationPipe, LoginForm, SignupForm } from './forms';
 import { AuthService } from './auth.service';
+import { ResourcePolicy } from '@authdare/common/decorator';
 
 @UseInterceptors(AuthInterceptor)
 @ApiTags(AuthController.name)
@@ -36,7 +34,7 @@ export class AuthController implements IAuthController {
     @ResourcePolicy({ public: true })
     @Post(':orgname/join')
     join(@Body() form: SignupForm, @Param('orgname') orgname: string) {
-        throw new InternalServerErrorException('Something went wrong.');
+        return this.authService.join(form);
     }
 
     @ApiNotFoundResponse({ description: 'When account with the email does not exist.' })
@@ -49,7 +47,9 @@ export class AuthController implements IAuthController {
         @Body(FormValidationPipe) form: LoginForm,
         @Session() session: SessionData,
         @Param('orgname') orgname: string,
-    ) {}
+    ) {
+        return await this.authService.login(form, session, orgname);
+    }
 
     @ApiConflictResponse({ description: 'When account with the email & orgname already exists.' })
     @ApiNotAcceptableResponse({
@@ -58,7 +58,7 @@ export class AuthController implements IAuthController {
     @ResourcePolicy({ public: true })
     @Post('signup')
     async signup(@Body(FormValidationPipe) form: SignupForm, @Session() session: SessionData) {
-        throw new InternalServerErrorException('Something went wrong!');
+        return await this.authService.signup(form, session);
     }
 
     @ApiNotFoundResponse({ description: 'When account with the email does not exist.' })
@@ -71,18 +71,18 @@ export class AuthController implements IAuthController {
         @Body(FormValidationPipe) form: ForgotPasswordForm,
         @Session() session: SessionData,
     ) {
-        throw new InternalServerErrorException('Something went wrong!');
+        return await this.authService.forgotPassword(form, session);
     }
 
     @ResourcePolicy({ public: true })
     @Post('request-one-time-login-code')
-    requestOneTimeLoginCode(...args: any[]) {
-        throw new InternalServerErrorException('Something went wrong!');
+    async requestOneTimeLoginCode(@Body() form: ForgotPasswordForm) {
+        return await this.authService.requestOneTimeLoginCode(form.email!);
     }
 
     @ResourcePolicy({ permission: 'update users' })
-    @Post('update-profile')
-    updateProfile(...args: any[]) {
-        throw new InternalServerErrorException('Something went wrong!');
+    @Post('update-profile/:id')
+    async updateProfile(@Param('id', ParseIntPipe) id: number, @Body() udpated: SubscriberEntity) {
+        return await this.authService.updateProfile(id, udpated);
     }
 }

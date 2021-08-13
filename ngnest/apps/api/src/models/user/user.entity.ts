@@ -3,7 +3,7 @@ import { genSaltSync, hashSync } from 'bcrypt';
 import { Column, Entity } from 'typeorm';
 
 @Entity({ name: 'users' })
-export class UserEntity extends CommonEntity<UserEntity> {
+export class ClientUserEntity extends CommonEntity<SubscriberEntity> {
     @Column({ name: 'first_name' })
     firstName?: string;
 
@@ -23,7 +23,12 @@ export class UserEntity extends CommonEntity<UserEntity> {
 
     @Column({ nullable: true })
     permissions?: string;
+}
 
-    @Column({ nullable: true, unique: true, update: false })
+@Entity({ name: 'clients' })
+export class SubscriberEntity extends ClientUserEntity {
+    @Column()
     orgname?: string;
+    @Column({ nullable: true, unique: true, update: false })
+    database?: string;
 }

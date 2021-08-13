@@ -1,1 +1,1 @@
-export * from './handler-options';
+export * from './resource-policy';

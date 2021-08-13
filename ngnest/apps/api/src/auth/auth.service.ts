@@ -1,3 +1,4 @@
+import { snakeCase } from 'lodash';
 import { ShortMessage } from './auth-mailler.service';
 import { EventEmitter2 } from 'eventemitter2';
 import { Repository } from 'typeorm';
@@ -7,22 +8,24 @@ import {
     NotFoundException,
     NotAcceptableException,
     NotImplementedException,
+    InternalServerErrorException,
 } from '@nestjs/common';
 import { SessionData } from 'express-session';
 import { DatabaseService, DatabaseTokens } from '../database';
 import { LoginForm, SignupForm, ForgotPasswordForm } from './forms';
-import { UserEntity } from '@authdare/models/user';
+import { SubscriberEntity } from 'apps/api/src/models/user';
 import { compare } from 'bcrypt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { v4 } from 'uuid';
+
 const VerificationCodes: Record<string, string> = {};
 
 @Injectable()
 export class AuthService {
     constructor(
-        @InjectRepository(UserEntity) private readonly userRepo: Repository<UserEntity>,
+        @InjectRepository(SubscriberEntity) private readonly userRepo: Repository<SubscriberEntity>,
         @Inject(DatabaseTokens.CLIENT_REPOSITORY)
-        private readonly clientRepo: Repository<UserEntity>,
+        private readonly clientRepo: Repository<SubscriberEntity>,
         private emitter: EventEmitter2,
         private readonly databaseService: DatabaseService,
     ) {}
@@ -36,7 +39,7 @@ export class AuthService {
     }
 
     async login(form: LoginForm, session: SessionData, orgname: string): Promise<any> {
-        let found: UserEntity;
+        let found: SubscriberEntity;
         try {
             found = await this.clientRepo?.findOneOrFail({ where: { email: form.email } })!;
         } catch (err) {
@@ -57,24 +60,28 @@ export class AuthService {
     async signup(form: SignupForm, session: SessionData): Promise<any> {
         const { email, orgname } = form;
 
+        const databaseName = 'client_' + snakeCase(form.orgname);
         try {
-            const created = await this.userRepo?.save(form);
-            this.emitter.emit('auth.signup', created);
-            (session as any).user = created;
+            await this.databaseService?.createDBFromTemplate(databaseName);
+        } catch (err) {
+            throw new InternalServerErrorException(
+                'We could not crete your database! Please try to simplify the organization name',
+            );
+        }
 
-            try {
-                await this.databaseService?.createDBFromTemplate(orgname!);
-            } catch (err) {
-                console.error(err);
-                this.emitter.emit('auth.error', {
-                    user: created,
-                    title: 'Client database could NOT be created!',
-                    message: JSON.stringify(err),
-                });
-            }
+        try {
+            const created = await this.userRepo?.save({
+                ...form,
+                database: databaseName,
+                permissions: 'client',
+            });
+            const found = await this.userRepo.findOne({ orgname });
+
+            this.emitter.emit('auth.signup', found);
+
+            (session as any).user = found;
             return { message: 'Welcome to Authdare' };
         } catch (err) {
-            console.error(err);
             throw new NotAcceptableException('The account already exists!');
         }
     }
@@ -116,7 +123,7 @@ export class AuthService {
         throw new NotImplementedException();
     }
 
-    async updateProfile(id: number, updated: Partial<UserEntity>): Promise<any> {
+    async updateProfile(id: number, updated: Partial<SubscriberEntity>): Promise<any> {
         return await this.clientRepo.update(id, updated);
     }
 }

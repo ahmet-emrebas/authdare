@@ -1,6 +1,6 @@
 import { ApiTags } from '@nestjs/swagger';
 import { DatabaseTokens } from './database-tokens';
-import { IResourceController } from '@authdare/common/decorator';
+import { IResourceController } from '@authdare/common/interface';
 import {
     Controller,
     Get,
@@ -15,12 +15,12 @@ import {
     UseInterceptors,
 } from '@nestjs/common';
 import { ILike, Repository } from 'typeorm';
-import { UserEntity } from '@authdare/models/user';
+import { SubscriberEntity } from '../models/user';
 import { OmitInterceptor } from '@authdare/common/interceptor';
 
 @UseInterceptors(OmitInterceptor('string'))
 @ApiTags(ResourceController.name)
-@Controller(':orgname/:resource')
+@Controller('api/:orgname/:resource')
 export class ResourceController<T = any> implements IResourceController {
     constructor(@Inject(DatabaseTokens.CLIENT_REPOSITORY) private readonly repo: Repository<T>) {}
 
@@ -47,7 +47,7 @@ export class ResourceController<T = any> implements IResourceController {
 
     @Post()
     async save(
-        @Body() body: UserEntity,
+        @Body() body: SubscriberEntity,
         @Param('resource') resource?: string,
         @Param('orgname') orgname?: string,
     ) {

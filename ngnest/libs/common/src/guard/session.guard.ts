@@ -32,8 +32,10 @@ export class SessionGuard implements CanActivate {
     constructor(private readonly reflector: Reflector) {}
     async canActivate(context: ExecutionContext): Promise<boolean> {
         const metaData = parseMetaData(context);
-        console.table(metaData);
+        const { user, ...rest } = metaData;
 
+        // console.table(user);
+        // console.log(rest);
         return true;
     }
 }

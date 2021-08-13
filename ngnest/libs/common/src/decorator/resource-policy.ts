@@ -1,23 +1,7 @@
 import { SetMetadata } from '@nestjs/common';
-export const HandlerOptionsToken = 'HandlerOptions';
 import * as joi from 'joi';
 
-export interface IResourceController {
-    query(...args: any[]): any;
-    find(...args: any[]): any;
-    save(...args: any[]): any;
-    update(...args: any[]): any;
-    delete(...args: any[]): any;
-}
-
-export interface IAuthController {
-    login(...args: any[]): any;
-    signup(...args: any[]): any;
-    forgotPassword(...args: any[]): any;
-    requestOneTimeLoginCode(...args: any[]): any;
-    updateProfile(...args: any[]): any;
-    join(...args: any[]): any;
-}
+export const ResourcePolicyToken = 'ResourcePolicyToken';
 
 export interface IResourcePolicyOptions {
     permission?: string;
@@ -43,5 +27,5 @@ export function ResourcePolicy(options: IResourcePolicyOptions) {
     if (errors.error) {
         throw new Error(errors.error.message);
     }
-    return SetMetadata(HandlerOptionsToken, options);
+    return SetMetadata(ResourcePolicyToken, options);
 }

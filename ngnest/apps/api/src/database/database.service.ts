@@ -44,4 +44,10 @@ export class DatabaseService {
         (await this.con()).query(Queries.terminate(this.templateName));
         (await this.con()).query(Queries.createFromTemplate(name, this.templateName));
     }
+
+    async orgs() {
+        const dbs = (await (await this.con()).query(Queries.dbs())) as { datname: string }[];
+        console.log(dbs);
+        return dbs.map((e) => e.datname.match(/_\w+_/)![0].replace('_', ''));
+    }
 }

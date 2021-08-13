@@ -27,9 +27,6 @@ export class SignupForm extends CommonConstructor<SignupForm> {
 
     @ApiProperty({ type: 'string', minLength: 1, maxLength: 100, required: true })
     @Length(3, 50)
-    @Transform(({ value }) =>
-        isNotEmpty(value) ? `authdare_` + value + '_' + new Date().getTime() : value,
-    )
     orgname?: string;
 }
 
