@@ -1,7 +1,7 @@
 import { DatabaseTokens } from './database-tokens';
 import { Inject, Injectable, Scope } from '@nestjs/common';
 import { Connection, createConnection, getConnection } from 'typeorm';
-import { Queries } from './queries';
+import { Queries } from './database.queries';
 
 @Injectable({
     scope: Scope.REQUEST,

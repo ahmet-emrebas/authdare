@@ -1,8 +1,8 @@
 import { Repository } from 'typeorm';
-import { DatabaseService } from './../../database/src/database.service';
 import { EventEmitter2 } from 'eventemitter2';
 import { t } from '@authdare/common/type';
 import { UserEntity } from '@authdare/models/user';
+import { DatabaseService } from '../database/database.service';
 
 export class AuthActionHandlerArgument<Form = any, TSession = any> {
     form = t<Form>();

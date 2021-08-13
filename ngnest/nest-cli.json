@@ -22,24 +22,6 @@
         "tsConfigPath": "apps/api/tsconfig.app.json"
       }
     },
-    "auth": {
-      "type": "application",
-      "root": "apps/auth",
-      "entryFile": "main",
-      "sourceRoot": "apps/auth/src",
-      "compilerOptions": {
-        "tsConfigPath": "apps/auth/tsconfig.app.json"
-      }
-    },
-    "database": {
-      "type": "application",
-      "root": "apps/database",
-      "entryFile": "main",
-      "sourceRoot": "apps/database/src",
-      "compilerOptions": {
-        "tsConfigPath": "apps/database/tsconfig.app.json"
-      }
-    },
     "common": {
       "type": "library",
       "root": "libs/common",
@@ -47,15 +29,6 @@
       "sourceRoot": "libs/common/src",
       "compilerOptions": {
         "tsConfigPath": "libs/common/tsconfig.lib.json"
-      }
-    },
-    "message": {
-      "type": "application",
-      "root": "apps/message",
-      "entryFile": "main",
-      "sourceRoot": "apps/message/src",
-      "compilerOptions": {
-        "tsConfigPath": "apps/message/tsconfig.app.json"
       }
     },
     "models": {

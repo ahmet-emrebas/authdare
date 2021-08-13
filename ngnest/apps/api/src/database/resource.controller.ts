@@ -12,34 +12,13 @@ import {
     Body,
     Patch,
     Delete,
-    ParseBoolPipe,
-    NestInterceptor,
-    CallHandler,
-    ExecutionContext,
     UseInterceptors,
 } from '@nestjs/common';
-import { ILike, Like, Repository, OrderByCondition } from 'typeorm';
+import { ILike, Repository } from 'typeorm';
 import { UserEntity } from '@authdare/models/user';
-import { isArray, omit } from 'lodash';
-import { map, Observable } from 'rxjs';
+import { OmitInterceptor } from '@authdare/common/interceptor';
 
-class OmitInterceptor implements NestInterceptor {
-    intercept(
-        context: ExecutionContext,
-        next: CallHandler<any>,
-    ): Observable<any> | Promise<Observable<any>> {
-        return next.handle().pipe(
-            map((data) => {
-                if (isArray(data)) {
-                    return data.map((e) => omit(e, 'string'));
-                }
-                return omit(data, 'string');
-            }),
-        );
-    }
-}
-
-@UseInterceptors(OmitInterceptor)
+@UseInterceptors(OmitInterceptor('string'))
 @ApiTags(ResourceController.name)
 @Controller(':orgname/:resource')
 export class ResourceController<T = any> implements IResourceController {
