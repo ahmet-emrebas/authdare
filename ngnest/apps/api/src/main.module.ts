@@ -11,8 +11,6 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import loadConfig from './load-config';
 import { signupHandler, loginHandler, forgotPasswordHandler, AuthMaillerService } from './auth';
 import { EventEmitterModule } from '@nestjs/event-emitter';
-import { APP_GUARD } from '@nestjs/core';
-import { AUthGuard } from '@authdare/common/guard';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 
@@ -75,14 +73,7 @@ const MaillerConfig = {
             },
         }),
     ],
-    providers: [
-        MainService,
-        AuthMaillerService,
-        {
-            provide: APP_GUARD,
-            useClass: AUthGuard,
-        },
-    ],
+    providers: [MainService, AuthMaillerService],
 })
 export class MainModule implements NestModule {
     configure(consumer: MiddlewareConsumer) {

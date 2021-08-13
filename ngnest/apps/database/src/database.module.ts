@@ -1,5 +1,5 @@
 import { DatabaseService } from './database.service';
-import { Module, DynamicModule, Scope, Global } from '@nestjs/common';
+import { Module, DynamicModule, Global } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TEMPLATE_DATABASE, TEMPLATE_DATABASE_TOKEN } from './database.consts';
 import { createConnection } from 'typeorm';
@@ -9,7 +9,7 @@ import { Queries } from './queries';
 @Module({})
 export class DatabaseModule {
     static async init(entities: any[]): Promise<DynamicModule> {
-        const initialDatabaseName = 'authdare' + '_' + new Date().getTime();
+        const initialDatabaseName = 'authdare' + '_main_' + new Date().getTime();
 
         const con = await createConnection({
             name: 'tobeclosed',
@@ -21,15 +21,17 @@ export class DatabaseModule {
 
         const dbs = ((await con.query(Queries.dbs())) as string[])
             .map((e: any) => e.datname)
-            .filter((e) => e.startsWith('authdare_1'))
+            .filter((e) => e.startsWith('authdare_main_1'))
             .sort();
 
         if (dbs.length > 4) {
             const firstOne = dbs.shift();
             await con.query(Queries.terminate(firstOne));
-            await con.query(Queries.drop(firstOne));
         }
 
+        /**
+         * Backup DB
+         */
         const previousDB = dbs.pop();
 
         await con.query(Queries.terminate(previousDB));

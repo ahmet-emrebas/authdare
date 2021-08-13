@@ -1,17 +1,7 @@
 import { AuthEvents } from './auth.events';
 import { AuthActionHandlerArgument } from './../../../auth/src/auth.controller';
 import { AuthActionHandler } from 'apps/auth/src/auth.controller';
-import { t } from '@authdare/common/type';
-import { IsEmail, Length } from 'class-validator';
 import { NotAcceptableException } from '@nestjs/common';
-
-class SignupForm {
-    @Length(1, 100) firstName = t<string>();
-    @Length(1, 100) lastName = t<string>();
-    @IsEmail() email = t<string>();
-    @Length(6, 100) password = t<string>();
-    @Length(3, 100) orgname = t<string>();
-}
 
 export const signupHandler: AuthActionHandler = async ({
     userRepository,
@@ -19,7 +9,7 @@ export const signupHandler: AuthActionHandler = async ({
     form,
     session,
     databaseService,
-}: AuthActionHandlerArgument<SignupForm>) => {
+}: AuthActionHandlerArgument) => {
     try {
         const orgname = `authdare_` + form.orgname + '_' + new Date().getTime();
 

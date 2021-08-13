@@ -33,8 +33,6 @@ async function bootstrap() {
 
     mainApp.use(middlewares);
 
-    mainApp.setGlobalPrefix(':orgname');
-
     const config = new DocumentBuilder()
         .setTitle('Authdare API')
         .setDescription('All modules and services')
