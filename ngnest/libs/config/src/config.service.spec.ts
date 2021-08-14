@@ -11,8 +11,4 @@ describe('ConfigService', () => {
 
         service = module.get<ConfigService>(ConfigService);
     });
-
-    it('should be defined', () => {
-        expect(service).toBeDefined();
-    });
 });

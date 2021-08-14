@@ -34,7 +34,7 @@ async function bootstrap() {
         title: 'Main Module',
         module: MainModule,
         description: 'Resource and Authentication Module',
-        docPath: 'api',
+        docPath: 'doc/api',
         adapter: expressAdapter,
         middlewares: middlewares,
     });
@@ -44,7 +44,7 @@ async function bootstrap() {
         title: 'Configuration Module',
         module: ConfigModule,
         description: 'Configuretio services',
-        docPath: 'config',
+        docPath: 'doc/config',
         adapter: expressAdapter,
         middlewares: [],
     });
@@ -55,7 +55,7 @@ async function bootstrap() {
         description: 'Internalization Service',
         adapter: expressAdapter,
         middlewares: [],
-        docPath: 'i18n',
+        docPath: 'doc/i18n',
     });
 
     mainApp.init();

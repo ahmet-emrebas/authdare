@@ -30,9 +30,10 @@ export class ResourceService<T extends CommonConstructor<T>> {
     }
 
     async find(query: Record<string, any>) {
-        const page = query.page || 20;
+        const page = Math.abs(query.page) || 1;
         const take = 20;
         const skip = (page - 1) * 20;
+        console.log(page, take, skip);
         try {
             return await this.repo.find({ take, skip });
         } catch (err: any) {
