@@ -1,5 +1,10 @@
 import { flatten, keys, pick, values } from 'lodash';
-import { Logger, NotAcceptableException, NotFoundException } from '@nestjs/common';
+import {
+    InternalServerErrorException,
+    Logger,
+    NotAcceptableException,
+    NotFoundException,
+} from '@nestjs/common';
 import { CommonConstructor, CommonEntity } from '@authdare/common/class';
 import { validate, ValidatorOptions } from 'class-validator';
 import { ILike, Repository } from 'typeorm';
@@ -26,7 +31,12 @@ export class ResourceService<T extends CommonConstructor<T>> {
 
     async query(query: string) {
         const likeQuery = query.split('&').map((e) => ({ string: ILike(`%${e}%`) }));
-        return await this.repo.find({ take: 20, where: likeQuery });
+        try {
+            return await this.repo.find({ take: 20, where: likeQuery });
+        } catch (err: any) {
+            this.logger.error(err.message);
+            throw new InternalServerErrorException();
+        }
     }
 
     async find(query?: Record<string, any>) {

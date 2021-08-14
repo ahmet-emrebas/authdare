@@ -15,11 +15,11 @@ import {
 export const QueryRoute = () =>
     applyDecorators(
         Get(':query'),
-        ApiOkResponse(),
+        ApiOkResponse({ description: 'When queried' }),
         ApiUnauthorizedResponse({
             description: 'When user does not have a valid session for this request',
         }),
-        ApiInternalServerErrorResponse(),
+        ApiInternalServerErrorResponse({ description: 'When server side error occured.' }),
     );
 
 /**
@@ -29,11 +29,11 @@ export const QueryRoute = () =>
 export const FindRoute = () =>
     applyDecorators(
         Get(),
-        ApiOkResponse(),
+        ApiOkResponse({ description: 'When got.' }),
         ApiUnauthorizedResponse({
             description: 'When user does not have a valid session for this request',
         }),
-        ApiInternalServerErrorResponse(),
+        ApiInternalServerErrorResponse({ description: 'When server side error occured.' }),
     );
 
 /**
@@ -43,15 +43,15 @@ export const FindRoute = () =>
 export const SaveRoute = () =>
     applyDecorators(
         Post(),
-        ApiCreatedResponse(),
+        ApiCreatedResponse({ description: 'When created.' }),
         ApiConflictResponse({ description: 'Unique constraint' }),
         ApiNotAcceptableResponse({
             description: 'When input is not valid or required field is empty',
         }),
         ApiUnauthorizedResponse({
-            description: 'When user does not have a valid session for this request',
+            description: 'When user does not have a valid session for this request.',
         }),
-        ApiInternalServerErrorResponse(),
+        ApiInternalServerErrorResponse({ description: 'When server side error occured.' }),
     );
 
 /**
@@ -59,16 +59,18 @@ export const SaveRoute = () =>
  */
 export const UpdateRoute = () =>
     applyDecorators(
-        ApiCreatedResponse(),
-        ApiConflictResponse({ description: 'Unique constraint' }),
+        Patch(':id'),
+        ApiCreatedResponse({
+            description: 'When updated.',
+        }),
+        ApiConflictResponse({ description: 'Unique constraint.' }),
         ApiNotAcceptableResponse({
             description: 'When the provided input is not valid or not found.',
         }),
         ApiUnauthorizedResponse({
-            description: 'When user does not have a valid session for this request',
+            description: 'When user does not have a valid session for this request.',
         }),
-        ApiInternalServerErrorResponse(),
-        Patch(':id'),
+        ApiInternalServerErrorResponse({ description: 'When server side error occured.' }),
     );
 
 /**
@@ -78,12 +80,14 @@ export const UpdateRoute = () =>
 export const DeleteRoute = () =>
     applyDecorators(
         Delete(':id'),
-        ApiOkResponse(),
+        ApiOkResponse({
+            description: 'When deleted.',
+        }),
         ApiNotAcceptableResponse({
             description: 'When the provided input is not valid or not found.',
         }),
         ApiUnauthorizedResponse({
-            description: 'When user does not have a valid session for this request',
+            description: 'When user does not have a valid session for this request.',
         }),
-        ApiInternalServerErrorResponse(),
+        ApiInternalServerErrorResponse({ description: 'When server side error occured.' }),
     );

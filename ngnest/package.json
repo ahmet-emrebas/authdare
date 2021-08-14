@@ -166,7 +166,8 @@
       "^@authdare/models(|/.*)$": "<rootDir>/libs/models/src/$1",
       "^@authdare/config(|/.*)$": "<rootDir>/libs/config/src/$1",
       "^@authdare/a18n(|/.*)$": "<rootDir>/libs/a18n/src/$1",
-      "^@authdare/i18n(|/.*)$": "<rootDir>/libs/i18n/src/$1"
+      "^@authdare/i18n(|/.*)$": "<rootDir>/libs/i18n/src/$1",
+      "^@authdare/log(|/.*)$": "<rootDir>/libs/log/src/$1"
     }
   }
 }

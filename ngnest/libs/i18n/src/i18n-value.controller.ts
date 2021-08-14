@@ -1,16 +1,5 @@
 import { ApiTags } from '@nestjs/swagger';
-import {
-    Controller,
-    Scope,
-    Post,
-    Body,
-    Param,
-    Patch,
-    ParseIntPipe,
-    Delete,
-    Get,
-    Query,
-} from '@nestjs/common';
+import { Controller, Body, Param, ParseIntPipe, Query } from '@nestjs/common';
 import {
     DeleteRoute,
     FindRoute,

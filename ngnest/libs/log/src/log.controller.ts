@@ -1,5 +1,6 @@
 import { ApiTags } from '@nestjs/swagger';
-import { Controller, Body, Param, ParseIntPipe, Query } from '@nestjs/common';
+import { Controller, Scope, Body, Param, ParseIntPipe, Query } from '@nestjs/common';
+import { LogService } from './log.service';
 import {
     DeleteRoute,
     FindRoute,
@@ -7,13 +8,16 @@ import {
     SaveRoute,
     UpdateRoute,
 } from '@authdare/common/decorator';
-import { I18nValueService } from './i18n.service';
-import { I18nKeyEntity } from './i18n.entity';
+import { LogEntity } from './log.entity';
 
-@ApiTags(I18nKeyController.name)
-@Controller('i18n/keys')
-export class I18nKeyController {
-    constructor(private readonly service: I18nValueService) {}
+@ApiTags(LogController.name)
+@Controller({
+    path: 'log',
+    scope: Scope.DEFAULT,
+})
+export class LogController {
+    constructor(private readonly service: LogService) {}
+
     @QueryRoute()
     async query(@Param('query') query: string, @Param() p: any, @Query() q: any) {
         return await this.service.query(query);
@@ -25,14 +29,14 @@ export class I18nKeyController {
     }
 
     @SaveRoute()
-    async save(@Body() body: I18nKeyEntity, @Param() p: any, @Query() q: any) {
+    async save(@Body() body: LogEntity, @Param() p: any, @Query() q: any) {
         return await this.service.save(body as any);
     }
 
     @UpdateRoute()
     async update(
         @Param('id', ParseIntPipe) id: number,
-        @Body() updated: I18nKeyEntity,
+        @Body() updated: LogEntity,
         @Param() p: any,
         @Query() q: any,
     ) {

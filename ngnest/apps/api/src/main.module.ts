@@ -1,4 +1,3 @@
-import { ConfigModule } from '@authdare/config';
 import { SomeController } from './a.controller';
 import { MainService } from './main.service';
 import { AuthMaillerService } from './auth';
@@ -11,6 +10,8 @@ import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handleba
 import { APP_GUARD } from '@nestjs/core';
 import { SessionGuard } from '@authdare/common/guard';
 import { I18nModule } from '@authdare/i18n';
+import { LogModule } from '@authdare/log';
+import { ConfigModule } from '@authdare/config';
 
 const MaillerConfig = {
     EMAIL_TEMPLATE_PATH: join(__dirname, 'mail/templates'),
@@ -28,6 +29,7 @@ const MaillerConfig = {
         }),
         ConfigModule,
         I18nModule,
+        LogModule,
 
         // DatabaseModule,
         // AuthModule,

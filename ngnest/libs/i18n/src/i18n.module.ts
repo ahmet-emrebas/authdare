@@ -17,7 +17,7 @@ import { v4 } from 'uuid';
             name: v4(),
             type: 'sqlite',
             entities: [I18nKeyEntity, I18nValueEntity],
-            database: './config/i18n.sqlite',
+            database: './i18n/i18n.sqlite',
             synchronize: true,
             dropSchema: true,
         }),
