@@ -1,34 +1,24 @@
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { Module, Global } from '@nestjs/common';
 import { ConfigService } from './config.service';
 import { ConfigController } from './config.controller';
 import { ConfigEntity } from './config.entity';
-import configUuid from './config.uuid';
-import { waitFor } from '@authdare/common/util';
+import { ProvideRepositories } from '@authdare/common/util';
+import { v4 } from 'uuid';
 
 @Global()
 @Module({
     controllers: [ConfigController],
-    imports: [
-        TypeOrmModule.forRootAsync({
-            useFactory: async () => {
-                await waitFor(3000);
-                return {
-                    name: configUuid,
-                    type: 'sqlite',
-                    cache: {
-                        duration: 1000 * 30,
-                    },
-                    database: './config/config.sqlite',
-                    entities: [ConfigEntity],
-                    synchronize: true,
-                    dropSchema: true,
-                };
-            },
+    providers: [
+        ConfigService,
+        ...ProvideRepositories({
+            name: v4(),
+            type: 'sqlite',
+            database: './config/config.sqlite',
+            entities: [ConfigEntity],
+            synchronize: true,
+            dropSchema: true,
         }),
-        TypeOrmModule.forFeature([ConfigEntity]),
     ],
-    providers: [ConfigService],
     exports: [ConfigService],
 })
 export class ConfigModule {}

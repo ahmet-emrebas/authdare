@@ -1,6 +1,16 @@
 import { ApiTags } from '@nestjs/swagger';
-import { Controller, Scope, Body, Param, ParseIntPipe, Query } from '@nestjs/common';
-import { ConfigService } from './config.service';
+import {
+    Controller,
+    Scope,
+    Post,
+    Body,
+    Param,
+    Patch,
+    ParseIntPipe,
+    Delete,
+    Get,
+    Query,
+} from '@nestjs/common';
 import {
     DeleteRoute,
     FindRoute,
@@ -8,16 +18,13 @@ import {
     SaveRoute,
     UpdateRoute,
 } from '@authdare/common/decorator';
-import { ConfigEntity } from './config.entity';
+import { I18nValueService } from './i18n.service';
+import { I18nValueEntity } from './i18n.entity';
 
-@ApiTags(ConfigController.name)
-@Controller({
-    path: 'config',
-    scope: Scope.DEFAULT,
-})
-export class ConfigController {
-    constructor(private readonly service: ConfigService) {}
-
+@ApiTags(I18nValueController.name)
+@Controller('i18n/values')
+export class I18nValueController {
+    constructor(private readonly service: I18nValueService) {}
     @QueryRoute()
     async query(@Param('query') query: string, @Param() p: any, @Query() q: any) {
         return await this.service.query(query);
@@ -29,14 +36,14 @@ export class ConfigController {
     }
 
     @SaveRoute()
-    async save(@Body() body: ConfigEntity, @Param() p: any, @Query() q: any) {
+    async save(@Body() body: I18nValueEntity, @Param() p: any, @Query() q: any) {
         return await this.service.save(body as any);
     }
 
     @UpdateRoute()
     async update(
         @Param('id', ParseIntPipe) id: number,
-        @Body() updated: ConfigEntity,
+        @Body() updated: I18nValueEntity,
         @Param() p: any,
         @Query() q: any,
     ) {

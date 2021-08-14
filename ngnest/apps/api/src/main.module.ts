@@ -1,8 +1,7 @@
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@authdare/config';
+import { SomeController } from './a.controller';
 import { MainService } from './main.service';
-import { AuthModule, AuthMaillerService } from './auth';
-import { DatabaseModule } from './database';
+import { AuthMaillerService } from './auth';
 import { join } from 'path';
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ServeStaticModule } from '@nestjs/serve-static';
@@ -22,10 +21,14 @@ const MaillerConfig = {
 };
 
 @Module({
+    controllers: [SomeController],
     imports: [
         EventEmitterModule.forRoot({
             global: true,
         }),
+        ConfigModule,
+        I18nModule,
+
         // DatabaseModule,
         // AuthModule,
         ServeStaticModule.forRoot({

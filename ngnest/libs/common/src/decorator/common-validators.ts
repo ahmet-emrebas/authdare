@@ -3,6 +3,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import {
     Contains,
     IsNumber,
+    IsOptional,
     IsString,
     Length,
     Matches,
@@ -12,6 +13,7 @@ import {
     ValidationError,
 } from 'class-validator';
 import { flatten, values, merge } from 'lodash';
+import { ValidationGroups } from '../class';
 
 class StringValidatorOptions {
     @IsNumber() min = 0;
@@ -46,6 +48,14 @@ function validateOptions(options: StringValidatorOptions): void {
 }
 
 /**
+ * Each Validation Decorator will extend this decorator.
+ * @returns
+ */
+export function OptionalOnUpdate() {
+    return applyDecorators(IsOptional({ groups: [ValidationGroups.UPDATE] }));
+}
+
+/**
  * Common String validator.
  * @param options
  * @returns
@@ -60,6 +70,7 @@ export function StringValidator(options?: StringValidatorOptions) {
 
     return applyDecorators(
         ApiProperty(),
+        OptionalOnUpdate(),
         IsString(),
         Matches(/^[a-zA-Z]{1,}.*$/, { message: '$property should start with a-z or A-Z' }),
         Matches(new RegExp(`^${startWith}.*`, 'i'), {

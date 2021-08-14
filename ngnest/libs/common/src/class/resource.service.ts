@@ -29,8 +29,8 @@ export class ResourceService<T extends CommonConstructor<T>> {
         return await this.repo.find({ take: 20, where: likeQuery });
     }
 
-    async find(query: Record<string, any>) {
-        const page = Math.abs(query.page) || 1;
+    async find(query?: Record<string, any>) {
+        const page = Math.abs(query?.page) || 1;
         const take = 20;
         const skip = (page - 1) * 20;
         console.log(page, take, skip);

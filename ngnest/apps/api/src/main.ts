@@ -40,27 +40,28 @@ async function bootstrap() {
     });
 
     // Configuration App
-    const configApp = await configureApplication({
-        title: 'Configuration Module',
-        module: ConfigModule,
-        description: 'Configuretio services',
-        docPath: 'doc/config',
-        adapter: expressAdapter,
-        middlewares: [],
-    });
+    // const configApp = await configureApplication({
+    //     title: 'Configuration Module',
+    //     module: ConfigModule,
+    //     description: 'Configuretio services',
+    //     docPath: 'doc/config',
+    //     adapter: expressAdapter,
+    //     middlewares: [],
+    //     microservice: true,
+    // });
 
-    const i18nAPp = await configureApplication({
-        title: 'I18N Module',
-        module: I18nModule,
-        description: 'Internalization Service',
-        adapter: expressAdapter,
-        middlewares: [],
-        docPath: 'doc/i18n',
-    });
+    // const i18nAPp = await configureApplication({
+    //     title: 'I18N Module',
+    //     module: I18nModule,
+    //     description: 'Internalization Service',
+    //     adapter: expressAdapter,
+    //     middlewares: [],
+    //     docPath: 'doc/i18n',
+    // });
 
     mainApp.init();
-    configApp.init();
-    i18nAPp.init();
+    // configApp.init();
+    // i18nAPp.init();
     await expressAdapter.listen(process.env['PORT'] || 3000);
 }
 
