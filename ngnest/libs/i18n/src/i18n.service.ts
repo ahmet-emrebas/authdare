@@ -2,11 +2,11 @@ import { ResourceService } from '@authdare/common/class';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { ConfigEntity } from './config.entity';
+import { I18nValueEntity } from './i18n.entity';
 
 @Injectable()
-export class ConfigService extends ResourceService<ConfigEntity> {
-    constructor(@InjectRepository(ConfigEntity) __repo: Repository<ConfigEntity>) {
+export class I18nService extends ResourceService<I18nValueEntity> {
+    constructor(@InjectRepository(I18nValueEntity) __repo: Repository<I18nValueEntity>) {
         super(__repo);
     }
 }

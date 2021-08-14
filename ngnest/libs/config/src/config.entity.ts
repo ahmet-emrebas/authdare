@@ -1,17 +1,26 @@
 import { CommonEntity } from '@authdare/common/class';
 import { Column, Entity } from 'typeorm';
+import { PasswordValidator, StringValidator } from '@authdare/common/decorator';
 
-@Entity()
+@Entity({ name: 'configs' })
 export class ConfigEntity extends CommonEntity<ConfigEntity> {
+    @StringValidator()
     @Column()
     name?: string;
 
+    @StringValidator()
     @Column({ nullable: true })
-    module?: string;
+    group?: string;
 
-    @Column({ default: 'test' })
+    @StringValidator()
+    @Column({ nullable: true })
     mode?: string;
 
+    @StringValidator()
     @Column()
     value?: string;
+
+    @PasswordValidator()
+    @Column()
+    password?: string;
 }

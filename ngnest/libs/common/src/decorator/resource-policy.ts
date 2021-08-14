@@ -4,8 +4,20 @@ import * as joi from 'joi';
 export const ResourcePolicyToken = 'ResourcePolicyToken';
 
 export interface IResourcePolicyOptions {
+    /**
+     * Required permissions for the resource
+     */
     permission?: string;
+
+    /**
+     * Make the resouce public.
+     */
     public?: boolean;
+
+    /**
+     * check the user has the required subscription to this service and it did not expired.
+     */
+    services?: string;
 }
 
 const resourceNameExp = ` *[a-zA-Z]{3,20}`;

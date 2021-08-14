@@ -1,3 +1,5 @@
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { ConfigModule } from '@authdare/config';
 import { MainService } from './main.service';
 import { AuthModule, AuthMaillerService } from './auth';
 import { DatabaseModule } from './database';
@@ -9,7 +11,8 @@ import { MailerModule } from '@nestjs-modules/mailer';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import { APP_GUARD } from '@nestjs/core';
 import { SessionGuard } from '@authdare/common/guard';
-import { GlobalConfigModule } from './config/config.module';
+import { I18nModule } from '@authdare/i18n';
+
 const MaillerConfig = {
     EMAIL_TEMPLATE_PATH: join(__dirname, 'mail/templates'),
     EMAIL_HOST: 'mail.authdare.com',
@@ -20,13 +23,11 @@ const MaillerConfig = {
 
 @Module({
     imports: [
-        DatabaseModule,
-        GlobalConfigModule,
         EventEmitterModule.forRoot({
             global: true,
         }),
-        AuthModule,
-
+        // DatabaseModule,
+        // AuthModule,
         ServeStaticModule.forRoot({
             rootPath: join(__dirname, 'public'),
             renderPath: '/',

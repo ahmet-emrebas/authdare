@@ -15,7 +15,7 @@ export type ApplicationConfigurerOptions = {
  * @param param0 ApplicationConfigurerOptions
  * @returns module instance that should be initialized before the server starts.
  */
-export const configureApplications = async ({
+export const configureApplication = async ({
     title,
     description,
     module,

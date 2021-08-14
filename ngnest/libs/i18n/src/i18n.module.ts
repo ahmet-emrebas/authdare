@@ -1,34 +1,32 @@
+import { I18nKeyEntity, I18nValueEntity } from './i18n.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Module, Global } from '@nestjs/common';
-import { ConfigService } from './config.service';
-import { ConfigController } from './config.controller';
-import { ConfigEntity } from './config.entity';
-import configUuid from './config.uuid';
+import { I18nService } from './i18n.service';
 import { waitFor } from '@authdare/common/util';
+import i18nUuid from './i18n.uuid';
 
 @Global()
 @Module({
-    controllers: [ConfigController],
     imports: [
         TypeOrmModule.forRootAsync({
             useFactory: async () => {
                 await waitFor(3000);
                 return {
-                    name: configUuid,
+                    name: i18nUuid,
                     type: 'sqlite',
                     cache: {
                         duration: 1000 * 30,
                     },
-                    database: './config/config.sqlite',
-                    entities: [ConfigEntity],
+                    database: './config/i18n.sqlite',
+                    entities: [I18nKeyEntity, I18nValueEntity],
                     synchronize: true,
                     dropSchema: true,
                 };
             },
         }),
-        TypeOrmModule.forFeature([ConfigEntity]),
+        TypeOrmModule.forFeature([I18nKeyEntity, I18nValueEntity]),
     ],
-    providers: [ConfigService],
-    exports: [ConfigService],
+    providers: [I18nService],
+    exports: [I18nService],
 })
-export class ConfigModule {}
+export class I18nModule {}

@@ -1,21 +1,27 @@
-import { flatten, keys, pick, pickBy, values } from 'lodash';
+import { flatten, keys, pick, values } from 'lodash';
 import { Logger, NotAcceptableException, NotFoundException } from '@nestjs/common';
 import { CommonConstructor, CommonEntity } from '@authdare/common/class';
 import { validate, ValidatorOptions } from 'class-validator';
 import { ILike, Repository } from 'typeorm';
-import { ConfigService } from '@authdare/config';
 import { ValidationGroups } from './dto-validation-groups';
+import { toErrorMessages } from '../decorator';
 
 /**
  * Resource Service Impemation.
  */
 export class ResourceService<T extends CommonConstructor<T>> {
     protected readonly logger!: Logger;
-    constructor(
-        protected readonly repo: Repository<CommonEntity<T>>,
-        protected readonly uniqueFields?: string[],
-    ) {
+    protected uniqueFields!: string[];
+    protected requiredFields!: string[];
+    constructor(protected readonly repo: Repository<CommonEntity<T>>) {
         this.logger = new Logger([repo.metadata.name, ResourceService.name].join('.'));
+        this.uniqueFields = flatten(
+            this.repo.metadata.uniques.map((e) => e.givenColumnNames) as any,
+        ) as any;
+
+        this.requiredFields = this.repo.metadata.columns
+            .filter((c) => !c.isNullable)
+            .map((c) => c.propertyName);
     }
 
     async query(query: string) {
@@ -39,13 +45,16 @@ export class ResourceService<T extends CommonConstructor<T>> {
         const instance = await this.__validate(body);
 
         if (this.uniqueFields && this.uniqueFields.length > 0) {
-            const fields = pick(instance, this.uniqueFields);
+            const fields = pick(instance, ...this.uniqueFields);
             const queryString = instance.toQueryString(fields);
-            const foundSame = await this.query(queryString);
-            if (foundSame && foundSame.length > 0) {
-                const messages = keys(pick(foundSame, this.uniqueFields)).map((propertyKey) => {
-                    return `${propertyKey} is not acceptable. Please try something else.`;
-                });
+
+            const foundSames = queryString.length > 3 && (await this.query(queryString));
+            if (foundSames && foundSames.length > 0) {
+                const messages = keys(pick(foundSames[0], ...this.uniqueFields)).map(
+                    (propertyKey) => {
+                        return `${propertyKey} field is already token. Please, use different ${propertyKey}.`;
+                    },
+                );
                 throw new NotAcceptableException(messages);
             }
         }
@@ -53,7 +62,8 @@ export class ResourceService<T extends CommonConstructor<T>> {
         let saved;
         try {
             saved = (await this.repo.save(instance)) as any as CommonEntity<T>;
-        } catch (err) {
+        } catch (err: any) {
+            this.logger.error(err.message);
             throw new NotAcceptableException('Could not save the entity for unknown reason!');
         }
         await this.__updateQueryString(saved);
@@ -104,7 +114,7 @@ export class ResourceService<T extends CommonConstructor<T>> {
         const errors = await validate(instance, validatioOptions);
 
         if (errors && errors.length > 0) {
-            throw new NotAcceptableException(flatten(errors.map((e) => values(e.constraints))));
+            throw new NotAcceptableException(toErrorMessages(errors));
         }
 
         return instance;

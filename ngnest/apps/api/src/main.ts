@@ -5,12 +5,10 @@ import * as session from 'express-session';
 import * as cookieParser from 'cookie-parser';
 import * as helmet from 'helmet';
 import * as cors from 'cors';
-import { NestFactory } from '@nestjs/core';
 import { crossOriginCookieMiddleware } from '@authdare/common/middleware';
-import * as csurf from 'csurf';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ConfigModule } from '@authdare/config';
-import { configureApplications } from '@authdare/common/util';
+import { configureApplication } from '@authdare/common/util';
+import { I18nModule } from '@authdare/i18n';
 
 async function bootstrap() {
     const server = express();
@@ -32,7 +30,7 @@ async function bootstrap() {
     const expressAdapter = new ExpressAdapter(server);
 
     // Main App
-    const mainApp = await configureApplications({
+    const mainApp = await configureApplication({
         title: 'Main Module',
         module: MainModule,
         description: 'Resource and Authentication Module',
@@ -42,7 +40,7 @@ async function bootstrap() {
     });
 
     // Configuration App
-    const configApp = await configureApplications({
+    const configApp = await configureApplication({
         title: 'Configuration Module',
         module: ConfigModule,
         description: 'Configuretio services',
@@ -51,9 +49,18 @@ async function bootstrap() {
         middlewares: [],
     });
 
+    const i18nAPp = await configureApplication({
+        title: 'I18N Module',
+        module: I18nModule,
+        description: 'Internalization Service',
+        adapter: expressAdapter,
+        middlewares: [],
+        docPath: 'i18n',
+    });
+
     mainApp.init();
     configApp.init();
-
+    i18nAPp.init();
     await expressAdapter.listen(process.env['PORT'] || 3000);
 }
 
