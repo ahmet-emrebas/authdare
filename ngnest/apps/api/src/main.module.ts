@@ -10,7 +10,6 @@ import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handleba
 import { APP_GUARD } from '@nestjs/core';
 import { SessionGuard } from '@authdare/common/guard';
 import { GlobalConfigModule } from './config/config.module';
-
 const MaillerConfig = {
     EMAIL_TEMPLATE_PATH: join(__dirname, 'mail/templates'),
     EMAIL_HOST: 'mail.authdare.com',

@@ -9,6 +9,8 @@ import { NestFactory } from '@nestjs/core';
 import { crossOriginCookieMiddleware } from '@authdare/common/middleware';
 import * as csurf from 'csurf';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { ConfigModule } from '@authdare/config';
+import { configureApplications } from '@authdare/common/util';
 
 async function bootstrap() {
     const server = express();
@@ -29,19 +31,28 @@ async function bootstrap() {
 
     const expressAdapter = new ExpressAdapter(server);
 
-    const mainApp = await NestFactory.create(MainModule, expressAdapter);
+    // Main App
+    const mainApp = await configureApplications({
+        title: 'Main Module',
+        module: MainModule,
+        description: 'Resource and Authentication Module',
+        docPath: 'api',
+        adapter: expressAdapter,
+        middlewares: middlewares,
+    });
 
-    mainApp.use(middlewares);
+    // Configuration App
+    const configApp = await configureApplications({
+        title: 'Configuration Module',
+        module: ConfigModule,
+        description: 'Configuretio services',
+        docPath: 'config',
+        adapter: expressAdapter,
+        middlewares: [],
+    });
 
-    const config = new DocumentBuilder()
-        .setTitle('Authdare API')
-        .setDescription('All modules and services')
-        .build();
-
-    const document = SwaggerModule.createDocument(mainApp, config);
-    SwaggerModule.setup('api', mainApp, document);
-
-    await mainApp.init();
+    mainApp.init();
+    configApp.init();
 
     await expressAdapter.listen(process.env['PORT'] || 3000);
 }

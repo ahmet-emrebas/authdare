@@ -162,7 +162,8 @@
     ],
     "moduleNameMapper": {
       "^@authdare/common(|/.*)$": "<rootDir>/libs/common/src/$1",
-      "^@authdare/models(|/.*)$": "<rootDir>/libs/models/src/$1"
+      "^@authdare/models(|/.*)$": "<rootDir>/libs/models/src/$1",
+      "^@authdare/config(|/.*)$": "<rootDir>/libs/config/src/$1"
     }
   }
 }

@@ -30,6 +30,12 @@
       ],
       "@authdare/models/*": [
         "libs/models/src/*"
+      ],
+      "@authdare/config": [
+        "libs/config/src"
+      ],
+      "@authdare/config/*": [
+        "libs/config/src/*"
       ]
     },
     "lib": [
