@@ -12,7 +12,7 @@ import { LogEntity } from './log.entity';
 
 @ApiTags(LogController.name)
 @Controller({
-    path: 'log',
+    path: 'logs',
     scope: Scope.DEFAULT,
 })
 export class LogController {

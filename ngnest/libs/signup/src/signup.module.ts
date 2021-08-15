@@ -1,10 +1,9 @@
-import { Module, Global, DynamicModule } from '@nestjs/common';
-import { ProvideRepositories, uuid } from '@authdare/common/util';
+import { Module, DynamicModule } from '@nestjs/common';
+import { ProvideRepositories, uuid, waitFor } from '@authdare/common/util';
 import { SignupService } from './signup.service';
 import { SignupController } from './signup.controller';
 import { SignupEntity, SubscriptionDetails } from './signup.entity';
 
-@Global()
 @Module({})
 export class SignupModule {
     static async configure(

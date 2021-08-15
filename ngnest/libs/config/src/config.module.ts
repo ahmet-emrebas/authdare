@@ -1,5 +1,5 @@
 import { Module, Global, DynamicModule } from '@nestjs/common';
-import { ProvideRepositories, uuid } from '@authdare/common/util';
+import { ProvideRepositories, uuid, waitFor } from '@authdare/common/util';
 import { ConfigService } from './config.service';
 import { ConfigController } from './config.controller';
 import { ConfigEntity } from './config.entity';
@@ -25,7 +25,6 @@ export class ConfigModule {
                     database,
                     entities: [ConfigEntity],
                     synchronize: true,
-                    dropSchema: true,
                 }),
             ],
             exports: [ConfigService],

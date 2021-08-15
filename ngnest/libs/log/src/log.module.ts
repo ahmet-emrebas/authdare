@@ -24,7 +24,6 @@ export class LogModule {
                     database,
                     entities: [LogEntity],
                     synchronize: true,
-                    dropSchema: true,
                 }),
             ],
             exports: [LogService],

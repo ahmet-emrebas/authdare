@@ -65,7 +65,7 @@ export class AuthService {
             await this.databaseService?.createDBFromTemplate(databaseName);
         } catch (err) {
             throw new InternalServerErrorException(
-                'We could not crete your database! Please try to simplify the organization name',
+                'We could not create your database! Please try to simplify the organization name',
             );
         }
 

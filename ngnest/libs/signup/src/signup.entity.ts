@@ -23,14 +23,14 @@ export class SignupEntity extends CommonEntity<SignupEntity> {
     @Column()
     email?: string;
 
-    @ApiProperty()
-    @IsPhoneNumber()
-    @Column()
-    phone?: string;
-
     @PasswordValidator()
     @Column()
     password?: string;
+
+    @ApiProperty()
+    @IsPhoneNumber()
+    @Column({ nullable: true })
+    phone?: string;
 
     @ApiProperty()
     @Column({ nullable: true })

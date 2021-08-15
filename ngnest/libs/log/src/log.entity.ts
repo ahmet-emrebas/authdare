@@ -7,7 +7,7 @@ import { IsNumber } from 'class-validator';
 export class LogEntity extends CommonEntity<LogEntity> {
     @StringValidator()
     @Column()
-    target?: string;
+    resource?: string;
 
     @IsNumber()
     @Column()
