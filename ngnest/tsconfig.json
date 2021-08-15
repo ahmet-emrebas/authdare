@@ -54,6 +54,12 @@
       ],
       "@authdare/log/*": [
         "libs/log/src/*"
+      ],
+      "@authdare/event": [
+        "libs/event/src"
+      ],
+      "@authdare/event/*": [
+        "libs/event/src/*"
       ]
     },
     "lib": [

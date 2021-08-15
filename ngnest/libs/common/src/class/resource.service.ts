@@ -10,44 +10,43 @@ import { validate, ValidatorOptions } from 'class-validator';
 import { ILike, Repository } from 'typeorm';
 import { ValidationGroups } from './dto-validation-groups';
 import { toErrorMessages } from '../decorator';
+import { LogService } from '@authdare/log';
 
 /**
  * Resource Service Impemation.
  */
 export class ResourceService<T extends CommonConstructor<T>> {
-    protected readonly logger!: Logger;
     protected uniqueFields!: string[];
     protected requiredFields!: string[];
-    constructor(protected readonly repo: Repository<CommonEntity<T>>) {
-        this.logger = new Logger([repo.metadata.name, ResourceService.name].join('.'));
+    constructor(
+        protected readonly repo: Repository<CommonEntity<T>>,
+        protected readonly logService?: LogService,
+    ) {
         this.uniqueFields = flatten(
             this.repo.metadata.uniques.map((e) => e.givenColumnNames) as any,
         ) as any;
-
-        this.requiredFields = this.repo.metadata.columns
-            .filter((c) => !c.isNullable)
-            .map((c) => c.propertyName);
     }
 
-    async query(query: string) {
-        const likeQuery = query.split('&').map((e) => ({ string: ILike(`%${e}%`) }));
+    async query(query?: string) {
+        const likeQuery = query?.split('&').map((e) => ({ string: ILike(`%${e}%`) })) || {};
         try {
             return await this.repo.find({ take: 20, where: likeQuery });
         } catch (err: any) {
-            this.logger.error(err.message);
+            await this.logService?.save(err);
             throw new InternalServerErrorException();
         }
     }
 
     async find(query?: Record<string, any>) {
-        const page = Math.abs(query?.page) || 1;
+        const page = query?.page > 0 ? query?.page : 1;
         const take = 20;
         const skip = (page - 1) * 20;
-        console.log(page, take, skip);
         try {
-            return await this.repo.find({ take, skip });
+            const count = await this.repo.count();
+            if (count > 0) return await this.repo.find({ take, skip });
+            else return [];
         } catch (err: any) {
-            this.logger.error(err.messgae);
+            await this.logService?.save(err);
             throw new NotAcceptableException(err.message);
         }
     }
@@ -57,7 +56,7 @@ export class ResourceService<T extends CommonConstructor<T>> {
 
         if (this.uniqueFields && this.uniqueFields.length > 0) {
             const fields = pick(instance, ...this.uniqueFields);
-            const queryString = instance.toQueryString(fields);
+            const queryString = CommonEntity.toQueryString(fields);
 
             const foundSames = queryString.length > 3 && (await this.query(queryString));
             if (foundSames && foundSames.length > 0) {
@@ -74,7 +73,7 @@ export class ResourceService<T extends CommonConstructor<T>> {
         try {
             saved = (await this.repo.save(instance)) as any as CommonEntity<T>;
         } catch (err: any) {
-            this.logger.error(err.message);
+            await this.logService?.save(err);
             throw new NotAcceptableException('Could not save the entity for unknown reason!');
         }
         await this.__updateQueryString(saved);
@@ -90,8 +89,8 @@ export class ResourceService<T extends CommonConstructor<T>> {
             const found = await this.repo.findOne(id);
             await this.__updateQueryString(found as any);
             return updated;
-        } catch (err) {
-            this.logger.error(err);
+        } catch (err: any) {
+            await this.logService?.save(err);
             throw new NotAcceptableException('Could not update the entity for unknown reason!');
         }
     }
@@ -103,12 +102,12 @@ export class ResourceService<T extends CommonConstructor<T>> {
             try {
                 return await this.repo.softDelete(id);
             } catch (err: any) {
-                this.logger.error(err.message);
+                await this.logService?.save(err);
                 throw new NotAcceptableException('Could not delete the item for unknown reason!');
             }
         }
 
-        throw new NotFoundException(`There is no entity in database with the id ${id}`);
+        throw new NotFoundException(`Item with id ${id} not found.`);
     }
 
     /**
@@ -137,12 +136,9 @@ export class ResourceService<T extends CommonConstructor<T>> {
      */
     private async __updateQueryString(saved: CommonEntity<T>): Promise<void> {
         try {
-            await this.repo.update(saved.id!, { string: saved.toQueryString() } as any);
-        } catch (err) {
-            this.logger.error(
-                `Could not update the query string for some reason. Here is the problem`,
-            );
-            console.error(err);
+            await this.repo.update(saved.id!, { string: CommonEntity.toQueryString(saved) } as any);
+        } catch (err: any) {
+            await this.logService?.save(err);
         }
     }
 }

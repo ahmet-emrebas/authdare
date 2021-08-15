@@ -6,9 +6,7 @@ import * as cookieParser from 'cookie-parser';
 import * as helmet from 'helmet';
 import * as cors from 'cors';
 import { crossOriginCookieMiddleware } from '@authdare/common/middleware';
-import { ConfigModule } from '@authdare/config';
 import { configureApplication } from '@authdare/common/util';
-import { I18nModule } from '@authdare/i18n';
 
 async function bootstrap() {
     const server = express();
@@ -39,29 +37,8 @@ async function bootstrap() {
         middlewares: middlewares,
     });
 
-    // Configuration App
-    // const configApp = await configureApplication({
-    //     title: 'Configuration Module',
-    //     module: ConfigModule,
-    //     description: 'Configuretio services',
-    //     docPath: 'doc/config',
-    //     adapter: expressAdapter,
-    //     middlewares: [],
-    //     microservice: true,
-    // });
-
-    // const i18nAPp = await configureApplication({
-    //     title: 'I18N Module',
-    //     module: I18nModule,
-    //     description: 'Internalization Service',
-    //     adapter: expressAdapter,
-    //     middlewares: [],
-    //     docPath: 'doc/i18n',
-    // });
-
     mainApp.init();
-    // configApp.init();
-    // i18nAPp.init();
+
     await expressAdapter.listen(process.env['PORT'] || 3000);
 }
 

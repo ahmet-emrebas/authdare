@@ -9,11 +9,11 @@ import {
 
 export class CommonConstructor<T> {
     constructor(obj?: T) {
-        if (obj) Object.assign(obj, cloneDeep(obj));
+        if (obj) Object.assign(this, cloneDeep(obj));
     }
 }
 
-export class CommonEntity<T> extends CommonConstructor<T> {
+export class CommonEntity<T> extends CommonConstructor<Omit<T, 'toQueryString'>> {
     @PrimaryGeneratedColumn()
     id?: number;
 
@@ -33,7 +33,7 @@ export class CommonEntity<T> extends CommonConstructor<T> {
      *
      * @returns the data as human readable string
      */
-    toQueryString(partial?: Partial<CommonEntity<T>>) {
+    static toQueryString(partial?: Partial<CommonEntity<any>>) {
         let _obj = partial || this;
         const stringVersion: string = Object.entries(_obj)
             .map(([key, value]) => `${key}=${value}`)

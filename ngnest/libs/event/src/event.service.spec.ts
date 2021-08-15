@@ -1,4 +1,4 @@
-describe('ConfigService', () => {
+describe('EventService', () => {
     it('should not fail', () => {
         expect(10).toBe(10);
     });

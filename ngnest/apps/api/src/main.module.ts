@@ -12,6 +12,9 @@ import { SessionGuard } from '@authdare/common/guard';
 import { I18nModule } from '@authdare/i18n';
 import { LogModule } from '@authdare/log';
 import { ConfigModule } from '@authdare/config';
+import { EventModule } from '@authdare/event';
+import { EventCronService } from './crons';
+import { ScheduleModule } from '@nestjs/schedule';
 
 const MaillerConfig = {
     EMAIL_TEMPLATE_PATH: join(__dirname, 'mail/templates'),
@@ -27,12 +30,14 @@ const MaillerConfig = {
         EventEmitterModule.forRoot({
             global: true,
         }),
+        ScheduleModule.forRoot(),
         ConfigModule,
         I18nModule,
         LogModule,
+        EventModule,
+        // AuthModule,
 
         // DatabaseModule,
-        // AuthModule,
         ServeStaticModule.forRoot({
             rootPath: join(__dirname, 'public'),
             renderPath: '/',
@@ -71,6 +76,7 @@ const MaillerConfig = {
     providers: [
         MainService,
         AuthMaillerService,
+        EventCronService,
         {
             provide: APP_GUARD,
             useClass: SessionGuard,

@@ -5,7 +5,7 @@ import { Controller, Get } from '@nestjs/common';
 export class SomeController {
     constructor(private readonly configService: ConfigService) {}
 
-    @Get()
+    @Get('')
     get() {
         return this.configService.find({});
     }
