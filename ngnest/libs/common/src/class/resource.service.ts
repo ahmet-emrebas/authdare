@@ -1,6 +1,7 @@
 import { flatten, keys, pick } from 'lodash';
 import {
     InternalServerErrorException,
+    Logger,
     NotAcceptableException,
     NotFoundException,
 } from '@nestjs/common';
@@ -10,6 +11,7 @@ import { ILike, Repository } from 'typeorm';
 import { ValidationGroups } from './dto-validation-groups';
 import { toErrorMessages } from '../decorator';
 import { LogService } from '@authdare/log';
+import { toILikeExactAny, toORILikeContains } from '../util/find-queries';
 
 /**
  * Resource Service Impemation.
@@ -17,21 +19,35 @@ import { LogService } from '@authdare/log';
 export class ResourceService<T extends CommonConstructor<T>> {
     protected uniqueFields!: string[];
     protected requiredFields!: string[];
+
     constructor(
         protected readonly repo: Repository<CommonEntity<T>>,
         protected readonly logService?: LogService,
     ) {
-        this.uniqueFields = flatten(
-            this.repo.metadata.uniques.map((e) => e.givenColumnNames) as any,
-        ) as any;
+        const { name, uniques } = repo.metadata;
+        this.uniqueFields = flatten(uniques.map((e) => e.givenColumnNames) as any) as any;
+        /**
+         * Log service is optional.
+         * Check the logservice is injected or not.
+         */
+        if (!logService) {
+            console.warn(
+                `Peristent log service is not injected! If it is intentianal ignore this message.`,
+            );
+        }
+    }
+
+    async isExist(query: string) {
+        const exactMatchQuery = query ? toILikeExactAny(query) : {};
+        return await this.repo.findOne({ where: { string: exactMatchQuery } });
     }
 
     async query(query?: string) {
-        const likeQuery = query?.split('&').map((e) => ({ string: ILike(`%${e}%`) })) || {};
+        const likeQuery = query ? toORILikeContains(query) : {};
         try {
             return await this.repo.find({ take: 20, where: likeQuery });
         } catch (err: any) {
-            await this.logService?.save(err);
+            await this.logService?.error(err.message);
             throw new InternalServerErrorException();
         }
     }
@@ -45,7 +61,6 @@ export class ResourceService<T extends CommonConstructor<T>> {
             if (count > 0) return await this.repo.find({ take, skip });
             else return [];
         } catch (err: any) {
-            await this.logService?.save(err);
             throw new NotAcceptableException(err.message);
         }
     }
@@ -54,16 +69,28 @@ export class ResourceService<T extends CommonConstructor<T>> {
         const instance = await this.__validate(body);
 
         if (this.uniqueFields && this.uniqueFields.length > 0) {
+            /**
+             * Getting unique fields to check there is any value match in database
+             */
             const fields = pick(instance, ...this.uniqueFields);
-            const queryString = CommonEntity.toQueryString(fields);
+            const uniqueFieldsQuery = CommonEntity.toQueryString(fields);
 
-            const foundSames = queryString.length > 3 && (await this.query(queryString));
+            /**
+             * Found items by unique fields query.
+             */
+            const foundSames =
+                uniqueFieldsQuery.length > 3 && (await this.query(uniqueFieldsQuery));
+
+            /**
+             * If found any data with the uniqueFieldQuery, then it means we CANNOT save the same data again becuase they are unique fields.
+             */
             if (foundSames && foundSames.length > 0) {
                 const messages = keys(pick(foundSames[0], ...this.uniqueFields)).map(
                     (propertyKey) => {
                         return `${propertyKey} field is already token. Please, use different ${propertyKey}.`;
                     },
                 );
+                console.error(messages);
                 throw new NotAcceptableException(messages);
             }
         }
@@ -72,7 +99,12 @@ export class ResourceService<T extends CommonConstructor<T>> {
         try {
             saved = (await this.repo.save(instance)) as any as CommonEntity<T>;
         } catch (err: any) {
-            await this.logService?.save(err);
+            console.error(err);
+            try {
+                await this.logService?.error('!!!!!!!!!!');
+            } catch (err) {
+                console.error(err);
+            }
             throw new NotAcceptableException('Could not save the entity for unknown reason!');
         }
         await this.__updateQueryString(saved);

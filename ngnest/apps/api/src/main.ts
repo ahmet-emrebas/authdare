@@ -6,7 +6,7 @@ import * as cookieParser from 'cookie-parser';
 import * as helmet from 'helmet';
 import * as cors from 'cors';
 import { crossOriginCookieMiddleware } from '@authdare/common/middleware';
-import { configureApplication } from '@authdare/common/util';
+import { configureApplication, uuid } from '@authdare/common/util';
 
 async function bootstrap() {
     const server = express();
@@ -43,3 +43,8 @@ async function bootstrap() {
 }
 
 bootstrap();
+
+// UUIDs
+console.table(
+    [uuid(), uuid(), uuid(), uuid(), uuid(), uuid(), uuid(), uuid()].map((e) => ({ uuid: e })),
+);

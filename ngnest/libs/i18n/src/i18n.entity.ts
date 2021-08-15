@@ -1,17 +1,23 @@
-import { Column, Entity, ManyToOne } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from 'typeorm';
 import { CommonEntity } from '@authdare/common/class';
+import { StringValidator } from '@authdare/common/decorator';
+import { ApiProperty } from '@nestjs/swagger';
 
 @Entity({ name: 'i18n_keys' })
 export class I18nKeyEntity extends CommonEntity<I18nKeyEntity> {
+    @StringValidator()
     @Column({ unique: true })
     key?: string;
 }
 
 @Entity({ name: 'i18n_values' })
 export class I18nValueEntity extends CommonEntity<I18nValueEntity> {
+    @StringValidator()
     @Column()
     lang?: string;
 
-    @ManyToOne(() => I18nKeyEntity, (key) => key.key)
+    @ApiProperty({ default: { id: 1 } })
+    @OneToOne(() => I18nKeyEntity, (key) => key)
+    @JoinColumn()
     key?: I18nKeyEntity;
 }

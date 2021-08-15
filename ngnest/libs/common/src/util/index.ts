@@ -1,4 +1,6 @@
+export * from './array-transformer';
 export * from './configure-app';
+export * from './deamon';
 export * from './group-by';
 export * from './json-transformer';
 export * from './load-config';
@@ -6,4 +8,4 @@ export * from './pick-value';
 export * from './provide-repository';
 export * from './uuid';
 export * from './wait-for';
-export * from './array-transformer';
+export * from './immutable-object';

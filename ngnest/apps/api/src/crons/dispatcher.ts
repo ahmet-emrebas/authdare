@@ -1,7 +1,6 @@
 import { waitFor } from '@authdare/common/util';
-import { deamon } from '@authdare/common/util/deamon';
 import { EventEntity, EventService } from '@authdare/event';
-import { LogEntity, LogService } from '@authdare/log';
+import { LogService } from '@authdare/log';
 import { Injectable, Logger, HttpStatus } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
 
@@ -16,8 +15,8 @@ export class EventCronService {
 
     @Cron(CronExpression.EVERY_10_SECONDS)
     async anyNewEvents() {
+        console.log('Dispatching!');
         if (this.eventPool.length == 0) {
-            deamon(async () => await this.logService.info('Looking for a new event to dispatch.'));
             try {
                 const foundEvents = await this.eventService.query();
                 if (foundEvents && foundEvents.length > 0) this.eventPool.push(...foundEvents);

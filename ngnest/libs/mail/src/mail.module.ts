@@ -9,7 +9,7 @@ import { ProvideRepositories, uuid, waitFor } from '@authdare/common/util';
 export class MailModule {
     static async configure(
         type = 'postgres' as any,
-        url = 'postgres://postgres:password@localhost',
+        url = 'postgresql://postgres:password@localhost',
         database = 'mail',
     ): Promise<DynamicModule> {
         return {

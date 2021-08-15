@@ -9,5 +9,5 @@ export function deamon(func: () => void) {
         } catch (err) {
             console.error(err);
         }
-    }, 1000);
+    }, 1);
 }

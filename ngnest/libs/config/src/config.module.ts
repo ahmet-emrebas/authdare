@@ -1,3 +1,4 @@
+import { LoggerOptions } from '@authdare/log/logger-options';
 import { Module, Global, DynamicModule } from '@nestjs/common';
 import { ProvideRepositories, uuid, waitFor } from '@authdare/common/util';
 import { ConfigService } from './config.service';
@@ -9,7 +10,7 @@ import { ConfigEntity } from './config.entity';
 export class ConfigModule {
     static async configure(
         type = 'postgres' as any,
-        url = 'postgres://postgres:password@localhost',
+        url = 'postgresql://postgres:password@localhost',
         database = 'config',
     ): Promise<DynamicModule> {
         return {
@@ -26,6 +27,10 @@ export class ConfigModule {
                     entities: [ConfigEntity],
                     synchronize: true,
                 }),
+                {
+                    provide: LoggerOptions.NAME,
+                    useValue: ConfigService.name,
+                },
             ],
             exports: [ConfigService],
         };
