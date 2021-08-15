@@ -1,5 +1,5 @@
 describe('ConfigService', () => {
     it('should not fail', () => {
-        expect(10).toBe(10);
+        expect(1).toBe(1);
     });
 });

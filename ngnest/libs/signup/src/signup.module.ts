@@ -1,34 +1,32 @@
 import { Module, Global, DynamicModule } from '@nestjs/common';
 import { ProvideRepositories, uuid } from '@authdare/common/util';
-import { ConfigService } from './config.service';
-import { ConfigController } from './config.controller';
-import { ConfigEntity } from './config.entity';
+import { SignupService } from './signup.service';
+import { SignupController } from './signup.controller';
+import { SignupEntity, SubscriptionDetails } from './signup.entity';
 
 @Global()
 @Module({})
-export class ConfigModule {
+export class SignupModule {
     static async configure(
         type = 'postgres' as any,
         url = 'postgres://postgres:password@localhost',
-        database = 'config',
+        database = 'signup',
     ): Promise<DynamicModule> {
         return {
-            module: ConfigModule,
-
-            controllers: [ConfigController],
+            module: SignupModule,
+            controllers: [SignupController],
             providers: [
-                ConfigService,
+                SignupService,
                 ...ProvideRepositories({
                     name: uuid(),
-                    url,
                     type,
+                    url,
                     database,
-                    entities: [ConfigEntity],
+                    entities: [SignupEntity, SubscriptionDetails],
                     synchronize: true,
-                    dropSchema: true,
                 }),
             ],
-            exports: [ConfigService],
+            exports: [SignupService],
         };
     }
 }

@@ -1,5 +1,6 @@
 import { ApiTags } from '@nestjs/swagger';
 import { Controller, Scope, Body, Param, ParseIntPipe, Query } from '@nestjs/common';
+import { MailService } from './mail.service';
 import {
     DeleteRoute,
     FindRoute,
@@ -7,16 +8,15 @@ import {
     SaveRoute,
     UpdateRoute,
 } from '@authdare/common/decorator';
-import { EventService } from './event.service';
-import { EventEntity } from './event.entity';
+import { MailEntity } from './mail.entity';
 
-@ApiTags(EventController.name)
+@ApiTags(MailController.name)
 @Controller({
-    path: 'event',
+    path: 'mail',
     scope: Scope.DEFAULT,
 })
-export class EventController {
-    constructor(private readonly service: EventService) {}
+export class MailController {
+    constructor(private readonly service: MailService) {}
 
     @QueryRoute()
     async query(@Param('query') query: string, @Param() p: any, @Query() q: any) {
@@ -29,14 +29,14 @@ export class EventController {
     }
 
     @SaveRoute()
-    async save(@Body() body: EventEntity, @Param() p: any, @Query() q: any) {
+    async save(@Body() body: MailEntity, @Param() p: any, @Query() q: any) {
         return await this.service.save(body as any);
     }
 
     @UpdateRoute()
     async update(
         @Param('id', ParseIntPipe) id: number,
-        @Body() updated: EventEntity,
+        @Body() updated: MailEntity,
         @Param() p: any,
         @Query() q: any,
     ) {

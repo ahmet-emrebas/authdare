@@ -3,6 +3,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import {
     Contains,
     IsNumber,
+    IsObject,
     IsOptional,
     IsString,
     Length,
@@ -15,10 +16,10 @@ import {
 import { flatten, values, merge } from 'lodash';
 import { ValidationGroups } from '../class';
 
-class StringValidatorOptions {
+class DefaultStringValidationOptions {
     @IsNumber() min = 0;
-    @IsNumber() max = 400;
-    @StringValidator() notContains = 'fuck | ass | bitch';
+    @IsNumber() max = 2000;
+    @StringValidator() notContains = 'NoBadWordsPlease';
     @StringValidator() contains = '';
     @StringValidator() startWith = '';
     @StringValidator() endWith = '';
@@ -38,7 +39,7 @@ export function toErrorMessages(errors: ValidationError[]): string[] {
     return flatten(errors.map((e) => values(e.constraints)));
 }
 
-function validateOptions(options: StringValidatorOptions): void {
+function validateOptions(options: Partial<DefaultStringValidationOptions>): void {
     if (options) {
         const errors = validateSync(options, { skipMissingProperties: true });
         if (errors && errors.length > 0) {
@@ -60,11 +61,11 @@ export function OptionalOnUpdate() {
  * @param options
  * @returns
  */
-export function StringValidator(options?: StringValidatorOptions) {
+export function StringValidator(options?: Partial<DefaultStringValidationOptions>) {
     if (options) validateOptions(options);
 
     const { min, max, notContains, contains, startWith, endWith } = merge(
-        new StringValidatorOptions(),
+        new DefaultStringValidationOptions(),
         options,
     );
 
@@ -90,7 +91,7 @@ export function StringValidator(options?: StringValidatorOptions) {
  * @param options
  * @returns
  */
-export const StringArrayValidator = (options?: StringValidatorOptions) =>
+export const StringArrayValidator = (options?: DefaultStringValidationOptions) =>
     applyDecorators(ValidateNested({ each: true }), StringValidator(options));
 
 /**
@@ -99,7 +100,7 @@ export const StringArrayValidator = (options?: StringValidatorOptions) =>
  * @param options
  * @returns
  */
-export function PasswordValidator(options?: StringValidatorOptions) {
+export function PasswordValidator(options?: DefaultStringValidationOptions) {
     if (options) validateOptions(options);
     return applyDecorators(
         StringValidator(),
@@ -114,4 +115,8 @@ export function PasswordValidator(options?: StringValidatorOptions) {
             message: `$property should contain an lowercase letter`,
         }),
     );
+}
+
+export function JSONValidator(options?: Record<string, any>) {
+    return applyDecorators(ApiProperty(), OptionalOnUpdate(), IsObject());
 }

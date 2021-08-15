@@ -7,12 +7,19 @@ import {
     UpdateDateColumn,
 } from 'typeorm';
 
+/**
+ * Constructor with deep clone which will prevent code from unspable state.
+ *
+ */
 export class CommonConstructor<T> {
     constructor(obj?: T) {
         if (obj) Object.assign(this, cloneDeep(obj));
     }
 }
 
+/**
+ * Common entitiy field for tables.
+ */
 export class CommonEntity<T> extends CommonConstructor<Omit<T, 'toQueryString'>> {
     @PrimaryGeneratedColumn()
     id?: number;
@@ -30,8 +37,7 @@ export class CommonEntity<T> extends CommonConstructor<Omit<T, 'toQueryString'>>
     string?: string;
 
     /**
-     *
-     * @returns the data as human readable string
+     * Query string of the data that will allow us to query each field with URL Query string.
      */
     static toQueryString(partial?: Partial<CommonEntity<any>>) {
         let _obj = partial || this;

@@ -13,8 +13,10 @@ import { I18nModule } from '@authdare/i18n';
 import { LogModule } from '@authdare/log';
 import { ConfigModule } from '@authdare/config';
 import { EventModule } from '@authdare/event';
+import { SignupModule } from '@authdare/signup';
 import { EventCronService } from './crons';
 import { ScheduleModule } from '@nestjs/schedule';
+import { MailModule } from '@authdare/mail';
 
 const MaillerConfig = {
     EMAIL_TEMPLATE_PATH: join(__dirname, 'mail/templates'),
@@ -31,10 +33,12 @@ const MaillerConfig = {
             global: true,
         }),
         ScheduleModule.forRoot(),
-        ConfigModule,
-        I18nModule,
-        LogModule,
-        EventModule,
+        ConfigModule.configure(),
+        I18nModule.configure(),
+        LogModule.configure(),
+        EventModule.configure(),
+        MailModule.configure(),
+        SignupModule.configure(),
         // AuthModule,
 
         // DatabaseModule,

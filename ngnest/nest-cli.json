@@ -75,6 +75,24 @@
       "compilerOptions": {
         "tsConfigPath": "libs/event/tsconfig.lib.json"
       }
+    },
+    "mail": {
+      "type": "library",
+      "root": "libs/mail",
+      "entryFile": "index",
+      "sourceRoot": "libs/mail/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/mail/tsconfig.lib.json"
+      }
+    },
+    "signup": {
+      "type": "library",
+      "root": "libs/signup",
+      "entryFile": "index",
+      "sourceRoot": "libs/signup/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/signup/tsconfig.lib.json"
+      }
     }
   }
 }

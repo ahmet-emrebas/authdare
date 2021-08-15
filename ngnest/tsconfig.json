@@ -25,12 +25,6 @@
       "@authdare/common/*": [
         "libs/common/src/*"
       ],
-      "@authdare/models": [
-        "libs/models/src"
-      ],
-      "@authdare/models/*": [
-        "libs/models/src/*"
-      ],
       "@authdare/config": [
         "libs/config/src"
       ],
@@ -60,6 +54,18 @@
       ],
       "@authdare/event/*": [
         "libs/event/src/*"
+      ],
+      "@authdare/mail": [
+        "libs/mail/src"
+      ],
+      "@authdare/mail/*": [
+        "libs/mail/src/*"
+      ],
+      "@authdare/signup": [
+        "libs/signup/src"
+      ],
+      "@authdare/signup/*": [
+        "libs/signup/src/*"
       ]
     },
     "lib": [

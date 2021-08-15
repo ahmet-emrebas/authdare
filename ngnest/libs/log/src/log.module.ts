@@ -1,24 +1,33 @@
-import { Module, Global } from '@nestjs/common';
+import { Module, Global, DynamicModule } from '@nestjs/common';
+import { ProvideRepositories, uuid } from '@authdare/common/util';
 import { LogService } from './log.service';
 import { LogController } from './log.controller';
 import { LogEntity } from './log.entity';
-import { ProvideRepositories } from '@authdare/common/util';
-import { v4 } from 'uuid';
 
 @Global()
-@Module({
-    controllers: [LogController],
-    providers: [
-        LogService,
-        ...ProvideRepositories({
-            name: v4(),
-            type: 'sqlite',
-            database: './log/log.sqlite',
-            entities: [LogEntity],
-            synchronize: true,
-            dropSchema: true,
-        }),
-    ],
-    exports: [LogService],
-})
-export class LogModule {}
+@Module({})
+export class LogModule {
+    static async configure(
+        type = 'postgres' as any,
+        url = 'postgres://postgres:password@localhost',
+        database = 'log',
+    ): Promise<DynamicModule> {
+        return {
+            module: LogModule,
+            controllers: [LogController],
+            providers: [
+                LogService,
+                ...ProvideRepositories({
+                    name: uuid(),
+                    type,
+                    url,
+                    database,
+                    entities: [LogEntity],
+                    synchronize: true,
+                    dropSchema: true,
+                }),
+            ],
+            exports: [LogService],
+        };
+    }
+}

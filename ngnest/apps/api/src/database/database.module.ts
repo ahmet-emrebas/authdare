@@ -6,9 +6,7 @@ import { DatabaseTokens } from './database-tokens';
 import { DatabaseService } from './database.service';
 import {
     Module,
-    DynamicModule,
     Global,
-    Logger,
     Scope,
     NotFoundException,
     InternalServerErrorException,
@@ -17,7 +15,6 @@ import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { ConnectionOptions, getConnection, createConnection, Connection } from 'typeorm';
 import { values } from 'lodash';
 import { Request } from 'express';
-import { waitFor } from '@authdare/common/util';
 
 const TEMPLATE_DATABASE_NAME = 'authdare_template';
 const MAIN_DATABASE_NAME = 'authdare_main';

@@ -1,7 +1,6 @@
-import { flatten, keys, pick, values } from 'lodash';
+import { flatten, keys, pick } from 'lodash';
 import {
     InternalServerErrorException,
-    Logger,
     NotAcceptableException,
     NotFoundException,
 } from '@nestjs/common';

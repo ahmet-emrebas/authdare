@@ -1,7 +1,7 @@
 import { CommonEntity } from '@authdare/common/class';
+import { JSONValidator, StringValidator } from '@authdare/common/decorator';
 import { Column, Entity } from 'typeorm';
-import { StringValidator } from '@authdare/common/decorator';
-import { ApiProperty } from '@nestjs/swagger';
+import { jsonTransformer } from '@authdare/common/util';
 
 @Entity({ name: 'events' })
 export class EventEntity extends CommonEntity<EventEntity> {
@@ -9,7 +9,11 @@ export class EventEntity extends CommonEntity<EventEntity> {
     @Column()
     name?: string;
 
-    @ApiProperty({})
-    @Column({ nullable: true })
-    payload?: string;
+    @JSONValidator()
+    @Column({
+        type: 'text',
+        nullable: true,
+        transformer: jsonTransformer(),
+    })
+    payload?: Record<string, any>;
 }

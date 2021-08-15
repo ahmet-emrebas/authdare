@@ -1,6 +1,6 @@
 import { CommonEntity } from '@authdare/common/class';
-import { Column, Entity } from 'typeorm';
 import { StringValidator } from '@authdare/common/decorator';
+import { Column, Entity } from 'typeorm';
 
 @Entity({ name: 'configs' })
 export class ConfigEntity extends CommonEntity<ConfigEntity> {
