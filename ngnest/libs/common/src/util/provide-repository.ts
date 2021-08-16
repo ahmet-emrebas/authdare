@@ -17,7 +17,8 @@ export function ProvideConnection(options: ConnectionOptions): Provider {
     return {
         provide: options.name!,
         useFactory: async () => {
-            return await createConnection(options);
+            const con = await createConnection({ ...options });
+            return con;
         },
     };
 }

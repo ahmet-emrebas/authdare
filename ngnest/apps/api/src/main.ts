@@ -7,6 +7,7 @@ import * as helmet from 'helmet';
 import * as cors from 'cors';
 import { crossOriginCookieMiddleware } from '@authdare/common/middleware';
 import { configureApplication, uuid } from '@authdare/common/util';
+import { uniq, flatten } from 'lodash';
 
 async function bootstrap() {
     const server = express();
@@ -38,11 +39,26 @@ async function bootstrap() {
     });
 
     mainApp.init();
-
+    setTimeout(() => {
+        permissions(server);
+    }, 3000);
     await expressAdapter.listen(process.env['PORT'] || 3000);
 }
 
 bootstrap();
+
+function permissions(server: any) {
+    const __routes = server._router.stack
+        .filter((e: express.Router) => e.route)
+        .map((e: any) => e.route.path.split('/')[1]) as string[];
+
+    const routes = uniq(__routes).filter((e) => e.length > 0);
+    const permissions = flatten(
+        ['find', 'query', 'save', 'delete', 'udpate'].map((e) => routes.map((r) => `${e} : ${r}`)),
+    );
+
+    console.table(permissions);
+}
 
 // UUIDs
 console.table(

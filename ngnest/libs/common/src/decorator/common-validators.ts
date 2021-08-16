@@ -31,11 +31,6 @@ class DefaultStringValidationOptions {
  * @returns
  */
 export function toErrorMessages(errors: ValidationError[]): string[] {
-    console.log(
-        errors.map((e) => {
-            return e;
-        }),
-    );
     return flatten(errors.map((e) => values(e.constraints)));
 }
 

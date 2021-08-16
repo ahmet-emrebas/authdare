@@ -10,7 +10,7 @@ import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handleba
 import { APP_GUARD } from '@nestjs/core';
 import { SessionGuard } from '@authdare/common/guard';
 import { I18nModule } from '@authdare/i18n';
-import { LogModule } from '@authdare/log';
+import { LogModule, SetLoggerName } from '@authdare/log';
 import { ConfigModule } from '@authdare/config';
 import { EventModule } from '@authdare/event';
 import { SignupModule } from '@authdare/signup';
@@ -33,9 +33,9 @@ const MaillerConfig = {
             global: true,
         }),
         ScheduleModule.forRoot(),
+        LogModule.configure(),
         ConfigModule.configure(),
         I18nModule.configure(),
-        LogModule.configure(),
         EventModule.configure(),
         MailModule.configure(),
         SignupModule.configure(),

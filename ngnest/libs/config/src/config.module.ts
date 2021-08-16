@@ -1,36 +1,43 @@
-import { LoggerOptions } from '@authdare/log/logger-options';
-import { Module, Global, DynamicModule } from '@nestjs/common';
-import { ProvideRepositories, uuid, waitFor } from '@authdare/common/util';
+import { CommonConstructor } from '@authdare/common/class';
+import { Module, Global, DynamicModule, Provider } from '@nestjs/common';
+import { ProvideRepositories } from '@authdare/common/util';
 import { ConfigService } from './config.service';
 import { ConfigController } from './config.controller';
 import { ConfigEntity } from './config.entity';
 
+export class ConfigModuleOptions extends CommonConstructor<ConfigModuleOptions> {
+    type = 'postgres' as any;
+    url = 'postgresql://postgres:password@localhost';
+    database = 'config';
+    providers: Provider<any>[] = [];
+    synchronize = true;
+    dropSchema = false;
+}
+
 @Global()
 @Module({})
 export class ConfigModule {
-    static async configure(
-        type = 'postgres' as any,
-        url = 'postgresql://postgres:password@localhost',
-        database = 'config',
-    ): Promise<DynamicModule> {
+    static async configure(options?: Partial<ConfigModuleOptions>): Promise<DynamicModule> {
+        const { type, url, database, providers, synchronize, dropSchema } = {
+            ...new ConfigModuleOptions(),
+            ...options,
+        };
+
         return {
             module: ConfigModule,
-
             controllers: [ConfigController],
             providers: [
                 ConfigService,
                 ...ProvideRepositories({
-                    name: uuid(),
+                    name: 'e8006573-33fa-4d35-acf1-a6dc2a03f527',
                     url,
                     type,
                     database,
                     entities: [ConfigEntity],
-                    synchronize: true,
+                    synchronize,
+                    dropSchema,
                 }),
-                {
-                    provide: LoggerOptions.NAME,
-                    useValue: ConfigService.name,
-                },
+                ...providers,
             ],
             exports: [ConfigService],
         };

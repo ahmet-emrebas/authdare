@@ -1,33 +1,45 @@
+import { REQUEST } from '@nestjs/core';
 import { ResourceService } from '@authdare/common/class';
-import { Inject, Injectable, Scope, Optional, Logger } from '@nestjs/common';
+import { Inject, Injectable, Scope } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { LogEntity } from './log.entity';
-import { LoggerOptions } from './logger-options';
+import { Request } from 'express';
 
 @Injectable({
-    scope: Scope.TRANSIENT,
+    scope: Scope.REQUEST,
 })
 export class LogService extends ResourceService<LogEntity> {
     private loggerName!: string;
 
-    constructor(
-        @Inject(LogEntity) repo: Repository<LogEntity>,
-        @Optional() @Inject(LoggerOptions.NAME) loggerName?: string,
-        @Optional() @Inject(LoggerOptions.STATUS) loggerStatus?: boolean,
-    ) {
+    constructor(@Inject(LogEntity) repo: Repository<LogEntity>, @Inject(REQUEST) req: Request) {
         super(repo);
-        this.loggerName = loggerName || 'LogService ( LOGGER_NAME not provided )';
+        this.loggerName = `${req.method.toUpperCase()} ${req.url}`;
     }
 
     async error(message: string) {
-        return await this.save({ resource: this.loggerName, code: 5000, message });
+        try {
+            await this.save({ resource: this.loggerName, code: 5000, message: message });
+        } catch (err) {
+            console.error(err);
+            return;
+        }
     }
 
     async info(message: string) {
-        return await this.save({ resource: this.loggerName, code: 2000, message });
+        try {
+            await this.save({ resource: this.loggerName, code: 2000, message });
+        } catch (err) {
+            console.error(err);
+            return;
+        }
     }
 
     async warn(message: string) {
-        return await this.save({ resource: this.loggerName, code: 4000, message });
+        try {
+            await this.save({ resource: this.loggerName, code: 4000, message });
+        } catch (err) {
+            console.error(err);
+            return;
+        }
     }
 }

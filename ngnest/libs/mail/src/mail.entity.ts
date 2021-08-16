@@ -1,8 +1,9 @@
 import { CommonEntity } from '@authdare/common/class';
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { StringValidator } from '@authdare/common/decorator';
-import { IsBoolean, IsEmail } from 'class-validator';
+import { IsBoolean, IsEmail, IsOptional } from 'class-validator';
 import { arrayTransformer, jsonTransformer } from '@authdare/common/util';
+import { ApiProperty } from '@nestjs/swagger';
 
 export interface Context {
     title: string;
@@ -17,40 +18,52 @@ export class MailTemplatesEntity extends CommonEntity<MailTemplatesEntity> {
     name?: string;
 
     @StringValidator()
+    @IsOptional()
     @Column()
     html?: string;
 
     @StringValidator()
+    @IsOptional()
     @Column()
     text?: string;
 
+    @IsOptional()
     @Column({ type: 'text', transformer: arrayTransformer() })
     placeholders?: string[];
 }
 
-@Entity({ name: 'mails' })
+@Entity({ name: 'mails', synchronize: true })
 export class MailEntity extends CommonEntity<MailEntity> {
     @StringValidator({ max: 50 })
     @IsEmail()
     @Column()
     to?: string;
-
+    @ApiProperty()
+    @IsOptional()
     @IsBoolean()
-    @Column()
+    @Column({ default: false })
     sent?: boolean;
-
+    @ApiProperty()
+    @IsOptional()
     @IsBoolean()
-    @Column()
+    @Column({ default: false })
     read?: boolean;
 
-    @ManyToOne(() => MailTemplatesEntity, (template) => template)
-    @JoinColumn()
-    template?: MailTemplatesEntity;
-
+    /**
+     * The data to be sent to the template
+     *
+     **/
+    @ApiProperty()
+    @IsOptional()
     @Column({
         nullable: true,
         type: 'text',
         transformer: jsonTransformer(),
     })
     context?: string;
+
+    @ApiProperty({ default: {} })
+    @ManyToOne(() => MailTemplatesEntity, (template) => template.name, { eager: true })
+    @JoinColumn()
+    template?: string;
 }

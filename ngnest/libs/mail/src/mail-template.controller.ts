@@ -1,7 +1,6 @@
-import { SessionData } from 'express-session';
 import { ApiTags } from '@nestjs/swagger';
-import { Controller, Scope, Body, Param, ParseIntPipe, Query, Session } from '@nestjs/common';
-import { SignupService } from './signup.service';
+import { Controller, Scope, Body, Param, ParseIntPipe, Query } from '@nestjs/common';
+import { MailTemplateService } from './mail.service';
 import {
     DeleteRoute,
     FindRoute,
@@ -9,16 +8,15 @@ import {
     SaveRoute,
     UpdateRoute,
 } from '@authdare/common/decorator';
-import { SignupEntity } from './signup.entity';
-import { MailService } from '@authdare/mail';
+import { MailEntity } from './mail.entity';
 
-@ApiTags(SignupController.name)
+@ApiTags(MailTemplateController.name)
 @Controller({
-    path: 'signup',
+    path: 'mail-templates',
     scope: Scope.DEFAULT,
 })
-export class SignupController {
-    constructor(private readonly service: SignupService) {}
+export class MailTemplateController {
+    constructor(private readonly service: MailTemplateService) {}
 
     @QueryRoute()
     async query(@Param('query') query: string, @Param() p: any, @Query() q: any) {
@@ -30,23 +28,15 @@ export class SignupController {
         return await this.service.find(query);
     }
 
-    /**
-     * Sign up or create subscription.
-     * @param body
-     */
     @SaveRoute()
-    async save(@Body() body: SignupEntity, @Session() session: SessionData) {
-        const saved = await this.service.save(body as any);
-
-        const { email } = body;
-
-        // this.mail.save({ to: email, template: 'greeting' });
+    async save(@Body() body: MailEntity, @Param() p: any, @Query() q: any) {
+        return await this.service.save(body as any);
     }
 
     @UpdateRoute()
     async update(
         @Param('id', ParseIntPipe) id: number,
-        @Body() updated: SignupEntity,
+        @Body() updated: MailEntity,
         @Param() p: any,
         @Query() q: any,
     ) {
