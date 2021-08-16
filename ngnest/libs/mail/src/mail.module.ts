@@ -1,45 +1,19 @@
 import { ProvideRepositories } from '@authdare/common/util';
 import { CommonConstructor } from '@authdare/common/class';
-import { MailTemplateController } from './mail-template.controller';
 import { Module, Global, DynamicModule, Provider } from '@nestjs/common';
-import { MailService, MailTemplateService } from './mail.service';
+import { MailService } from './mail.service';
 import { MailController } from './mail.controller';
-import { MailEntity, MailTemplatesEntity } from './mail.entity';
-
-export class MailModuleOptions extends CommonConstructor<MailModuleOptions> {
-    type = 'postgres' as any;
-    url = 'postgres://postgres:password@localhost/mail';
-    providers: Provider<any>[] = [];
-    synchronize = true;
-    dropSchema = false;
-}
+import { MailEntity } from './mail.entity';
 
 @Global()
 @Module({})
 export class MailModule {
-    static async configure(options?: Partial<MailModuleOptions>): Promise<DynamicModule> {
-        const { type, url, providers, synchronize, dropSchema } = {
-            ...new MailModuleOptions(),
-            ...options,
-        };
-
+    static configure(): DynamicModule {
         return {
             module: MailModule,
-            controllers: [MailController, MailTemplateController],
-            providers: [
-                MailService,
-                MailTemplateService,
-                ...ProvideRepositories({
-                    name: 'b01c982e-ad85-4359-8d5e-8762bcfac0b2',
-                    type,
-                    url,
-                    entities: [MailEntity, MailTemplatesEntity],
-                    synchronize,
-                    dropSchema,
-                }),
-                ...providers,
-            ],
-            exports: [MailService, MailTemplateService],
+            controllers: [MailController],
+            providers: [MailService, ...ProvideRepositories([MailEntity])],
+            exports: [MailService],
         };
     }
 }

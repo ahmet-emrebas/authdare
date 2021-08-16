@@ -1,42 +1,17 @@
-import { CommonConstructor } from '@authdare/common/class';
-import { Module, Global, DynamicModule, Provider } from '@nestjs/common';
+import { Module, Global, DynamicModule } from '@nestjs/common';
 import { ProvideRepositories } from '@authdare/common/util';
 import { LogService } from './log.service';
 import { LogController } from './log.controller';
 import { LogEntity } from './log.entity';
 
-export class LoggerModuleOptions extends CommonConstructor<LoggerModuleOptions> {
-    type = 'postgres' as any;
-    url = 'postgres://postgres:password@localhost/log';
-    providers: Provider<any>[] = [];
-    synchronize = true;
-    dropSchema = false;
-}
-
 @Global()
 @Module({})
 export class LogModule {
-    static async configure(options?: Partial<LoggerModuleOptions>): Promise<DynamicModule> {
-        const { type, url, providers, synchronize, dropSchema } = {
-            ...new LoggerModuleOptions(),
-            ...options,
-        };
-
+    static configure(): DynamicModule {
         return {
             module: LogModule,
             controllers: [LogController],
-            providers: [
-                LogService,
-                ...ProvideRepositories({
-                    name: '9b568321-bf9a-4109-b671-3549166b174f',
-                    type,
-                    url,
-                    entities: [LogEntity],
-                    synchronize,
-                    dropSchema,
-                }),
-                ...providers,
-            ],
+            providers: [LogService, ...ProvideRepositories([LogEntity])],
             exports: [LogService],
         };
     }

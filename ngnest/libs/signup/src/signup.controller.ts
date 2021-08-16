@@ -10,7 +10,6 @@ import {
     UpdateRoute,
 } from '@authdare/common/decorator';
 import { SignupEntity } from './signup.entity';
-import { MailService } from '@authdare/mail';
 
 @ApiTags(SignupController.name)
 @Controller({
@@ -36,11 +35,7 @@ export class SignupController {
      */
     @SaveRoute()
     async save(@Body() body: SignupEntity, @Session() session: SessionData) {
-        const saved = await this.service.save(body as any);
-
-        const { email } = body;
-
-        // this.mail.save({ to: email, template: 'greeting' });
+        return await this.service.save(body as any);
     }
 
     @UpdateRoute()

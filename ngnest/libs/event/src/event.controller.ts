@@ -12,7 +12,7 @@ import { EventEntity } from './event.entity';
 
 @ApiTags(EventController.name)
 @Controller({
-    path: 'event',
+    path: 'events',
     scope: Scope.DEFAULT,
 })
 export class EventController {

@@ -5,7 +5,7 @@ export * from './group-by';
 export * from './json-transformer';
 export * from './load-config';
 export * from './pick-value';
-export * from './provide-repository';
+export * from './provide-repositories';
 export * from './uuid';
 export * from './wait-for';
 export * from './immutable-object';

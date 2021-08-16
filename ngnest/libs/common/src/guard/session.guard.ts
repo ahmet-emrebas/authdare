@@ -8,6 +8,7 @@ type TActionNames = 'query' | 'find' | 'save' | 'delete' | 'update';
 function parseMetaData(context: ExecutionContext) {
     const req = context.switchToHttp().getRequest<Request>();
     const handler = context.getHandler();
+    const lang = req.headers['accept-language']?.split(',')[0];
     const controllerClass = context.getClass();
     const { session, params, url, baseUrl, originalUrl } = req;
     const className = controllerClass.name;
@@ -18,14 +19,9 @@ function parseMetaData(context: ExecutionContext) {
     const requiredPermission = ` *${handlerName} *: *${resourceName}`;
     const permissionExp = new RegExp(requiredPermission, 'im');
 
-    req.locals = {
-        connection: { type: 'postgres' },
-    };
-
-    req.locals.connection = { type: 'sqlite', database: 'Working man' };
-
     const metaData = {
-        connection: req.locals.connection,
+        lang,
+        connection: req.locals.database?.options,
         className,
         resourceName,
         requiredPermission,
@@ -38,6 +34,7 @@ function parseMetaData(context: ExecutionContext) {
         session,
         hasPermission: permissionExp.test(user?.permissions),
     };
+    console.table(metaData);
     return metaData;
 }
 

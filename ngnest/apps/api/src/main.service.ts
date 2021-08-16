@@ -1,5 +1,4 @@
 import { Injectable, NotImplementedException } from '@nestjs/common';
-import { OnEvent } from '@nestjs/event-emitter';
 
 @Injectable()
 export class MainService {

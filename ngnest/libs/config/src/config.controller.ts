@@ -12,7 +12,7 @@ import { ConfigEntity } from './config.entity';
 
 @ApiTags(ConfigController.name)
 @Controller({
-    path: 'config',
+    path: 'configs',
     scope: Scope.DEFAULT,
 })
 export class ConfigController {

@@ -1,3 +1,4 @@
+import { IdentifyMiddleware } from '@authdare/common/middleware';
 import { SomeController } from './a.controller';
 import { MainService } from './main.service';
 import { AuthMaillerService } from './auth';
@@ -9,16 +10,11 @@ import { MailerModule } from '@nestjs-modules/mailer';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import { APP_GUARD } from '@nestjs/core';
 import { SessionGuard } from '@authdare/common/guard';
-import { I18nModule } from '@authdare/i18n';
-import { LogModule, SetLoggerName } from '@authdare/log';
 import { ConfigModule } from '@authdare/config';
-import { EventModule } from '@authdare/event';
-import { SignupModule } from '@authdare/signup';
 import { EventCronService } from './crons';
 import { ScheduleModule } from '@nestjs/schedule';
-import { MailModule } from '@authdare/mail';
-import { GetConnectionOptions, GET_CONNECTION_OPTIONS } from '@authdare/common/class';
-import { HttpModule } from '@nestjs/axios';
+import { GetClientDBConnection, GET_CLIENT_DB_CONNECTION } from '@authdare/common/class';
+import { HttpModule, HttpService } from '@nestjs/axios';
 
 const MaillerConfig = {
     EMAIL_TEMPLATE_PATH: join(__dirname, 'mail/templates'),
@@ -30,14 +26,15 @@ const MaillerConfig = {
 
 @Global()
 @Module({
+    imports: [HttpModule],
     providers: [
         {
             scope: Scope.REQUEST,
-            provide: GET_CONNECTION_OPTIONS,
-            useClass: GetConnectionOptions,
+            provide: GET_CLIENT_DB_CONNECTION,
+            useClass: GetClientDBConnection,
         },
     ],
-    exports: [GET_CONNECTION_OPTIONS],
+    exports: [GET_CLIENT_DB_CONNECTION],
 })
 export class ConnectionOptionsModule {}
 
@@ -47,10 +44,10 @@ export class ConnectionOptionsModule {}
         EventEmitterModule.forRoot({
             global: true,
         }),
-        HttpModule,
+
         ConnectionOptionsModule,
         ScheduleModule.forRoot(),
-        ConfigModule.configure(GET_CONNECTION_OPTIONS),
+        ConfigModule.configure(),
         // LogModule.configure(),
         // I18nModule.configure(),
         // EventModule.configure(),
@@ -103,6 +100,6 @@ export class ConnectionOptionsModule {}
 })
 export class MainModule implements NestModule {
     configure(consumer: MiddlewareConsumer) {
-        // TODO
+        consumer.apply(IdentifyMiddleware).forRoutes('*');
     }
 }

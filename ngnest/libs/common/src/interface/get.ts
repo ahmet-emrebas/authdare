@@ -1,5 +1,9 @@
 import { ConnectionOptions } from 'typeorm';
 
+export interface IGet<T> {
+    get(): T | Promise<T>;
+}
+
 /**
  * Define how to get the client connection options/configuration
  * @securityNotice Please read the ConnectionName note!
@@ -16,6 +20,4 @@ import { ConnectionOptions } from 'typeorm';
  * So make sure the name of the connection is unique.
  *
  */
-export interface IGetConnectionOptions {
-    get(): ConnectionOptions | Promise<ConnectionOptions>;
-}
+export interface IGetClientDBConnection extends IGet<ConnectionOptions> {}

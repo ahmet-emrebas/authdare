@@ -7,11 +7,6 @@ import { ConfigEntity } from './config.entity';
 @Global()
 @Module({})
 export class ConfigModule {
-    /**
-     *
-     * @param iGetConnectionToken injectable token for implementaiton fo IGetConnection interface
-     * @returns
-     */
     static configure(): DynamicModule {
         return {
             module: ConfigModule,
