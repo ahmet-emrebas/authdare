@@ -6,11 +6,10 @@ import { Cron, CronExpression } from '@nestjs/schedule';
 
 @Injectable()
 export class EventCronService {
-    constructor(
-        private readonly mail: MailService,
-        private readonly event: EventService,
-        private readonly logger: LogService,
-    ) {}
+    constructor() // private readonly mail: MailService,
+    // private readonly event: EventService,
+    // private readonly logger: LogService,
+    {}
 
     @Cron(CronExpression.EVERY_10_SECONDS)
     async anyNewEvents() {}

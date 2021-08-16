@@ -39,9 +39,6 @@ const MaillerConfig = {
         EventModule.configure(),
         MailModule.configure(),
         SignupModule.configure(),
-        // AuthModule,
-
-        // DatabaseModule,
         ServeStaticModule.forRoot({
             rootPath: join(__dirname, 'public'),
             renderPath: '/',

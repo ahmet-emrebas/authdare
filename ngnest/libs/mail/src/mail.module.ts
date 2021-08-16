@@ -27,23 +27,18 @@ export class MailModule {
         return {
             module: MailModule,
             controllers: [MailController, MailTemplateController],
-            imports: [
-                TypeOrmModule.forRootAsync({
+            providers: [
+                MailService,
+                MailTemplateService,
+                ...ProvideRepositories({
                     name: 'b01c982e-ad85-4359-8d5e-8762bcfac0b2',
-                    url,
                     type,
+                    url,
                     database,
                     entities: [MailEntity, MailTemplatesEntity],
                     synchronize,
                     dropSchema,
-                } as any),
-            ],
-            providers: [
-                MailService,
-                MailTemplateService,
-
-                // ...ProvideRepositories({
-                // }),
+                }),
                 ...providers,
             ],
             exports: [MailService, MailTemplateService],
