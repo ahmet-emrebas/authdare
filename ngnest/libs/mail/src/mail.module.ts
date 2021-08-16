@@ -1,4 +1,3 @@
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { ProvideRepositories } from '@authdare/common/util';
 import { CommonConstructor } from '@authdare/common/class';
 import { MailTemplateController } from './mail-template.controller';
@@ -9,8 +8,7 @@ import { MailEntity, MailTemplatesEntity } from './mail.entity';
 
 export class MailModuleOptions extends CommonConstructor<MailModuleOptions> {
     type = 'postgres' as any;
-    url = 'postgres://postgres:password@localhost';
-    database = 'i18n';
+    url = 'postgres://postgres:password@localhost/mail';
     providers: Provider<any>[] = [];
     synchronize = true;
     dropSchema = false;
@@ -20,10 +18,11 @@ export class MailModuleOptions extends CommonConstructor<MailModuleOptions> {
 @Module({})
 export class MailModule {
     static async configure(options?: Partial<MailModuleOptions>): Promise<DynamicModule> {
-        const { type, url, database, providers, synchronize, dropSchema } = {
+        const { type, url, providers, synchronize, dropSchema } = {
             ...new MailModuleOptions(),
             ...options,
         };
+
         return {
             module: MailModule,
             controllers: [MailController, MailTemplateController],
@@ -34,7 +33,6 @@ export class MailModule {
                     name: 'b01c982e-ad85-4359-8d5e-8762bcfac0b2',
                     type,
                     url,
-                    database,
                     entities: [MailEntity, MailTemplatesEntity],
                     synchronize,
                     dropSchema,

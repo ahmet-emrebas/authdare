@@ -8,9 +8,7 @@ import { ProvideRepositories } from '@authdare/common/util';
 export class EventModuleOptions extends CommonConstructor<EventModuleOptions> {
     type = 'postgres' as any;
 
-    url = 'postgres://postgres:password@localhost';
-
-    database = 'event';
+    url = 'postgres://postgres:password@localhost/event';
 
     providers: Provider<any>[] = [];
     synchronize = true;
@@ -21,7 +19,7 @@ export class EventModuleOptions extends CommonConstructor<EventModuleOptions> {
 @Module({})
 export class EventModule {
     static async configure(options?: Partial<EventModuleOptions>): Promise<DynamicModule> {
-        const { type, url, database, providers, synchronize, dropSchema } = {
+        const { type, url, providers, synchronize, dropSchema } = {
             ...new EventModuleOptions(),
             ...options,
         };
@@ -35,7 +33,7 @@ export class EventModule {
                     name: '9877fd06-2bd3-4698-bcc2-470144c19083',
                     url,
                     type,
-                    database,
+
                     entities: [EventEntity],
                     synchronize,
                     dropSchema,

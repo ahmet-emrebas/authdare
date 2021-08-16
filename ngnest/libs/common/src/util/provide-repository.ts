@@ -1,7 +1,8 @@
-import { Inject, Provider } from '@nestjs/common';
+import { REQUEST } from '@nestjs/core';
+import { Inject, Provider, Scope } from '@nestjs/common';
 import { ClassConstructor } from 'class-transformer';
-import { Connection, ConnectionOptions, createConnection } from 'typeorm';
-import { waitFor } from '.';
+import { Connection, ConnectionOptions, createConnection, getConnection } from 'typeorm';
+import { Request } from 'express';
 
 export function ProvideRepository(connectionKey: string, entity: ClassConstructor<any>): Provider {
     return {
@@ -15,10 +16,15 @@ export function ProvideRepository(connectionKey: string, entity: ClassConstructo
 
 export function ProvideConnection(options: ConnectionOptions): Provider {
     return {
+        scope: Scope.REQUEST,
         provide: options.name!,
-        useFactory: async () => {
-            const con = await createConnection({ ...options });
-            return con;
+        inject: [REQUEST],
+        useFactory: async (req: Request) => {
+            try {
+                return getConnection(options.name);
+            } catch (err) {
+                return await createConnection({ ...options });
+            }
         },
     };
 }

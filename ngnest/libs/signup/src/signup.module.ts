@@ -7,8 +7,7 @@ import { SignupEntity, SubscriptionDetails } from './signup.entity';
 
 class SignupModuleOptions extends CommonConstructor<SignupModuleOptions> {
     type = 'postgres' as any;
-    url = 'postgres://postgres:password@localhost';
-    database = 'signup';
+    url = 'postgres://postgres:password@localhost/signup';
     providers: Provider<any>[] = [];
     synchronize = true;
     dropSchema = false;
@@ -17,7 +16,7 @@ class SignupModuleOptions extends CommonConstructor<SignupModuleOptions> {
 @Module({})
 export class SignupModule {
     static async configure(options?: Partial<SignupModuleOptions>): Promise<DynamicModule> {
-        const { type, url, database, providers, synchronize, dropSchema } = {
+        const { type, url, providers, synchronize, dropSchema } = {
             ...new SignupModuleOptions(),
             ...options,
         };
@@ -30,11 +29,11 @@ export class SignupModule {
                     name: '39af2873-d498-4061-b2e8-fed4135ea3a0',
                     type,
                     url,
-                    database,
                     entities: [SignupEntity, SubscriptionDetails],
+                    autoLoadEntities: true,
                     synchronize,
                     dropSchema,
-                }),
+                } as any),
                 ...providers,
             ],
             exports: [SignupService, ...providers],

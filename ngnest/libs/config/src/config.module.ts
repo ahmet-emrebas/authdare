@@ -7,8 +7,7 @@ import { ConfigEntity } from './config.entity';
 
 export class ConfigModuleOptions extends CommonConstructor<ConfigModuleOptions> {
     type = 'postgres' as any;
-    url = 'postgresql://postgres:password@localhost';
-    database = 'config';
+    url = 'postgresql://postgres:password@localhost/config';
     providers: Provider<any>[] = [];
     synchronize = true;
     dropSchema = false;
@@ -18,7 +17,7 @@ export class ConfigModuleOptions extends CommonConstructor<ConfigModuleOptions> 
 @Module({})
 export class ConfigModule {
     static async configure(options?: Partial<ConfigModuleOptions>): Promise<DynamicModule> {
-        const { type, url, database, providers, synchronize, dropSchema } = {
+        const { type, url, providers, synchronize, dropSchema } = {
             ...new ConfigModuleOptions(),
             ...options,
         };
@@ -32,7 +31,6 @@ export class ConfigModule {
                     name: 'e8006573-33fa-4d35-acf1-a6dc2a03f527',
                     url,
                     type,
-                    database,
                     entities: [ConfigEntity],
                     synchronize,
                     dropSchema,
