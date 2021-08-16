@@ -1,7 +1,7 @@
 import { snakeCase } from 'lodash';
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { Request } from 'express';
+import { Request } from '../interface';
 
 type TActionNames = 'query' | 'find' | 'save' | 'delete' | 'update';
 
@@ -18,7 +18,14 @@ function parseMetaData(context: ExecutionContext) {
     const requiredPermission = ` *${handlerName} *: *${resourceName}`;
     const permissionExp = new RegExp(requiredPermission, 'im');
 
+    req.locals = {
+        connection: { type: 'postgres' },
+    };
+
+    req.locals.connection = { type: 'sqlite', database: 'Working man' };
+
     const metaData = {
+        connection: req.locals.connection,
         className,
         resourceName,
         requiredPermission,

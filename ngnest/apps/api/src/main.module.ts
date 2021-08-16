@@ -2,7 +2,7 @@ import { SomeController } from './a.controller';
 import { MainService } from './main.service';
 import { AuthMaillerService } from './auth';
 import { join } from 'path';
-import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule, Scope, Global } from '@nestjs/common';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { MailerModule } from '@nestjs-modules/mailer';
@@ -17,6 +17,8 @@ import { SignupModule } from '@authdare/signup';
 import { EventCronService } from './crons';
 import { ScheduleModule } from '@nestjs/schedule';
 import { MailModule } from '@authdare/mail';
+import { GetConnectionOptions, GET_CONNECTION_OPTIONS } from '@authdare/common/class';
+import { HttpModule } from '@nestjs/axios';
 
 const MaillerConfig = {
     EMAIL_TEMPLATE_PATH: join(__dirname, 'mail/templates'),
@@ -26,19 +28,34 @@ const MaillerConfig = {
     EMAIL_DEFAULT_FROM: '"Authdare Support" <support@authdare.com>',
 };
 
+@Global()
+@Module({
+    providers: [
+        {
+            scope: Scope.REQUEST,
+            provide: GET_CONNECTION_OPTIONS,
+            useClass: GetConnectionOptions,
+        },
+    ],
+    exports: [GET_CONNECTION_OPTIONS],
+})
+export class ConnectionOptionsModule {}
+
 @Module({
     controllers: [SomeController],
     imports: [
         EventEmitterModule.forRoot({
             global: true,
         }),
+        HttpModule,
+        ConnectionOptionsModule,
         ScheduleModule.forRoot(),
-        LogModule.configure(),
-        ConfigModule.configure(),
-        I18nModule.configure(),
-        EventModule.configure(),
-        MailModule.configure(),
-        SignupModule.configure(),
+        ConfigModule.configure(GET_CONNECTION_OPTIONS),
+        // LogModule.configure(),
+        // I18nModule.configure(),
+        // EventModule.configure(),
+        // MailModule.configure(),
+        // SignupModule.configure(),
         ServeStaticModule.forRoot({
             rootPath: join(__dirname, 'public'),
             renderPath: '/',
