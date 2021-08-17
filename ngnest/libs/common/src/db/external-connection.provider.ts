@@ -27,7 +27,11 @@ export function ExternalConnectionProvider(
         provide: CONNECTION,
         inject: [REQUEST, HttpService, ExceptionService],
         useFactory: async function (req: Request, http: HttpService, exception: ExceptionService) {
-            const databaseOptions = req.userSession.database[key];
+            const databaseOptions = req.userSession?.database[key];
+
+            if (!databaseOptions) {
+                exception.internal('There is not database connection');
+            }
             const strategy = databaseOptions.strategy;
 
             let options: ConnectionOptions = t<ConnectionOptions>(undefined);

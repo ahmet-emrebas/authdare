@@ -1,7 +1,7 @@
 import { SessionData } from 'express-session';
 import { ApiTags } from '@nestjs/swagger';
 import { Controller, Scope, Body, Param, ParseIntPipe, Query, Session } from '@nestjs/common';
-import { SignupService } from './signup.service';
+import { PublicUserService } from './signup.service';
 import {
     DeleteRoute,
     FindRoute,
@@ -9,15 +9,15 @@ import {
     SaveRoute,
     UpdateRoute,
 } from '@authdare/common/openapi';
-import { SignupEntity } from './signup.entity';
+import { PublicUserEntity } from './public-user.entity';
 
-@ApiTags(SignupController.name)
+@ApiTags(PublicUserController.name)
 @Controller({
-    path: 'signups',
+    path: 'public-users',
     scope: Scope.DEFAULT,
 })
-export class SignupController {
-    constructor(private readonly service: SignupService) {}
+export class PublicUserController {
+    constructor(private readonly service: PublicUserService) {}
 
     @QueryRoute()
     async query(@Param('query') query: string, @Param() p: any, @Query() q: any) {
@@ -34,14 +34,14 @@ export class SignupController {
      * @param body
      */
     @SaveRoute()
-    async save(@Body() body: SignupEntity, @Session() session: SessionData) {
+    async save(@Body() body: PublicUserEntity, @Session() session: SessionData) {
         return await this.service.save(body as any);
     }
 
     @UpdateRoute()
     async update(
         @Param('id', ParseIntPipe) id: number,
-        @Body() updated: SignupEntity,
+        @Body() updated: PublicUserEntity,
         @Param() p: any,
         @Query() q: any,
     ) {

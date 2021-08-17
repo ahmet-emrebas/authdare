@@ -1,18 +1,11 @@
 import { CommonEntity } from '@authdare/common/base';
 import { Column, Entity, JoinColumn, OneToOne } from 'typeorm';
-import { JSONValidator, PasswordValidator, StringValidator } from '@authdare/common/validation';
+import { PasswordValidator, StringValidator } from '@authdare/common/validation';
 import { IsEmail, IsPhoneNumber } from 'class-validator';
-import { jsonTransformer } from '@authdare/common/util';
 import { ApiProperty } from '@nestjs/swagger';
+import { SignupDetailsEntity } from './signup-details.entity';
 
-@Entity()
-export class SubscriptionDetails extends CommonEntity<SubscriptionDetails> {
-    @JSONValidator()
-    @Column({ type: 'text', transformer: jsonTransformer() })
-    details?: Record<string, any>;
-}
-
-@Entity({ name: 'signups' })
+@Entity({ name: 'subs' })
 export class SignupEntity extends CommonEntity<SignupEntity> {
     @StringValidator({ max: 50 })
     @Column()
@@ -36,7 +29,7 @@ export class SignupEntity extends CommonEntity<SignupEntity> {
     @Column({ nullable: true })
     address?: string;
 
-    @OneToOne(() => SubscriptionDetails, (d) => d)
+    @OneToOne(() => SignupDetailsEntity, (d) => d)
     @JoinColumn()
-    details?: SubscriptionDetails;
+    details?: SignupDetailsEntity;
 }

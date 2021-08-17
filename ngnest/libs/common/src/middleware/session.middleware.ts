@@ -8,7 +8,7 @@ export class ClientSessionMiddleware implements NestMiddleware {
     constructor(private jwt: JwtService) {}
     use(req: any, res: any, next: () => void) {
         if (req.session) {
-            console.log('There is session!');
+            console.log('There is no session!');
         }
 
         throw new Error('Method not implemented.');

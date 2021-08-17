@@ -8,13 +8,14 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
-import { APP_GUARD } from '@nestjs/core';
+import { APP_FILTER, APP_GUARD } from '@nestjs/core';
 import { SessionGuard } from '@authdare/common/guard';
 import { EventCronService } from './crons';
 import { ScheduleModule } from '@nestjs/schedule';
 import { ExceptionPoolModule } from '@authdare/common/exception/exception-pool.module';
-import { DebugModule } from '@authdare/common/filter';
+import { DebugExceptionFilter, DebugModule } from '@authdare/common/filter';
 import { MonitorModule } from './monitor.module';
+import { SignupModule } from '@authdare/signup';
 
 const MaillerConfig = {
     EMAIL_TEMPLATE_PATH: join(__dirname, 'mail/templates'),
@@ -28,7 +29,7 @@ const MaillerConfig = {
     controllers: [SomeController],
     imports: [
         ExceptionPoolModule.configure(),
-        DebugModule.configure(true),
+        SignupModule.configure(),
         EventEmitterModule.forRoot({
             global: true,
         }),
@@ -39,7 +40,6 @@ const MaillerConfig = {
             renderPath: '/',
             exclude: ['api', 'api/**/*'],
         }),
-
         MailerModule.forRootAsync({
             useFactory: () => {
                 return {

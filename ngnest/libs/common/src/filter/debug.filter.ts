@@ -1,19 +1,26 @@
 import { HttpException } from '@nestjs/common/exceptions';
-import { Catch, ExceptionFilter, Injectable, ArgumentsHost, Logger, Scope } from '@nestjs/common';
+import { Catch, ExceptionFilter, Injectable, ArgumentsHost, Logger } from '@nestjs/common';
+import { Response } from 'express';
+import { Request } from '../interface';
 
-@Injectable()
+@Injectable({})
 @Catch(HttpException, Error)
 export class DebugExceptionFilter implements ExceptionFilter {
-    private logger!: Logger;
-    private handlerName!: string;
-    private className!: string;
+    private readonly logger = new Logger(DebugExceptionFilter.name);
 
-    catch(exception: HttpException, host: ArgumentsHost) {
-        const context = host.switchToRpc().getContext();
-        this.handlerName = context.getHandler().name;
-        this.className = context.getClass().name;
-        this.logger = new Logger(this.handlerName + '.' + this.className + '()');
-        this.logger.error(`<${exception.getStatus()}> ${exception.message}`);
-        throw exception;
+    catch(exception: any, host: ArgumentsHost) {
+        const ctx = host.switchToHttp();
+        const response = ctx.getResponse<Response>();
+        const request = ctx.getRequest<Request>();
+        const status = exception.getStatus();
+        const result = {
+            statusCode: status,
+            timestamp: new Date().toISOString(),
+            path: request.url,
+        };
+
+        this.logger.error(` [DebugExceptionFilter] <${result.statusCode}> ${exception.message}`);
+
+        response.status(status).json(result);
     }
 }
