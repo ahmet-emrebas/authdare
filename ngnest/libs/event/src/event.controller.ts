@@ -6,7 +6,7 @@ import {
     QueryRoute,
     SaveRoute,
     UpdateRoute,
-} from '@authdare/common/decorator';
+} from '@authdare/common/openapi';
 import { EventService } from './event.service';
 import { EventEntity } from './event.entity';
 

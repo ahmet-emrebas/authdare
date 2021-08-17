@@ -1,22 +1,20 @@
-import { DebugModule } from './../../../libs/common/src/filter/debug.module';
 import { IdentifyMiddleware } from '@authdare/common/middleware';
 import { SomeController } from './a.controller';
 import { MainService } from './main.service';
 import { AuthMaillerService } from './auth';
 import { join } from 'path';
-import { MiddlewareConsumer, Module, NestModule, Scope, Global } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import { APP_GUARD } from '@nestjs/core';
 import { SessionGuard } from '@authdare/common/guard';
-import { ConfigModule } from '@authdare/config';
 import { EventCronService } from './crons';
 import { ScheduleModule } from '@nestjs/schedule';
-import { HttpModule } from '@nestjs/axios';
 import { ExceptionPoolModule } from '@authdare/common/exception/exception-pool.module';
-import { ConnectionService, GET_CLIENT_DB_CONNECTION } from '@authdare/common/db';
+import { DebugModule } from '@authdare/common/filter';
+import { MonitorModule } from './monitor.module';
 
 const MaillerConfig = {
     EMAIL_TEMPLATE_PATH: join(__dirname, 'mail/templates'),
@@ -26,36 +24,16 @@ const MaillerConfig = {
     EMAIL_DEFAULT_FROM: '"Authdare Support" <support@authdare.com>',
 };
 
-@Global()
-@Module({
-    imports: [HttpModule],
-    providers: [
-        {
-            scope: Scope.REQUEST,
-            provide: GET_CLIENT_DB_CONNECTION,
-            useClass: ConnectionService,
-        },
-    ],
-    exports: [GET_CLIENT_DB_CONNECTION],
-})
-export class ConnectionOptionsModule {}
-
 @Module({
     controllers: [SomeController],
     imports: [
+        ExceptionPoolModule.configure(),
         DebugModule.configure(true),
         EventEmitterModule.forRoot({
             global: true,
         }),
-        ExceptionPoolModule,
-        ConnectionOptionsModule,
         ScheduleModule.forRoot(),
-        ConfigModule.configure(),
-        // LogModule.configure(),
-        // I18nModule.configure(),
-        // EventModule.configure(),
-        // MailModule.configure(),
-        // SignupModule.configure(),
+        MonitorModule,
         ServeStaticModule.forRoot({
             rootPath: join(__dirname, 'public'),
             renderPath: '/',

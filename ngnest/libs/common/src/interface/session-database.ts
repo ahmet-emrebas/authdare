@@ -5,4 +5,5 @@ export interface SessionDatabase {
     mail: DatabaseOptions;
     log: DatabaseOptions;
     config: DatabaseOptions;
+    i18n: DatabaseOptions;
 }

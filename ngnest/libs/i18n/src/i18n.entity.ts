@@ -1,7 +1,7 @@
 import { Column, Entity, JoinColumn, OneToOne } from 'typeorm';
-import { CommonEntity } from '@authdare/common/class';
-import { StringValidator } from '@authdare/common/decorator';
 import { ApiProperty } from '@nestjs/swagger';
+import { CommonEntity } from '@authdare/common/base';
+import { StringValidator } from '@authdare/common/validation';
 
 @Entity({ name: 'i18n_keys' })
 export class I18nKeyEntity extends CommonEntity<I18nKeyEntity> {

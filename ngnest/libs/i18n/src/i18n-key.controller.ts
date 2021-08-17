@@ -6,7 +6,7 @@ import {
     QueryRoute,
     SaveRoute,
     UpdateRoute,
-} from '@authdare/common/decorator';
+} from '@authdare/common/openapi';
 import { I18nValueService } from './i18n.service';
 import { I18nKeyEntity } from './i18n.entity';
 

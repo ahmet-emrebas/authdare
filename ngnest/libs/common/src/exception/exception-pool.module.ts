@@ -1,4 +1,4 @@
-import { Global, Module } from '@nestjs/common';
+import { DynamicModule, Global, Module } from '@nestjs/common';
 import { ExceptionService } from './exception.service';
 
 /**
@@ -7,11 +7,11 @@ import { ExceptionService } from './exception.service';
 @Global()
 @Module({})
 export class ExceptionPoolModule {
-    static configure() {
+    static configure(): DynamicModule {
         return {
             module: ExceptionPoolModule,
             providers: [ExceptionService],
-            export: [ExceptionService],
+            exports: [ExceptionService],
         };
     }
 }
