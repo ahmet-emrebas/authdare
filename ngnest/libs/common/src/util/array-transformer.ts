@@ -8,7 +8,7 @@ export function arrayTransformer(): ValueTransformer {
     return {
         to: (value) => {
             try {
-                return value.join('#!@&#!#');
+                return value?.join('#!@&#!#');
             } catch (err) {
                 console.error(err);
                 return `Could not stringify the Array object ${value} to string`;
@@ -16,7 +16,7 @@ export function arrayTransformer(): ValueTransformer {
         },
         from: (value) => {
             try {
-                return value.split('#!@&#!#');
+                return value?.split('#!@&#!#');
             } catch (err) {
                 console.error(err);
                 return { error: `Could not parse <${value}> to Array Object` };

@@ -1,16 +1,28 @@
-import { NestMiddleware } from '@nestjs/common';
+import { Injectable, NestMiddleware } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { entries } from 'lodash';
 import { Request } from '../interface';
+import { t } from '../type';
 
-/**
- * Request session holds only the uuid of the user.
- */
+@Injectable()
 export class IdentifyMiddleware implements NestMiddleware {
     constructor(private jwt: JwtService) {}
-    use(req: Request, res: any, next: () => void) {
-        const lang = req.headers['accept-language']?.split(',')[0]!;
-        const session = req.session;
 
+    async use(req: Request, res: any, next: () => void) {
+        const lang = req.headers['accept-language']?.split(',')[0]!;
+        const cookies: Record<string, string> = req.cookies;
+        let parsedCookies: Record<string, any> = {};
+
+        parsingCookies: for (const [key, value] of entries(cookies)) {
+            try {
+                parsedCookies[key] = await this.jwt.verify(value);
+            } catch (err) {
+                req.parsedCookies = t<any>(null);
+                next();
+                break parsingCookies;
+            }
+        }
+        req.parsedCookies = parsedCookies;
         next();
     }
 }

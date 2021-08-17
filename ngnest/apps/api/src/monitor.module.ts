@@ -1,25 +1,18 @@
-import { DebugModule } from '@authdare/common/filter';
-import { ConfigModule } from '@authdare/config';
-import { EventModule } from '@authdare/event';
 import { I18nModule } from '@authdare/i18n';
 import { LogModule } from '@authdare/log';
 import { MailModule } from '@authdare/mail';
-import { HttpModule } from '@nestjs/axios';
-import { Module, Global } from '@nestjs/common';
-
-@Global()
-@Module({ imports: [HttpModule], exports: [HttpModule] })
-class GlobalHttpModule {}
+import { Module } from '@nestjs/common';
+import { EventModule } from '@authdare/event';
+import { ConnectionTokens } from '@authdare/common/db';
+import { ConfigModule } from '@authdare/config';
 
 @Module({
     imports: [
-        GlobalHttpModule,
-        DebugModule.configure(true),
-        ConfigModule.configure(),
-        LogModule.configure(),
-        I18nModule.configure(),
-        EventModule.configure(),
-        MailModule.configure(),
+        ConfigModule.configure(ConnectionTokens.MONITOR),
+        EventModule.configure(ConnectionTokens.MONITOR),
+        MailModule.configure(ConnectionTokens.MONITOR),
+        LogModule.configure(ConnectionTokens.MONITOR),
+        I18nModule.configure(ConnectionTokens.MONITOR),
     ],
 })
 export class MonitorModule {}

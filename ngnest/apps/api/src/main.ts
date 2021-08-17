@@ -7,6 +7,7 @@ import * as cors from 'cors';
 import { crossOriginCookieMiddleware } from '@authdare/common/middleware';
 import { configureApplication, uuid } from '@authdare/common/util';
 import { uniq, flatten } from 'lodash';
+import { MonitorModule } from './monitor.module';
 
 async function bootstrap() {
     const server = express();
@@ -27,10 +28,22 @@ async function bootstrap() {
         description: 'Resource and Authentication Module',
         docPath: 'doc/api',
         adapter: expressAdapter,
-        middlewares: middlewares,
+        middlewares,
     });
 
+    // Monitor App
+    // const monitorApp = await configureApplication({
+    //     module: MonitorModule,
+    //     title: MonitorModule.name,
+    //     description: 'System Monitor',
+    //     docPath: 'monitor',
+    //     adapter: expressAdapter,
+    //     middlewares,
+    // });
+
     mainApp.init();
+    // monitorApp.init();
+
     setTimeout(() => {
         permissions(server);
     }, 3000);

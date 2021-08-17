@@ -1,1 +1,0 @@
-export const AUTH_HANDLER_TOKEN = 'AUTH_HANDLER_TOKEN';

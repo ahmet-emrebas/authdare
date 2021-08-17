@@ -1,18 +1,17 @@
+import { EventEntity } from './event.entity';
 import { Module, Global, DynamicModule } from '@nestjs/common';
 import { EventService } from './event.service';
 import { EventController } from './event.controller';
-import { EventEntity } from './event.entity';
-import { ConnectionModule } from '@authdare/common/db';
+import { ConnectionTokens, provideRepositories } from '@authdare/common/db';
 
 @Global()
 @Module({})
 export class EventModule {
-    static configure(): DynamicModule {
+    static configure(resourceType: ConnectionTokens): DynamicModule {
         return {
             module: EventModule,
-            imports: [ConnectionModule.configure('event', [EventEntity])],
             controllers: [EventController],
-            providers: [EventService],
+            providers: [...provideRepositories(resourceType, [EventEntity]), EventService],
             exports: [EventService],
         };
     }
