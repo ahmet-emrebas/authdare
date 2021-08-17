@@ -1,5 +1,5 @@
-import { CommonEntity } from '@authdare/common/class';
-import { JSONValidator, StringValidator } from '@authdare/common/decorator';
+import { CommonEntity } from '@authdare/common/base';
+import { JSONValidator, StringValidator } from '@authdare/common/validation';
 import { Column, Entity } from 'typeorm';
 import { jsonTransformer } from '@authdare/common/util';
 
