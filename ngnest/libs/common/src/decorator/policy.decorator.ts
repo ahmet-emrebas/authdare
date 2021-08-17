@@ -1,7 +1,7 @@
 import { SetMetadata } from '@nestjs/common';
 import * as joi from 'joi';
 
-export const ResourcePolicyToken = 'ResourcePolicyToken';
+export const RESOURCE_POLICY = 'RESOURCE_POLICY';
 
 export interface IResourcePolicyOptions {
     /**
@@ -39,5 +39,5 @@ export function ResourcePolicy(options: IResourcePolicyOptions) {
     if (errors.error) {
         throw new Error(errors.error.message);
     }
-    return SetMetadata(ResourcePolicyToken, options);
+    return SetMetadata(RESOURCE_POLICY, options);
 }

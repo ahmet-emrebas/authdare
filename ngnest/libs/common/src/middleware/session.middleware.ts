@@ -2,7 +2,7 @@ import { JwtService } from '@nestjs/jwt';
 import { NestMiddleware } from '@nestjs/common';
 
 /**
- * Establish client session
+ * Establish client session by verifying each cookie and store them into request.userSession
  */
 export class ClientSessionMiddleware implements NestMiddleware {
     constructor(private jwt: JwtService) {}
@@ -16,8 +16,7 @@ export class ClientSessionMiddleware implements NestMiddleware {
 }
 
 /**
- * Establish public session middleware,
- * When end user does not have a session, the user is considered as public user.
+ * Establish public session by giving a uuid to a public user.
  */
 export class PublicSessionMiddleware implements NestMiddleware {
     constructor(private jwt: JwtService) {}

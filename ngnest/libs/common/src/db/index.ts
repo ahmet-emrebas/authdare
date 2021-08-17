@@ -1,2 +1,2 @@
-export * from './connection.service';
-export * from './connection.provider';
+export * from './connection.module';
+export * from './external-connection.provider';

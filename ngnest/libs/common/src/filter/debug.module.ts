@@ -3,6 +3,9 @@ import { APP_FILTER } from '@nestjs/core';
 import { t } from '@authdare/common/type';
 import { DebugExceptionFilter } from './debug.filter';
 
+/**
+ * Global Debug Module that catches all exceptions and errors and print them to console.
+ */
 @Global()
 @Module({})
 export class DebugModule {

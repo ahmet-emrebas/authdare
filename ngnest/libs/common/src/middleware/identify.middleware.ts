@@ -11,10 +11,6 @@ export class IdentifyMiddleware implements NestMiddleware {
         const lang = req.headers['accept-language']?.split(',')[0]!;
         const session = req.session;
 
-        if (session) {
-        } else {
-        }
-
         next();
     }
 }

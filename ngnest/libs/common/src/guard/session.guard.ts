@@ -5,6 +5,11 @@ import { Request } from '../interface';
 
 type TActionNames = 'query' | 'find' | 'save' | 'delete' | 'update';
 
+/**
+ * Parse metadata from context
+ * @param context ExecutionContext
+ * @returns
+ */
 function parseMetaData(context: ExecutionContext) {
     const req = context.switchToHttp().getRequest<Request>();
     const handler = context.getHandler();
@@ -41,7 +46,7 @@ function parseMetaData(context: ExecutionContext) {
 }
 
 /**
- * Check user has a valid session
+ * Only allow users with valid session
  */
 @Injectable()
 export class SessionGuard implements CanActivate {
