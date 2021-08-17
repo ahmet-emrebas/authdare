@@ -1,5 +1,5 @@
 import { LogService } from '@authdare/log';
-import { ResourceService } from '@authdare/common/class';
+import { ResourceService } from '@authdare/common/base';
 import { Inject, Injectable, Optional } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { ConfigEntity } from './config.entity';

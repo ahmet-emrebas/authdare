@@ -1,5 +1,5 @@
 import { REQUEST } from '@nestjs/core';
-import { ResourceService } from '@authdare/common/class';
+import { ResourceService } from '@authdare/common/base';
 import { Inject, Injectable, Scope } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { LogEntity } from './log.entity';

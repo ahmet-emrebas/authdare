@@ -1,6 +1,5 @@
-import { Length, IsEmail, IsOptional, isNotEmpty } from 'class-validator';
-import { Transform } from 'class-transformer';
-import { CommonConstructor } from '@authdare/common/class';
+import { Length, IsEmail, IsOptional } from 'class-validator';
+import { CommonConstructor } from '@authdare/common/base';
 import { ApiProperty } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
 

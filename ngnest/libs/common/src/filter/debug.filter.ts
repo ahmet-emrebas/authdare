@@ -1,13 +1,5 @@
 import { HttpException } from '@nestjs/common/exceptions';
-import {
-    ArgumentsHost,
-    Catch,
-    ExceptionFilter,
-    ExecutionContext,
-    Injectable,
-    Logger,
-    Scope,
-} from '@nestjs/common';
+import { Catch, ExceptionFilter, Injectable, ArgumentsHost, Logger, Scope } from '@nestjs/common';
 
 @Injectable({
     scope: Scope.REQUEST,

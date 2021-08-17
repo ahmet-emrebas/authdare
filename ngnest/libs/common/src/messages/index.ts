@@ -1,2 +1,2 @@
-export * from './messages';
-export * from './place-holders';
+export * from './messages.enum';
+export * from './placeholders.enum';

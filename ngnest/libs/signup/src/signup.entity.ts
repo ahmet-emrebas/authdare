@@ -1,6 +1,6 @@
-import { CommonEntity } from '@authdare/common/class';
+import { CommonEntity } from '@authdare/common/base';
 import { Column, Entity, JoinColumn, OneToOne } from 'typeorm';
-import { JSONValidator, PasswordValidator, StringValidator } from '@authdare/common/decorator';
+import { JSONValidator, PasswordValidator, StringValidator } from '@authdare/common/validation';
 import { IsEmail, IsPhoneNumber } from 'class-validator';
 import { jsonTransformer } from '@authdare/common/util';
 import { ApiProperty } from '@nestjs/swagger';

@@ -1,6 +1,6 @@
-import { CommonEntity } from '@authdare/common/class';
+import { CommonEntity } from '@authdare/common/base';
 import { Column, Entity } from 'typeorm';
-import { StringValidator } from '@authdare/common/decorator';
+import { StringValidator } from '@authdare/common/validation';
 import { IsNumber } from 'class-validator';
 
 @Entity({ name: 'logs' })

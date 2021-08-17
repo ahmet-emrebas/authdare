@@ -1,5 +1,5 @@
-import { CommonEntity } from '@authdare/common/class';
-import { StringValidator } from '@authdare/common/decorator';
+import { CommonEntity } from '@authdare/common/base';
+import { StringValidator } from '@authdare/common/validation';
 import { Column, Entity } from 'typeorm';
 
 @Entity({ name: 'configs' })

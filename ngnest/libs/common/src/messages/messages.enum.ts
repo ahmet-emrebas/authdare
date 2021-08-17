@@ -1,5 +1,5 @@
 import { IM } from '../util';
-import { PH } from './place-holders';
+import { PH } from './placeholders.enum';
 
 /**
  * Messages used across the application

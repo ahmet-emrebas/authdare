@@ -1,4 +1,4 @@
-import { CommonEntity } from '@authdare/common/class';
+import { CommonEntity } from '@authdare/common/base';
 import { genSaltSync, hashSync } from 'bcrypt';
 import { Column, Entity } from 'typeorm';
 

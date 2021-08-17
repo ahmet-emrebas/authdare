@@ -1,1 +1,2 @@
-export * from './provide-repositories';
+export * from './connection.service';
+export * from './connection.provider';

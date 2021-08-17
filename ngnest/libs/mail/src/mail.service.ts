@@ -1,4 +1,4 @@
-import { ResourceService } from '@authdare/common/class';
+import { ResourceService } from '@authdare/common/base';
 import { LogService } from '@authdare/log';
 import { Inject, Injectable, Optional } from '@nestjs/common';
 import { Repository } from 'typeorm';

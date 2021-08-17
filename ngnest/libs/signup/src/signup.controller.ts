@@ -8,7 +8,7 @@ import {
     QueryRoute,
     SaveRoute,
     UpdateRoute,
-} from '@authdare/common/decorator';
+} from '@authdare/common/openapi';
 import { SignupEntity } from './signup.entity';
 
 @ApiTags(SignupController.name)

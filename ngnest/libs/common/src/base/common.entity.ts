@@ -1,4 +1,3 @@
-import { cloneDeep } from 'lodash';
 import {
     Column,
     CreateDateColumn,
@@ -6,16 +5,7 @@ import {
     PrimaryGeneratedColumn,
     UpdateDateColumn,
 } from 'typeorm';
-
-/**
- * Constructor with deep clone which will prevent code from unspable state.
- *
- */
-export class CommonConstructor<T> {
-    constructor(obj?: T) {
-        if (obj) Object.assign(this, cloneDeep(obj));
-    }
-}
+import { CommonConstructor } from './common.constructor';
 
 /**
  * Common entitiy field for tables.

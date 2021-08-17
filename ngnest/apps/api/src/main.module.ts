@@ -1,3 +1,4 @@
+import { DebugModule } from './../../../libs/common/src/filter/debug.module';
 import { IdentifyMiddleware } from '@authdare/common/middleware';
 import { SomeController } from './a.controller';
 import { MainService } from './main.service';
@@ -8,15 +9,14 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
-import { APP_FILTER, APP_GUARD } from '@nestjs/core';
+import { APP_GUARD } from '@nestjs/core';
 import { SessionGuard } from '@authdare/common/guard';
 import { ConfigModule } from '@authdare/config';
 import { EventCronService } from './crons';
 import { ScheduleModule } from '@nestjs/schedule';
-import { GetClientDBConnection, GET_CLIENT_DB_CONNECTION } from '@authdare/common/class';
-import { HttpModule, HttpService } from '@nestjs/axios';
-import { DebugExceptionFilter } from './debug.filter';
-import { ExceptionPoolModule } from '@authdare/common/exception';
+import { HttpModule } from '@nestjs/axios';
+import { ExceptionPoolModule } from '@authdare/common/exception/exception-pool.module';
+import { ConnectionService, GET_CLIENT_DB_CONNECTION } from '@authdare/common/db';
 
 const MaillerConfig = {
     EMAIL_TEMPLATE_PATH: join(__dirname, 'mail/templates'),
@@ -33,7 +33,7 @@ const MaillerConfig = {
         {
             scope: Scope.REQUEST,
             provide: GET_CLIENT_DB_CONNECTION,
-            useClass: GetClientDBConnection,
+            useClass: ConnectionService,
         },
     ],
     exports: [GET_CLIENT_DB_CONNECTION],
@@ -43,6 +43,7 @@ export class ConnectionOptionsModule {}
 @Module({
     controllers: [SomeController],
     imports: [
+        DebugModule.configure(true),
         EventEmitterModule.forRoot({
             global: true,
         }),
@@ -97,10 +98,6 @@ export class ConnectionOptionsModule {}
         {
             provide: APP_GUARD,
             useClass: SessionGuard,
-        },
-        {
-            provide: APP_FILTER,
-            useClass: DebugExceptionFilter,
         },
     ],
 })

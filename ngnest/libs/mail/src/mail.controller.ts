@@ -7,7 +7,7 @@ import {
     QueryRoute,
     SaveRoute,
     UpdateRoute,
-} from '@authdare/common/decorator';
+} from '@authdare/common/openapi';
 import { MailEntity } from './mail.entity';
 
 @ApiTags(MailController.name)

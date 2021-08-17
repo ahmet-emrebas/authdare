@@ -1,1 +1,1 @@
-export * from "./omit.interceptor";
+export * from './omit.interceptor';

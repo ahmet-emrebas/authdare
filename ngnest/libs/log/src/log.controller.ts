@@ -7,7 +7,7 @@ import {
     QueryRoute,
     SaveRoute,
     UpdateRoute,
-} from '@authdare/common/decorator';
+} from '@authdare/common/openapi';
 import { LogEntity } from './log.entity';
 
 @ApiTags(LogController.name)

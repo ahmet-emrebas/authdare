@@ -1,6 +1,4 @@
-import { CommonEntity } from '../class';
-
-export class UserDetails extends CommonEntity<UserDetails> {
+export class UserDetails {
     firstName?: string;
     lastName?: string;
     email?: string;
