@@ -6,4 +6,5 @@ export interface SessionDatabase {
     log: DatabaseOptions;
     config: DatabaseOptions;
     i18n: DatabaseOptions;
+    signup: DatabaseOptions;
 }

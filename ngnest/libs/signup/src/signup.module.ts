@@ -2,23 +2,16 @@ import { SignupEntity, SubscriptionDetails } from './signup.entity';
 import { Module, DynamicModule } from '@nestjs/common';
 import { SignupService } from './signup.service';
 import { SignupController } from './signup.controller';
-import { RepositoryProvider } from '@authdare/common/db/repository.provider';
-import { AUTH_CONNECTION_OPTIONS } from '@authdare/common/db/connection-tokens';
+import { ConnectionModule } from '@authdare/common/db';
 
 @Module({})
 export class SignupModule {
     static configure(): DynamicModule {
         return {
             module: SignupModule,
-
+            imports: [ConnectionModule.configure('signup', [SignupEntity, SubscriptionDetails])],
             controllers: [SignupController],
-            providers: [
-                SignupService,
-                ...RepositoryProvider('asdfasdf', AUTH_CONNECTION_OPTIONS, [
-                    SignupEntity,
-                    SubscriptionDetails,
-                ]),
-            ],
+            providers: [SignupService],
             exports: [SignupService],
         };
     }
