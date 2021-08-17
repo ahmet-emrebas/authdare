@@ -1,4 +1,4 @@
-import { ProvideRepositories } from '@authdare/common/util';
+import { ProvideRepositories } from '@authdare/common/db';
 import { CommonConstructor } from '@authdare/common/class';
 import { Module, Global, DynamicModule, Provider } from '@nestjs/common';
 import { MailService } from './mail.service';

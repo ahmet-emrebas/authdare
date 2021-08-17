@@ -1,5 +1,5 @@
 import { Module, Global, DynamicModule } from '@nestjs/common';
-import { ProvideRepositories } from '@authdare/common/util';
+import { ProvideRepositories } from '@authdare/common/db';
 import { LogService } from './log.service';
 import { LogController } from './log.controller';
 import { LogEntity } from './log.entity';

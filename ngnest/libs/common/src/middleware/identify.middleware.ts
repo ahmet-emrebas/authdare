@@ -1,4 +1,3 @@
-import { RequestLocals } from './../interface/request';
 import { NestMiddleware } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Request } from '../interface';
@@ -15,10 +14,6 @@ export class IdentifyMiddleware implements NestMiddleware {
         if (session) {
         } else {
         }
-
-        let locals: RequestLocals = {
-            lang: lang,
-        };
 
         next();
     }

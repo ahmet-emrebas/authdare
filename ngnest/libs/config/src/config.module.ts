@@ -1,5 +1,5 @@
 import { Module, Global, DynamicModule } from '@nestjs/common';
-import { ProvideRepositories } from '@authdare/common/util';
+import { ProvideRepositories } from '@authdare/common/db';
 import { ConfigService } from './config.service';
 import { ConfigController } from './config.controller';
 import { ConfigEntity } from './config.entity';

@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from 'typeorm';
+import { Column, Entity, JoinColumn, OneToOne } from 'typeorm';
 import { CommonEntity } from '@authdare/common/class';
 import { StringValidator } from '@authdare/common/decorator';
 import { ApiProperty } from '@nestjs/swagger';

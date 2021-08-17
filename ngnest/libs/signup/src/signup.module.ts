@@ -1,5 +1,5 @@
 import { Module, DynamicModule } from '@nestjs/common';
-import { ProvideRepositories } from '@authdare/common/util';
+import { ProvideRepositories } from '@authdare/common/db';
 import { SignupService } from './signup.service';
 import { SignupController } from './signup.controller';
 import { SignupEntity, SubscriptionDetails } from './signup.entity';

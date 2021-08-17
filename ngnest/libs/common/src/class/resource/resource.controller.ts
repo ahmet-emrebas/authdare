@@ -1,6 +1,5 @@
 import { Query, Param, ParseIntPipe, Body } from '@nestjs/common';
-import { DeleteRoute, FindRoute, QueryRoute, SaveRoute, UpdateRoute } from '../decorator';
-
+import { DeleteRoute, FindRoute, QueryRoute, SaveRoute, UpdateRoute } from '../../decorator';
 import { ResourceService } from './resource.service';
 
 export class ResourceController<T = any> {

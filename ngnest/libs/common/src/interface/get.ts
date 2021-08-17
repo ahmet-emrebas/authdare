@@ -1,3 +1,4 @@
+import { Provider } from '@nestjs/common';
 import { ConnectionOptions } from 'typeorm';
 
 export interface IGet<T> {
@@ -21,3 +22,5 @@ export interface IGet<T> {
  *
  */
 export interface IGetClientDBConnection extends IGet<ConnectionOptions> {}
+
+export interface IGetClientDBRespositories extends IGet<Provider<any>[]> {}

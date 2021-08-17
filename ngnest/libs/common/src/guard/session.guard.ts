@@ -21,7 +21,6 @@ function parseMetaData(context: ExecutionContext) {
 
     const metaData = {
         lang,
-        connection: req.locals.database?.options,
         className,
         resourceName,
         requiredPermission,
@@ -34,6 +33,9 @@ function parseMetaData(context: ExecutionContext) {
         session,
         hasPermission: permissionExp.test(user?.permissions),
     };
+
+    const userSession = req.userSession;
+
     console.table(metaData);
     return metaData;
 }

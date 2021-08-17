@@ -9,9 +9,9 @@ import { CommonConstructor, CommonEntity } from '@authdare/common/class';
 import { validate, ValidatorOptions } from 'class-validator';
 import { Repository } from 'typeorm';
 import { ValidationGroups } from './dto-validation-groups';
-import { toErrorMessages } from '../decorator';
+import { toErrorMessages } from '../../decorator';
 import { LogService } from '@authdare/log';
-import { toILikeExactAny, toORILikeContains } from '../util/find-queries';
+import { toILikeExactAny, toORILikeContains } from '../../util/find-queries';
 
 /**
  * Resource Service Impemation.
@@ -23,7 +23,7 @@ export class ResourceService<T extends CommonConstructor<T>> {
     private __repoName!: string;
 
     constructor(
-        protected readonly repo: Repository<CommonEntity<T>>,
+        protected readonly repo: Repository<T>,
         protected readonly logService?: LogService,
     ) {
         const { name, uniques } = repo.metadata;
@@ -47,6 +47,12 @@ export class ResourceService<T extends CommonConstructor<T>> {
         }, 10);
     }
 
+    /**
+     * Query database with given URL query string.
+     * Return the first exact match or null.
+     * @param query username=ahmet&orgname=authdare
+     * @returns
+     */
     async isExist(query: string) {
         const exactMatchQuery = query ? toILikeExactAny(query) : {};
         return await this.repo.findOne({ where: { string: exactMatchQuery } });
@@ -59,6 +65,15 @@ export class ResourceService<T extends CommonConstructor<T>> {
         } catch (err: any) {
             this.__error(err);
             throw new InternalServerErrorException();
+        }
+    }
+
+    async findOne(query: Record<string, any>) {
+        try {
+            return await this.repo.findOne({ where: query });
+        } catch (err: any) {
+            this.__error(err);
+            throw new NotAcceptableException(err.message);
         }
     }
 
@@ -122,10 +137,7 @@ export class ResourceService<T extends CommonConstructor<T>> {
      * @param validatioOptions
      * @returns
      */
-    private async __validate(
-        obj: T,
-        validatioOptions?: ValidatorOptions,
-    ): Promise<CommonEntity<T>> | never {
+    private async __validate(obj: T, validatioOptions?: ValidatorOptions) {
         const instance = this.repo.create(obj);
         const errors = await validate(instance, validatioOptions);
         if (errors && errors.length > 0) {

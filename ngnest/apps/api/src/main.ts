@@ -1,7 +1,6 @@
 import { MainModule } from './main.module';
 import * as express from 'express';
 import { ExpressAdapter } from '@nestjs/platform-express';
-import * as session from 'express-session';
 import * as cookieParser from 'cookie-parser';
 import * as helmet from 'helmet';
 import * as cors from 'cors';
@@ -14,13 +13,6 @@ async function bootstrap() {
     const middlewares = [
         helmet(),
         crossOriginCookieMiddleware(['http://localhost:4200']),
-        session({
-            name: 'session',
-            secret: 'my-secret',
-            cookie: { sameSite: false },
-            resave: false,
-            saveUninitialized: true,
-        }),
         cookieParser(),
         cors({}),
         // csurf({}),
