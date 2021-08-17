@@ -3,13 +3,14 @@ import { ConnectionTokens } from '@authdare/common/db';
 import { ConfigEntity } from '@authdare/config';
 import { Global, Module } from '@nestjs/common';
 import { getConnection, createConnection } from 'typeorm';
-import {} from '@authdare/signup';
 import { SignupDetailsEntity, PublicUserEntity, SignupEntity } from '@authdare/signup';
 import { I18nKeyEntity, I18nValueEntity } from '@authdare/i18n';
 import { MailEntity, MailTemplatesEntity } from '@authdare/mail';
 import { LogEntity } from '@authdare/log';
 import { waitFor } from '@authdare/common/util';
 
+const CONNECTION_URL =
+    process.env.DATABASE_URL || 'postgres://postgres:password@localhost/authdare_main';
 /**
  * Provide global resource and monitor connections
  */
@@ -26,9 +27,8 @@ import { waitFor } from '@authdare/common/util';
                     return await createConnection({
                         name: 'authdare_resource',
                         type: 'postgres',
-                        database: 'authdare_resource',
-                        username: 'postgres',
-                        password: 'password',
+                        url: CONNECTION_URL,
+                        ssl: false,
                         entities: [],
                         synchronize: true,
                     });
@@ -45,9 +45,7 @@ import { waitFor } from '@authdare/common/util';
                     return await createConnection({
                         name: 'authdare_monitor',
                         type: 'postgres',
-                        database: 'authdare_monitor',
-                        username: 'postgres',
-                        password: 'password',
+                        url: CONNECTION_URL,
                         entities: [
                             EventEntity,
                             ConfigEntity,
@@ -72,9 +70,7 @@ import { waitFor } from '@authdare/common/util';
                     return await createConnection({
                         name: 'authdare_auth',
                         type: 'postgres',
-                        database: 'authdare_auth',
-                        username: 'postgres',
-                        password: 'password',
+                        url: CONNECTION_URL,
                         entities: [SignupEntity, SignupDetailsEntity, PublicUserEntity],
                         synchronize: true,
                     });
@@ -91,9 +87,7 @@ import { waitFor } from '@authdare/common/util';
                     return await createConnection({
                         name: 'authdare_public',
                         type: 'postgres',
-                        database: 'authdare_public',
-                        username: 'postgres',
-                        password: 'password',
+                        url: CONNECTION_URL,
                         entities: [],
                         synchronize: true,
                     });
@@ -110,9 +104,7 @@ import { waitFor } from '@authdare/common/util';
                     return await createConnection({
                         name: 'authdare_secure',
                         type: 'postgres',
-                        database: 'authdare_secure',
-                        username: 'postgres',
-                        password: 'password',
+                        url: CONNECTION_URL,
                         entities: [],
                         synchronize: true,
                     });
