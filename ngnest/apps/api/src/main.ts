@@ -31,23 +31,13 @@ async function bootstrap() {
         middlewares,
     });
 
-    // Monitor App
-    // const monitorApp = await configureApplication({
-    //     module: MonitorModule,
-    //     title: MonitorModule.name,
-    //     description: 'System Monitor',
-    //     docPath: 'monitor',
-    //     adapter: expressAdapter,
-    //     middlewares,
-    // });
-
     mainApp.init();
     // monitorApp.init();
 
     setTimeout(() => {
         permissions(server);
     }, 3000);
-    await expressAdapter.listen(process.env['PORT'] || 3000);
+    await expressAdapter.listen(process.env.PORT || 3000);
 }
 
 bootstrap();
