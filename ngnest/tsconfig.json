@@ -24,48 +24,6 @@
       ],
       "@authdare/common/*": [
         "libs/common/src/*"
-      ],
-      "@authdare/config": [
-        "libs/config/src"
-      ],
-      "@authdare/config/*": [
-        "libs/config/src/*"
-      ],
-      "@authdare/a18n": [
-        "libs/a18n/src"
-      ],
-      "@authdare/a18n/*": [
-        "libs/a18n/src/*"
-      ],
-      "@authdare/i18n": [
-        "libs/i18n/src"
-      ],
-      "@authdare/i18n/*": [
-        "libs/i18n/src/*"
-      ],
-      "@authdare/log": [
-        "libs/log/src"
-      ],
-      "@authdare/log/*": [
-        "libs/log/src/*"
-      ],
-      "@authdare/event": [
-        "libs/event/src"
-      ],
-      "@authdare/event/*": [
-        "libs/event/src/*"
-      ],
-      "@authdare/mail": [
-        "libs/mail/src"
-      ],
-      "@authdare/mail/*": [
-        "libs/mail/src/*"
-      ],
-      "@authdare/signup": [
-        "libs/signup/src"
-      ],
-      "@authdare/signup/*": [
-        "libs/signup/src/*"
       ]
     },
     "lib": [
