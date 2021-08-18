@@ -27,7 +27,6 @@ export const commonModules = () => [
     EventEmitterModule.forRoot({ global: true }),
     ScheduleModule.forRoot(),
     JwtModule.register({ secret: 'secret' }),
-
     ServeStaticModule.forRoot({
         rootPath: join(__dirname, 'public'),
         renderPath: '/',

@@ -9,8 +9,6 @@ import { MailEntity, MailTemplatesEntity } from '@authdare/mail';
 import { LogEntity } from '@authdare/log';
 import { waitFor } from '@authdare/common/util';
 
-const CONNECTION_URL =
-    process.env.DATABASE_URL || 'postgres://postgres:password@localhost/authdare_main';
 /**
  * Provide global resource and monitor connections
  */
@@ -26,11 +24,8 @@ const CONNECTION_URL =
                 } catch (err) {
                     return await createConnection({
                         name: 'authdare_resource',
-                        type: 'postgres',
-                        url: CONNECTION_URL,
-                        ssl: {
-                            rejectUnauthorized: false,
-                        },
+                        type: 'sqlite',
+                        database: './database/authdare_resource.sqlite',
                         entities: [],
                         synchronize: true,
                     });
@@ -46,11 +41,8 @@ const CONNECTION_URL =
                 } catch (err) {
                     return await createConnection({
                         name: 'authdare_monitor',
-                        type: 'postgres',
-                        url: CONNECTION_URL,
-                        ssl: {
-                            rejectUnauthorized: false,
-                        },
+                        type: 'sqlite',
+                        database: './database/authdare_monitor.sqlite',
                         entities: [
                             EventEntity,
                             ConfigEntity,
@@ -74,11 +66,8 @@ const CONNECTION_URL =
                 } catch (err) {
                     return await createConnection({
                         name: 'authdare_auth',
-                        type: 'postgres',
-                        url: CONNECTION_URL,
-                        ssl: {
-                            rejectUnauthorized: false,
-                        },
+                        type: 'sqlite',
+                        database: './database/authdare_auth.sqlite',
                         entities: [SignupEntity, SignupDetailsEntity, PublicUserEntity],
                         synchronize: true,
                     });
@@ -94,11 +83,8 @@ const CONNECTION_URL =
                 } catch (err) {
                     return await createConnection({
                         name: 'authdare_public',
-                        type: 'postgres',
-                        url: CONNECTION_URL,
-                        ssl: {
-                            rejectUnauthorized: false,
-                        },
+                        type: 'sqlite',
+                        database: './database/authdare_public.sqlite',
                         entities: [],
                         synchronize: true,
                     });
@@ -114,11 +100,8 @@ const CONNECTION_URL =
                 } catch (err) {
                     return await createConnection({
                         name: 'authdare_secure',
-                        type: 'postgres',
-                        url: CONNECTION_URL,
-                        ssl: {
-                            rejectUnauthorized: false,
-                        },
+                        type: 'sqlite',
+                        database: './database/authdare_secure.sqlite',
                         entities: [],
                         synchronize: true,
                     });

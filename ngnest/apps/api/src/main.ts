@@ -13,14 +13,7 @@ const favicon = require('express-favicon');
 async function bootstrap() {
     const server = express();
 
-    // Fuck yeah!!!!!
-    server.use(favicon('public/favicon.ico'));
-    server.use(favicon('./public/favicon.ico'));
-    server.use(favicon('./public/favicon'));
-    server.use(favicon('./public/favicon.ico'));
-    server.use(favicon('./favicon.ico'));
-    server.use(favicon('favicon.ico'));
-    server.use(favicon('favicon'));
+    server.use(favicon(__dirname + '/public/favicon.ico'));
 
     const middlewares = [
         helmet(),
