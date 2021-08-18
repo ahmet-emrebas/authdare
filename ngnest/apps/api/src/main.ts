@@ -7,10 +7,21 @@ import * as cors from 'cors';
 import { crossOriginCookieMiddleware } from '@authdare/common/middleware';
 import { configureApplication, uuid } from '@authdare/common/util';
 import { uniq, flatten } from 'lodash';
-import { MonitorModule } from './monitor.module';
+
+const favicon = require('express-favicon');
 
 async function bootstrap() {
     const server = express();
+
+    // Fuck yeah!!!!!
+    server.use(favicon('public/favicon.ico'));
+    server.use(favicon('./public/favicon.ico'));
+    server.use(favicon('./public/favicon'));
+    server.use(favicon('./public/favicon.ico'));
+    server.use(favicon('./favicon.ico'));
+    server.use(favicon('favicon.ico'));
+    server.use(favicon('favicon'));
+
     const middlewares = [
         helmet(),
         crossOriginCookieMiddleware(['http://localhost:4200']),

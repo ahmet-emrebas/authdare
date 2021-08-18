@@ -28,7 +28,9 @@ const CONNECTION_URL =
                         name: 'authdare_resource',
                         type: 'postgres',
                         url: CONNECTION_URL,
-                        ssl: false,
+                        ssl: {
+                            rejectUnauthorized: false,
+                        },
                         entities: [],
                         synchronize: true,
                     });
@@ -46,6 +48,9 @@ const CONNECTION_URL =
                         name: 'authdare_monitor',
                         type: 'postgres',
                         url: CONNECTION_URL,
+                        ssl: {
+                            rejectUnauthorized: false,
+                        },
                         entities: [
                             EventEntity,
                             ConfigEntity,
@@ -71,6 +76,9 @@ const CONNECTION_URL =
                         name: 'authdare_auth',
                         type: 'postgres',
                         url: CONNECTION_URL,
+                        ssl: {
+                            rejectUnauthorized: false,
+                        },
                         entities: [SignupEntity, SignupDetailsEntity, PublicUserEntity],
                         synchronize: true,
                     });
@@ -88,6 +96,9 @@ const CONNECTION_URL =
                         name: 'authdare_public',
                         type: 'postgres',
                         url: CONNECTION_URL,
+                        ssl: {
+                            rejectUnauthorized: false,
+                        },
                         entities: [],
                         synchronize: true,
                     });
@@ -105,6 +116,9 @@ const CONNECTION_URL =
                         name: 'authdare_secure',
                         type: 'postgres',
                         url: CONNECTION_URL,
+                        ssl: {
+                            rejectUnauthorized: false,
+                        },
                         entities: [],
                         synchronize: true,
                     });
