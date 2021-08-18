@@ -7,12 +7,6 @@ import { ConnectionTokens } from '@authdare/common/db';
 import { ConfigModule } from '@authdare/config';
 
 @Module({
-    imports: [
-        ConfigModule.configure(ConnectionTokens.MONITOR),
-        EventModule.configure(ConnectionTokens.MONITOR),
-        MailModule.configure(ConnectionTokens.MONITOR),
-        LogModule.configure(ConnectionTokens.MONITOR),
-        I18nModule.configure(ConnectionTokens.MONITOR),
-    ],
+    imports: [],
 })
 export class MonitorModule {}
