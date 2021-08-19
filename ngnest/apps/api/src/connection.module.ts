@@ -1,5 +1,5 @@
 import { ConnectionTokens } from '@authdare/common/db';
-import { Global, Module, Scope } from '@nestjs/common';
+import { Global, Module } from '@nestjs/common';
 import { getConnection, createConnection } from 'typeorm';
 import { ColumnEntity, DatabaseEntity, TableEntity } from './database';
 
@@ -10,13 +10,13 @@ import { ColumnEntity, DatabaseEntity, TableEntity } from './database';
 @Module({
     providers: [
         {
-            provide: ConnectionTokens.RESOURCE,
+            provide: ConnectionTokens.CMS,
             useFactory: async () => {
                 try {
-                    return getConnection(ConnectionTokens.RESOURCE);
+                    return getConnection(ConnectionTokens.CMS);
                 } catch (err) {
                     return await createConnection({
-                        name: ConnectionTokens.RESOURCE,
+                        name: ConnectionTokens.CMS,
                         type: 'postgres',
                         url: 'postgres://postgres:password@localhost/authdare_resource',
                         entities: [DatabaseEntity, ColumnEntity, TableEntity],
@@ -26,12 +26,6 @@ import { ColumnEntity, DatabaseEntity, TableEntity } from './database';
             },
         },
     ],
-    exports: [
-        ConnectionTokens.AUTH,
-        ConnectionTokens.RESOURCE,
-        ConnectionTokens.MONITOR,
-        ConnectionTokens.SECURE,
-        ConnectionTokens.PUBLIC,
-    ],
+    exports: [ConnectionTokens.CMS],
 })
 export class ConnectionModule {}

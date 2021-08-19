@@ -8,6 +8,7 @@ import { ExceptionPoolModule } from '@authdare/common/exception';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { ScheduleModule } from '@nestjs/schedule';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
+import { v4 } from 'uuid';
 
 const MaillerConfig = {
     EMAIL_TEMPLATE_PATH: join(__dirname, 'mail/templates'),
@@ -26,7 +27,7 @@ export const commonModules = () => [
     ExceptionPoolModule.configure(),
     EventEmitterModule.forRoot({ global: true }),
     ScheduleModule.forRoot(),
-    JwtModule.register({ secret: 'secret' }),
+    JwtModule.register({ secret: v4() }),
     ServeStaticModule.forRoot({
         rootPath: join(__dirname, 'public'),
         renderPath: '/',

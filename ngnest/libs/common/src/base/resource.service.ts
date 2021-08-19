@@ -8,7 +8,6 @@ import {
 import { validate, ValidatorOptions } from 'class-validator';
 import { Repository } from 'typeorm';
 import { ValidationGroups } from '../validation/validation.groups';
-import { LogService } from '@authdare/log';
 import { toErrorMessages, toILikeExactAny, toORILikeContains } from '../util';
 import { CommonEntity } from './common.entity';
 import { CommonConstructor } from './common.constructor';
@@ -22,10 +21,7 @@ export class ResourceService<T extends CommonConstructor<T>> {
     private __requiredFields!: string[];
     private __repoName!: string;
 
-    constructor(
-        protected readonly repo: Repository<T>,
-        protected readonly logService?: LogService,
-    ) {
+    constructor(protected readonly repo: Repository<T>) {
         const { name, uniques } = repo.metadata;
 
         this.__repoName = name;
@@ -39,11 +35,7 @@ export class ResourceService<T extends CommonConstructor<T>> {
 
     private __error(err: any) {
         setTimeout(async () => {
-            if (this.logService) {
-                await this.logService?.error(err.message || err);
-            } else {
-                this.__logger.error(err.message || err);
-            }
+            this.__logger.error(err.message || err);
         }, 10);
     }
 

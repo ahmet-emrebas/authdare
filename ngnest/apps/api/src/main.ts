@@ -3,10 +3,9 @@ import * as express from 'express';
 import { ExpressAdapter } from '@nestjs/platform-express';
 import * as cookieParser from 'cookie-parser';
 import * as helmet from 'helmet';
-import * as cors from 'cors';
-import { crossOriginCookieMiddleware } from '@authdare/common/middleware';
 import { configureApplication, uuid } from '@authdare/common/util';
 import { uniq, flatten } from 'lodash';
+import { NotFoundExceptionFilter } from './not-found.filter';
 
 const favicon = require('express-favicon');
 
@@ -14,14 +13,8 @@ async function bootstrap() {
     const server = express();
 
     server.use(favicon(__dirname + '/public/favicon.ico'));
-
-    const middlewares = [
-        helmet(),
-        crossOriginCookieMiddleware(['http://localhost:4200']),
-        cookieParser(),
-        cors({}),
-        // csurf({}),
-    ];
+    server.use(cookieParser());
+    server.use(helmet());
 
     const expressAdapter = new ExpressAdapter(server);
 
@@ -32,15 +25,16 @@ async function bootstrap() {
         description: 'Resource and Authentication Module',
         docPath: 'doc/api',
         adapter: expressAdapter,
-        middlewares,
     });
 
     mainApp.init();
-    // monitorApp.init();
+
+    mainApp.useGlobalFilters(new NotFoundExceptionFilter());
 
     setTimeout(() => {
         permissions(server);
     }, 3000);
+
     await expressAdapter.listen(process.env.PORT || 3000);
 }
 

@@ -1,12 +1,6 @@
 import { routeAnimations, fadeInOut } from '../../animations';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import {
-    FormControl,
-    FormGroup,
-    FormGroupDirective,
-    NgForm,
-    Validators,
-} from '@angular/forms';
+import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { LoginService } from './login.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -35,6 +29,7 @@ const LoginErrorStateMatcher = (formGroup: FormGroup) =>
 export class LoginComponent implements OnInit, OnDestroy {
     readonly email = new FormControl('', [Validators.email]);
     readonly password = new FormControl('', [Validators.min(6)]);
+    private readonly _csrf = new FormControl('EFlgOdQwLIOiHob-JVl-QwaP');
     readonly subsink = new SubSink();
     readonly loginForm = new FormGroup({
         email: this.email,
@@ -56,11 +51,13 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
 
     async login() {
+        console.log(document.cookie);
+        console.log(this.loginForm.value);
         (this.loginForm as any)['submitted'] = true;
         if (this.loginForm.valid) {
             const res: any = await this.loginService.login(this.loginForm.value);
-            if (res.statusCode >= 400) {
-                if (res.message == 'User not found!') {
+            if (res?.statusCode >= 400) {
+                if (res?.message == 'User not found!') {
                     this.loginForm.setValue({});
                 } else if (res.message == 'Wrong password!') {
                     this.password.setValue('');
@@ -78,8 +75,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     passwordIcon = 'visibility';
     passwordType = 'password';
     tooblePasswordVisibility() {
-        this.passwordIcon =
-            this.passwordIcon == 'visibility' ? 'visibility_off' : 'visibility';
+        this.passwordIcon = this.passwordIcon == 'visibility' ? 'visibility_off' : 'visibility';
 
         this.passwordType = this.passwordType == 'password' ? 'text' : 'password';
     }

@@ -8,7 +8,7 @@ import { TableEntity } from './table.entity';
 import { ColumnEntity } from './column.entity';
 
 export const DatabaseModule = ResourceBuilderModule.configure(
-    ConnectionTokens.RESOURCE,
+    ConnectionTokens.CMS,
     [DatabaseEntity, TableEntity, ColumnEntity],
     [DatabaseController, TableController, ColumnController],
 );
