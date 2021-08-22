@@ -11,7 +11,7 @@
     "doc": "compodoc -p tsconfig.doc.json -d ../docs/mt",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
-    "preview": "nest start --watch",
+    "start:watch": "nest start --watch",
     "debug": "nest start --debug --watch",
     "start": "node main.js env=prod",
     "test:watch": "jest --watch",
