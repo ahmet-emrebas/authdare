@@ -14,6 +14,7 @@ export class AppComponent implements OnInit, OnDestroy {
     pageName = new BehaviorSubject('Home');
     isDark = false;
     subsink = new SubSink();
+
     @HostBinding('class')
     get themeMode() {
         return this.isDark ? 'theme-dark' : 'theme-light';
@@ -28,9 +29,11 @@ export class AppComponent implements OnInit, OnDestroy {
             }
         });
     }
+
     ngOnDestroy(): void {
         this.subsink.unsubscribe();
     }
+
     toggleTheme() {
         this.isDark = !this.isDark;
         console.log(this.isDark);

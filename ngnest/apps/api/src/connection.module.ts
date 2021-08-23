@@ -1,4 +1,3 @@
-import { TaskEntity } from './task/task.entity';
 import { EventEntity } from '@authdare/event';
 import { ConnectionTokens } from '@authdare/common/db';
 import { ConfigEntity } from '@authdare/config';
@@ -26,7 +25,7 @@ import { ColumnEntity, DatabaseEntity, TableEntity } from './database';
                         name: ConnectionTokens.RESOURCE,
                         type: 'postgres',
                         url: 'postgres://postgres:password@localhost/authdare_resource',
-                        entities: [new TaskEntity(), DatabaseEntity, ColumnEntity, TableEntity],
+                        entities: [DatabaseEntity, ColumnEntity, TableEntity],
                         synchronize: true,
                     });
                 }
