@@ -1,5 +1,7 @@
 {
   "name": "client",
+  "version": "0.0.5",
+  "description": "Client application",
   "short_name": "client",
   "theme_color": "#1976d2",
   "background_color": "#fafafa",

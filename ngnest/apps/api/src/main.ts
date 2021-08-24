@@ -3,21 +3,23 @@ import * as express from 'express';
 import { ExpressAdapter } from '@nestjs/platform-express';
 import * as cookieParser from 'cookie-parser';
 import * as helmet from 'helmet';
-import * as cors from 'cors';
 import { configureApplication } from '@authdare/common/util';
 import { join } from 'path';
 import * as favicon from 'serve-favicon';
+import * as cors from 'cors';
 
 async function bootstrap() {
     const server = express();
-
     server.use(favicon(join(__dirname, 'public', 'favicon.ico')));
 
     const middlewares = [
         helmet(),
-        // crossOriginCookieMiddleware(['http://localhost:4200']),
         cookieParser(),
-        cors({}),
+        cors({
+            origin: true,
+            methods: ['GET', 'POST', 'PATCH', 'DELETE', 'HEAD'],
+            credentials: true,
+        }),
     ];
 
     const expressAdapter = new ExpressAdapter(server);

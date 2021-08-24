@@ -1,6 +1,7 @@
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { NestFactory } from '@nestjs/core';
-import { INestMicroservice, INestApplication } from '@nestjs/common';
+import { INestApplication } from '@nestjs/common';
+
 // Application configureer
 export type ApplicationConfigurerOptions = {
     module: any;
@@ -28,7 +29,7 @@ export const configureApplication = async ({
     let appInstance: INestApplication = await NestFactory.create(module, adapter);
 
     if (middlewares && middlewares.length > 0) {
-        appInstance.use(middlewares);
+        appInstance.use(...middlewares);
     }
     const mainAppSwaggerConfig = new DocumentBuilder()
         .setTitle(title || 'Not Set')

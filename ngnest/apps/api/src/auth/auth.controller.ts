@@ -5,11 +5,6 @@ import { Response } from 'express';
 export class AuthController {
     @Post('login')
     login(@Res() res: Response) {
-        res.cookie('auth', 'cookie value', {
-            domain: 'authdare.com',
-            sameSite: false,
-            httpOnly: true,
-        });
         res.send({
             message: 'Message there',
         });

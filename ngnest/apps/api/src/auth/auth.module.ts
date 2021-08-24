@@ -1,5 +1,5 @@
 import { AuthController } from './auth.controller';
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConnectionTokens } from '@authdare/common/db';
 import { SignupModule } from '@authdare/signup';
 
@@ -7,4 +7,6 @@ import { SignupModule } from '@authdare/signup';
     imports: [SignupModule.configure(ConnectionTokens.AUTH)],
     controllers: [AuthController],
 })
-export class AuthModule {}
+export class AuthModule implements NestModule {
+    configure(consumer: MiddlewareConsumer) {}
+}

@@ -1,3 +1,4 @@
+import { ApiPathProvider } from './../api-path.provider';
 import { StoreModule } from '@ngrx/store';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
@@ -20,12 +21,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { ForgotPasswordService } from './forgot-password/forgot-password.service';
 
 @NgModule({
-    declarations: [
-        HomeComponent,
-        LoginComponent,
-        SignupComponent,
-        ForgotPasswordComponent,
-    ],
+    declarations: [HomeComponent, LoginComponent, SignupComponent, ForgotPasswordComponent],
     imports: [
         CommonModule,
         HttpClientModule,
@@ -41,6 +37,6 @@ import { ForgotPasswordService } from './forgot-password/forgot-password.service
         ClipboardModule,
         MatSnackBarModule,
     ],
-    providers: [LoginService, SignupService, ForgotPasswordService],
+    providers: [LoginService, SignupService, ForgotPasswordService, ApiPathProvider],
 })
 export class HomeModule {}

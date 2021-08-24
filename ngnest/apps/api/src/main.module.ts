@@ -1,9 +1,4 @@
-import { ConnectionTokens } from '@authdare/common/db';
-import { ConfigModule } from '@authdare/config';
-import { EventModule } from '@authdare/event';
-import { I18nModule } from '@authdare/i18n';
-import { LogModule } from '@authdare/log';
-import { MailModule } from '@authdare/mail';
+import { OriginWhiteListMiddleware } from '@authdare/common/middleware';
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { AuthModule } from './auth';
 import { commonModules } from './common.modules';
@@ -14,5 +9,15 @@ import { DatabaseModule } from './database';
     imports: [...commonModules(), ConnectionModule, DatabaseModule, AuthModule],
 })
 export class MainModule implements NestModule {
-    configure(consumer: MiddlewareConsumer) {}
+    configure(consumer: MiddlewareConsumer) {
+        consumer
+            .apply(
+                OriginWhiteListMiddleware([
+                    'http://localhost:3000',
+                    'https://authdare.com',
+                    'https://aemrebas.com',
+                ]),
+            )
+            .forRoutes('*');
+    }
 }

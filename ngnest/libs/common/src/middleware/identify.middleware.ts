@@ -2,7 +2,6 @@ import { Injectable, NestMiddleware } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { entries } from 'lodash';
 import { Request } from '../interface';
-import { t } from '../type';
 
 @Injectable()
 export class IdentifyMiddleware implements NestMiddleware {
@@ -17,12 +16,11 @@ export class IdentifyMiddleware implements NestMiddleware {
             try {
                 parsedCookies[key] = await this.jwt.verify(value);
             } catch (err) {
-                req.parsedCookies = t<any>(null);
                 next();
                 break parsingCookies;
             }
         }
-        req.parsedCookies = parsedCookies;
+
         next();
     }
 }

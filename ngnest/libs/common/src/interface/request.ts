@@ -6,5 +6,4 @@ import { Session } from './session';
  */
 export interface Request extends ExpressRequest {
     userSession: Session;
-    parsedCookies: Record<string, any>;
 }

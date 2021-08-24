@@ -8,12 +8,6 @@ import { Request, Session } from '../interface';
 export class ClientSessionMiddleware implements NestMiddleware {
     constructor(private jwt: JwtService) {}
     use(req: Request, res: any, next: () => void) {
-        if (req.parsedCookies) {
-            const session = new Session(req.parsedCookies as any);
-
-            console.log('There is no session!');
-        }
-
         throw new Error('Method not implemented.');
     }
 }
