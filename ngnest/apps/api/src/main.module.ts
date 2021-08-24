@@ -13,11 +13,11 @@ import { DatabaseModule } from './database';
     imports: [
         ...commonModules(),
         ConnectionModule,
-        ConfigModule.configure(ConnectionTokens.MONITOR),
-        EventModule.configure(ConnectionTokens.MONITOR),
-        MailModule.configure(ConnectionTokens.MONITOR),
-        LogModule.configure(ConnectionTokens.MONITOR),
-        I18nModule.configure(ConnectionTokens.MONITOR),
+        // ConfigModule.configure(ConnectionTokens.MONITOR),
+        // EventModule.configure(ConnectionTokens.MONITOR),
+        // MailModule.configure(ConnectionTokens.MONITOR),
+        // LogModule.configure(ConnectionTokens.MONITOR),
+        // I18nModule.configure(ConnectionTokens.MONITOR),
         DatabaseModule,
     ],
 })

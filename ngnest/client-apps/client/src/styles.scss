@@ -54,4 +54,5 @@ $client-dark-theme: mat.define-dark-theme(
 }
 
 // High Level Component Styles
-@import url("./style.high-level.scss");
+@import url("./assets/style/style.scss");
+@import url("./assets/fonts/fonts.scss");
