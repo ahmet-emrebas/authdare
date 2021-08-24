@@ -1,12 +1,6 @@
 import { BehaviorSubject } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
-import {
-    FormControl,
-    FormGroup,
-    FormGroupDirective,
-    NgForm,
-    Validators,
-} from '@angular/forms';
+import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SignupService } from './signup.service';
 import { ErrorStateMatcher } from '@angular/material/core';
@@ -33,10 +27,7 @@ const SignupErrorStateMatcher = (formGroup: FormGroup) =>
 })
 export class SignupComponent implements OnInit {
     readonly email = new FormControl('', [Validators.email]);
-    readonly password = new FormControl('', [
-        Validators.max(100),
-        Validators.min(6),
-    ]);
+    readonly password = new FormControl('', [Validators.maxLength(100), Validators.minLength(6)]);
     readonly orgname = new FormControl('', [Validators.max(50), Validators.min(3)]);
 
     readonly signupForm = new FormGroup({
@@ -75,8 +66,7 @@ export class SignupComponent implements OnInit {
     passwordIcon = 'visibility';
     passwordType = 'password';
     tooblePasswordVisibility() {
-        this.passwordIcon =
-            this.passwordIcon == 'visibility' ? 'visibility_off' : 'visibility';
+        this.passwordIcon = this.passwordIcon == 'visibility' ? 'visibility_off' : 'visibility';
 
         this.passwordType = this.passwordType == 'password' ? 'text' : 'password';
     }

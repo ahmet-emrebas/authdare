@@ -23,8 +23,8 @@ import { ColumnEntity, DatabaseEntity, TableEntity } from './database';
                 } catch (err) {
                     return await createConnection({
                         name: ConnectionTokens.RESOURCE,
-                        type: 'postgres',
-                        url: 'postgres://postgres:password@localhost/authdare_resource',
+                        type: 'sqlite',
+                        database: 'database/authdare_resource.sqlite',
                         entities: [DatabaseEntity, ColumnEntity, TableEntity],
                         synchronize: true,
                     });

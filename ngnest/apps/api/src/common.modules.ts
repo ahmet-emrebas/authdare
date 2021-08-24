@@ -1,7 +1,6 @@
 import { HttpModule } from '@nestjs/axios';
 import { Global, Module } from '@nestjs/common';
 import { MailerModule } from '@nestjs-modules/mailer';
-import { ServeStaticModule } from '@nestjs/serve-static';
 import { JwtModule } from '@nestjs/jwt';
 import { join } from 'path';
 import { ExceptionPoolModule } from '@authdare/common/exception';
@@ -27,11 +26,6 @@ export const commonModules = () => [
     EventEmitterModule.forRoot({ global: true }),
     ScheduleModule.forRoot(),
     JwtModule.register({ secret: 'secret' }),
-    ServeStaticModule.forRoot({
-        rootPath: join(__dirname, 'public'),
-        renderPath: '/',
-        exclude: ['api', 'api/**/*'],
-    }),
     MailerModule.forRootAsync({
         useFactory: () => {
             return {
