@@ -1,3 +1,3 @@
 # LICENSE
 
-All rights reserved and to Ahmet Emrebas.
+All rights reserved to Ahmet Emrebas.
