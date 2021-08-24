@@ -1,7 +1,7 @@
 {
   "collection": "@nestjs/schematics",
   "sourceRoot": "apps/api/src",
-  "version": "1",
+  "version": "0.0.1",
   "monorepo": true,
   "root": "api",
   "compilerOptions": {
@@ -13,13 +13,13 @@
     ]
   },
   "projects": {
-    "api": {
+    "auth": {
       "type": "application",
-      "root": "apps/api",
+      "root": "apps/auth",
       "entryFile": "main",
-      "sourceRoot": "apps/api/src",
+      "sourceRoot": "apps/auth/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/api/tsconfig.app.json"
+        "tsConfigPath": "apps/auth/tsconfig.app.json"
       }
     },
     "common": {
@@ -29,69 +29,6 @@
       "sourceRoot": "libs/common/src",
       "compilerOptions": {
         "tsConfigPath": "libs/common/tsconfig.lib.json"
-      }
-    },
-    "models": {
-      "type": "library",
-      "root": "libs/models",
-      "entryFile": "index",
-      "sourceRoot": "libs/models/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/models/tsconfig.lib.json"
-      }
-    },
-    "config": {
-      "type": "library",
-      "root": "libs/config",
-      "entryFile": "index",
-      "sourceRoot": "libs/config/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/config/tsconfig.lib.json"
-      }
-    },
-    "i18n": {
-      "type": "library",
-      "root": "libs/i18n",
-      "entryFile": "index",
-      "sourceRoot": "libs/i18n/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/i18n/tsconfig.lib.json"
-      }
-    },
-    "log": {
-      "type": "library",
-      "root": "libs/log",
-      "entryFile": "index",
-      "sourceRoot": "libs/log/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/log/tsconfig.lib.json"
-      }
-    },
-    "event": {
-      "type": "library",
-      "root": "libs/event",
-      "entryFile": "index",
-      "sourceRoot": "libs/event/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/event/tsconfig.lib.json"
-      }
-    },
-    "mail": {
-      "type": "library",
-      "root": "libs/mail",
-      "entryFile": "index",
-      "sourceRoot": "libs/mail/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/mail/tsconfig.lib.json"
-      }
-    },
-    "signup": {
-      "type": "library",
-      "root": "libs/signup",
-      "entryFile": "index",
-      "sourceRoot": "libs/signup/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/signup/tsconfig.lib.json"
       }
     }
   }
